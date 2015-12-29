@@ -1,0 +1,19 @@
+#X3D V3.0 utf8
+PROFILE Immersive
+META "filename" "AlarmClock.x3dv"
+
+Group {
+  children [
+    DEF Hour TimeSensor {
+      cycleInterval 5.0
+      loop TRUE
+    }
+    Sound {
+      source DEF Sounder AudioClip {
+	description "chime"
+	url [ "click.wav" ]
+      }
+    }
+  ]
+}
+ROUTE Hour.cycleTime TO Sounder.startTime

@@ -1,0 +1,187 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+<TITLE>ISO/IEC 19776-3.2:2010 X3D encodings -- Part 3: Compressed binary encoding -- 7 Conformance</TITLE>
+<link REL="stylesheet" HREF="X3DEncodings.css" TYPE="text/css">
+
+</head>
+<body>
+
+<div class="CenterDiv">
+<img class="x3dlogo" SRC="../Images/x3d.png" ALT="X3D logo" style="width: 176px; height: 88px" >
+</div>
+
+<div class="CenterDiv">
+<p class="HeadingPart">
+    Extensible 3D (X3D) encodings<br>
+Part 3: Compressed binary encoding</p>
+
+<p class="HeadingClause">6 Conformance</p>
+</div>
+
+
+<img class="x3dbar" SRC="../Images/x3dbar.png" ALT="--- X3D separator bar ---" width="430" height="23">
+<h1><img class="cube" src="../Images/cube.gif" alt="cube" width="20" height="19">
+<a name="Introduction"></a>6.1 Introduction</H1>
+
+<H2><a name="Topics"></a>6.1.1 Topics</H2>
+<p><a href="#t-Topics">Table 6.1</a> lists the topics of this clause.</p>
+
+<div class="CenterDiv">
+<p class="TableCaption">
+<a name="t-Topics"></a>Table 6.1 &mdash; Topics</P>
+
+
+  <table class="topics">
+  <TBODY>
+  <TR>
+    <TD><b><a href="#Introduction">6.1 Introduction</a></b><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#Topics">6.1.1 
+	Topics</a><BR>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#Objectives">6.1.2 Objectives</a>
+      <BR>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#Scope">6.1.3 Scope</a>
+    </TD>
+    <TD vAlign=top><b><a href="#Conformance">6.2 Conformance</a></b><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#ConformanceOfX3DBinaryEncodedFiles">6.2.1 Conformance
+      of Compressed binary encoded files</a>
+      <BR>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#ConformanceOfX3DBinaryEncodingGenerators">6.2.2 Conformance
+      of </a><a href="#ConformanceOfX3DBinaryEncodedFiles">Compressed b</a><a href="#ConformanceOfX3DBinaryEncodingGenerators">inary encoding generators</a>
+      <BR>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#ConformanceOfX3DBinaryEncodingBrowsers">6.2.3 Conformance
+      of </a><a href="#ConformanceOfX3DBinaryEncodedFiles">Compressed b</a><a href="#ConformanceOfX3DBinaryEncodingBrowsers">inary encoding browsers</a> </TD>
+</TR>
+</TBODY>
+</TABLE>
+</DIV>
+
+<H2><a name="Objectives"></a>6.1.2 Objectives</H2>
+
+<P>This clause addresses conformance of Compressed binary encoded files and conformance
+of X3D generators and X3D browsers that support the Compressed binary encoding.</P>
+<P>The primary objectives of the specifications in this clause
+are:<!--NOEDIT--></P>
+
+<OL type=a>
+  <LI>to promote interoperability by eliminating arbitrary subsets of, or 
+	extensions to, <a href="references.html#[I19775_1]">ISO/IEC 19775-1</a>;
+  <LI>to promote uniformity in the development of conformance tests;
+  <LI>to promote consistent results across X3D browsers;
+  <LI>to facilitate automated test generation. </LI></OL><!--/NOEDIT-->
+
+<H2><a name="Scope"></a>6.1.3 Scope</H2>
+
+<P>Conformance is defined for files encoded using the Compressed binary encoding and for X3D browsers
+that support Compressed binary encoded files. For X3D generators, conformance guidelines
+are presented for enhancing the likelihood of successful interoperability.</P>
+<P>A concept of conformance to a X3D profile is introduced along with the rules
+which apply to this encoding.</P>
+
+<P>This clause addresses the X3D data stream and implementation requirements.
+Implementation requirements include the latitude allowed for X3D generators and
+X3D&nbsp;browsers. This clause does not directly address the environmental,
+performance, or resource requirements of the generator or browser.</P>
+<P>This clause does not define the application requirements or dictate
+application functional content within a X3D file.</P>
+
+<P>The scope of this clause is limited to rules for the open interchange of X3D
+content using the Compressed binary encoding.</P>
+
+<img class="x3dbar" SRC="../Images/x3dbar.png" ALT="--- X3D separator bar ---" width="430" height="23" >
+
+<h1><img class="cube" src="../Images/cube.gif" alt="cube" ><A name=Conformance></A>6.2 Conformance</h1>
+
+<H2><a name="ConformanceOfX3DBinaryEncodedFiles"></a>6.2.1 Conformance of Compressed binary encoded files</H2>
+
+<P>A X3D&nbsp;file is <I>syntactically correct</I> according to 
+<a href="references.html#[I19775_1]">ISO/IEC 19775-1</a>
+if the following conditions are met:</P>
+
+<OL type=a>
+  <LI>The X3D&nbsp;file contains as its first element a X3D header comment
+  (see
+<A href="concepts.html#4.2.2">4.2.2,&nbsp;Header</A>).
+
+  <LI>All entities contained therein match the functional specification of the
+  corresponding entities of ISO/IEC 19775-1. The X3D&nbsp;file shall obey the
+  relationships defined in the formal grammar and all other syntactic
+  requirements. </LI>
+  <LI>The sequence of entities in the Compressed binary encoded file obeys the
+  relationships specified in ISO/IEC 19775-1 producing the structure specified
+  in ISO/IEC 19775-1. </LI>
+  <LI>All field values in the Compressed binary encoded file obey the
+  relationships specified in ISO/IEC 19775 producing the structure specified
+  in ISO/IEC 19775-1.</LI>
+  <LI>No nodes appear in the X3D&nbsp;file other than those allowed by ISO/IEC 
+	19775-1 unless required for the encoding technique or those defined by the
+  PROTO&nbsp;or EXTERNPROTO&nbsp;entities.
+</LI>
+  <LI>The X3D file is encoded according to the rules of ISO/IEC 19775-1.
+  <LI>It does not contain behaviour described as undefined elsewhere in this
+  specification. </LI>
+</OL>
+<!--/NOEDIT-->
+
+<P>A&nbsp;Compressed binary encoded file conforms to the<I> </I>
+profile specified in its header statement
+if:</P>
+
+<OL type=a>
+  <LI>It is syntactically correct.</LI>
+  <LI>It meets the restrictions of the profile as defined for that profile in ISO/IEC 19775-1.</LI>
+</OL>
+
+<P>A&nbsp;Compressed binary encoded file conforms to a component level 
+specified in a component statement contained in the file or the support level 
+for that component as required by the applicable profile
+if:</P>
+
+<OL type=a>
+  <LI>It is syntactically correct.</LI>
+  <LI>It meets the support requirements for that level of the component as 
+	defined&nbsp; in ISO/IEC 19775-1.</LI>
+</OL>
+
+<H2><a name="ConformanceOfX3DBinaryEncodingGenerators"></a>6.2.2 Conformance of Compressed 
+binary encoding
+generators</H2>
+
+<P>A Compressed binary encoding generator conforms to this part of ISO/IEC 19776 if all
+X3D files that are generated are syntactically correct.</P>
+
+<P>A Compressed binary encoding generator conforms to a particular profile if it can be
+configured such that all X3D files generated conform to that particular
+profile.</P>
+<P>A Compressed binary encoding generator conforms to a particular 
+component and support level if it can be configured such that all X3D files 
+generated conform to that particular component if the component is included in 
+the applicable profile and/or is separately specified in a Component statement.</P>
+
+<H2><a name="ConformanceOfX3DBinaryEncodingBrowsers"></a>6.2.3 Conformance of Compressed binary encoding browsers</H2>
+
+<P>An X3D&nbsp;browser that supports the Compressed binary encoding conforms to a particular
+profile if:<!--NOEDIT--></P>
+
+<OL type=a>
+  <LI>It is able to read any Compressed binary encoded file that conforms to that
+  particular profile. </LI>
+  <LI>It presents the graphical and audio characteristics of the X3D nodes in
+  any Compressed binary encoded file that conforms to that particular profile,
+  within the latitude defined in the specification for that particular profile.
+  <LI>It correctly handles user interaction and generation of events as
+  specified in ISO/IEC 19775-1, within the latitude defined in the specification
+  for that particular profile. </LI>
+  <LI>It satisfies the requirements of that particular profile in regard to
+  minimum support requirements as defined in the specification for that
+  particular profile. </LI>
+  <LI>It satisfies the general conformance requirements for browsers as stated
+  in
+	6 Conformance of <a href="references.html#[I19775_1]">ISO/IEC 19775-1</a>.</LI>
+</OL>
+
+<P>An X3D&nbsp;browser that supports the Compressed binary encoding conforms to a particular
+component at a particular support level if it is able to read any Compressed 
+binary encoded file that conforms to that particular component.</P>
+
+<p>
+<img class="x3dbar" src="../Images/x3dbar.png" alt="--- X3D separator bar ---" width="430" height="23"></p>
+
+</body>
+</html>

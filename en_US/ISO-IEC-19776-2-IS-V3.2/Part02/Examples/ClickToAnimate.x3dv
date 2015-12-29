@@ -1,0 +1,28 @@
+#X3D V3.0 utf8
+PROFILE Interactive
+META "filename" "ClickToAnimate.x3dv"
+
+DEF XForm Transform {
+  children [
+    Shape {
+      geometry Box { }
+      appearance Appearance {
+	material Material { diffuseColor 1.0 0.0 0.0 }
+      }
+    }
+    DEF Clicker TouchSensor {
+      description "click to animate" 
+    }
+    DEF TimeSource TimeSensor {
+      cycleInterval 2.0
+    }
+    DEF Animation OrientationInterpolator {
+      keyValue [ 0.0 1.0 0.0 0.0, 0.0 1.0 0.0 2.1, 
+                 0.0 1.0 0.0 4.2, 0.0 1.0 0.0 0.0 ]
+      key [ 0.0 0.33 0.66 1.0 ]
+    }
+  ]
+}
+ROUTE Clicker.touchTime TO TimeSource.startTime
+ROUTE TimeSource.fraction_changed TO Animation.set_fraction
+ROUTE Animation.value_changed TO XForm.rotation

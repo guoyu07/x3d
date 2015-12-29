@@ -1,0 +1,129 @@
+#X3D V3.0 utf8
+PROFILE Immersive
+META "filename" "ExecutionModel.x3dv"
+
+}
+DEF Script1 Script {
+  inputOnly  SFTime touchTime
+  outputOnly SFBool toScript2
+  outputOnly SFBool toScript3
+  outputOnly SFString string
+  url [ "ecmascript: 
+  function touchTime() {
+    toScript2 = TRUE; 
+  } 
+  function eventsProcessed() {
+    string = 'Script1.eventsProcessed'; 
+    toScript3 = TRUE; 
+  }
+  " ]
+}
+DEF Script2 Script {
+  inputOnly  SFBool fromScript1
+  outputOnly SFBool toScript4
+  outputOnly SFString string
+  url [ "ecmascript: 
+  function fromScript1() {
+  } 
+  function eventsProcessed() {
+    string = 'Script2.eventsProcessed'; 
+    toScript4 = TRUE; 
+  }
+  " ]
+}
+DEF Script3 Script {
+  inputOnly  SFBool fromScript1
+  outputOnly SFBool toScript5
+  outputOnly SFBool toScript6
+  outputOnly SFString string
+  url [ "ecmascript: 
+  function fromScript1() {
+    toScript5 = TRUE; 
+  } 
+  function eventsProcessed() {
+    string = 'Script3.eventsProcessed'; 
+    toScript6 = TRUE; 
+  }
+  " ]
+}
+DEF Script4 Script {
+  inputOnly SFBool fromScript2
+  url [ "ecmascript: 
+  function fromScript2() {
+  }
+  " ]
+}
+DEF Script5 Script {
+  inputOnly SFBool fromScript3
+  url [ "ecmascript:
+  function fromScript3() { 
+  }
+  " ]
+}
+DEF Script6 Script {
+  inputOnly  SFBool fromScript3
+  outputOnly SFBool toScript7
+  outputOnly SFString string
+  url [ "ecmascript: 
+  function fromScript3() {
+    toScript7 = TRUE; 
+  } 
+  function eventsProcessed() {
+    string = 'Script6.eventsProcessed'; 
+  }
+  " ]
+}
+DEF Script7 Script {
+  inputOnly SFBool fromScript6
+  url [ "ecmascript: 
+  function fromScript6 () {
+  }
+  " ]
+}
+# Display the results
+DEF Collector Script {
+  outputOnly MFString string
+  inputOnly  SFString fromString
+  url [ "ecmascript: 
+  function initialize() {
+    string[ 0 ] = 'Event Sequence:'; 
+  } 
+  function fromString(s) {
+    i = string.length; string[ i ] = ''+i+') '+s+' occurred'; 
+  }
+  " ]
+}
+Transform {
+  translation 0 2 0
+  children [
+    Shape {
+      appearance Appearance {
+        material Material {
+          diffuseColor 0 0.6 0
+        }
+      }
+      geometry Sphere {
+      }
+    }
+    DEF TS TouchSensor {
+    }
+  ]
+}
+Shape {
+  geometry DEF Result Text {
+  }
+}
+Viewpoint { position 7 -1 18 }
+
+ROUTE TS.touchTime TO Script1.touchTime
+ROUTE Script1.toScript2 TO Script2.fromScript1
+ROUTE Script1.toScript3 TO Script3.fromScript1
+ROUTE Script2.toScript4 TO Script4.fromScript2
+ROUTE Script3.toScript5 TO Script5.fromScript3
+ROUTE Script3.toScript6 TO Script6.fromScript3
+ROUTE Script6.toScript7 TO Script7.fromScript6
+ROUTE Script1.string TO Collector.fromString
+ROUTE Script2.string TO Collector.fromString
+ROUTE Script3.string TO Collector.fromString
+ROUTE Script6.string TO Collector.fromString
+ROUTE Collector.string TO Result.string

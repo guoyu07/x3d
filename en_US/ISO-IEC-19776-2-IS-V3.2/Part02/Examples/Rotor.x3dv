@@ -1,0 +1,39 @@
+#X3D V3.0 utf8
+PROFILE Immersive
+META "filename" "Rotor.x3dv"
+
+PROTO Rotor [
+  initializeOnly SFTime rate 1
+  initializeOnly MFNode children [ ]
+  exposedField   SFTime startTime 0
+  exposedField   SFTime stopTime 0
+] {
+  DEF F Transform {
+    children IS children
+  }
+  DEF T TimeSensor {
+    loop TRUE
+    cycleInterval IS rate
+    startTime IS startTime
+    stopTime IS stopTime
+  }
+  DEF I OrientationInterpolator {
+    key [ 0, 0.25, 0.5, 0.75, 1 ]
+    keyValue [ 0 1 0 0, 0 1 0 1.57, 0 1 0 3.14, 0 1 0 4.71, 0 1 0 0 ]
+  }
+  ROUTE T.fraction_changed TO I.set_fraction
+  ROUTE I.value_changed TO F.set_rotation
+}
+Rotor {
+  children Shape {
+    geometry Box {
+      size 4 0.2 0.1
+    }
+    appearance Appearance {
+      material Material {
+      }
+    }
+  }
+}
+
+

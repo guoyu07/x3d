@@ -1,0 +1,3763 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html lang="en">
+<head>
+<!-- joedw 08/26 01/20 02/04 02/05 02/09 02/11 02/12 06/15 09/27 09/28 12/20 -->
+
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+<TITLE>X3D encodings, ISO/IEC 19776-2.2:2008 -- 6 Encoding of nodes</TITLE>
+
+<link REL="stylesheet" HREF="X3DEncodings.css" TYPE="text/css">
+
+<style type="text/css">
+.style2 {
+	background-color: #FFFF00;
+}
+</style>
+
+</head>
+<body>
+
+<div class="CenterDiv">
+<img class="x3dlogo" SRC="../Images/x3d.png" ALT="X3D logo" width="115" height="106" style="width: 176px; height: 88px"> 
+</div>
+
+<div class="CenterDiv">
+
+<p class="HeadingPart">
+    Extensible 3D (X3D) encodings<br>
+    Part 2: Classic VRML encoding</p>
+
+<p class="HeadingClause">Encoding of nodes</p>
+
+</div>
+
+<img class="x3dbar" src="../Images/x3dbar.png" width="430" height="23" alt="x3d bar">
+
+<h1><img class="cube" src="../Images/cube.gif" alt="cube">
+<A name="h-Intro"></A>
+6.1 Introduction</H1>
+
+<P>This clause specifies the Classic VRML syntax of each node. <a href="#T-toc">Table 6.1</a> lists the topics in this clause.</P>
+
+<div class="CenterDiv">
+
+<p class="TableCaption">
+<A name="T-toc"></a>Table 6.1 — Topics in this clause</p>
+
+<table class="topics">
+
+  <TBODY>
+  <TR>
+    <TD class=topics>
+      <a href="#Intro">6.1 Introduction</a><br>
+      <a href="#Nodes">6.2 Nodes</a><br>
+		<a href="#NodePresentationFormat">6.2.1 Node presentation format</a><br>
+      <a href="#Anchor">6.2.2 Anchor</a><br>
+      <a href="#Appearance">6.2.3 Appearance</a><br>
+      <a href="#Arc2D">6.2.4 Arc2D</a><br>
+      <a href="#ArcClose2D">6.2.5 ArcClose2D</a><br>
+      <a href="#AudioClip">6.2.6 AudioClip</a><br>
+      <a href="#Background">6.2.7 Background</a><br>
+		<a href="#BallJoint">6.2.8 BallJoint</a><br>
+      <a href="#Billboard">6.2.9 Billboard</a><br>
+      <a href="#BooleanFilter">6.2.10 BooleanFilter</a><br>
+      <a href="#BooleanSequencer">6.2.11 BooleanSequencer</a><br>
+      <a href="#BooleanToggle">6.2.12 BooleanToggle</a><br>
+      <a href="#BooleanTrigger">6.2.13 BooleanTrigger</a><br>
+		<a href="#BoundedPhysicsModel">6.2.14 BoundedPhysicsModel</a><br>
+      <a href="#Box">6.2.15 Box</a><br>
+      <a href="#CADAssembly">6.2.16 CADAssembly</a><br>
+      <a href="#CADFace">6.2.17 CADFace</a><br>
+      <a href="#CADLayer">6.2.18 CADLayer</a><br>
+      <a href="#CADPart">6.2.19 CADPart</a><br>
+      <a href="#Circle2D">6.2.20 Circle2D</a><br>
+		<a href="#ClipPlane">6.2.21 ClipPlane</a><br>
+		<a href="#CollidableOffset">6.2.22 CollidableOffset</a><br>
+		<a href="#CollidableShape">6.2.23 CollidableShape</a><br>
+      <a href="#CollisionSpace">6.2.24 Collision</a><br>
+		<a href="#CollisionCollection">6.2.25 CollisionCollection</a><br>
+		<a href="#CollisionSensor">6.2.26 CollisionSensor</a><br>
+		<a href="#CollisionSpace">6.2.27 CollisionSpace</a><br>
+      <a href="#Color">6.2.28 Color</a><br>
+		<a href="#ColorDamper">6.2.29 ColorDamper</a><br>
+      <a href="#ColorInterpolator">6.2.30 ColorInterpolator</a><br>
+      <a href="#ColorRGBA">6.2.31 ColorRGBA</a><br>
+      <a href="#ComposedCubeMapTexture">6.2.32 ComposedCubeMapTexture</a><br>
+      <a href="#ComposedShader">6.2.33 ComposedShader</a><br>
+      <a href="#ComposedTexture3D">6.2.34 ComposedTexture3D</a><br>
+      <a href="#Contact">6.2.35 Cone</a><br>
+		<a href="#ConeEmitter">6.2.36 ConeEmitter</a><br>
+		<a href="#Contact">6.2.37 Contact</a><br>
+      <a href="#Contour2D">6.2.38 Contour2D</a><br>
+      <a href="#ContourPolyline2D">6.2.39 ContourPolyline2D</a><br>
+      <a href="#Coordinate">6.2.40 Coordinate</a><br>
+		<a href="#CoordinateDamper">6.2.41 CoordinateDamper</a><br>
+      <a href="#CoordinateDouble">6.2.42 CoordinateDouble</a><br>
+      <a href="#CoordinateDamper">6.2.43&nbsp;CoordinateInterpolator</a><br>
+      <a href="#CoordinateInterpolator2D">6.2.44 CoordinateInterpolator2D</a><br>
+      <a href="#Cylinder">6.2.45 Cylinder</a><br>
+      <a href="#CylinderSensor">6.2.46 CylinderSensor</a><br>
+      <a href="#DISEntityTypeMapping">6.2.47 DirectionalLight</a><br>
+		<a href="#DISEntityManager">6.2.48 DISEntityManager</a><br>
+		<a href="#DISEntityTypeMapping">6.2.49 DISEntityTypeMapping</a><br>
+      <a href="#DoubleAxisHingeJoint">6.2.50 Disk2D</a><br>
+		<a href="#DoubleAxisHingeJoint">6.2.51 DoubleAxisHingeJoint</a><br>
+		<a href="#EaseInEaseOut">6.2.52 EaseInEaseOut</a><br>
+      <a href="#ElevationGrid">6.2.53 ElevationGrid</a><br>
+      <a href="#EspduTransform">6.2.54 EspduTransform</a><br>
+		<a href="#ExplosionEmitter">6.2.55 ExplosionEmitter</a><br>
+      <a href="#Extrusion">6.2.56 Extrusion</a><br>
+      <a href="#FillProperties">6.2.57 FillProperties</a><br>
+      <a href="#FloatVertexAttribute">6.2.58 FloatVertexAttribute</a><br>
+      <a href="#Fog">6.2.59 Fog</a><br>
+      <a href="#FogCoordinate">6.2.60 FogCoordinate</a><br>
+      <a href="#FontStyle">6.2.61 FontStyle</a><br>
+		<a href="#ForcePhysicsModel">6.2.62 ForcePhysicsModel</a><br>
+      <a href="#GeneratedCubeMapTexture">6.2.63 GeneratedCubeMapTexture</a><br>
+      <a href="#GeoCoordinate">6.2.64 GeoCoordinate</a><br>
+      <a href="#GeoElevationGrid">6.2.65 GeoElevationGrid</a><br>
+      <a href="#GeoLocation">6.2.66 GeoLocation</a><br>
+      <a href="#GeoLOD">6.2.67 GeoLOD</a><br>
+      <a href="#GeoMetadata">6.2.68 GeoMetadata</a><br>
+      <a href="#GeoOrigin">6.2.69 GeoOrigin</a><br>
+      <a href="#GeoPositionInterpolator">6.2.70 GeoPositionInterpolator</a><br>
+		<a href="#GeoProximitySensor">6.2.71 GeoProximitySensor</a><br>
+      <a href="#GeoTouchSensor">6.2.72 GeoTouchSensor</a><br>
+		<a href="#GeoTransform">6.2.73 GeoTransform</a><br>
+      <a href="#GeoViewpoint">6.2.74 GeoViewpoint</a><br>
+		<a href="#Group">6.2.75 Group</a><br>
+      <a href="#HAnimDisplacer">6.2.76 HAnimDisplacer</a><br>
+      <a href="#HAnimHumanoid">6.2.77 HAnimHumanoid</a><br>
+      <a href="#HAnimJoint">6.2.78 HAnimJoint</a><br>
+      <a href="#HAnimSegment">6.2.79 HAnimSegment</a><br>
+      <a href="#HAnimSite">6.2.80 HAnimSite</a><br>
+      <a href="#ImageCubeMapTexture">6.2.81 ImageCubeMapTexture</a><br>
+      <a href="#ImageTexture">6.2.82 ImageTexture</a><br>
+      <a href="#ImageTexture3D">6.2.83 ImageTexture3D</a><br>
+      <a href="#IndexedFaceSet">6.2.84 IndexedFaceSet</a><br>
+      <a href="#IndexedLineSet">6.2.85 IndexedLineSet</a><br>
+      <a href="#IndexedQuadSet">6.2.86 IndexedQuadSet</a><br>
+      <a href="#IndexedTriangleFanSet">6.2.87 IndexedTriangleFanSet</a><br>
+      <a href="#IndexedTriangleSet">6.2.88 IndexedTriangleSet</a><br>
+      <a href="#IndexedTriangleStripSet">6.2.89 IndexedTriangleStripSet</a><br>
+      <a href="#Inline">6.2.90 Inline</a><br>
+      <a href="#IntegerSequencer">6.2.91 IntegerSequencer</a><br>
+      <a href="#IntegerTrigger">6.2.92 IntegerTrigger</a><br>
+      <a href="#Layout">6.2.93 KeySensor</a><br>
+		<a href="#Layer">6.2.94 Layer</a><br>
+		<a href="#LayerSet">6.2.95 LayerSet</a><br>
+		<a href="#Layout">6.2.96 Layout</a><br>
+		<a href="#LayoutGroup">6.2.97 LayoutGroup</a><br>
+		<a href="#LayoutLayer">6.2.98 LayoutLayer</a><br>
+		<a href="#LinePickSensor">6.2.99 LinePickSensor</a><br>
+      <a href="#LineProperties">6.2.100 LineProperties</a><br>
+      <a href="#LineSet">6.2.101 LineSet</a><br>
+      <a href="#LoadSensor">6.2.102 LoadSensor</a><br>
+      <a href="#LocalFog">6.2.103 LocalFog</a><br>
+      <a href="#LOD">6.2.104 LOD</a><br>
+      <a href="#Material">6.2.105 Material</a><br>
+      <a href="#Matrix3VertexAttribute">6.2.106 Matrix3VertexAttribute</a><br>
+      <a href="#Matrix4VertexAttribute">6.2.107 Matrix4VertexAttribute</a></td>
+    <td class=topics>
+      <a href="#MetadataDouble">6.2.108 MetadataDouble</a><br>
+      <a href="#MetadataFloat">6.2.109 MetadataFloat</a><br>
+      <a href="#MetadataInteger">6.2.110 MetadataInteger</a><br>
+      <a href="#MetadataSet">6.2.111 MetadataSet</a><br>
+      <a href="#MotorJoint">6.2.112 MetadataString</a><br>
+		<a href="#MotorJoint">6.2.113 MotorJoint</a><br>
+      <a href="#MovieTexture">6.2.114 MovieTexture</a><br>
+      <a href="#MultiTexture">6.2.115 MultiTexture</a><br>
+      <a href="#MultiTextureCoordinate">6.2.116 MultiTextureCoordinate</a><br>
+      <a href="#MultiTextureTransform">6.2.117 MultiTextureTransform</a><br>
+      <a href="#NavigationInfo">6.2.118 NavigationInfo</a><br>
+      <a href="#Normal">6.2.119 Normal</a><br>
+      <a href="#NormalInterpolator">6.2.120 NormalInterpolator</a><br>
+      <a href="#NurbsCurve">6.2.121 NurbsCurve</a><br>
+      <a href="#NurbsCurve2D">6.2.122 NurbsCurve2D</a><br>
+      <a href="#NurbsOrientationInterpolator">6.2.123 NurbsOrientationInterpolator</a><br>
+      <a href="#NurbsPatchSurface">6.2.124 NurbsPatchSurface</a><br>
+      <a href="#NurbsPositionInterpolator">6.2.125 NurbsPositionInterpolator</a><br>
+      <a href="#NurbsSet">6.2.126 NurbsSet</a><br>
+      <a href="#NurbsSurfaceInterpolator">6.2.127 NurbsSurfaceInterpolator</a><br>
+      <a href="#NurbsSweptSurface">6.2.128 NurbsSweptSurface</a><br>
+      <a href="#NurbsSwungSurface">6.2.129 NurbsSwungSurface</a><br>
+      <a href="#NurbsTextureCoordinate">6.2.130 NurbsTextureCoordinate</a><br>
+      <a href="#NurbsTrimmedSurface">6.2.131 NurbsTrimmedSurface</a><br>
+		<a href="#OrientationChaser">6.2.132 OrientationChaser</a><br>
+		<a href="#OrientationDamper">6.2.133 OrientationDamper</a><br>
+      <a href="#OrthoViewpoint">6.2.134&nbsp;OrientationInterpolator</a><br>
+		<a href="#OrthoViewpoint">6.2.135 OrthoViewpoint</a><br>
+      <a href="#PackagedShader">6.2.136 PackagedShader</a><br>
+		<a href="#ParticleSystem">6.2.137 ParticleSystem</a><br>
+		<a href="#PickableGroup">6.2.138 PickableGroup</a><br>
+      <a href="#PixelTexture">6.2.139 PixelTexture</a><br>
+      <a href="#PixelTexture3D">6.2.140 PixelTexture3D</a><br>
+      <a href="#PlaneSensor">6.2.141 PlaneSensor</a><br>
+		<a href="#PointEmitter">6.2.142 PointEmitter</a><br>
+      <a href="#PointPickSensor">6.2.143 PointLight</a><br>
+		<a href="#PointPickSensor">6.2.144 PointPickSensor</a><br>
+      <a href="#PointSet">6.2.145 PointSet</a><br>
+      <a href="#Polyline2D">6.2.146 Polyline2D</a><br>
+		<a href="#PolylineEmitter">6.2.147 PolylineEmitter</a><br>
+      <a href="#Polypoint2D">6.2.148 Polypoint2D</a><br>
+		<a href="#PositionChaser">6.2.149 PositionChaser</a><br>
+		<a href="#PositionChaser2D">6.2.150 PositionChaser2D</a><br>
+		<a href="#PositionDamper">6.2.151 PositionDamper</a><br>
+		<a href="#PositionDamper2D">6.2.152 PositionDamper2D</a><br>
+      <a href="#PositionInterpolator">6.2.153 PositionInterpolator</a><br>
+      <a href="#PositionInterpolator2D">6.2.154 PositionInterpolator2D</a><br>
+		<a href="#PrimitivePickSensor">6.2.155 PrimitivePickSensor</a><br>
+      <a href="#ProgramShader">6.2.156 ProgramShader</a><br>
+      <a href="#ProximitySensor">6.2.157 ProximitySensor</a><br>
+      <a href="#QuadSet">6.2.158 QuadSet</a><br>
+      <a href="#ReceiverPdu">6.2.159 ReceiverPdu</a><br>
+      <a href="#RigidBody">6.2.160 Rectangle2D</a><br>
+		<a href="#RigidBody">6.2.161 RigidBody</a><br>
+		<a href="#RigidBodyCollection">6.2.162 RigidBodyCollection</a><br>
+		<a href="#ScalarChaser">6.2.163 ScalarChaser</a><br>
+      <a href="#ScalarInterpolator">6.2.164 ScalarInterpolator</a><br>
+		<a href="#ScreenFontStyle">6.2.165 ScreenFontStyle</a><br>
+		<a href="#ScreenGroup">6.2.166 ScreenGroup</a><br>
+      <a href="#Script">6.2.167 Script</a><br>
+      <a href="#ShaderPart">6.2.168 ShaderPart</a><br>
+      <a href="#ShaderProgram">6.2.169 ShaderProgram</a><br>
+      <a href="#Shape">6.2.170 Shape</a><br>
+      <a href="#SignalPdu">6.2.171 SignalPdu</a><br>
+		<a href="#SingleAxisHingeJoint">6.2.172 SingleAxisHingeJoint</a><br>
+		<a href="#SliderJoint">6.2.173 SliderJoint</a><br>
+      <a href="#Sound">6.2.174 Sound</a><br>
+      <a href="#Sphere">6.2.175 Sphere</a><br>
+      <a href="#SphereSensor">6.2.176 SphereSensor</a><br>
+		<a href="#SplinePositionInterpolator">6.2.177 SplinePositionInterpolator</a><br>
+		<a href="#SplinePositionInterpolator2D">6.2.178 
+		SplinePositionInterpolator2D</a><br>
+		<a href="#SplineScalarInterpolator">6.2.179 SplineScalarInterpolator</a><br>
+      <a href="#SpotLight">6.2.180 SpotLight</a><br>
+		<a href="#SquadOrientationInterpolator">6.2.181 SquadOrientationInterpolator</a><br>
+      <a href="#StaticGroup">6.2.182 StaticGroup</a><br>
+      <a href="#StringSensor">6.2.183 StringSensor</a><br>
+		<a href="#SurfaceEmitter">6.2.184 SurfaceEmitter</a><br>
+      <a href="#Switch">6.2.185 Switch</a><br>
+		<a href="#TexCoordDamper2D">6.2.186 TexCoordDamper2D</a><br>
+      <a href="#Text">6.2.187 Text</a><br>
+      <a href="#TextureBackground">6.2.188 TextureBackground</a><br>
+      <a href="#TextureCoordinate">6.2.189 TextureCoordinate</a><br>
+      <a href="#TextureCoordinate3D">6.2.190 TextureCoordiante3D</a><br>
+      <a href="#TextureCoordinate4D">6.2.191 TextureCoordinate4D</a><br>
+      <a href="#TextureProperties">6.2.192 TextureCoordinateGenerator</a><br>
+		<a href="#TextureProperties">6.2.193 TextureProperties</a><br>
+      <a href="#TextureTransform">6.2.194 TextureTransform</a><br>
+		<a href="#TextureTransformMatrix3D">6.2.195 TextureTransformMatrix3D</a><span class="style2"><br>
+      </span>
+      <a href="#TextureTransform3D">6.2.196 TextureTransform3D</a><span class="style2"><br>
+      </span>
+      <a href="#TimeSensor">6.2.197 TimeSensor</a><br>
+      <a href="#TimeTrigger">6.2.198 TimeTrigger</a><br>
+      <a href="#TouchSensor">6.2.199 TouchSensor</a><br>
+      <a href="#TransformSensor">6.2.200 Transform</a><br>
+		<a href="#TransformSensor">6.2.201 TransformSensor</a><br>
+      <a href="#TransmitterPdu">6.2.202 TransmitterPdu</a><br>
+      <a href="#TriangleFanSet">6.2.203 TriangleFanSet</a><br>
+      <a href="#TriangleSet">6.2.204 TriangleSet</a><br>
+      <a href="#TriangleSet2D">6.2.205 TriangleSet2D</a><br>
+      <a href="#TriangleStripSet">6.2.206 TriangleStripSet</a><br>
+		<a href="#TwoSidedMaterial">6.2.207 TwoSidedMaterial</a><br>
+		<a href="#UniversalJoint">6.2.208 UniversalJoint</a><br>
+      <a href="#ViewpointGroup">6.2.209 Viewpoint</a><br>
+		<a href="#ViewpointGroup">6.2.210 ViewpointGroup</a><br>
+		<a href="#Viewport">6.2.211 Viewport</a><br>
+      <a href="#VisibilitySensor">6.2.212 VisibilitySensor</a><br>
+		<a href="#VolumeEmitter">6.2.213 VolumeEmitter</a><br>
+		<a href="#VolumePickSensor">6.2.214 VolumePickSensor</a><br>
+		<a href="#WindPhysicsModel">6.2.215 WindPhysicsModel</a><br>
+      <a href="#WorldInfo">6.2.216 WorldInfo</a>
+</TD>
+</TR>
+</TBODY>
+</TABLE>
+</div>
+
+<h1><img class="cube" src="../Images/cube.gif" alt="cube">
+<A name="Nodes"></A>6.2 Nodes</h1>
+<h2><a name="NodePresentationFormat"></a>6.2.1 Node presentation format</h2>
+
+<P>The first item in each subclause specifies the Classic VRML encoding 
+of the public declaration for the node. The node declaration defines the names 
+and types of the fields for the node.
+</P>
+
+<P>For example, the following defines the Collision node declaration:</P>
+
+<pre class="node">Collision {
+  inputOnly      MFNode  addChildren 
+  inputOnly      MFNode  removeChildren 
+  inputOutput    SFBool  enabled 
+  inputOutput    MFNode  children 
+  inputOutput    SFNode  metadata
+  outputOnly     SFTime  collideTime
+  outputOnly     SFBool  isActive
+  initializeOnly SFVec3f bboxCenter 
+  initializeOnly SFVec3f bboxSize 
+  initializeOnly SFNode  proxy  
+}
+</pre>
+
+<P>The following is an example of a the encoding of a collision node in a 
+Classic VRML encoded X3D file:</P>
+
+<pre class="node">Collision { 
+   enabled    TRUE
+   bboxCenter 0,0,0
+   bboxSize   10,10,10
+   proxy      [Shape {...)]
+   children   [Shape {...}]
+   metadata   MetadataString ["Main structure"]
+}
+</pre>
+
+<P>Actual node usage does not specify the access type or the data type and does 
+provide a value for the field. Not all fields need be present in any particular 
+use of a node. Fields not provided will take on their initial values. Only the 
+syntax for the nodes is shown. Semantics for the nodes and initial value as well 
+as the initial values and value ranges for node fields can be found in
+<a href="references.html#[I19775_1]">ISO/IEC 19775-1</a>.</P>
+
+<h2>
+<A name="Anchor"></A>
+6.2.2 Anchor</h2>
+
+<pre class="node">Anchor { 
+  inputOnly      MFNode   addChildren
+  inputOnly      MFNode   removeChildren
+  inputOutput    MFNode   children
+  inputOutput    SFString description 
+  inputOutput    SFNode   metadata 
+  inputOutput    MFString parameter
+  inputOutput    MFString url
+  initializeOnly SFVec3f  bboxCenter
+  initializeOnly SFVec3f  bboxSize
+}
+</pre>
+
+<h2>
+<A name="Appearance"></A>
+6.2.3 Appearance</h2>
+
+<pre class="node">Appearance { 
+  inputOutput SFNode fillProperties 
+  inputOutput SFNode lineProperties 
+  inputOutput SFNode material
+  inputOutput SFNode metadata
+  inputOutput MFNode shaders
+  inputOutput SFNode texture
+  inputOutput SFNode textureTransform
+}
+</pre>
+
+<h2>
+<A name="Arc2D"></A>
+6.2.4 Arc2D</h2>
+
+<pre class="node">Arc2D { 
+  inputOutput    SFNode  metadata 
+  initializeOnly SFFloat endAngle 
+  initializeOnly SFFloat radius
+  initializeOnly SFFloat startAngle
+}
+</pre>
+
+<h2>
+<A name="ArcClose2D"></A>
+6.2.5 ArcClose2D</h2>
+
+<pre class="node">ArcClose2D { 
+  inputOutput    SFNode   metadata 
+  initializeOnly SFString closureType
+  initializeOnly SFFloat  endAngle 
+  initializeOnly SFFloat  radius
+  initializeOnly SFBool   solid
+  initializeOnly SFFloat  startAngle
+}
+</pre>
+
+<h2>
+<A name="AudioClip"></A>
+6.2.6 AudioClip</h2>
+
+<pre class="node">AudioClip { 
+  inputOutput SFString description
+  inputOutput SFBool   loop
+  inputOutput SFNode   metadata 
+  inputOutput SFTime   pauseTime
+  inputOutput SFFloat  pitch
+  inputOutput SFTime   resumeTime
+  inputOutput SFTime   startTime
+  inputOutput SFTime   stopTime
+  inputOutput MFString url
+  outputOnly  SFTime   duration_changed
+  outputOnly  SFTime   elapsedTime
+  outputOnly  SFBool   isActive
+  outputOnly  SFBool   isPaused
+}
+</pre>
+
+<h2>
+<A name="Background"></A>
+6.2.7 Background</h2>
+
+<pre class="node">Background { 
+  inputOnly   SFBool   set_bind
+  inputOutput MFFloat  groundAngle
+  inputOutput MFColor  groundColor
+  inputOutput MFString backUrl
+  inputOutput MFString bottomUrl
+  inputOutput MFString frontUrl
+  inputOutput MFString leftUrl
+  inputOutput SFNode   metadata 
+  inputOutput MFString rightUrl
+  inputOutput MFFloat  skyAngle
+  inputOutput MFColor  skyColor
+  inputOutput MFString topUrl
+  inputOutput MFFloat  transparency
+  outputOnly  SFTime   bindTime 
+  outputOnly  SFBool   isBound
+}
+</pre>
+
+<h2>
+<a name="BallJoint"></a>6.2.8 BallJoint</h2>
+
+<pre class="node">BallJoint { 
+  inputOutput SFVec3f  anchorPoint
+  inputOutput SFNode   body1
+  inputOutput SFNode   body2
+  inputOutput MFString forceOutput
+  inputOutput SFNode   metadata 
+  outputOnly  SFVec3f  body1AnchorPoint
+  outputOnly  SFVec3f  body2AnchorPoint
+}
+</pre>
+
+<h2>
+<A name="Billboard"></A>
+6.2.9 Billboard </h2>
+
+<pre class="node">Billboard { 
+  inputOnly      MFNode  addChildren
+  inputOnly      MFNode  removeChildren
+  inputOutput    SFVec3f axisOfRotation
+  inputOutput    MFNode  children
+  inputOutput    SFNode  metadata 
+  initializeOnly SFVec3f bboxCenter
+  initializeOnly SFVec3f bboxSize
+}
+</pre>
+
+<h2>
+<A name="BooleanFilter"></A>
+6.2.10 BooleanFilter</h2>
+
+<pre class="node">BooleanFilter { 
+  inputOnly   SFBool set_boolean
+  inputOutput SFNode metadata 
+  outputOnly  SFBool inputFalse
+  outputOnly  SFBool inputNegate
+  outputOnly  SFBool inputTrue
+}
+</pre>
+
+<h2>
+<A name="BooleanSequencer"></A>
+6.2.11 BooleanSequencer</h2>
+
+<pre class="node">BooleanSequencer { 
+  inputOnly   SFBool  next 
+  inputOnly   SFBool  previous 
+  inputOnly   SFFloat set_fraction 
+  inputOutput MFFloat key  
+  inputOutput MFBool  keyValue 
+  inputOutput SFNode  metadata 
+  outputOnly  SFBool  value_changed
+}
+</pre>
+
+<h2>
+<A name="BooleanToggle"></A>
+6.2.12 BooleanToggle</h2>
+
+<pre class="node">BooleanToggle { 
+  inputOnly   SFBool set_boolean
+  inputOutput SFNode metadata 
+  inputOutput SFBool toggle
+}
+</pre>
+
+<h2>
+<A name="BooleanTrigger"></A>
+6.2.13 BooleanTrigger</h2>
+
+<pre class="node">BooleanTrigger { 
+  inputOnly   SFTime set_triggerTime
+  inputOutput SFNode metadata 
+  outputOnly  SFBool triggerTrue 
+}
+</pre>
+
+<h2>
+<a name="BoundedPhysicsModel"></a>6.2.14 BoundedPhysicsModel</h2>
+
+<pre class="node">BoundedPhysicsModel { 
+  inputOutput SFBool enabled
+  inputOutput SFNode geometry
+  inputOutput SFNode metadata 
+}
+</pre>
+
+<h2>
+<A name="Box"></A>
+6.2.15 Box </h2>
+
+<pre class="node">Box { 
+  inputOutput    SFNode  metadata 
+  initializeOnly SFVec3f size
+  initializeOnly SFBool  solid
+}
+</pre>
+
+<h2><a name="CADAssembly"></a>6.2.16 CADAssembly</h2>
+<pre class="node">CADAssembly {
+  inputOnly      MFNode   addChildren
+  inputOnly      MFNode   removeChildren
+  inputOutput    MFNode   children
+  inputOutput    SFNode   metadata
+  inputOutput    SFString name
+  initializeOnly SFVec3f  bboxCenter
+  initializeOnly SFVec3f  bboxSize
+}</pre>
+<h2><a name="CADFace"></a>6.2.17 CADFace</h2>
+<pre class="node">CADFace {
+  inputOutput    SFNode   metadata
+  inputOutput    SFString name
+  inputOutput    SFNode   shape
+  initializeOnly SFVec3f  bboxCenter
+  initializeOnly SFVec3f  bboxSize
+}</pre>
+<h2><a name="CADLayer"></a>6.2.18 CADLayer</h2>
+<pre class="node">CADLayer {
+  inputOnly      MFNode   addChildren
+  inputOnly      MFNode   removeChildren
+  inputOutput    MFNode   children
+  inputOutput    SFNode   metadata
+  inputOutput    SFString name
+  inputOutput    MFBool   visible
+  initializeOnly SFVec3f  bboxCenter
+  initializeOnly SFVec3f  bboxSize
+}</pre>
+<h2><a name="CADPart"></a>6.2.19 CADPart</h2>
+<pre class="node">CADPart {
+  inputOnly      MFNode     addChildren
+  inputOnly      MFNode     removeChildren
+  inputOutput    SFVec3f    center
+  inputOutput    MFNode     children
+  inputOutput    SFNode     metadata
+  inputOutput    SFString   name
+  inputOutput    SFRotation rotation
+  inputOutput    SFVec3f    scale
+  inputOutput    SFRotation scaleOrientation
+  inputOutput    SFVec3f    translation
+  initializeOnly SFVec3f    bboxCenter
+  initializeOnly SFVec3f    bboxSize
+}</pre>
+
+<h2>
+<A name="Circle2D"></A>
+6.2.20 Circle2D </h2>
+
+<pre class="node">Circle2D { 
+  inputOutput    SFNode  metadata 
+  initializeOnly SFFLoat radius
+}
+</pre>
+
+<h2>
+<a name="ClipPlane"></a>6.2.21 ClipPlane</h2>
+
+<pre class="node">ClipPlane { 
+  inputOutput SFBool  enabled
+  inputOutput SFNode  metadata 
+  inputOutput SFVec4f plane
+}
+</pre>
+
+<h2>
+<a name="CollidableOffset"></a>6.2.22 CollidableOffset</h2>
+
+<pre class="node">CollidableOffset { 
+  inputOutput    SFBool     enabled
+  inputOutput    SFNode     metadata
+  inputOutput    SFRotation rotation
+  inputOutput    SFVec3f    translation
+  initializeOnly SFVec3f    bboxCenter
+  initializeOnly SFVec3f    bboxSize
+  initializeOnly SFNode     collidable
+}
+</pre>
+
+<h2>
+<a name="CollidableShape"></a>6.2.23 CollidableShape</h2>
+
+<pre class="node">CollidableShape { 
+  inputOutput    SFBool     enabled
+  inputOutput    SFNode     metadata
+  inputOutput    SFRotation rotation
+  inputOutput    SFVec3f    translation
+  initializeOnly SFVec3f    bboxCenter
+  initializeOnly SFVec3f    bboxSize
+  initializeOnly SFNode     shape
+}
+</pre>
+
+<h2>
+<A name="Collision"></A>
+6.2.24 Collision </h2>
+
+<pre class="node">Collision { 
+  inputOnly      MFNode  addChildren 
+  inputOnly      MFNode  removeChildren 
+  inputOutput    MFNode  children 
+  inputOutput    SFBool  enabled 
+  inputOutput    SFNode  metadata
+  outputOnly     SFTime  collideTime
+  outputOnly     SFBool  isActive
+  initializeOnly SFVec3f bboxCenter 
+  initializeOnly SFVec3f bboxSize 
+  initializeOnly SFNode  proxy   
+}
+</pre>
+
+<h2>
+<a name="CollisionCollection"></a>6.2.25 CollisionCollection</h2>
+
+<pre class="node">CollisionCollection { 
+  inputOutput MFString appliedParameters 
+  inputOutput SFFloat  bounce
+  inputOutput MFNode   collider
+  inputOutput SFBool   enabled
+  inputOutput SFVec2f  frictionCoefficients
+  inputOutput SFNode   metadata
+  inputOutput SFFloat  minBounceSpeed
+  inputOutput SFVec2f  slipFactors
+  inputOutput SFFloat  softnessConstantForceMix
+  inputOutput SFFloat  softnessErrorCorrection
+  inputOutput SFVec2f  surfaceSpeed
+}
+</pre>
+
+<h2>
+<a name="CollisionSensor"></a>6.2.26 CollisionSensor</h2>
+
+<pre class="node">CollisionSensor { 
+  inputOutput SFNode collidables
+  inputOutput SFBool enabled
+  inputOutput SFNode metadata
+  outputOnly  MFNode intersections
+  outputOnly  MFNode contacts
+  outputOnly  SFBool isActive
+}
+</pre>
+
+<h2>
+<a name="CollisionSpace"></a>6.2.27 CollisionSpace</h2>
+
+<pre class="node">CollisionSpace { 
+  inputOutput    MFNode  collidables
+  inputOutput    SFBool  enabled
+  inputOutput    SFNode  metadata
+  inputOutput    SFBool  useGeometry
+  initializeOnly SFVec3f bboxCenter
+  initializeOnly SFVec3f bboxSize
+}
+</pre>
+
+<h2>
+<A name="Color"></A>
+6.2.28 Color </h2>
+
+<pre class="node">Color { 
+  inputOutput MFColor color
+  inputOutput SFNode  metadata
+}
+</pre>
+
+<h2>
+<a name="ColorDamper"></a>6.2.29 ColorDamper </h2>
+
+<pre class="node">ColorDamper { 
+  inputOnly      SFColor set_destination
+  inputOnly      SFColor set_value
+  inputOutput    SFNode  metadata
+  inputOutput    SFTime  tau
+  inputOutput    SFFloat tolerance
+  outputOnly     SFBool  isActive
+  outputOnly     SFColor value_changed
+  initializeOnly SFColor initialDestination
+  initializeOnly SFColor initialValue
+  initializeOnly SFInt32 order
+}
+</pre>
+
+<h2>
+<A name="ColorInterpolator"></A>
+6.2.30 ColorInterpolator </h2>
+
+<pre class="node">ColorInterpolator { 
+  inputOnly   SFFloat set_fraction
+  inputOutput MFFloat key
+  inputOutput MFColor keyValue
+  inputOutput SFNode  metadata
+  outputOnly  SFColor value_changed
+}
+</pre>
+
+<h2>
+<A name="ColorRGBA"></A>
+6.2.31 ColorRGBA </h2>
+
+<pre class="node">ColorRGBA { 
+  inputOutput MFColorRGBA color 
+  inputOutput SFNode      metadata
+}
+</pre>
+
+<h2><a name="ComposedCubeMapTexture"></a>6.2.32 ComposedCubeMapTexture</h2>
+<pre class="node">ComposedCubeMapTexture {
+  inputOutput SFNode back
+  inputOutput SFNode bottom
+  inputOutput SFNode front
+  inputOutput SFNode left
+  inputOutput SFNode metadata
+  inputOutput SFNode right
+  inputOutput SFNode top
+}</pre>
+<h2><a name="ComposedShader"></a>6.2.33 ComposedShader</h2>
+<pre class="node">ComposedShader {
+  inputOnly      SFBool   activate
+  inputOutput    SFNode   metadata
+  inputOutput    MFNode   parts
+  outputOnly     SFBool   isSelected
+  outputOnly     SFBool   isValid
+  initializeOnly SFString language
+
+# and any number of:</pre>
+<pre class="node">  inputOnly      fieldType fieldName
+  inputOutput    fieldType fieldName
+  outputOnly     fieldType fieldName
+  initializeOnly fieldType fieldName
+}</pre>
+<h2><a name="ComposedTexture3D"></a>6.2.34 ComposedTexture3D</h2>
+<pre class="node">ComposedTexture3D {
+  inputOutput    SFNode metadata
+  inputOutput    MFNode texture
+  initializeOnly SFBool repeatR
+  initializeOnly SFBool repeatS
+  initializeOnly SFBool repeatT
+}</pre>
+
+<h2>
+<A name="Cone"></A>
+6.2.35 Cone </h2>
+
+<pre class="node">Cone { 
+  inputOutput    SFNode  metadata
+  initializeOnly SFBool  bottom
+  initializeOnly SFFloat bottomRadius
+  initializeOnly SFFloat height
+  initializeOnly SFBool  side
+  initializeOnly SFBool  solid
+}
+</pre>
+
+<h2>
+<a name="ConeEmitter"></a>6.2.36 ConeEmitter </h2>
+
+<pre class="node">ConeEmitter {
+  inputOutput    SFFloat angle
+  inputOutput    SFVec3f direction 
+  inputOutput    SFNode  metadata
+  inputOutput    SFVec3f position
+  inputOutput    SFFloat speed
+  inputOutput    SFFloat variation
+  initializeOnly SFFloat mass
+  initializeOnly SFFloat surfaceArea
+}
+</pre>
+
+<h2>
+<a name="Contact"></a>6.2.37 Contact</h2>
+
+<pre class="node">Contact {
+  inputOutput MFString appliedParameters
+  inputOutput SFNode   body1
+  inputOutput SFNode   body2
+  inputOutput SFFloat  bounce
+  inputOutput SFVec3f  contactNormal
+  inputOutput SFFloat  depth
+  inputOutput SFVec2f  frictionCoefficients
+  inputOutput SFVec3f  frictionDirection
+  inputOutput SFNode   geometry1
+  inputOutput SFNode   geometry2 
+  inputOutput SFNode   metadata
+  inputOutput SFFloat  minBounceSpeed
+  inputOutput SFVec3f  position
+  inputOutput SFVec2f  slipCoefficients
+  inputOutput SFFloat  softnessConstantForceMix
+  inputOutput SFFloat  softnessErrorCorrection
+  inputOutput SFVec2f  surfaceSpeed
+}
+</pre>
+
+<h2>
+<A name="Contour2D"></A>
+6.2.38 Contour2D </h2>
+
+<pre class="node">Contour2D { 
+  inputOnly   MFNode addChildren
+  inputOnly   MFNode removeChildren
+  inputOutput MFNode children
+  inputOutput SFNode metadata
+}
+</pre>
+
+<h2>
+<A name="ContourPolyline2D"></A>
+6.2.39 ContourPolyline2D </h2>
+
+<pre class="node">ContourPolyline2D { 
+  inputOutput    SFNode  metadata
+  inputOutput    MFVec2d controlPoint 
+}
+</pre>
+
+<h2>
+<A name="Coordinate"></A>
+6.2.40 Coordinate </h2>
+
+<pre class="node">Coordinate { 
+  inputOutput SFNode  metadata
+  inputOutput MFVec3f point
+}
+</pre>
+
+<h2>
+<a name="CoordinateDamper"></a>6.2.41 CoordinateDamper</h2>
+
+<pre class="node">CoordinateDamper { 
+  inputOnly      MFVec3f set_destination
+  inputOnly      MFVec3f set_value
+  inputOutput    SFNode  metadata
+  inputOutput    SFTime  tau
+  inputOutput    SFFloat tolerance
+  outputOnly     SFBool  isActive
+  outputOnly     MFVec3f value_changed
+  initializeOnly MFVec3f initialDestination
+  initializeOnly MFVec3f initialValue
+  initializeOnly SFInt32 order
+}
+</pre>
+
+<h2>
+<A name="CoordinateDouble"></A>
+6.2.42 CoordinateDouble </h2>
+
+<pre class="node">CoordinateDouble { 
+  inputOutput SFNode  metadata
+  inputOutput MFVec3d point
+}
+</pre>
+
+<h2>
+<A name="CoordinateInterpolator"></A>
+6.2.43 CoordinateInterpolator </h2>
+
+<pre class="node">CoordinateInterpolator { 
+  inputOnly   SFFloat set_fraction
+  inputOutput MFFloat key
+  inputOutput MFVec3f keyValue
+  inputOutput SFNode  metadata
+  outputOnly  MFVec3f value_changed
+}
+</pre>
+
+<h2>
+<A name="CoordinateInterpolator2D"></A>
+6.2.44 CoordinateInterpolator2D </h2>
+
+<pre class="node">CoordinateInterpolator2D { 
+  inputOnly   SFFloat set_fraction 
+  inputOutput MFFloat key    
+  inputOutput MFVec2f keyValue 
+  inputOutput SFNode  metadata
+  outputOnly  MFVec2f value_changed
+}
+</pre>
+
+<h2>
+<A name="Cylinder"></A>
+6.2.45 Cylinder </h2>
+
+<pre class="node">Cylinder { 
+  inputOutput    SFNode  metadata
+  initializeOnly SFBool  bottom
+  initializeOnly SFFloat height
+  initializeOnly SFFloat radius
+  initializeOnly SFBool  side
+  initializeOnly SFBool  solid
+  initializeOnly SFBool  top
+}
+</pre>
+
+<h2>
+<A name="CylinderSensor"></A>
+6.2.46 CylinderSensor </h2>
+
+<pre class="node">CylinderSensor {
+  inputOutput SFBool     autoOffset
+  inputOutput SFRotation axisRotation
+  inputOutput SFString   description
+  inputOutput SFFloat    diskAngle
+  inputOutput SFBool     enabled
+  inputOutput SFFloat    maxAngle
+  inputOutput SFNode     metadata
+  inputOutput SFFloat    minAngle
+  inputOutput SFFloat    offset
+  outputOnly  SFBool     isActive
+  outputOnly  SFBool     isOver
+  outputOnly  SFRotation rotation_changed
+  outputOnly  SFVec3f    trackPoint_changed
+}
+</pre>
+
+<h2>
+<A name="DirectionalLight"></A>
+6.2.47 DirectionalLight </h2>
+
+<pre class="node">DirectionalLight { 
+  inputOutput SFFloat ambientIntensity
+  inputOutput SFColor color
+  inputOutput SFVec3f direction
+  inputOutput SFBool  global
+  inputOutput SFFloat intensity
+  inputOutput SFNode  metadata
+  inputOutput SFBool  on
+}
+</pre>
+
+<h2>
+<a name="DISEntityManager"></a>6.2.48 DISEntityManager</h2>
+
+<pre class="node">DISEntityManager { 
+  inputOutput SFString address
+  inputOutput SFInt32  applicationID
+  inputOutput MFNode   mapping
+  inputOutput SFNode   metadata
+  inputOutput SFInt32  port
+  inputOutput SFInt32  siteID
+  outputOnly  MFNode   addedEntities
+  outputOnly  MFNode   removedEntities
+}
+</pre>
+
+<h2>
+<a name="DISEntityTypeMapping"></a>6.2.49 DISEntityTypeMapping</h2>
+
+<pre class="node">DISEntityTypeMapping { 
+  inputOutput    SFNode   metadata
+  inputOutput    MFString url
+  initializeOnly SFInt32  category
+  initializeOnly SFInt32  country
+  initializeOnly SFInt32  domain
+  initializeOnly SFInt32  extra
+  initializeOnly SFInt32  kind
+  initializeOnly SFInt32  specific
+  initializeOnly SFInt32  subcategory
+}
+</pre>
+
+<h2>
+<A name="Disk2D"></A>
+6.2.50 Disk2D </h2>
+
+<pre class="node">Disk2D { 
+  inputOutput    SFNode  metadata
+  initializeOnly SFFloat innerRadius 
+  initializeOnly SFFloat outerRadius  
+  initializeOnly SFBool  solid
+}
+</pre>
+
+<h2>
+<a name="DoubleAxisHingeJoint"></a>6.2.51 DoubleAxisHingeJoint </h2>
+
+<pre class="node">DoubleAxisHingeJoint {
+  inputOutput SFVec3f  anchorPoint
+  inputOutput SFVec3f  axis1
+  inputOutput SFVec3f  axis2
+  inputOutput SFNode   body1
+  inputOutput SFNode   body2
+  inputOutput SFFloat  desiredAngularVelocity1
+  inputOutput SFFloat  desiredAngularVelocity2
+  inputOutput MFString forceOutput
+  inputOutput SFFloat  maxAngle1
+  inputOutput SFFloat  maxTorque1
+  inputOutput SFFloat  maxTorque2
+  inputOutput SFNode   metadata
+  inputOutput SFFloat  minAngle1
+  inputOutput SFFloat  stopBounce1
+  inputOutput SFFloat  stopConstantForceMix1
+  inputOutput SFFloat  stopErrorCorrection
+  inputOutput SFFloat  suspensionErrorCorrection
+  inputOutput SFFloat  suspensionForce
+  outputOnly  SFVec3f  body1AnchorPoint
+  outputOnly  SFVec3f  body1Axis
+  outputOnly  SFVec3f  body2AnchorPoint
+  outputOnly  SFVec3f  body2Axis
+  outputOnly  SFFloat  hinge1Angle
+  outputOnly  SFFloat  hinge1AngleRate
+  outputOnly  SFFloat  hinge2Angle
+  outputOnly  SFFloat  hinge2AngleRate
+}
+</pre>
+
+<h2>
+<a name="EaseInEaseOut"></a>6.2.52 EaseInEaseOut</h2>
+
+<pre class="node">EaseInEaseOut { 
+  inputOnly   SFFloat set_fraction
+  inputOutput MFVec2f easeInEaseOut
+  inputOutput MFFloat key 
+  inputOutput SFNode  metadata  
+  outputOnly  SFFloat modifiedFraction_changed
+}
+</pre>
+
+<h2>
+<A name="ElevationGrid"></A>
+6.2.53 ElevationGrid </h2>
+
+<pre class="node">ElevationGrid { 
+  inputOnly      MFFloat set_height
+  inputOutput    MFNode  attrib
+  inputOutput    SFNode  color
+  inputOutput    SFNode  fogCoord
+  inputOutput    SFNode  metadata
+  inputOutput    SFNode  normal
+  inputOutput    SFNode  texCoord
+  initializeOnly SFBool  ccw
+  initializeOnly SFBool  colorPerVertex
+  initializeOnly SFFloat creaseAngle
+  initializeOnly MFFloat height
+  initializeOnly SFBool  normalPerVertex
+  initializeOnly SFBool  solid
+  initializeOnly SFInt32 xDimension
+  initializeOnly SFFloat xSpacing
+  initializeOnly SFInt32 zDimension
+  initializeOnly SFFloat zSpacing
+}
+</pre>
+
+<h2>
+<A name="EspduTransform"></A>
+6.2.54 EspduTransform </h2>
+
+<pre class="node">EspduTransform { 
+  inputOnly      MFNode     addChildren
+  inputOnly      MFNode     removeChildren
+  inputOnly      SFFloat    set_articulationParameterValue0
+  inputOnly      SFFloat    set_articulationParameterValue1
+  inputOnly      SFFloat    set_articulationParameterValue2
+  inputOnly      SFFloat    set_articulationParameterValue3
+  inputOnly      SFFloat    set_articulationParameterValue4
+  inputOnly      SFFloat    set_articulationParameterValue5
+  inputOnly      SFFloat    set_articulationParameterValue6
+  inputOnly      SFFloat    set_articulationParameterValue7 
+  inputOutput    SFString   address 
+  inputOutput    SFInt32    applicationID
+  inputOutput    SFInt32    articulationParameterCount
+  inputOutput    MFInt32    articulationParameterDesignatorArray
+  inputOutput    MFInt32    articulationParameterChangeIndicatorArray
+  inputOutput    MFInt32    articulationParameterIdPartAttachedToArray
+  inputOutput    MFInt32    articulationParameterTypeArray
+  inputOutput    MFFloat    articulationParameterArray
+  inputOutput    SFVec3f    center
+  inputOutput    MFNode     children
+  inputOutput    SFInt32    collisionType
+  inputOutput    SFInt32    deadReckoning
+  inputOutput    SFVec3f    detonationLocation 
+  inputOutput    SFVec3f    detonationRelativeLocation
+  inputOutput    SFInt32    detonationResult
+  inputOutput    SFBool     enabled
+  inputOutput    SFInt32    entityCategory
+  inputOutput    SFInt32    entityCountry
+  inputOutput    SFInt32    entityDomain
+  inputOutput    SFInt32    entityExtra
+  inputOutput    SFInt32    entityID
+  inputOutput    SFInt32    entityKind 
+  inputOutput    SFInt32    entitySpecific
+  inputOutput    SFInt32    entitySubCategory 
+  inputOutput    SFInt32    eventApplicationID
+  inputOutput    SFInt32    eventEntityID
+  inputOutput    SFInt32    eventNumber
+  inputOutput    SFInt32    eventSiteID
+  inputOutput    SFBool     fired1
+  inputOutput    SFBool     fired2
+  inputOutput    SFInt32    fireMissionIndex
+  inputOutput    SFFloat    firingRange 
+  inputOutput    SFInt32    firingRate
+  inputOutput    SFInt32    forceID 
+  inputOutput    SFInt32    fuse 
+  inputOutput    SFVec3f    linearVelocity
+  inputOutput    SFVec3f    linearAcceleration 
+  inputOutput    SFString   marking
+  inputOutput    SFNode     metadata
+  inputOutput    SFString   multicastRelayHost
+  inputOutput    SFInt32    multicastRelayPort 
+  inputOutput    SFInt32    munitionApplicationID
+  inputOutput    SFVec3f    munitionEndPoint
+  inputOutput    SFInt32    munitionEntityID
+  inputOutput    SFInt32    munitionQuantity
+  inputOutput    SFInt32    munitionSiteID 
+  inputOutput    SFVec3f    munitionStartPoint 
+  inputOutput    SFString   networkMode
+  inputOutput    SFInt32    port
+  inputOutput    SFTime     readInterval
+  inputOutput    SFRotation rotation 
+  inputOutput    SFVec3f    scale
+  inputOutput    SFRotation scaleOrientation
+  inputOutput    SFInt32    siteID 
+  inputOutput    SFVec3f    translation
+  inputOutput    SFInt32    warhead 
+  inputOutput    SFTime     writeInterval 
+  outputOnly     SFFloat    articulationParameterValue0_changed
+  outputOnly     SFFloat    articulationParameterValue1_changed 
+  outputOnly     SFFloat    articulationParameterValue2_changed
+  outputOnly     SFFloat    articulationParameterValue3_changed 
+  outputOnly     SFFloat    articulationParameterValue4_changed
+  outputOnly     SFFloat    articulationParameterValue5_changed 
+  outputOnly     SFFloat    articulationParameterValue6_changed
+  outputOnly     SFFloat    articulationParameterValue7_changed
+  outputOnly     SFTime     collideTime
+  outputOnly     SFTime     detonateTime
+  outputOnly     SFTime     firedTime 
+  outputOnly     SFBool     isActive
+  outputOnly     SFBool     isCollided                    
+  outputOnly     SFBool     isDetonated                   
+  outputOnly     SFBool     isNetworkReader
+  outputOnly     SFBool     isNetworkWriter
+  outputOnly     SFBool     isRtpHeaderHeard
+  outputOnly     SFBool     isStandAlone
+  outputOnly     SFTime     timestamp 
+  initializeOnly SFVec3f    bboxCenter
+  initializeOnly SFVec3f    bboxSize
+  initializeOnly SFBool     rtpHeaderExpected 
+}
+</pre>
+
+<h2>
+<a name="ExplosionEmitter"></a>6.2.55 ExplosionEmitter </h2>
+
+<pre class="node">ExplosionEmitter {
+  inputOutput    SFNode  metadata
+  inputOutput    SFVec3f position
+  inputOutput    SFFloat speed
+  inputOutput    SFFloat variation
+  initializeOnly SFFloat mass
+  initializeOnly SFFloat surfaceArea
+}
+</pre>
+
+<h2>
+<A name="Extrusion"></A>
+6.2.56 Extrusion </h2>
+
+<pre class="node">Extrusion { 
+  inputOnly      MFVec2f    set_crossSection
+  inputOnly      MFRotation set_orientation
+  inputOnly      MFVec2f    set_scale
+  inputOnly      MFVec3f    set_spine
+  inputOutput    SFNode     metadata
+  initializeOnly SFBool     beginCap
+  initializeOnly SFBool     ccw
+  initializeOnly SFBool     convex
+  initializeOnly SFFloat    creaseAngle
+  initializeOnly MFVec2f    crossSection
+  initializeOnly SFBool     endCap
+  initializeOnly MFRotation orientation
+  initializeOnly MFVec2f    scale
+  initializeOnly SFBool     solid
+  initializeOnly MFVec3f    spine
+}
+</pre>
+
+<h2>
+<A name="FillProperties"></A>
+6.2.57 FillProperties </h2>
+
+<pre class="node">FillProperties { 
+  inputOutput SFBool  filled 
+  inputOutput SFColor hatchColor
+  inputOutput SFBool  hatched
+  inputOutput SFInt32 hatchStyle
+  inputOutput SFNode  metadata
+}
+</pre>
+
+<h2><a name="FloatVertexAttribute"></a>6.2.58 FloatVertexAttribute</h2>
+<pre class="node">FloatVertexAttribute {
+  inputOutput    SFNode   metadata
+  inputOutput    MFFloat  value
+  initializeOnly SFString name
+  initializeOnly SFInt32  numComponents
+}</pre>
+
+<h2>
+<A name="Fog"></A>
+6.2.59 Fog </h2>
+
+<pre class="node">Fog { 
+  inputOnly   SFBool   set_bind
+  inputOutput SFColor  color
+  inputOutput SFString fogType
+  inputOutput SFNode   metadata
+  inputOutput SFFloat  visibilityRange
+  outputOnly  SFTime   bindTime
+  outputOnly  SFBool   isBound
+}
+</pre>
+
+<h2><a name="FogCoordinate"></a>6.2.60 FogCoordinate</h2>
+<pre class="node">FogCoordinate {
+  inputOutput MFFloat depth
+  inputOutput SFNode  metadata
+}</pre>
+
+<h2>
+<A name="FontStyle"></A>
+6.2.61 FontStyle </h2>
+
+<pre class="node">FontStyle { 
+  inputOutput    SFNode   metadata
+  initializeOnly MFString family
+  initializeOnly SFBool   horizontal
+  initializeOnly MFString justify
+  initializeOnly SFString language
+  initializeOnly SFBool   leftToRight
+  initializeOnly SFFloat  size
+  initializeOnly SFFloat  spacing
+  initializeOnly SFString style
+  initializeOnly SFBool   topToBottom
+}<a name="GeneratedCubeMapTexture"></a></pre>
+<h2><a name="ForcePhysicsModel"></a>6.2.62 ForcePhysicsModel </h2>
+<pre class="node">ForcePhysicsModel { 
+  inputOutput SFBool  enabled
+  inputOutput SFVec3f force
+  inputOutput SFNode  metadata
+}</pre>
+<h2>6.2.63 GeneratedCubeMapTexture</h2>
+<pre class="node">GeneratedCubeMapTexture {
+  inputOutput    SFNode   metadata
+  inputOutput    SFString update
+  initializeOnly SFInt32  size
+  initializeOnly SFNode   textureProperties
+}</pre>
+
+<h2>
+<A name="GeoCoordinate"></A>
+6.2.64 GeoCoordinate </h2>
+
+<pre class="node">GeoCoordinate { 
+  inputOutput    SFNode   metadata
+  inputOutput    MFVec3d  point
+  initializeOnly SFNode   geoOrigin
+  initializeOnly MFString geoSystem
+}
+</pre>
+
+<h2>
+<A name="GeoElevationGrid"></A>
+6.2.65 GeoElevationGrid </h2>
+
+<pre class="node">GeoElevationGrid {
+  inputOnly      MFDouble set_height
+  inputOutput    SFNode   color
+  inputOutput    SFNode   metadata
+  inputOutput    SFNode   normal
+  inputOutput    SFNode   texCoord
+  inputOutput    SFFloat  yScale
+  initializeOnly SFBool   ccw
+  initializeOnly SFBool   colorPerVertex
+  initializeOnly SFDouble creaseAngle
+  initializeOnly SFVec3d  geoGridOrigin
+  initializeOnly SFNode   geoOrigin
+  initializeOnly MFString geoSystem
+  initializeOnly MFDouble height
+  initializeOnly SFBool   normalPerVertex
+  initializeOnly SFBool   solid
+  initializeOnly SFInt32  xDimension
+  initializeOnly SFDouble xSpacing
+  initializeOnly SFInt32  zDimension
+  initializeOnly SFDouble zSpacing
+}
+</pre>
+
+<h2>
+<A name="GeoLocation"></A>
+6.2.66 GeoLocation </h2>
+
+<pre class="node">GeoLocation { 
+  inputOnly      MFNode   addChildren  
+  inputOnly      MFNode   removeChildren 
+  inputOutput    MFNode   children
+  inputOutput    SFVec3d  geoCoords
+  inputOutput    SFNode   metadata
+  initializeOnly SFNode   geoOrigin
+  initializeOnly MFString geoSystem
+  initializeOnly SFVec3f  bboxCenter 
+  initializeOnly SFVec3f  bboxSize  
+}
+</pre>
+
+<h2>
+<A name="GeoLOD"></A>
+6.2.67 GeoLOD </h2>
+
+<pre class="node">GeoLOD { 
+  inputOutput    SFNode   metadata
+  outputOnly     MFNode   children
+  outputOnly     SFInt32  level_changed
+  initializeOnly SFVec3d  center
+  initializeOnly MFUrl    child1Url
+  initializeOnly MFUrl    child2Url
+  initializeOnly MFUrl    child3Url
+  initializeOnly MFUrl    child4Url
+  initializeOnly SFNode   geoOrigin
+  initializeOnly MFString geoSystem
+  initializeOnly SFFloat  range
+  initializeOnly MFString rootUrl
+  initializeOnly MFNode   rootNode
+  initializeOnly SFVec3f  bboxCenter 
+  initializeOnly SFVec3f  bboxSize  
+}
+</pre>
+
+<h2>
+<A name="GeoMetadata"></A>
+6.2.68 GeoMetadata </h2>
+
+<pre class="node">GeoMetadata { 
+  inputOutput MFNode   data
+  inputOutput SFNode   metadata
+  inputOutput MFString summary
+  inputOutput MFString url
+}
+</pre>
+
+<h2>
+<A name="GeoOrigin"></A>
+6.2.69 GeoOrigin </h2>
+
+<pre class="node">GeoOrigin { 
+  inputOutput    SFVec3d  geoCoords
+  inputOutput    SFNode   metadata
+  initializeOnly MFString geoSystem
+  initializeOnly SFBool   rotateYUp
+}
+</pre>
+
+<h2>
+<A name="GeoPositionInterpolator"></A>
+6.2.70 GeoPositionInterpolator </h2>
+
+<pre class="node">GeoPositionInterpolator { 
+  inputOnly      SFFloat  set_fraction
+  inputOutput    MFFloat  key
+  inputOutput    MFVec3d  keyValue
+  inputOutput    SFNode   metadata
+  outputOnly     SFVec3d  geovalue_changed
+  outputOnly     SFVec3f  value_changed
+  initializeOnly SFNode   geoOrigin
+  initializeOnly MFString geoSystem
+}
+</pre>
+
+<h2>
+<a name="GeoProximitySensor"></a>6.2.71 GeoProximitySensor </h2>
+
+<pre class="node">GeoProximitySensor { 
+  inputOutput    SFBool     enabled
+  inputOutput    MFDouble   geoCenter
+  inputOutput    SFNode     metadata
+  inputOutput    SFVec3f    size
+  outputOnly     SFVec3f    centerOfRotation_changed
+  outputOnly     SFTime     enterTime
+  outputOnly     SFTime     exitTime
+  outputOnly     MFDouble   geoCoord_changed
+  outputOnly     SFBool     isActive
+  outputOnly     SFRotation orientation_changed
+  outputOnly     SFVec3f    position_changed
+  initializeOnly SFNode     geoOrigin
+  initializeOnly MFString   geoSystem
+}
+</pre>
+
+<h2>
+<A name="GeoTouchSensor"></A>
+6.2.72 GeoTouchSensor </h2>
+
+<pre class="node">GeoTouchSensor { 
+  inputOutput    SFString description
+  inputOutput    SFBool   enabled
+  inputOutput    SFNode   metadata
+  outputOnly     SFVec3f  hitNormal_changed
+  outputOnly     SFVec3f  hitPoint_changed
+  outputOnly     SFVec2f  hitTexCoord_changed
+  outputOnly     SFVec3d  hitGeoCoord_changed
+  outputOnly     SFBool   isActive
+  outputOnly     SFBool   isOver
+  outputOnly     SFTime   touchTime
+  initializeOnly SFNode   geoOrigin
+  initializeOnly MFString geoSystem
+}
+</pre>
+
+<h2>
+<a name="GeoTransform"></a>6.2.73 GeoTransform </h2>
+
+<pre class="node">GeoTransform {
+  inputOnly      MFNode     addChildren
+  inputOnly      MFNode     removeChildren
+  inputOutput    MFNode     children
+  inputOutput    SFVec3d    geoCenter
+  inputOutput    SFNode     metadata
+  inputOutput    SFRotation rotation
+  inputOutput    SFVec3f    scale
+  inputOutput    SFRotation scaleOrientation
+  inputOutput    SFVec3f    translation
+  initializeOnly SFVec3f    bboxCenter
+  initializeOnly SFVec3f    bboxSize
+  initializeOnly SFNode     geoOrigin
+  initializeOnly MFString   geoSystem
+}</pre>
+
+<h2>
+6.2.74 GeoViewpoint </h2>
+
+<pre class="node">GeoViewpoint { 
+  inputOnly      SFBool     set_bind
+  inputOnly      SFRotation set_orientation
+  inputOnly      SFVec3d    set_position
+  inputOutput    SFString   description
+  inputOutput    SFFloat    fieldOfView
+  inputOutput    SFBool     headlight
+  inputOutput    SFBool     jump
+  inputOutput    SFNode     metadata
+  inputOutput    MFString   navType
+  outputOnly     SFTime     bindTime
+  outputOnly     SFBool     isBound
+  initializeOnly SFNode     geoOrigin
+  initializeOnly MFString   geoSystem
+  initializeOnly SFRotation orientation
+  initializeOnly SFVec3d    position
+  initializeOnly SFFLoat    speedFactor
+}
+</pre>
+
+<h2>
+<A name="Group"></A>
+6.2.75 Group </h2>
+
+<pre class="node">Group { 
+  inputOnly      MFNode  addChildren
+  inputOnly      MFNode  removeChildren
+  inputOutput    MFNode  children
+  inputOutput    SFNode  metadata
+  initializeOnly SFVec3f bboxCenter
+  initializeOnly SFVec3f bboxSize
+}
+</pre>
+
+<h2>
+<A name="HAnimDisplacer"></A>
+6.2.76 HAnimDisplacer </h2>
+
+<pre class="node">HAnimDisplacer { 
+  inputOutput MFInt32  coordIndex
+  inputOutput MFVec3f  displacements
+  inputOutput SFNode   metadata
+  inputOutput SFString name 
+  inputOutput SFFloat  weight
+}
+</pre>
+
+<h2>
+<A name="HAnimHumanoid"></A>
+6.2.77 HAnimHumanoid </h2>
+
+<pre class="node">HAnimHumanoid { 
+  inputOutput    SFVec3f    center      
+  inputOutput    MFString   info    
+  inputOutput    MFNode     joints  
+  inputOutput    SFNode     metadata  
+  inputOutput    SFString   name      
+  inputOutput    SFRotation rotation      
+  inputOutput    SFVec3f    scale      
+  inputOutput    SFRotation scaleOrientation 
+  inputOutput    MFNode     segments  
+  inputOutput    MFNode     sites 
+  inputOutput    MFNode     skeleton 
+  inputOutput    MFNode     skin    
+  inputOutput    SFNode     skinCoord   
+  inputOutput    SFNode     skinNormal 
+  inputOutput    SFVec3f    translation    
+  inputOutput    SFString   version   
+  inputOutput    MFNode     viewpoints   
+  initializeOnly SFVec3f    bboxCenter  
+  initializeOnly SFVec3f    bboxSize 
+}
+</pre>
+
+<h2>
+<A name="HAnimJoint"></A>
+6.2.78 HAnimJoint </h2>
+
+<pre class="node">HAnimJoint { 
+  inputOnly      MFNode     addChildren    
+  inputOnly      MFNode     removeChildren 
+  inputOutput    SFVec3f    center  
+  inputOutput    MFNode     children
+  inputOutput    MFNode     displacers  
+  inputOutput    SFRotation limitOrientation    
+  inputOutput    MFFloat    llimit 
+  inputOutput    SFNode     metadata     
+  inputOutput    SFString   name    
+  inputOutput    SFRotation rotation   
+  inputOutput    SFVec3f    scale   
+  inputOutput    SFRotation scaleOrientation
+  inputOutput    MFInt32    skinCoordIndex 
+  inputOutput    MFFloat    skinCoordWeight 
+  inputOutput    MFFloat    stiffness  
+  inputOutput    SFVec3f    translation 
+  inputOutput    MFFloat    ulimit     
+  initializeOnly SFVec3f    bboxCenter   
+  initializeOnly SFVec3f    bboxSize   
+}
+</pre>
+
+<h2>
+<A name="HAnimSegment"></A>
+6.2.79 HAnimSegment </h2>
+
+<pre class="node">HAnimSegment { 
+  inputOnly      MFNode   addChildren  
+  inputOnly      MFNode   removeChildren  
+  inputOutput    SFVec3f  centerOfMass
+  inputOutput    MFNode   children    
+  inputOutput    SFNode   coord   
+  inputOutput    MFNode   displacers  
+  inputOutput    SFFloat  mass 
+  inputOutput    SFNode   metadata      
+  inputOutput    MFFloat  momentsOfInertia
+  inputOutput    SFString name  
+  initializeOnly SFVec3f  bboxCenter  
+  initializeOnly SFVec3f  bboxSize   
+}
+</pre>
+
+<h2>
+<A name="HAnimSite"></A>
+6.2.80 HAnimSite </h2>
+
+<pre class="node">HAnimSite { 
+  inputOnly      MFNode     addChildren     
+  inputOnly      MFNode     removeChildren  
+  inputOutput    SFVec3f    center   
+  inputOutput    MFNode     children 
+  inputOutput    SFNode     metadata 
+  inputOutput    SFString   name   
+  inputOutput    SFRotation rotation   
+  inputOutput    SFVec3f    scale     
+  inputOutput    SFRotation scaleOrientation 
+  inputOutput    SFVec3f    translation  
+  initializeOnly SFVec3f    bboxCenter 
+  initializeOnly SFVec3f    bboxSize   
+}
+</pre>
+
+<h2><a name="ImageCubeMapTexture"></a>6.2.81 ImageCubeMapTexture</h2>
+<pre class="node">ImageCubeMapTexture {
+  inputOutput    SFNode   metadata
+  inputOutput    MFString url
+  initializeOnly SFNode   textureProperties
+}</pre>
+
+<h2>
+<A name="ImageTexture"></A>
+6.2.82 ImageTexture </h2>
+
+<pre class="node">ImageTexture { 
+  inputOutput    SFNode   metadata
+  inputOutput    MFString url
+  initializeOnly SFBool   repeatS
+  initializeOnly SFBool   repeatT
+  initializeOnly SFNode   textureProperties
+}
+</pre>
+
+<h2><a name="ImageTexture3D"></a>6.2.83 ImageTexture3D</h2>
+<pre class="node">Image3DTexture {
+  inputOutput    SFNode   metadata
+  inputOutput    MFString url
+  initializeOnly SFBool   repeatR
+  initializeOnly SFBool   repeatS
+  initializeOnly SFBool   repeatT
+  initializeOnly SFNode   textureProperties
+}</pre>
+
+<h2>
+<A name="IndexedFaceSet"></A>
+6.2.84 IndexedFaceSet </h2>
+
+<pre class="node">IndexedFaceSet { 
+  inputOnly      MFInt32 set_colorIndex
+  inputOnly      MFInt32 set_coordIndex
+  inputOnly      MFInt32 set_normalIndex
+  inputOnly      MFInt32 set_texCoordIndex
+  inputOutput    MFNode  attrib
+  inputOutput    SFNode  color
+  inputOutput    SFNode  coord
+  inputOutput    SFNode  fogCoord
+  inputOutput    SFNode  metadata
+  inputOutput    SFNode  normal
+  inputOutput    SFNode  texCoord
+  initializeOnly SFBool  ccw
+  initializeOnly MFInt32 colorIndex
+  initializeOnly SFBool  colorPerVertex
+  initializeOnly SFBool  convex
+  initializeOnly MFInt32 coordIndex
+  initializeOnly SFFloat creaseAngle
+  initializeOnly MFInt32 normalIndex
+  initializeOnly SFBool  normalPerVertex
+  initializeOnly SFBool  solid
+  initializeOnly MFInt32 texCoordIndex
+}
+</pre>
+
+<h2>
+<A name="IndexedLineSet"></A>
+6.2.85 IndexedLineSet </h2>
+
+<pre class="node">IndexedLineSet { 
+  inputOnly      MFInt32 set_colorIndex
+  inputOnly      MFInt32 set_coordIndex
+  inputOutput    MFNode  attrib
+  inputOutput    SFNode  color
+  inputOutput    SFNode  coord
+  inputOutput    SFNode  fogCoord
+  inputOutput    SFNode  metadata
+  initializeOnly MFInt32 colorIndex
+  initializeOnly SFBool  colorPerVertex
+  initializeOnly MFInt32 coordIndex
+}
+</pre>
+
+<h2><a name="IndexedQuadSet"></a>6.2.86 IndexedQuadSet</h2>
+<pre class="node">IndexedQuadSet {
+  inputOnly      MFInt32 set_index
+  inputOutput    MFNode  attrib
+  inputOutput    SFNode  color
+  inputOutput    SFNode  coord
+  inputOutput    SFNode  fogCoord
+  inputOutput    SFNode  metadata
+  inputOutput    SFNode  normal
+  inputOutput    SFNode  texCoord
+  initializeOnly SFBool  ccw
+  initializeOnly SFBool  colorPerVertex
+  initializeOnly SFBool  normalPerVertex
+  initializeOnly SFBool  solid
+  initializeOnly MFInt32 index
+}</pre>
+
+<h2>
+<A name="IndexedTriangleFanSet"></A>
+6.2.87 IndexedTriangleFanSet </h2>
+
+<pre class="node">IndexedTriangleFanSet { 
+  inputOnly      MFInt32 set_index
+  inputOutput    MFNode  attrib     
+  inputOutput    SFNode  color          
+  inputOutput    SFNode  coord
+  inputOutput    SFNode  fogCoord          
+  inputOutput    SFNode  metadata       
+  inputOutput    SFNode  normal        
+  inputOutput    SFNode  texCoord      
+  initializeOnly SFBool  ccw            
+  initializeOnly SFBool  colorPerVertex  
+  initializeOnly SFBool  normalPerVertex
+  initializeOnly SFBool  solid
+  initializeOnly MFInt32 index         
+}
+</pre>
+
+<h2>
+<A name="IndexedTriangleSet"></A>
+6.2.88 IndexedTriangleSet </h2>
+
+<pre class="node">IndexedTriangleSet {
+  inputOnly      MFInt32 set_index 
+  inputOutput    MFNode  attrib     
+  inputOutput    SFNode  color   
+  inputOutput    SFNode  coord
+  inputOutput    SFNode  fogCoord 
+  inputOutput    SFNode  metadata 
+  inputOutput    SFNode  normal 
+  inputOutput    SFNode  texCoord  
+  initializeOnly SFBool  ccw 
+  initializeOnly SFBool  colorPerVertex 
+  initializeOnly SFBool  normalPerVertex 
+  initializeOnly SFBool  solid 
+  initializeOnly MFInt32 index 
+}
+</pre>
+
+<h2>
+<A name="IndexedTriangleStripSet"></A>
+6.2.89 IndexedTriangleStripSet </h2>
+
+<pre class="node">IndexedTriangleStripSet {
+  inputOnly      MFInt32 set_index  
+  inputOutput    MFNode  attrib     
+  inputOutput    SFNode  color 
+  inputOutput    SFNode  coord
+  inputOutput    SFNode  fogCoord 
+  inputOutput    SFNode  metadata  
+  inputOutput    SFNode  normal 
+  inputOutput    SFNode  texCoord 
+  initializeOnly SFBool  ccw  
+  initializeOnly SFBool  colorPerVertex 
+  initializeOnly SFBool  normalPerVertex
+  initializeOnly SFBool  solid 
+  initializeOnly MFInt32 index 
+}
+</pre>
+
+<h2>
+<A name="Inline"></A>
+6.2.90 Inline </h2>
+
+<pre class="node">Inline { 
+  inputOutput    SFBool   load
+  inputOutput    SFNode   metadata 
+  inputOutput    MFString url
+  initializeOnly SFVec3f  bboxCenter
+  initializeOnly SFVec3f  bboxSize
+}
+</pre>
+
+<h2>
+<A name="IntegerSequencer"></A>
+6.2.91 IntegerSequencer </h2>
+
+<pre class="node">IntegerSequencer {
+  inputOnly   SFBool  next 
+  inputOnly   SFBool  previous  
+  inputOnly   SFFloat set_fraction 
+  inputOutput MFFloat key     
+  inputOutput MFInt32 keyValue 
+  inputOutput SFNode  metadata 
+  outputOnly  SFInt32 value_changed
+}
+</pre>
+
+<h2>
+<A name="IntegerTrigger"></A>
+6.2.92 IntegerTrigger </h2>
+
+<pre class="node">IntegerTrigger { 
+  inputOnly   SFBool  set_boolean
+  inputOutput MFInt32 integerKey 
+  inputOutput SFNode  metadata 
+  outputOnly  SFInt32 triggerValue  
+}
+</pre>
+
+<h2>
+<A name="KeySensor"></A>
+6.2.93 KeySensor </h2>
+
+<pre class="node">KeySensor { 
+  inputOutput SFBool   enabled
+  inputOutput SFNode   metadata 
+  outputOnly  SFInt32  actionKeyPress
+  outputOnly  SFInt32  actionKeyRelease
+  outputOnly  SFBool   altKey
+  outputOnly  SFBool   controlKey
+  outputOnly  SFBool   isActive
+  outputOnly  SFString keyPress
+  outputOnly  SFString keyRelease
+  outputOnly  SFBool   shiftKey
+}
+</pre>
+
+<h2>
+<a name="Layer"></a>6.2.94 Layer</h2>
+
+<pre class="node">Layer { 
+  inputOnly   MFNode   addChildren
+  inputOnly   MFNode   removeChildren
+  inputOutput MFNode   children
+  inputOutput SFBool   isPickable
+  inputOutput SFNode   metadata
+  inputOutput SFNode   viewport 
+}
+</pre>
+
+<h2>
+<a name="LayerSet"></a>6.2.95 LayerSet</h2>
+
+<pre class="node">LayerSet { 
+  inputOutput SFInt32  activeLayer
+  inputOutput MFNode   layers
+  inputOutput SFNode   metadata
+  inputOutput MFInt32  order 
+}
+</pre>
+
+<h2>
+<a name="Layout"></a>6.2.96 Layout</h2>
+
+<pre class="node">Layout { 
+  inputOutput MFString align
+  inputOutput SFNode   metadata
+  inputOutput MFFloat  offset
+  inputOutput MFString offsetUnits
+  inputOutput MFString scaleMode
+  inputOutput MFFloat  size
+  inputOutput MFString sizeUnits 
+}
+</pre>
+
+<h2>
+<a name="LayoutGroup"></a>6.2.97 LayoutGroup</h2>
+
+<pre class="node">LayoutGroup { 
+  inputOnly      MFNode  addChildren
+  inputOnly      MFNode  removeChildren
+  inputOutput    MFNode  children
+  inputOutput    SFNode  layout
+  inputOutput    SFNode  metadata
+  inputOutput    SFNode  viewport
+  initializeOnly SFVec3f bboxCenter
+  initializeOnly SFVec3f bboxSize 
+}
+</pre>
+
+<h2>
+<a name="LayoutLayer"></a>6.2.98 LayoutLayer</h2>
+
+<pre class="node">LayoutLayer { 
+  inputOnly   MFNode addChildren
+  inputOnly   MFNode removeChildren
+  inputOutput MFNode children
+  inputOutput SFBool isPickable
+  inputOutput SFNode layout
+  inputOutput SFNode metadata
+  inputOutput SFNode viewport 
+}
+</pre>
+
+<h2>
+<a name="LinePickSensor"></a>6.2.99 LinePickSensor</h2>
+
+<pre class="node">LinePickSensor { 
+  inputOutput    SFBool   enabled
+  inputOutput    SFNode   metadata
+  inputOutput    MFString objectType
+  inputOutput    SFNode   pickingGeometry
+  inputOutput    MFNode   pickTarget
+  outputOnly     SFBool   isActive
+  outputOnly     MFNode   pickedGeometry
+  outputOnly     MFVec3f  pickedNormal
+  outputOnly     MFVec3f  pickedPoint
+  outputOnly     MFVec2f  pickedTextureCoordinate
+  initializeOnly SFString intersectionType
+  initializeOnly SFString sortOrder
+}
+</pre>
+
+<h2>
+<A name="LineProperties"></A>
+6.2.100 LineProperties </h2>
+
+<pre class="node">LineProperties { 
+  inputOutput SFBool  applied  
+  inputOutput SFInt32 linetype 
+  inputOutput SFFloat linewidthScaleFactor 
+  inputOutput SFNode  metadata 
+}
+</pre>
+
+<h2>
+<A name="LineSet"></A>
+6.2.101 LineSet </h2>
+
+<pre class="node">LineSet {
+  inputOutput MFNode  attrib
+  inputOutput SFNode  color  
+  inputOutput SFNode  coord
+  inputOutput SFNode  fogCoord
+  inputOutput SFNode  metadata 
+  inputOutput MFInt32 vertexCount 
+}
+</pre>
+
+<h2>
+<A name="LoadSensor"></A>
+6.2.102 LoadSensor </h2>
+
+<pre class="node">LoadSensor { 
+  inputOutput SFBool  enabled  
+  inputOutput SFNode  metadata 
+  inputOutput SFTime  timeout
+  inputOutput MFNode  watchList 
+  outputOnly  SFBool  isActive
+  outputOnly  SFBool  isLoaded
+  outputOnly  SFTime  loadTime
+  outputOnly  SFFloat progress
+}
+</pre>
+
+<h2><a name="LocalFog"></a>6.2.103 LocalFog</h2>
+<pre class="node">LocalFog {
+  inputOutput SFColor  color
+  inputOutput SFBool   enabled
+  inputOutput SFString fogType
+  inputOutput SFNode   metadata
+  inputOutput SFFloat  visibilityRange
+}</pre>
+
+<h2>
+<A name="LOD"></A>
+6.2.104 LOD </h2>
+
+<pre class="node">LOD { 
+  inputOnly      MFNode  addChildren 
+  inputOnly      MFNode  removeChildren
+  inputOutput    MFNode  children 
+  inputOutput    SFNode  metadata
+  outputOnly     SFInt32 level_changed
+  initializeOnly SFVec3f bboxCenter
+  initializeOnly SFVec3f bboxSize
+  initializeOnly SFVec3f center
+  initializeOnly SFBool  forceTransitions
+  initializeOnly MFFloat range
+}
+</pre>
+
+<h2>
+<A name="Material"></A>
+6.2.105 Material </h2>
+
+<pre class="node">Material { 
+  inputOutput SFFloat ambientIntensity
+  inputOutput SFColor diffuseColor
+  inputOutput SFColor emissiveColor
+  inputOutput SFNode  metadata 
+  inputOutput SFFloat shininess
+  inputOutput SFColor specularColor
+  inputOutput SFFloat transparency
+}
+</pre>
+
+<h2><a name="Matrix3VertexAttribute"></a>6.2.106 Matrix3VertexAttribute</h2>
+<pre class="node">Matrix3VertexAttribute {
+  inputOutput    SFNode     metadata
+  inputOutput    MFMatrix3f value
+  initializeOnly SFString   name
+}</pre>
+<h2><a name="Matrix4VertexAttribute"></a>6.2.107 Matrix4VertexAttribute</h2>
+<pre class="node">Matrix4VertexAttribute {
+  inputOutput    SFNode     metadata
+  inputOutput    MFMatrix4f value
+  initializeOnly SFString   name
+}</pre>
+
+<h2>
+<A name="MetadataDouble"></A>
+6.2.108 MetadataDouble </h2>
+
+<pre class="node">MetadataDouble {
+  inputOutput SFNode   metadata 
+  inputOutput SFString name
+  inputOutput SFString reference
+  inputOutput MFDouble value 
+}
+</pre>
+
+<h2>
+<A name="MetadataFloat"></A>
+6.2.109 MetadataFloat </h2>
+
+<pre class="node">MetadataFloat {
+  inputOutput SFNode   metadata 
+  inputOutput SFString name
+  inputOutput SFString reference
+  inputOutput MFFloat  value 
+}
+</pre>
+
+<h2>
+<A name="MetadataInteger"></A>
+6.2.110 MetadataInteger </h2>
+
+<pre class="node">MetadataInteger {
+  inputOutput SFNode   metadata 
+  inputOutput SFString name
+  inputOutput SFString reference
+  inputOutput MFInt32  value 
+}
+</pre>
+
+<h2>
+<A name="MetadataSet"></A>
+6.2.111 MetadataSet </h2>
+
+<pre class="node">MetadataSet {
+  inputOutput SFNode   metadata 
+  inputOutput SFString name
+  inputOutput SFString reference
+  inputOutput MFNode   value 
+}
+</pre>
+
+<h2>
+<A name="MetadataString"></A>
+6.2.112 MetadataString </h2>
+
+<pre class="node">MetadataString {
+  inputOutput SFNode   metadata 
+  inputOutput SFString name
+  inputOutput SFString reference
+  inputOutput MFString value 
+}
+</pre>
+
+<h2>
+<a name="MotorJoint"></a>6.2.113 MotorJoint </h2>
+
+<pre class="node">MotorJoint {
+  inputOutput    SFFloat  axis1Angle
+  inputOutput    SFFloat  axis1Torque
+  inputOutput    SFFloat  axis2Angle
+  inputOutput    SFFloat  axis2Torque
+  inputOutput    SFFloat  axis3Angle
+  inputOutput    SFFloat  axis3Torque
+  inputOutput    SFNode   body1
+  inputOutput    SFNode   body2
+  inputOutput    SFInt32  enabledAxes  
+  inputOutput    MFString forceOutput
+  inputOutput    SFNode   metadata
+  inputOutput    SFVec3f  motor1Axis
+  inputOutput    SFVec3f  motor2Axis
+  inputOutput    SFVec3f  motor3Axis
+  inputOutput    SFFloat  stop1Bounce
+  inputOutput    SFFloat  stop1ErrorCorrection
+  inputOutput    SFFloat  stop2Bounce
+  inputOutput    SFFloat  stop2ErrorCorrection
+  inputOutput    SFFloat  stop3Bounce
+  inputOutput    SFFloat  stop3ErrorCorrection
+  outputOnly     SFFloat  motor1Angle
+  outputOnly     SFFloat  motor1AngleRate
+  outputOnly     SFFloat  motor2Angle
+  outputOnly     SFFloat  motor2AngleRate
+  outputOnly     SFFloat  motor3Angle
+  outputOnly     SFFloat  motor3AngleRate
+  initializeOnly SFBool   autoCalc
+}
+</pre>
+
+<h2>
+<A name="MovieTexture"></A>
+6.2.114 MovieTexture </h2>
+
+<pre class="node">MovieTexture { 
+  inputOutput    SFString description
+  inputOutput    SFBool   loop
+  inputOutput    SFNode   metadata 
+  inputOutput    SFTime   pauseTime 
+  inputOutput    SFTime   resumeTime  
+  inputOutput    SFFloat  speed
+  inputOutput    SFTime   startTime
+  inputOutput    SFTime   stopTime
+  inputOutput    MFString url
+  outputOnly     SFTime   duration_changed
+  outputOnly     SFTime   elapsedTime
+  outputOnly     SFBool   isActive
+  outputOnly     SFBool   isPaused 
+  initializeOnly SFBool   repeatS
+  initializeOnly SFBool   repeatT
+  initializeOnly SFNode   textureProperties
+}
+</pre>
+
+<h2>
+<A name="MultiTexture"></A>
+6.2.115 MultiTexture </h2>
+
+<pre class="node">MultiTexture { 
+  inputOutput SFFloat  alpha
+  inputOutput SFColor  color 
+  inputOutput MFString function 
+  inputOutput SFNode   metadata
+  inputOutput MFString mode  
+  inputOutput MFString source
+  inputOutput MFNode   texture 
+}
+</pre>
+
+<h2>
+<A name="MultiTextureCoordinate"></A>
+6.2.116 MultiTextureCoordinate </h2>
+
+<pre class="node">MultiTextureCoordinate { 
+  inputOutput SFNode metadata
+  inputOutput MFNode texCoord 
+}
+</pre>
+
+<h2>
+<A name="MultiTextureTransform"></A>
+6.2.117 MultiTextureTransform </h2>
+
+<pre class="node">MultiTextureTransform { 
+  inputOutput SFNode metadata
+  inputOutput MFNode textureTransform  
+}
+</pre>
+
+<h2>
+<A name="NavigationInfo"></A>
+6.2.118 NavigationInfo </h2>
+
+<pre class="node">NavigationInfo { 
+  inputOnly   SFBool   set_bind
+  inputOutput MFFloat  avatarSize
+  inputOutput SFBool   headlight
+  inputOutput SFNode   metadata
+  inputOutput SFFloat  speed
+  inputOutput MFFloat  transitionTime
+  inputOutput MFString transitionType  
+  inputOutput MFString type
+  inputOutput SFFloat  visibilityLimit
+  outputOnly  SFTime   bindTime
+  outputOnly  SFBool   isBound
+  outputOnly  SFBool   transitionComplete
+}
+</pre>
+
+<h2>
+<A name="Normal"></A>
+6.2.119 Normal </h2>
+
+<pre class="node">Normal { 
+  inputOutput SFNode  metadata
+  inputOutput MFVec3f vector
+}
+</pre>
+
+<h2>
+<A name="NormalInterpolator"></A>
+6.2.120 NormalInterpolator</h2>
+
+<pre class="node">NormalInterpolator { 
+  inputOnly   SFFloat set_fraction
+  inputOutput MFFloat key
+  inputOutput MFVec3f keyValue
+  inputOutput SFNode  metadata
+  outputOnly  MFVec3f value_changed
+}
+</pre>
+
+<h2>
+<A name="NurbsCurve"></A>
+6.2.121 NurbsCurve </h2>
+
+<pre class="node">NurbsCurve {
+  inputOutput    MFNode   controlPoint
+  inputOutput    SFNode   metadata
+  inputOutput    SFInt32  tessellation
+  inputOutput    MFDouble weight 
+  initializeOnly SFBool   closed   
+  initializeOnly MFDouble knot
+  initializeOnly SFInt32  order
+}
+</pre>
+
+<h2>
+<A name="NurbsCurve2D"></A>
+6.2.122 NurbsCurve2D </h2>
+
+<pre class="node">NurbsCurve2D { 
+  inputOutput    MFVec2d  controlPoint
+  inputOutput    SFNode   metadata
+  inputOutput    SFInt32  tessellation
+  inputOutput    MFDouble weight
+  initializeOnly SFBool   closed   
+  initializeOnly MFDouble knot
+  initializeOnly SFInt32  order
+}
+</pre>
+
+<h2>
+<A name="NurbsOrientationInterpolator"></A>
+6.2.123 NurbsOrientationInterpolator </h2>
+
+<pre class="node">NurbsOrientationInterpolator { 
+  inputOnly   SFFloat    set_fraction
+  inputOutput SFNode     controlPoint
+  inputOutput MFDouble   knot
+  inputOutput SFNode     metadata
+  inputOutput SFInt32    order
+  inputOutput MFDouble   weight
+  outputOnly  SFRotation value_changed
+}
+</pre>
+
+<h2>
+<A name="NurbsPatchSurface"></A>
+6.2.124 NurbsPatchSurface </h2>
+
+<pre class="node">NurbsPatchSurface { 
+  inputOutput    SFNode   controlPoint 
+  inputOutput    SFNode   metadata   
+  inputOutput    SFNode   texCoord  
+  inputOutput    SFInt32  uTessellation 
+  inputOutput    SFInt32  vTessellation
+  inputOutput    MFDouble weight 
+  initializeOnly SFBool   solid   
+  initializeOnly SFBool   uClosed 
+  initializeOnly SFInt32  uDimension  
+  initializeOnly MFDouble uKnot       
+  initializeOnly SFInt32  uOrder     
+  initializeOnly SFBool   vClosed    
+  initializeOnly SFInt32  vDimension 
+  initializeOnly MFDouble vKnot 
+  initializeOnly SFInt32  vOrder  
+}
+</pre>
+
+<h2>
+<A name="NurbsPositionInterpolator"></A>
+6.2.125 NurbsPositionInterpolator </h2>
+
+<pre class="node">NurbsPositionInterpolator { 
+  inputOnly   SFFloat  set_fraction
+  inputOutput SFNode   controlPoint
+  inputOutput MFDouble knot
+  inputOutput SFNode   metadata  
+  inputOutput SFInt32  order
+  inputOutput MFDouble weight
+  outputOnly  SFVec3f  value_changed
+}
+</pre>
+
+<h2>
+<A name="NurbsSet"></A>
+6.2.126 NurbsSet </h2>
+
+<pre class="node">NurbsSet {
+  inputOnly      MFNode  addGeometry  
+  inputOnly      MFNode  removeGeometry  
+  inputOutput    MFNode  geometry  
+  inputOutput    SFNode  metadata 
+  inputOutput    SFFloat tessellationScale 
+  initializeOnly SFVec3f bboxCenter 
+  initializeOnly SFVec3f bboxSize   
+}
+</pre>
+
+<h2>
+<A name="NurbsSurfaceInterpolator"></A>
+6.2.127 NurbsSurfaceInterpolator </h2>
+
+<pre class="node">NurbsSurfaceInterpolator { 
+  inputOnly      SFVec2f  set_fraction      
+  inputOutput    SFNode   controlPoint  
+  inputOutput    SFNode   metadata   
+  inputOutput    MFDouble weight  
+  outputOnly     SFVec3f  position_changed
+  outputOnly     SFVec3f  normal_changed
+  initializeOnly SFInt32  uDimension   
+  initializeOnly MFDouble uKnot  
+  initializeOnly SFInt32  uOrder  
+  initializeOnly SFInt32  vDimension  
+  initializeOnly MFDouble vKnot   
+  initializeOnly SFInt32  vOrder  
+}
+</pre>
+
+<h2>
+<A name="NurbsSweptSurface"></A>
+6.2.128 NurbsSweptSurface </h2>
+
+<pre class="node">NurbsSweptSurface { 
+  inputOutput    SFNode crossSectionCurve  
+  inputOutput    SFNode metadata   
+  inputOutput    SFNode trajectoryCurve   
+  initializeOnly SFBool ccw  
+  initializeOnly SFBool solid  
+}
+</pre>
+
+<h2>
+<A name="NurbsSwungSurface"></A>
+6.2.129 NurbsSwungSurface </h2>
+
+<pre class="node">NurbsSwungSurface { 
+  inputOutput    SFNode metadata  
+  inputOutput    SFNode profileCurve   
+  inputOutput    SFNode trajectoryCurve   
+  initializeOnly SFBool ccw  
+  initializeOnly SFBool solid  
+}
+</pre>
+
+<h2>
+<A name="NurbsTextureCoordinate"></A>
+6.2.130 NurbsTextureCoordinate </h2>
+
+<pre class="node">NurbsTextureCoordinate { 
+  inputOutput    MFVec2f  controlPoint
+  inputOutput    SFNode   metadata  
+  inputOutput    MFFloat  weight
+  initializeOnly SFInt32  uDimension
+  initializeOnly MFDouble uKnot
+  initializeOnly SFInt32  uOrder
+  initializeOnly SFInt32  vDimension
+  initializeOnly MFDouble vKnot
+  initializeOnly SFInt32  vOrder
+}
+</pre>
+
+<h2>
+<A name="NurbsTrimmedSurface"></A>
+6.2.131 NurbsTrimmedSurface </h2>
+
+<pre class="node">NurbsTrimmedSurface { 
+  inputOnly      MFNode   addTrimmingContour   
+  inputOnly      MFNode   removeTrimmingContour  
+  inputOutput    SFNode   controlPoint  
+  inputOutput    SFNode   metadata      
+  inputOutput    SFNode   texCoord     
+  inputOutput    MFNode   trimmingContour   
+  inputOutput    SFInt32  uTessellation    
+  inputOutput    SFInt32  vTessellation  
+  inputOutput    MFDouble weight    
+  initializeOnly SFBool   solid   
+  initializeOnly SFBool   uClosed  
+  initializeOnly SFInt32  uDimension   
+  initializeOnly MFDouble uKnot   
+  initializeOnly SFInt32  uOrder    
+  initializeOnly SFBool   vClosed  
+  initializeOnly SFInt32  vDimension   
+  initializeOnly MFDouble vKnot   
+  initializeOnly SFInt32  vOrder   
+}
+</pre>
+
+<h2>
+<a name="OrientationChaser"></a>6.2.132 OrientationChaser </h2>
+
+<pre class="node">OrientationChaser { 
+  inputOnly      SFRotation set_destination
+  inputOnly      SFRotation set_value
+  inputOutput    SFNode     metadata
+  outputOnly     SFBool     isActive
+  outputOnly     SFRotation value_changed
+  initializeOnly SFTime     duration
+  initializeOnly SFRotation initialDestination
+  initializeOnly SFRotation initialValue
+}
+</pre>
+
+<h2>
+<a name="OrientationDamper"></a>6.2.133 OrientationDamper </h2>
+
+<pre class="node">OrientationDamper { 
+  inputOnly      SFRotation set_destination
+  inputOnly      SFRotation set_value
+  inputOutput    SFNode     metadata
+  inputOutput    SFTime     tau
+  inputOutput    SFFloat    tolerance
+  outputOnly     SFBool     isActive
+  outputOnly     SFRotation value_changed
+  initializeOnly SFRotation initialDestination
+  initializeOnly SFRotation initialValue
+  initializeOnly SFInt32    order
+}
+</pre>
+
+<h2>
+<A name="OrientationInterpolator"></A>
+6.2.134 OrientationInterpolator </h2>
+
+<pre class="node">OrientationInterpolator { 
+  inputOnly   SFFloat    set_fraction
+  inputOutput MFFloat    key
+  inputOutput MFRotation keyValue
+  inputOutput SFNode     metadata 
+  outputOnly  SFRotation value_changed
+}
+</pre>
+
+<h2>
+<a name="OrthoViewpoint"></a>6.2.135 OrthoViewpoint</h2>
+
+<pre class="node">OrthoViewpoint { 
+  inputOnly   SFBool     set_bind
+  inputOutput SFVec3f    centerOfRotation
+  inputOutput SFString   description
+  inputOutput MFFloat    fieldOfView
+  inputOutput SFBool     jump
+  inputOutput SFNode     metadata
+  inputOutput SFRotation orientation
+  inputOutput SFVec3f    position
+  inputOutput SFBool     retainUserOffsets
+  outputOnly  SFTime     bindTime
+  outputOnly  SFBool     isBound
+}
+</pre>
+
+<h2><a name="PackagedShader"></a>6.2.136 PackagedShader</h2>
+<pre class="node">PackagedShader {
+  inputOnly      SFBool   activate
+  inputOutput    SFNode   metadata
+  inputOutput    MFString url
+  outputOnly     SFBool   isSelected
+  outputOnly     SFBool   isValid
+  initializeOnly SFString language
+
+# and any number of:</pre>
+<pre class="node">  inputOnly      fieldType fieldName
+  inputOutput    fieldType fieldName
+  outputOnly     fieldType fieldName
+  initializeOnly fieldType fieldName
+}</pre>
+
+<h2>
+<a name="ParticleSystem"></a>6.2.137 ParticleSystem </h2>
+
+<pre class="node">ParticleSystem { 
+  inputOutput    SFNode   appearance
+  inputOutput    SFBool   createParticles
+  inputOutput    SFNode   geometry
+  inputOutput    SFBool   enabled
+  inputOutput    SFFloat  lifetimeVariation
+  inputOutput    SFInt32  maxParticles
+  inputOutput    SFNode   metadata
+  inputOutput    SFFloat  particleLifetime
+  inputOutput    SFVec2f  particleSize
+  outputOnly     SFBool   isActive
+  initializeOnly SFVec3f  bboxCenter
+  initializeOnly SFVec3f  bboxSize
+  initializeOnly SFNode   colorRamp
+  initializeOnly MFFloat  colorKey
+  initializeOnly SFNode   emitter
+  initializeOnly SFString geometryType
+  initializeOnly MFNode   physics
+  initializeOnly SFNode   texCoordRamp
+  initializeOnly MFFloat  texCoordKey
+}
+</pre>
+
+<h2>
+<a name="PickableGroup"></a>6.2.138 PickableGroup </h2>
+
+<pre class="node">PickableGroup {
+  inputOnly      MFNode   addChildren
+  inputOnly      MFNode   removeChildren
+  inputOutput    MFNode   children
+  inputOutput    SFNode   metadata
+  inputOutput    MFString objectType
+  inputOutput    SFBool   pickable 
+  initializeOnly SFVec3f  bboxCenter
+  initializeOnly SFVec3f  bboxSize
+}
+</pre>
+
+<h2>
+<A name="PixelTexture"></A>
+6.2.139 PixelTexture </h2>
+
+<pre class="node">PixelTexture { 
+  inputOutput    SFImage image
+  inputOutput    SFNode  metadata 
+  initializeOnly SFBool  repeatS
+  initializeOnly SFBool  repeatT
+  initializeOnly SFNode  textureProperties
+}
+</pre>
+
+<h2><a name="PixelTexture3D"></a>6.2.140 PixelTexture3D</h2>
+<pre class="node">PixelTexture3D {
+  inputOutput    SFNode  metadata
+  inputOutput    MFInt32 image
+  initializeOnly SFBool  repeatR
+  initializeOnly SFBool  repeatS
+  initializeOnly SFBool  repeatT
+  initializeOnly SFNode  textureProperties
+}</pre>
+
+<h2>
+<A name="PlaneSensor"></A>
+6.2.141 PlaneSensor </h2>
+
+<pre class="node">PlaneSensor { 
+  inputOutput SFBool     autoOffset
+  inputOutput SFRotation axisRotation
+  inputOutput SFString   description
+  inputOutput SFBool     enabled
+  inputOutput SFVec2f    maxPosition
+  inputOutput SFNode     metadata 
+  inputOutput SFVec2f    minPosition
+  inputOutput SFVec3f    offset
+  outputOnly  SFBool     isActive
+  outputOnly  SFBool     isOver
+  outputOnly  SFVec3f    trackPoint_changed
+  outputOnly  SFVec3f    translation_changed
+}
+</pre>
+
+<h2>
+<a name="PointEmitter"></a>6.2.142 PointEmitter </h2>
+
+<pre class="node">PointEmitter { 
+  inputOutput    SFVec3f direction
+  inputOutput    SFNode  metadata
+  inputOutput    SFVec3f position
+  inputOutput    SFFloat speed
+  inputOutput    SFFloat variation
+  initializeOnly SFFloat mass
+  initializeOnly SFFloat surfaceArea
+}
+</pre>
+
+<h2>
+<A name="PointLight"></A>
+6.2.143 PointLight </h2>
+
+<pre class="node">PointLight { 
+  inputOutput SFFloat ambientIntensity
+  inputOutput SFVec3f attenuation
+  inputOutput SFColor color
+  inputOutput SFBool  global
+  inputOutput SFFloat intensity
+  inputOutput SFVec3f location
+  inputOutput SFNode  metadata 
+  inputOutput SFBool  on
+  inputOutput SFFloat radius
+}
+</pre>
+
+<h2>
+<a name="PointPickSensor"></a>6.2.144 PointPickSensor </h2>
+
+<pre class="node">PointPickSensor { 
+  inputOutput    SFBool   enabled
+  inputOutput    SFNode   metadata
+  inputOutput    MFString objectType
+  inputOutput    SFNode   pickingGeometry
+  inputOutput    MFNode   pickTarget
+  outputOnly     SFBool   isActive
+  outputOnly     MFNode   pickedGeometry
+  outputOnly     MFVec3f  pickedPoint
+  initializeOnly SFString intersectionType
+  initializeOnly SFString sortOrder
+}
+</pre>
+
+<h2>
+<A name="PointSet"></A>
+6.2.145 PointSet </h2>
+
+<pre class="node">PointSet {
+  inputOutput MFNode attrib
+  inputOutput SFNode color
+  inputOutput SFNode coord
+  inputOutput SFNode fogCoord
+  inputOutput SFNode metadata 
+}
+</pre>
+
+<h2>
+<A name="Polyline2D"></A>
+6.2.146 Polyline2D </h2>
+
+<pre class="node">Polyline2D { 
+  inputOutput    SFNode  metadata 
+  initializeOnly MFVec2f lineSegments
+}
+</pre>
+
+<h2>
+<a name="PolylineEmitter"></a>6.2.147 PolylineEmitter </h2>
+
+<pre class="node">PolylineEmitter {
+  inputOnly      SFInt32 set_coordinate
+  inputOutput    SFNode  coord
+  inputOutput    SFVec3f direction
+  inputOutput    SFNode  metadata
+  inputOutput    SFFloat speed
+  inputOutput    SFFloat variation
+  initializeOnly MFInt32 coordIndex
+  initializeOnly SFFloat mass
+  initializeOnly SFFloat surfaceArea
+}
+</pre>
+
+<h2>
+<A name="Polypoint2D"></A>
+6.2.148 Polypoint2D </h2>
+
+<pre class="node">Polypoint2D { 
+  inputOutput    SFNode  metadata 
+  initializeOnly MFVec2f point
+}
+</pre>
+
+<h2>
+<a name="PositionChaser"></a>6.2.149 PositionChaser </h2>
+
+<pre class="node">PositionChaser { 
+  inputOnly      SFVec3f set_destination
+  inputOnly      SFVec3f set_value
+  inputOutput    SFNode  metadata
+  outputOnly     SFBool  isActive
+  outputOnly     SFVec3f value_changed
+  initializeOnly SFTime  duration
+  initializeOnly SFVec3f initialDestination
+  initializeOnly SFVec3f initialValue
+}
+</pre>
+
+<h2>
+<a name="PositionChaser2D"></a>6.2.150 PositionChaser2D </h2>
+
+<pre class="node">PositionChaser2D { 
+  inputOnly      SFVec2f set_destination
+  inputOnly      SFVec2f set_value
+  inputOutput    SFNode  metadata
+  outputOnly     SFBool  isActive
+  outputOnly     SFVec2f value_changed
+  initializeOnly SFTime  duration
+  initializeOnly SFVec2f initialDestination
+  initializeOnly SFVec2f initialValue
+}
+</pre>
+
+<h2>
+<a name="PositionDamper"></a>6.2.151 PositionDamper </h2>
+
+<pre class="node">PositionDamper { 
+  inputOnly      SFVec3f set_destination
+  inputOnly      SFVec3f set_value
+  inputOutput    SFNode  metadata
+  inputOutput    SFTime  tau
+  inputOutput    SFFloat tolerance
+  outputOnly     SFBool  isActive
+  outputOnly     SFVec3f value_changed
+  initializeOnly SFVec3f initialDestination
+  initializeOnly SFVec3f initialValue
+  initializeOnly SFInt32 order
+}
+</pre>
+
+<h2>
+<a name="PositionDamper2D"></a>6.2.152 PositionDamper2D</h2>
+
+<pre class="node">PositionDamper2D { 
+  inputOnly      SFVec2f set_destination
+  inputOnly      SFVec2f set_value
+  inputOutput    SFNode  metadata
+  inputOutput    SFTime  tau
+  inputOutput    SFFloat tolerance
+  outputOnly     SFBool  isActive
+  outputOnly     SFVec2f value_changed
+  initializeOnly SFVec2f initialDestination
+  initializeOnly SFVec2f initialValue
+  initializeOnly SFInt32 order
+}
+</pre>
+
+<h2>
+<A name="PositionInterpolator"></A>
+6.2.153 PositionInterpolator </h2>
+
+<pre class="node">PositionInterpolator { 
+  inputOnly   SFFloat set_fraction
+  inputOutput MFFloat key
+  inputOutput MFVec3f keyValue
+  inputOutput SFNode  metadata 
+  outputOnly  SFVec3f value_changed
+}
+</pre>
+
+<h2>
+<A name="PositionInterpolator2D"></A>
+6.2.154 PositionInterpolator2D </h2>
+
+<pre class="node">PositionInterpolator2D { 
+  inputOnly   SFFloat set_fraction 
+  inputOutput MFFloat key    
+  inputOutput MFVec2f keyValue 
+  inputOutput SFNode  metadata 
+  outputOnly  SFVec2f value_changed
+}
+</pre>
+
+<h2>
+<a name="PrimitivePickSensor"></a>6.2.155 PrimitivePickSensor </h2>
+
+<pre class="node">PrimitivePickSensor { 
+  inputOutput    SFBool   enabled
+  inputOutput    SFNode   metadata
+  inputOutput    MFString objectType
+  inputOutput    SFNode   pickingGeometry
+  inputOutput    MFNode   pickTarget
+  outputOnly     SFBool   isActive
+  outputOnly     MFNode   pickedGeometry
+  initializeOnly SFString intersectionType
+  initializeOnly SFString sortOrder
+}
+</pre>
+
+<h2><a name="ProgramShader"></a>6.2.156 ProgramShader</h2>
+<pre class="node">ProgramShader {
+  inputOnly      SFBool   activate
+  inputOutput    SFNode   metadata
+  inputOutput    MFNode   programs
+  outputOnly     SFBool   isSelected
+  outputOnly     SFBool   isValid
+  initializeOnly SFString language
+}</pre>
+
+<h2>
+<A name="ProximitySensor"></A>
+6.2.157 ProximitySensor </h2>
+
+<pre class="node">ProximitySensor { 
+  inputOutput SFVec3f    center
+  inputOutput SFBool     enabled
+  inputOutput SFNode     metadata 
+  inputOutput SFVec3f    size
+  outputOnly  SFTime     enterTime
+  outputOnly  SFTime     exitTime
+  outputOnly  SFVec3f    centerOfRotation_changed
+  outputOnly  SFBool     isActive
+  outputOnly  SFRotation orientation_changed
+  outputOnly  SFVec3f    position_changed
+}
+</pre>
+
+<h2><a name="QuadSet"></a>6.2.158 QuadSet</h2>
+<pre class="node">QuadSet {
+  inputOutput    MFNode attrib
+  inputOutput    SFNode color
+  inputOutput    SFNode coord
+  inputOutput    SFNode fogCoord
+  inputOutput    SFNode metadata
+  inputOutput    SFNode normal
+  inputOutput    SFNode texCoord
+  initializeOnly SFBool ccw
+  initializeOnly SFBool colorPerVertex
+  initializeOnly SFBool normalPerVertex
+  initializeOnly SFBool solid
+}</pre>
+
+<h2>
+<A name="ReceiverPdu"></A>
+6.2.159 ReceiverPdu </h2>
+
+<pre class="node">ReceiverPdu { 
+  inputOutput    SFString address               
+  inputOutput    SFInt32  applicationID
+  inputOutput    SFBool   enabled
+  inputOutput    SFInt32  entityID
+  inputOutput    SFNode   metadata 
+  inputOutput    SFString multicastRelayHost  
+  inputOutput    SFInt32  multicastRelayPort
+  inputOutput    SFString networkMode
+  inputOutput    SFInt32  port
+  inputOutput    SFInt32  radioID
+  inputOutput    SFFloat  readInterval
+  inputOutput    SFFloat  receivedPower
+  inputOutput    SFInt32  receiverState
+  inputOutput    SFBool   rtpHeaderExpected  
+  inputOutput    SFInt32  siteID
+  inputOutput    SFInt32  transmitterApplicationID
+  inputOutput    SFInt32  transmitterEntityID
+  inputOutput    SFInt32  transmitterRadioID
+  inputOutput    SFInt32  transmitterSiteID
+  inputOutput    SFInt32  whichGeometry
+  inputOutput    SFFloat  writeInterval
+  outputOnly     SFBool   isActive
+  outputOnly     SFBool   isNetworkReader
+  outputOnly     SFBool   isNetworkWriter
+  outputOnly     SFBool   isRtpHeaderHeard
+  outputOnly     SFBool   isStandAlone
+  outputOnly     SFTime   timestamp
+  initializeOnly SFVec3f  bboxCenter         
+  initializeOnly SFVec3f  bboxSize  
+}
+</pre>
+
+<h2>
+<A name="Rectangle2D"></A>
+6.2.160 Rectangle2D </h2>
+
+<pre class="node">Rectangle2D { 
+  inputOutput    SFNode  metadata 
+  initializeOnly SFVec2f size 
+  initializeOnly SFBool  solid 
+}
+</pre>
+
+<h2>
+<a name="RigidBody"></a>6.2.161 RigidBody </h2>
+
+<pre class="node">RigidBody {
+  inputOutput SFFloat    angularDampingFactor
+  inputOutput SFVec3f    angularVelocity
+  inputOutput SFBool     autoDamp
+  inputOutput SFBool     autoDisable
+  inputOutput SFVec3f    centerOfMass
+  inputOutput SFFloat    disableAngularSpeed
+  inputOutput SFFloat    disableLinearSpeed
+  inputOutput SFFloat    disableTime
+  inputOutput SFBool     enabled
+  inputOutput SFVec3f    finiteRotationAxis
+  inputOutput SFBool     fixed
+  inputOutput MFVec3f    forces
+  inputOutput MFNode     geometry
+  inputOutput SFMatrix3f inertia
+  inputOutput SFFloat    linearDampingFactor
+  inputOutput SFVec3f    linearVelocity
+  inputOutput SFFloat    mass
+  inputOutput SFNode     massDensityModel
+  inputOutput SFNode     metadata
+  inputOutput SFRotation orientation
+  inputOutput SFVec3f    position
+  inputOutput MFVec3f    torques
+  inputOutput SFBool     useFiniteRotation
+  inputOutput SFBool     useGlobalGravity 
+}
+</pre>
+
+<h2>
+<a name="RigidBodyCollection"></a>6.2.162 RigidBodyCollection </h2>
+
+<pre class="node">RigidBodyCollection {
+  inputOnly      MFNode  set_contacts
+  inputOutput    SFBool  autoDisable
+  inputOutput    MFNode  bodies
+  inputOutput    SFFloat constantForceMix
+  inputOutput    SFFloat contactSurfaceThickness
+  inputOutput    SFFloat disableAngularSpeed
+  inputOutput    SFFloat disableLinearSpeed
+  inputOutput    SFFloat disableTime
+  inputOutput    SFBool  enabled
+  inputOutput    SFFloat errorCorrection
+  inputOutput    SFVec3f gravity
+  inputOutput    SFInt32 iterations
+  inputOutput    MFNode  joints
+  inputOutput    SFFloat maxCorrectionSpeed
+  inputOutput    SFNode  metadata
+  inputOutput    SFBool  preferAccuracy
+  initializeOnly SFNode  collider 
+}
+</pre>
+
+<h2>
+<a name="ScalarChaser"></a>6.2.163 ScalarChaser </h2>
+
+<pre class="node">ScalarChaser { 
+  inputOnly      SFFloat set_destination
+  inputOnly      SFFloat set_value
+  inputOutput    SFNode  metadata
+  outputOnly     SFBool  isActive
+  outputOnly     SFFloat value_changed
+  initializeOnly SFTime  duration
+  initializeOnly SFFloat initialDestination
+  initializeOnly SFFloat initialValue
+}
+</pre>
+
+<h2>
+<A name="ScalarInterpolator"></A>
+6.2.164 ScalarInterpolator </h2>
+
+<pre class="node">ScalarInterpolator { 
+  inputOnly   SFFloat set_fraction
+  inputOutput MFFloat key
+  inputOutput MFFloat keyValue
+  inputOutput SFNode  metadata 
+  outputOnly  SFFloat value_changed
+}
+</pre>
+
+<h2>
+<a name="ScreenFontStyle"></a>6.2.165 ScreenFontStyle </h2>
+
+<pre class="node">ScreenFontStyle { 
+  inputOutput    SFNode   metadata
+  initializeOnly MFString family
+  initializeOnly SFBool   horizontal
+  initializeOnly MFString justify
+  initializeOnly SFString language
+  initializeOnly SFBool   leftToRight
+  initializeOnly SFFloat  pointSize
+  initializeOnly SFFloat  spacing
+  initializeOnly SFString style
+  initializeOnly SFBool   topToBottom
+}
+</pre>
+
+<h2>
+<a name="ScreenGroup"></a>6.2.166 ScreenGroup</h2>
+
+<pre class="node">ScreenGroup {
+  inputOnly      MFNode  addChildren
+  inputOnly      MFNode  removeChildren
+  inputOutput    MFNode  children
+  inputOutput    SFNode  metadata
+  initializeOnly SFVec3f bboxCenter
+  initializeOnly SFVec3f bboxSize
+}
+</pre>
+
+<h2>
+<A name="Script"></A>
+6.2.167 Script </h2>
+
+<pre class="node">Script { 
+  inputOutput    SFNode   metadata 
+  inputOutput    MFString url 
+  initializeOnly SFBool   directOutput
+  initializeOnly SFBool   mustEvaluate
+  # <i>And any number of</i>:
+  inputOnly      fieldType fieldName
+  inputOutput    fieldType fieldName
+  outputOnly     fieldType fieldName 
+  initializeOnly fieldType fieldName 
+}
+</pre>
+
+<h2><a name="ShaderPart"></a>6.2.168 ShaderPart</h2>
+<pre class="node">ShaderPart {
+  inputOutput    SFNode   metadata
+  inputOutput    MFString url
+  initializeOnly SFString type
+}</pre>
+<h2><a name="ShaderProgram"></a>6.2.169 ShaderProgram</h2>
+<pre class="node">ShaderProgram {
+  inputOutput    SFNode   metadata
+  inputOutput    MFString url
+  initializeOnly SFString type
+
+# and any number of:</pre>
+<pre class="node">  inputOnly      fieldType fieldName
+  inputOutput    fieldType fieldName
+  outputOnly     fieldType fieldName
+  initializeOnly fieldType fieldName
+}</pre>
+
+<h2>
+<A name="Shape"></A>
+6.2.170 Shape </h2>
+
+<pre class="node">Shape {
+  inputOutput    SFNode  appearance
+  inputOutput    SFNode  geometry
+  inputOutput    SFNode  metadata 
+  initializeOnly SFVec3f bboxCenter 
+  initializeOnly SFVec3f bboxSize  
+}
+</pre>
+
+<h2>
+<A name="SignalPdu"></A>
+6.2.171 SignalPdu </h2>
+
+<pre class="node">SignalPdu { 
+  inputOutput    SFString address               
+  inputOutput    SFInt32  applicationID  
+  inputOutput    MFInt32  data
+  inputOutput    SFInt32  dataLength
+  inputOutput    SFBool   enabled
+  inputOutput    SFInt32  encodingScheme
+  inputOutput    SFInt32  entityID
+  inputOutput    SFNode   metadata
+  inputOutput    SFString multicastRelayHost  
+  inputOutput    SFInt32  multicastRelayPort
+  inputOutput    SFString networkMode
+  inputOutput    SFInt32  port
+  inputOutput    SFInt32  radioID
+  inputOutput    SFFloat  readInterval
+  inputOutput    SFBool   rtpHeaderExpected  
+  inputOutput    SFInt32  sampleRate
+  inputOutput    SFInt32  samples
+  inputOutput    SFInt32  siteID
+  inputOutput    SFInt32  tdlType
+  inputOutput    SFInt32  whichGeometry
+  inputOutput    SFFloat  writeInterval
+  outputOnly     SFBool   isActive
+  outputOnly     SFBool   isNetworkReader
+  outputOnly     SFBool   isNetworkWriter
+  outputOnly     SFBool   isRtpHeaderHeard
+  outputOnly     SFBool   isStandAlone
+  outputOnly     SFTime   timestamp
+  initializeOnly SFVec3f  bboxCenter         
+  initializeOnly SFVec3f  bboxSize 
+}
+</pre>
+
+<h2>
+<a name="SingleAxisHingeJoint"></a>6.2.172 SingleAxisHingeJoint </h2>
+
+<pre class="node">SingleAxisHingeJoint {
+  inputOutput SFVec3f  anchorPoint
+  inputOutput SFVec3f  axis
+  inputOutput SFNode   body1
+  inputOutput SFNode   body2
+  inputOutput MFString forceOutput
+  inputOutput SFFloat  maxAngle
+  inputOutput SFNode   metadata
+  inputOutput SFFloat  minAngle
+  inputOutput SFFloat  stopBounce
+  inputOutput SFFloat  stopErrorCorrection
+  outputOnly  SFFloat  angle
+  outputOnly  SFFloat  angleRate
+  outputOnly  SFVec3f  body1AnchorPoint
+  outputOnly  SFVec3f  body2AnchorPoint
+}
+</pre>
+
+<h2>
+<a name="SliderJoint"></a>6.2.173 SliderJoint </h2>
+
+<pre class="node">SliderJoint {
+  inputOutput SFVec3f  axis
+  inputOutput SFNode   body1
+  inputOutput SFNode   body2
+  inputOutput MFString forceOutput
+  inputOutput SFFloat  maxSeparation
+  inputOutput SFNode   metadata
+  inputOutput SFFloat  minSeparation
+  inputOutput SFFloat  stopBounce
+  inputOutput SFFloat  stopErrorCorrection
+  outputOnly  SFFloat  separation
+  outputOnly  SFFloat  separationRate
+}
+</pre>
+
+<h2>
+<A name="Sound"></A>
+6.2.174 Sound </h2>
+
+<pre class="node">Sound { 
+  inputOutput    SFVec3f direction
+  inputOutput    SFFloat intensity
+  inputOutput    SFVec3f location
+  inputOutput    SFFloat maxBack
+  inputOutput    SFFloat maxFront
+  inputOutput    SFNode  metadata
+  inputOutput    SFFloat minBack
+  inputOutput    SFFloat minFront
+  inputOutput    SFFloat priority
+  inputOutput    SFNode  source
+  initializeOnly SFBool  spatialize
+}
+</pre>
+
+<h2>
+<A name="Sphere"></A>
+6.2.175 Sphere </h2>
+
+<pre class="node">Sphere { 
+  inputOutput    SFNode  metadata
+  initializeOnly SFFloat radius 
+  initializeOnly SFBool  solid 
+}
+</pre>
+
+<h2>
+<A name="SphereSensor"></A>
+6.2.176 SphereSensor </h2>
+
+<pre class="node">SphereSensor { 
+  inputOutput SFBool     autoOffset
+  inputOutput SFString   description
+  inputOutput SFBool     enabled
+  inputOutput SFNode     metadata
+  inputOutput SFRotation offset
+  outputOnly  SFBool     isActive
+  outputOnly  SFBool     isOver
+  outputOnly  SFRotation rotation_changed
+  outputOnly  SFVec3f    trackPoint_changed
+}
+</pre>
+
+<h2>
+<a name="SplinePositionInterpolator"></a>6.2.177 SplinePositionInterpolator </h2>
+
+<pre class="node">SplinePositionInterpolator { 
+  inputOnly   SFFloat set_fraction
+  inputOutput SFBool  closed
+  inputOutput MFFloat key
+  inputOutput MFVec3f keyValue
+  inputOutput MFVec3f keyVelocity
+  inputOutput SFNode  metadata
+  inputOutput SFBool  normalizeVelocity 
+  outputOnly  SFVec3f value_changed
+}
+</pre>
+
+<h2>
+<a name="SplinePositionInterpolator2D"></a>6.2.178 SplinePositionInterpolator2D </h2>
+
+<pre class="node">SplinePositionInterpolator2D { 
+  inputOnly   SFFloat set_fraction
+  inputOutput SFBool  closed
+  inputOutput MFFloat key
+  inputOutput MFVec2f keyValue
+  inputOutput MFVec2f keyVelocity
+  inputOutput SFNode  metadata
+  inputOutput SFBool  normalizeVelocity 
+  outputOnly  SFVec2f value_changed
+}
+</pre>
+
+<h2>
+<a name="SplineScalarInterpolator"></a>6.2.179 SplineScalarInterpolator </h2>
+
+<pre class="node">SplineScalarInterpolator { 
+  inputOnly   SFFloat set_fraction
+  inputOutput SFBool  closed
+  inputOutput MFFloat key
+  inputOutput MFFLoat keyValue
+  inputOutput MFFLoat keyVelocity
+  inputOutput SFNode  metadata
+  inputOutput SFBool  normalizeVelocity 
+  outputOnly  SFVec2f value_changed
+}
+</pre>
+
+<h2>
+<A name="SpotLight"></A>
+6.2.180 SpotLight </h2>
+
+<pre class="node">SpotLight { 
+  inputOutput SFFloat ambientIntensity
+  inputOutput SFVec3f attenuation
+  inputOutput SFFloat beamWidth
+  inputOutput SFColor color
+  inputOutput SFFloat cutOffAngle
+  inputOutput SFVec3f direction
+  inputOutput SFBool  global
+  inputOutput SFFloat intensity
+  inputOutput SFVec3f location
+  inputOutput SFNode  metadata
+  inputOutput SFBool  on
+  inputOutput SFFloat radius
+}
+</pre>
+
+<h2>
+<a name="SquadOrientationInterpolator"></a>6.2.181 SquadOrientationInterpolator </h2>
+
+<pre class="node">SquadOrientationInterpolator { 
+  inputOnly   SFFloat    set_fraction
+  inputOutput MFFloat    key
+  inputOutput MFRotation keyValue
+  inputOutput SFNode     metadata
+  inputOutput SFBool     normalizeVelocity 
+  outputOnly  SFVec2f    value_changed
+}
+</pre>
+
+<h2>
+<A name="StaticGroup"></A>
+6.2.182 StaticGroup </h2>
+
+<pre class="node">StaticGroup { 
+  inputOutput    SFNode  metadata
+  initializeOnly MFNode  children 
+  initializeOnly SFVec3f bboxCenter 
+  initializeOnly SFVec3f bboxSize  
+}
+</pre>
+
+<h2>
+<A name="StringSensor"></A>
+6.2.183 StringSensor </h2>
+
+<pre class="node">StringSensor { 
+  inputOutput SFBool   deletionAllowed
+  inputOutput SFBool   enabled
+  inputOutput SFNode   metadata
+  outputOnly  SFString enteredText
+  outputOnly  SFString finalText
+  outputOnly  SFBool   isActive
+}
+</pre>
+
+<h2>
+<a name="SurfaceEmitter"></a>6.2.184 SurfaceEmitter </h2>
+
+<pre class="node">SurfaceEmitter {
+  inputOnly      SFInt32 set_coordinate
+  inputOutput    SFNode  metadata
+  inputOutput    SFFloat speed
+  inputOutput    SFFloat variation
+  initializeOnly MFInt32 coordIndex
+  initializeOnly SFFloat mass
+  initializeOnly SFNode  surface
+  initializeOnly SFFloat surfaceArea
+}
+</pre>
+
+<h2>
+<A name="Switch"></A>
+6.2.185 Switch </h2>
+
+<pre class="node">Switch { 
+  inputOnly      MFNode  addChildren
+  inputOnly      MFNode  removeChildren
+  inputOutput    MFNode  children
+  inputOutput    SFNode  metadata
+  inputOutput    SFInt32 whichChoice
+  initializeOnly SFVec3f bboxCenter 
+  initializeOnly SFVec3f bboxSize 
+}
+</pre>
+
+<h2>
+<a name="TexCoordDamper2D"></a>6.2.186 TexCoordDamper2D </h2>
+
+<pre class="node">TexCoordDamper { 
+  inputOnly      MFVec2f set_destination
+  inputOnly      MFVec2f set_value
+  inputOutput    SFNode  metadata
+  inputOutput    SFTime  tau
+  inputOutput    SFFloat tolerance
+  outputOnly     SFBool  isActive
+  outputOnly     MFVec2f value_changed
+  initializeOnly MFVec2f initialDestination
+  initializeOnly MFVec2f initialValue
+  initializeOnly SFInt32 order
+}
+</pre>
+
+<h2>
+<A name="Text"></A>
+6.2.187 Text </h2>
+
+<pre class="node">Text { 
+  inputOutput    SFNode   fontStyle
+  inputOutput    MFFloat  length
+  inputOutput    SFFloat  maxExtent
+  inputOutput    SFNode   metadata
+  inputOutput    MFString string
+  outputOnly     MFVec2f  lineBounds
+  outputOnly     SFVec3f  origin
+  outputOnly     SFVec2f  textBounds
+  initializeOnly SFBool   solid 
+}
+</pre>
+
+<h2>
+<A name="TextureBackground"></A>
+6.2.188 TextureBackground </h2>
+
+<pre class="node">TextureBackground { 
+  inputOnly   SFBool  set_bind
+  inputOutput MFFloat groundAngle  
+  inputOutput MFColor groundColor 
+  inputOutput SFNode  backTexture 
+  inputOutput SFNode  bottomTexture 
+  inputOutput SFNode  frontTexture 
+  inputOutput SFNode  leftTexture 
+  inputOutput SFNode  metadata
+  inputOutput SFNode  rightTexture
+  inputOutput MFFloat skyAngle  
+  inputOutput MFColor skyColor  
+  inputOutput SFNode  topTexture  
+  inputOutput MFFloat transparency
+  outputOnly  SFTime  bindTime
+  outputOnly  SFBool  isBound
+}
+</pre>
+
+<h2>
+<A name="TextureCoordinate"></A>
+6.2.189 TextureCoordinate </h2>
+
+<pre class="node">TextureCoordinate { 
+  inputOutput SFNode  metadata
+  inputOutput MFVec2f point
+}
+</pre>
+
+<h2><a name="TextureCoordinate3D"></a>6.2.190 TextureCoordinate3D</h2>
+<pre class="node">TextureCoordinate3D {
+  inputOutput SFNode  metadata
+  inputOutput MFVec3f point
+}</pre>
+<h2><a name="TextureCoordinate4D"></a>6.2.191 TextureCoordinate4D</h2>
+<pre class="node">TextureCoordinate4D {
+  inputOutput SFNode  metadata
+  inputOutput MFVec4f point
+}</pre>
+
+<h2>
+<A name="TextureCoordinateGenerator"></A>
+6.2.192 TextureCoordinateGenerator </h2>
+
+<pre class="node">TextureCoordinateGenerator { 
+  inputOutput SFNode   metadata
+  inputOutput SFString mode   
+  inputOutput MFFloat  parameter
+}
+</pre>
+
+<h2>
+<a name="TextureProperties"></a>6.2.193 TextureProperties </h2>
+
+<pre class="node">TextureProperties {
+  inputOutput    SFFloat     anisotropicDegree
+  inputOutput    SFColorRGBA borderColor
+  inputOutput    SFInt32     borderWidth
+  inputOutput    SFString    boundaryModeR
+  inputOutput    SFString    boundaryModeS
+  inputOutput    SFString    boundaryModeT
+  inputOutput    SFString    magnificationFilter
+  inputOutput    SFNode      metadata
+  inputOutput    SFString    minificationFilter
+  inputOutput    SFString    textureCompression
+  inputOutput    SFFloat     texturePriority
+  initializeOnly SFBool      generateMipMaps
+}
+</pre>
+
+<h2>
+<A name="TextureTransform"></A>
+6.2.194 TextureTransform </h2>
+
+<pre class="node">TextureTransform { 
+  inputOutput SFVec2f center
+  inputOutput SFNode  metadata
+  inputOutput SFFloat rotation
+  inputOutput SFVec2f scale
+  inputOutput SFVec2f translation
+}
+</pre>
+
+<h2><a name="TextureTransformMatrix3D"></a><a name="TextureTransform3D"></a>6.2.195 TextureTransform3D</h2>
+<pre class="node">TextureTransform3D {
+  inputOutput SFVec3f    center
+  inputOutput SFNode     metadata
+  inputOutput SFRotation rotation
+  inputOutput SFVec3f    scale
+  inputOutput SFVec3f    translation
+}</pre>
+
+<h2>6.2.196 TextureTransformMatrix3D</h2>
+<pre class="node">TextureMatrixTransform {
+  inputOutput SFNode     metadata
+  inputOutput SFMatrix4f matrix
+}</pre>
+<h2>
+<A name="TimeSensor"></A>
+6.2.197 TimeSensor </h2>
+
+<pre class="node">TimeSensor { 
+  inputOutput SFTime  cycleInterval
+  inputOutput SFBool  enabled
+  inputOutput SFBool  loop
+  inputOutput SFNode  metadata
+  inputOutput SFTime  pauseTime
+  inputOutput SFTime  resumeTime 
+  inputOutput SFTime  startTime
+  inputOutput SFTime  stopTime
+  outputOnly  SFTime  cycleTime
+  outputOnly  SFTime  elapsedTime
+  outputOnly  SFFloat fraction_changed
+  outputOnly  SFBool  isActive
+  outputOnly  SFBool  isPaused
+  outputOnly  SFTime  time
+}
+</pre>
+
+<h2>
+<A name="TimeTrigger"></A>
+6.2.198 TimeTrigger </h2>
+
+<pre class="node">TimeTrigger { 
+  inputOnly   SFBool set_boolean
+  inputOutput SFNode metadata
+  outputOnly  SFTime triggerTime
+}
+</pre>
+
+<h2>
+<A name="TouchSensor"></A>
+6.2.199 TouchSensor </h2>
+
+<pre class="node">TouchSensor { 
+  inputOutput SFString description
+  inputOutput SFBool   enabled
+  inputOutput SFNode   metadata
+  outputOnly  SFVec3f  hitNormal_changed
+  outputOnly  SFVec3f  hitPoint_changed
+  outputOnly  SFVec2f  hitTexCoord_changed
+  outputOnly  SFBool   isActive
+  outputOnly  SFBool   isOver
+  outputOnly  SFTime   touchTime
+}
+</pre>
+
+<h2>
+<A name="Transform"></A>
+6.2.200 Transform </h2>
+
+<pre class="node">Transform { 
+  inputOnly      MFNode     addChildren
+  inputOnly      MFNode     removeChildren
+  inputOutput    SFVec3f    center
+  inputOutput    MFNode     children
+  inputOutput    SFNode     metadata
+  inputOutput    SFRotation rotation
+  inputOutput    SFVec3f    scale
+  inputOutput    SFRotation scaleOrientation
+  inputOutput    SFVec3f    translation
+  initializeOnly SFVec3f    bboxCenter
+  initializeOnly SFVec3f    bboxSize
+} 
+</pre>
+
+<h2>
+<a name="TransformSensor"></a>6.2.201 TransformSensor</h2>
+
+<pre class="node">TransformSensor { 
+  inputOutput SFVec3f    center
+  inputOutput SFBool     enabled
+  inputOutput SFNode     metadata
+  inputOutput SFVec3f    size
+  inputOutput SFNode     targetObject
+  outputOnly  SFTime     enterTime
+  outputOnly  SFTime     exitTime
+  outputOnly  SFBool     isActive
+  outputOnly  SFRotation orientation_changed
+  outputOnly  SFVec3f    position_changed
+} 
+</pre>
+
+<h2>
+<A name="TransmitterPdu"></A>
+6.2.202 TransmitterPdu </h2>
+
+<pre class="node">TransmitterPdu { 
+  inputOutput    SFString address  
+  inputOutput    SFVec3f  antennaLocation
+  inputOutput    MFInt32  antennaPatternLength
+  inputOutput    MFInt32  antennaPatternType
+  inputOutput    SFInt32  applicationID 
+  inputOutput    MFInt32  cryptoKeyID
+  inputOutput    MFInt32  cryptoSystem
+  inputOutput    SFBool   enabled
+  inputOutput    SFInt32  entityID
+  inputOutput    MFInt32  frequency
+  inputOutput    MFInt32  inputSource
+  inputOutput    MFInt32  lengthOfModulationParameters
+  inputOutput    SFNode   metadata
+  inputOutput    MFInt32  modulationTypeDetail
+  inputOutput    MFInt32  modulationTypeMajor
+  inputOutput    MFInt32  modulationTypeSpreadSpectrum
+  inputOutput    MFInt32  modulationTypeSystem
+  inputOutput    SFString multicastRelayHost  
+  inputOutput    SFInt32  multicastRelayPort
+  inputOutput    SFString networkMode
+  inputOutput    SFInt32  port
+  inputOutput    SFInt32  power
+  inputOutput    SFInt32  radioEntityTypeCategory
+  inputOutput    SFInt32  radioEntityTypeCountry
+  inputOutput    SFInt32  radioEntityTypeDomain
+  inputOutput    SFInt32  radioEntityTypeKind
+  inputOutput    SFInt32  radioEntityTypeNomenclature
+  inputOutput    SFInt32  radioEntityTypeNomenclatureVersion
+  inputOutput    SFInt32  radioID
+  inputOutput    SFFloat  readInterval
+  inputOutput    SFVec3f  relativeAntennaLocation
+  inputOutput    SFBool   rtpHeaderExpected  
+  inputOutput    SFInt32  siteID
+  inputOutput    SFFloat  transmitFrequencyBandwidth
+  inputOutput    SFInt32  transmitState
+  inputOutput    SFInt32  whichGeometry
+  inputOutput    SFFloat  writeInterval
+  outputOnly     SFBool   isActive
+  outputOnly     SFBool   isNetworkReader
+  outputOnly     SFBool   isNetworkWriter
+  outputOnly     SFBool   isRtpHeaderHeard
+  outputOnly     SFBool   isStandAlone
+  outputOnly     SFTime   timestamp
+  initializeOnly SFVec3f  bboxCenter         
+  initializeOnly SFVec3f  bboxSize    
+}
+</pre>
+
+<h2>
+<A name="TriangleFanSet"></A>
+6.2.203 TriangleFanSet </h2>
+
+<pre class="node">TriangleFanSet {
+  inputOutput    MFNode  attrib
+  inputOutput    SFNode  color   
+  inputOutput    SFNode  coord 
+  inputOutput    MFInt32 fanCount
+  inputOutput    SFNode  fogCoord 
+  inputOutput    SFNode  metadata 
+  inputOutput    SFNode  normal   
+  inputOutput    SFNode  texCoord  
+  initializeOnly SFBool  ccw      
+  initializeOnly SFBool  colorPerVertex 
+  initializeOnly SFBool  normalPerVertex 
+  initializeOnly SFBool  solid  
+}
+</pre>
+
+<h2>
+<A name="TriangleSet"></A>
+6.2.204 TriangleSet </h2>
+
+<pre class="node">TriangleSet {
+  inputOutput    MFNode attrib
+  inputOutput    SFNode color  
+  inputOutput    SFNode coord
+  inputOutput    SFNode fogCoord
+  inputOutput    SFNode metadata
+  inputOutput    SFNode normal  
+  inputOutput    SFNode texCoord   
+  initializeOnly SFBool ccw   
+  initializeOnly SFBool colorPerVertex  
+  initializeOnly SFBool normalPerVertex
+  initializeOnly SFBool solid  
+}
+</pre>
+
+<h2>
+<A name="TriangleSet2D"></A>
+6.2.205 TriangleSet2D </h2>
+
+<pre class="node">TriangleSet2D { 
+  inputOutput    SFNode  metadata
+  inputOutput    MFVec2f vertices 
+  initializeOnly SFBool  solid 
+}
+</pre>
+
+<h2>
+<A name="TriangleStripSet"></A>
+6.2.206 TriangleStripSet </h2>
+
+<pre class="node">TriangleStripSet {
+  inputOutput    MFNode  attrib
+  inputOutput    SFNode  color
+  inputOutput    SFNode  coord
+  inputOutput    SFNode  fogCoord
+  inputOutput    SFNode  metadata
+  inputOutput    SFNode  normal  
+  inputOutput    MFInt32 stripCount
+  inputOutput    SFNode  texCoord   
+  initializeOnly SFBool  ccw   
+  initializeOnly SFBool  colorPerVertex 
+  initializeOnly SFBool  normalPerVertex
+  initializeOnly SFBool  solid
+}
+</pre>
+
+<h2>
+<a name="TwoSidedMaterial"></a>6.2.207 TwoSidedMaterial </h2>
+
+<pre class="node">TwoSidedMaterial { 
+  inputOutput SFFloat ambientIntensity
+  inputOutput SFFloat backAmbientIntensity
+  inputOutput SFColor backDiffuseColor
+  inputOutput SFColor backEmissiveColor
+  inputOutput SFFloat backShininess
+  inputOutput SFColor backSpecularColor
+  inputOutput SFFloat backTransparency
+  inputOutput SFColor diffuseColor
+  inputOutput SFColor emissiveColor
+  inputOutput SFNode  metadata
+  inputOutput SFBool  separateBackColor
+  inputOutput SFFloat shininess
+  inputOutput SFColor specularColor
+  inputOutput SFFloat transparency
+}
+</pre>
+
+<h2>
+<a name="UniversalJoint"></a>6.2.208 UniversalJoint </h2>
+
+<pre class="node">UniversalJoint {
+  inputOutput SFVec3f  anchorPoint
+  inputOutput SFVec3f  axis1
+  inputOutput SFVec3f  axis2
+  inputOutput SFNode   body1
+  inputOutput SFNode   body2
+  inputOutput MFString forceOutput
+  inputOutput SFNode   metadata
+  inputOutput SFFloat  stop1Bounce
+  inputOutput SFFloat  stop1ErrorCorrection
+  inputOutput SFFloat  stop2Bounce
+  inputOutput SFFloat  stop2ErrorCorrection
+  outputOnly  SFVec3f  body1AnchorPoint
+  outputOnly  SFVec3f  body1Axis
+  outputOnly  SFVec3f  body2AnchorPoint
+  outputOnly  SFVec3f  body2Axis
+}
+</pre>
+
+<h2>
+<A name="Viewpoint"></A>
+6.2.209 Viewpoint </h2>
+
+<pre class="node">Viewpoint { 
+  inputOnly      SFBool     set_bind
+  inputOutput    SFVec3f    centerOfRotation 
+  inputOutput    SFString   description
+  inputOutput    SFFloat    fieldOfView
+  inputOutput    SFBool     jump
+  inputOutput    SFNode     metadata
+  inputOutput    SFRotation orientation
+  inputOutput    SFVec3f    position
+  inputOutput    SFBool     retainUserOffsets
+  outputOnly     SFTime     bindTime
+  outputOnly     SFBool     isBound
+}
+</pre>
+
+<h2>
+<a name="ViewpointGroup"></a>6.2.210 ViewpointGroup</h2>
+
+<pre class="node">ViewpointGroup { 
+  inputOutput    SFVec3f    center
+  inputOutput    MFNode     children 
+  inputOutput    SFString   description
+  inputOutput    SFBool     displayed
+  inputOutput    SFNode     metadata
+  inputOutput    SFBool     retainUserOffsets
+  inputOutput    SFVec3f    size
+}
+</pre>
+
+<h2>
+<a name="Viewport"></a>6.2.211 Viewport </h2>
+
+<pre class="node">Viewport { 
+  inputOnly      MFNode  addChildren
+  inputOnly      MFNode  removeChildren
+  inputOutput    MFNode  children
+  inputOutput    MFFloat clipBoundary
+  inputOutput    SFNode  metadata
+  initializeOnly SFVec3f bboxCenter
+  initializeOnly SFVec3f bboxSize
+}
+</pre>
+
+<h2>
+<A name="VisibilitySensor"></A>
+6.2.212 VisibilitySensor </h2>
+
+<pre class="node">VisibilitySensor { 
+  inputOutput SFVec3f center
+  inputOutput SFBool  enabled
+  inputOutput SFNode  metadata
+  inputOutput SFVec3f size
+  outputOnly  SFTime  enterTime
+  outputOnly  SFTime  exitTime
+  outputOnly  SFBool  isActive
+}
+</pre>
+
+<h2>
+<a name="VolumeEmitter"></a>6.2.213 VolumeEmitter </h2>
+
+<pre class="node">VolumeEmitter {
+  inputOnly      SFInt32 set_coordinate
+  inputOutput    SFNode  coord
+  inputOutput    SFVec3f direction
+  inputOutput    SFNode  metadata
+  inputOutput    SFFloat speed
+  inputOutput    SFFloat variation
+  initializeOnly MFInt32 coordIndex
+  initializeOnly SFBool  internal
+  initializeOnly SFFloat mass
+  initializeOnly SFNode  surfaceArea
+}
+</pre>
+
+<h2>
+<a name="VolumePickSensor"></a>6.2.214 VolumePickSensor </h2>
+
+<pre class="node">VolumePickSensor { 
+  inputOutput    SFBool   enabled
+  inputOutput    SFNode   metadata
+  inputOutput    MFString objectType
+  inputOutput    SFNode   pickingGeometry
+  inputOutput    MFNode   pickTarget
+  outputOnly     SFBool   isActive
+  outputOnly     MFNode   pickedGeometry
+  initializeOnly SFString intersectionType
+  initializeOnly SFString sortOrder
+}
+</pre>
+
+<h2>
+<a name="WindPhysicsModel"></a>6.2.215 WindPhysicsModel </h2>
+
+<pre class="node">WindPhysicsModel {
+  inputOutput SFVec3f direction
+  inputOutput SFBool  enabled
+  inputOutput SFFloat gustiness
+  inputOutput SFNode  metadata
+  inputOutput SFFloat speed
+  inputOutput SFFloat turbulence
+}
+</pre>
+
+<h2>
+<A name="WorldInfo"></A>
+6.2.216 WorldInfo </h2>
+
+<pre class="node">WorldInfo { 
+  inputOutput    SFNode   metadata
+  initializeOnly MFString info
+  initializeOnly SFString title
+}
+</pre>
+
+<p>
+<img class="x3dbar" src="../Images/x3dbar.png" width="430" height="23" alt="x3d bar"></p>
+
+</body>
+</html>

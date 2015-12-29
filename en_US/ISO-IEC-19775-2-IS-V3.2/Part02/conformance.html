@@ -1,0 +1,915 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<TITLE>Extensible 3D (X3D), ISO/IEC FCD 19775-2.2:200x, 7 Conformance and minimum support requirements</TITLE>
+<link rel="stylesheet" href="X3D.css" type="text/css" />
+
+</head>
+<body>
+
+<div class="CenterDiv">
+<img class="x3dlogo" SRC="../Images/x3d.png" ALT="X3D logo" style="width: 176px; height: 88px" />
+</div>
+
+<div class="CenterDiv">
+<p class="HeadingPart">
+    Extensible 3D (X3D)<br />
+    Part 2: Scene access interface (SAI)</p>
+
+<p class="HeadingClause">7 Conformance and minimum support requirements</p>
+</div>
+
+<img class="x3dbar" SRC="../Images/x3dbar.png" ALT="--- X3D separator bar ---" width="430" height="23" />
+
+<h1><img class="cube" src="../Images/cube.gif" alt="cube" />
+<a name="IntroAndContents"></a>
+7.1 Introduction and table of contents</h1>
+
+<h2><a name="Introduction"></a>
+7.1.1 Introduction</h2>
+
+<p>This clause defines the minimum required support for language bindings
+conforming to this part of ISO/IEC 19775.</p>
+
+<h2><a name="Topics"></a>7.1.2 Topics</h2>
+
+<p>
+<a href="#t-Topics">Table 6.1</a> lists the topics for this clause.
+</p>
+
+<div class="CenterDiv">
+
+<p class="TableCaption">
+<a name="t-Topics"></a>Table 7.1 — Topics</p>
+
+<table class="topics">
+<tbody>
+<tr>
+<td>
+<ul>
+<li><a href="#IntroAndContents">7.1 Introduction and topics</a></li>
+<ul>
+<li><a href="#Introduction">7.1.1 Introduction</a></li>
+<li><a href="#Topics">7.1.2 Topics</a></li>
+<li><a href="#Objectives">7.1.3 Objectives</a></li>
+<li><a href="#Scope">7.1.4 Scope</a></li>
+</ul>
+<li><a href="#Conformance">7.2 Conformance</a></li>
+<ul>
+<li><a href="#ConformancetoISO">7.2.1 Conformance to this part of ISO/IEC 19775</a></li>
+<li><a href="#LanguageBindings">7.2.2 Language Bindings</a></li>
+</ul>
+<li><a href="#MinRequirements">7.3 Minimum support requirements</a></li>
+<ul>
+<li><a href="#RequirementsforImpl">7.3.1 Requirements for implementations</a></li>
+<li><a href="#InternalExternal">7.3.2 Supporting internal and external 
+interactions</a></li>
+<li><a href="#Level1">7.3.3 Level 1</a></li>
+<li><a href="#Level2">7.3.4 Level 2</a></li>
+<li><a href="#Level3">7.3.5 Level 3</a></li>
+</ul>
+</ul>
+<ul>
+<li><a href="#t-Topics">Table 7.1 — Topics</a></li>
+<li><a href="#t-SpecsForSAIDataType">Table 7.2 &mdash; Specifications for SAI data type implementations</a></li>
+<li><a href="#t-SpecsForSAIBrowser">Table 7.3 &mdash; Specifications for SAI browser implementations</a></li>
+<li><a href="#t-SpecsForSAIGeneral">Table 7.4 &mdash; Specifications for SAI general 
+services</a></li>
+<li><a href="#t-SpecsForSAIScript">Table 7.5 &mdash; Specifications for SAI script 
+content interaction</a></li>
+<li><a href="#t-SpecsForSAIUtils">Table 7.6 &mdash; Specifications for SAI utility services</a></li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+
+<h2><a name="Objectives"></a>
+7.1.3 Objectives</h2>
+
+<p>This clause addresses conformance of X3D browsers that
+provide an  authoring interface.</p>
+
+<p>The primary objectives of the specifications in this clause are:
+</p>
+
+<ol type="a">
+<li>to promote interoperability by eliminating arbitrary subsets of
+    ISO/IEC 19775;</li>
+<li>to promote extensibility within a well-defined environment;</li>
+<li> to promote uniformity in the development of conformance tests;</li>
+<li> to promote consistent results across X3D browsers;</li>
+<li> to facilitate automated test generation.</li>
+</ol>
+
+<h2><a name="Scope"></a>
+7.1.4 Scope</h2>
+
+<p>Conformance is defined for language bindings to this specification and
+therefore X3D Browsers and applications that use the facilities provided
+by the Scene Authoring Interface language-specific bindings as specified in
+<a href="references.html#[I19777]">ISO/IEC 19777</a>.</p>
+
+<p>Due to the abstract nature of this specification, it is not
+possible to specify the conformance tests of an individual language bindings to
+the specification. Separate Conformance sections shall be provided within each
+language binding that provide the necessary information to implement language
+specific binding conformance tests.</p>
+
+<p>A concept of base profile conformance is defined to ensure interoperability
+of X3D applications and X3D browsers. Base profile conformance is based
+on a set of limits and minimal requirements. Base profile conformance is
+intended to provide a functional level of reasonable utility for X3D language
+bindings while limiting the complexity and resource requirements of X3D
+browsers. Base profile conformance may not be adequate for all uses of
+the SAI.</p>
+
+<h1><img class="cube" src="../Images/cube.gif" alt="cube" />
+<a name="Conformance"></a>7.2 Conformance</h1>
+
+<h2>
+<a name="ConformancetoISO"></a>
+7.2.1 Conformance to this part of ISO/IEC 19775</h2>
+
+<p>A X3D browser is only conformant to this part of ISO/IEC 19775 if it also 
+conformant to the current profile as specified in
+<a href="references.html#[I19775_1]">ISO/IEC 19775-1</a>. In addition, the
+following conditions shall be met:</p>
+
+<ol type="a" start="1">
+<li>
+Requests of the Browser services shall conform exactly to the behaviour
+as specified in this part of ISO/IEC 19775.</li>
+<li>
+Where a browser is required to read and parse X3D content, it shall be able to 
+handle any X3D file that conforms to the profile being supported as defined in
+<a href="references.html#[I19775_1]">ISO/IEC 19775-1</a> or separate specification for such profiles.</li>
+<li>
+Only nodes in the top level world (the file defined by the <span class="code">getWorldURL</span>
+service) that are named with the DEF construct shall be visible to the
+<span class="code">getNode</span> browser service request.</li>
+<li>
+There shall be no difference in treatment of events that result from an
+external service request compared to events generated within the X3D browser
+environment. That is, externally generated event cascades shall have no favoured treatment.</li>
+</ol>
+
+<h2><a name="LanguageBindings"></a>
+7.2.2 Language bindings</h2>
+
+<p>A language binding to this part of ISO/IEC 19775 is conforming if:</p>
+
+<ol type="a" start="1">
+<li>It implements the services defined in this specification including return
+values, error conditions and asynchronous events.</li>
+<li>The services implemented conform to the required functionality for the
+subject profile.</li>
+<li>It provides sections outlining conformance and minimum requirements of
+implementations of that binding.</li>
+</ol>
+
+<h1><img class="cube" src="../Images/cube.gif" alt="cube" />
+<a name="MinRequirements"></a>
+7.3 Minimum Requirements</h1>
+
+<h2><a name="RequirementsforImpl"></a>
+7.3.1 Requirements for implementations</h2>
+
+<p>All profiles supporting the authoring component shall support the
+Level 1 functionality as defined in this section. There are two
+levels of conformance, that of the language binding
+and the browser implementation.</p>
+
+<p>A language binding shall at a minimum implement the services required for the 
+profile to be supported. It may also define its own optional set of minimum 
+requirements that are no less than the requirements of this section. A browser 
+implementation shall, in addition to the base support for the subject profile, 
+also support the minimum capabilities defined for the subject profile. In 
+general, the browser requirements are specified as general requirements that 
+deal with specific language issues. </p>
+
+<p>Where a browser implements two or more language bindings with different
+levels of minimum requirements, the browser shall support the minimum requirements
+for each language separately. Therefore, if one language has higher requirements,
+the lower requirements of the other shall not be used.</p>
+
+<h2><a name="InternalExternal"></a>
+7.3.2 Supporting internal and external interactions</h2>
+
+<p>Although external interactions use a superset of the services defined for
+internal interactions, language bindings to the abstract specification are
+not required to implement both. They may choose one or the other or both.
+(It is strongly recommended that a binding support both.)</p>
+
+<p>A conformant browser implementation is not required to provide both internal
+and external implementations of a given language binding. It shall be possible
+for a browser to support internal interactions only with language A and external
+interactions only with language B. In addition, the browser may choose to
+support only internal interactions or only external interactions. There is
+no requirement to support both internal and external interactions.</b>
+
+<h2><a name="Level1"></a>7.3.3 Level 1</h2>
+
+<p><a href="#t-SpecsForSAIDataType">Table 7.2</a> through
+<a href="#t-SpecsForSAIUtils">Table 7.6</a> define the minimum requirements for a base profile. The first
+column specifies the item for which conformance is being defined. These refer
+to the services as defined by this specification. The second column specifies
+the requirements for a language binding specification of that item. The
+third column specifies the requirements of a browser implementation of that
+service.</p>
+
+<p>For all these requirements, it shall be assumed that the language binding
+shall provide complete implementation of all the parameters required for
+the individual services. Language bindings of data types may be implemented
+as primitive types in the target language rather than as separate data types.
+<a href="#t-SpecsForSAIDataType">Table 7.2</a> through
+<a href="#t-SpecsForSAIUtils">Table 7.6</a> indicate where this is permitted.</p>
+
+<p>A browser conformant to this level shall support bindings to the X3DNode and 
+X3DMetadataObject abstract representations along with all field types.</p>
+
+<div class="CenterDiv">
+
+<p class="TableCaption">
+<a name="t-SpecsForSAIDataType"></a>
+Table 7.2 &mdash; Specifications for SAI data type implementations</p>
+
+<table class="main">
+<tbody>
+<tr>
+<th>Item</th>
+<th>Binding support</th>
+<th>Minimum browser support</th>
+</tr>
+<tr>
+<td>SAIAction</td>
+<td>Full support as required by the individual service request</td>
+<td>As defined by the language</td>
+</tr>
+<tr>
+<td>SAIBrowserApp</td>
+<td>Full Support if createBrowser supported.<br />
+Not required if only getBrowser supported.</td>
+<td>Optional<br />(based on getBrowser/createBrowser requirements)</td>
+</tr>
+<tr>
+<td>SAIBrowserName</td>
+<td>Primitive Type</td>
+<td>n/a</td>
+</tr>
+<tr>
+<td>SAIBrowserRef</td>
+<td>Full Support</td>
+<td>Full Support</td>
+</tr>
+<tr>
+<td>SAIBrowserVersion</td>
+<td>Primitive type</td>
+<td>n/a</td>
+</tr>
+<td>SAIComponentDeclaration</td>
+<td>Primitive type describing at least name and level</td>
+<td>n/a</td>
+</tr>
+<td>SAIComponentID</td>
+<td>Primitive type</td>
+<td>n/a</td>
+</tr>
+<tr>
+<td>SAIFieldAccess</td>
+<td>Separate data types for the four types defined by ISO/IEC 19775-1.</td>
+<td>Full Support</td>
+</tr>
+<td>SAIFieldDeclaration</td>
+<td>Provide information on access type, data type and name</td>
+<td>Full Support</td>
+</tr>
+<tr>
+<td>SAIFieldID</td>
+<td>Full Support</td>
+<td>Full Support</td>
+</tr>
+<tr>
+<td>SAIFieldName</td>
+<td>Primitive type</td>
+<td>Full Support</td>
+</tr>
+<tr>
+<td>SAIFieldType</td>
+<td>Separate data types for all types defined in ISO/IEC 19775-1, 5 Field
+and Event Reference</td>
+<td>Full Support</td>
+</tr>
+<tr>
+<td>SAIFieldValue</td>
+<td>Primitive type as appropriate to the given field.<br>
+Where field is an SF/MFNode shall be SAINodeID</td>
+<td>Number of values for setting and getting as defined in the applicable 
+profile as defined in <a href="references.html#[I19775_1]">ISO/IEC 19775-1</a>.</td>
+</tr>
+<tr>
+<td>SAIFrameRate</td>
+<td>Primitive Type</td>
+<td>n/a</td>
+</tr>
+<tr>
+<td>SAINavSpeed</td>
+<td>Primitive Type</td>
+<td>n/a</td>
+</tr>
+<tr>
+<td>SAINodeID</td>
+<td>Full Support</td>
+<td>Full Support</td>
+</tr>
+<tr>
+<td>SAINodeType</td>
+<td>Primitive type</td>
+<td>SAIString representation of the node name</td>
+</tr>
+<td>SAIProfileDeclaration</td>
+<td>Description of at least name and components used in the profile</td>
+<td>Full Support</td>
+</tr>
+<tr>
+<td>SAIParameterList</td>
+<td>As required by langauge and service definition.</td>
+<td>Dependent on language and browser implementation</td>
+</tr>
+<tr>
+<td>SAIPropertyList</td>
+<td>Primitive type</td>
+<td>5 key value pairs. Values dependent on language bindings</td>
+</tr>
+<tr>
+<td>SAIProtoDeclaration</td>
+<td>Full Support</td>
+<td>n/a</td>
+</tr>
+<td>SAIRequesterID</td>
+<td>Full Support</td>
+<td>n/a</td>
+</tr>
+<td>SAIRoute</td>
+<td>Full Support</td>
+<td>n/a</td>
+</tr>
+<td>SAIString</td>
+<td>Full Support</td>
+<td>n/a</td>
+</tr>
+<td>SAIScript</td>
+<td>Full Support</td>
+<td>n/a</td>
+</tr>
+<td>SAIScriptImplementation</td>
+<td>Full Support</td>
+<td>n/a</td>
+</tr>
+<td>SAIScene</td>
+<td>Full Support</td>
+<td>n/a</td>
+</tr>
+<tr>
+<td>SAIURL</td>
+<td>Both URL and URN support</td>
+<td>As specified in the applicable profile defined in
+<a href="references.html#[I19775_1]">ISO/IEC 19775-1</a> for all <i>url</i> fields</td>
+</tr>
+<tr>
+<td>SAIError</td>
+<td>Separate types for each error condition that may occur as defined in
+<a href="dataRef.html#5.3">5.3 Error Types</a>.</td>
+<td>Generate error conditions as appropriate.</td>
+</tr>
+</tbody>
+</table>
+</div>
+
+<div class="CenterDiv">
+
+<p class="TableCaption">
+<a name="t-SpecsForSAIBrowser"></a>Table 7.3 &mdash; Specifications for SAI browser implementations</p>
+
+<table class="main">
+<tbody>
+<tr>
+<th>Item</th>
+<th>Binding support</th>
+<th>Minimum internal support</th>
+<th>Minimum external support</th>
+</tr>
+<tr>
+<th colspan="4" bgcolor="#c0c0c0">Establishing a connection</th>
+</tr>
+<tr>
+<td>getBrowser, createBrowser</td>
+<td>At least one of getBrowser or createBrowser services shall be provided.</td>
+<td>N/A</td>
+<td>At least one method of connection with a browser shall be provided.
+Unsupported connection methods shall throw an error.&nbsp;
+<br>Ignore <i>SAIParameterList</i></td>
+</tr>
+<tr>
+<th colspan="4" bgcolor="#c0c0c0">Browser services</th>
+</tr>
+<tr>
+<td>Browser getName</td>
+<td>Shall provide</td>
+<td>Return NULL if not supported</td>
+<td>Return NULL if not supported</td>
+</tr>
+<tr>
+<td>getVersion</td>
+<td>Shall provide</td>
+<td>Return NULL if not supported.</td>
+<td>Return NULL if not supported.</td>
+</tr>
+<tr>
+<td>getCurrentSpeed</td>
+<td>Shall provide</td>
+<td>Return 0.0 if not supported</td>
+<td>Return 0.0 if not supported</td>
+</tr>
+<tr>
+<td>getCurrentFrameRate</td>
+<td>Shall provide</td>
+<td>Return 0.0 if not supported</td>
+<td>Return 0.0 if not supported</td>
+</tr>
+<tr>
+<td>getSupportedProfiles</td>
+<td>Shall provide</td>
+<td>Full Support</td>
+<td>Full Support</td>
+</tr>
+<tr>
+<td>getProfile</td>
+<td>Shall provide</td>
+<td>Full Support</td>
+<td>Full Support</td>
+</tr>
+<tr>
+<td>getSupportedComponents</td>
+<td>Shall provide</td>
+<td>Full Support</td>
+<td>Full Support</td>
+</tr>
+<tr>
+<td>getExecutionContext</td>
+<td>Shall provide</td>
+<td>Full Support</td>
+<td>Full Support</td>
+</tr>
+<tr>
+<td>createScene</td>
+<td>Shall provide</td>
+<td colspan="2">Support creating scenes for the same profiles and components as
+    used by data encodings.</td>
+</tr>
+<tr>
+<td>replaceWorld</td>
+<td>Full support</td>
+<td>Full support</td>
+<td>Full support</td>
+</tr>
+<tr>
+<td>importDocument</td>
+<td>Shall provide</td>
+<td>Return NULL if not supported</td>
+<td>Return NULL if not supported</td>
+</tr>
+<tr>
+<td>loadURL</td>
+<td>Shall provide</td>
+<td>Full support. Ignore <i>SAIPropertyList</i> parameter values.</td>
+<td>Full support. Ignore <i>SAIPropertyList</i> parameter values.</td>
+</tr>
+<tr>
+<td>setDescription</td>
+<td>Shall provide</td>
+<td>No restriction</td>
+<td>No restriction</td>
+</tr>
+<tr>
+<td>createX3DFromString</td>
+<td>Shall provide</td>
+<td colspan="2">Support File Limits&nbsp; as specified in the applicable profile 
+defined in <a href="references.html#[I19775_1]">ISO/IEC 19775-1</a>.</td>
+</tr>
+<td>createX3DFromStream</td>
+<td>Provision dependent of language capabilities for creating raw I/O streams</td>
+<td colspan="2">Support File Limits&nbsp; as specified in the applicable profile as 
+defined in <a href="references.html#[I19775_1]">ISO/IEC 19775-1</a>.</td>
+</tr>
+<tr>
+<td>createX3DFromURL</td>
+<td>Shall provide</td>
+<td colspan="2">Support File Limits&nbsp; as specified in the applicable profile as 
+defined in <a href="references.html#[I19775_1]">ISO/IEC 19775-1</a>.</td>
+</tr>
+<tr>
+<td>Update Control</td>
+<td>SAIActions of start buffering and end buffering</td>
+<td>N/A</td>
+<td>Full support</td>
+</tr>
+<tr>
+<td>Register Browser Interest</td>
+<td>SAIActions of add and remove interest.</td>
+<td colspan="2">Events for initialization, shutdown, invalid URLs and connection lost.</td>
+</tr>
+<tr>
+<td>Share world</td>
+<td>Shall provide</td>
+<td>N/A</td>
+<td>No restrictions</td>
+</tr>
+<tr>
+<td>setSharedViewpoint</td>
+<td>Shall provide</td>
+<td>N/A</td>
+<td>No restrictions</td>
+</tr>
+<tr>
+<td>setSharedNavigation</td>
+<td>Shall provide</td>
+<td>N/A</td>
+<td>No restrictions</td>
+</tr>
+<tr>
+<td>getRenderingProperties</td>
+<td>Shall provide</td>
+<td>No restrictions</td>
+<td>No restrictions</td>
+</tr>
+<tr>
+<td>getBrowserProperties</td>
+<td>Shall provide</td>
+<td>No restrictions</td>
+<td>No restrictions</td>
+</tr>
+<tr>
+<td>changeViewpoint</td>
+<td>Shall provide</td>
+<td>No restrictions</td>
+<td>No restrictions</td>
+</tr>
+<tr>
+<td>Print</td>
+<td>Shall provide</td>
+<td>No restrictions</td>
+<td>No restrictions</td>
+</tr>
+<tr>
+<td>dispose</td>
+<td>Shall provide</td>
+<td>No restrictions</td>
+<td>No restrictions</td>
+</tr>
+</tbody>
+</table>
+</div>
+
+
+<div class="CenterDiv">
+
+<p class="TableCaption">
+<a name="t-SpecsForSAIGeneral"></a>
+Table 7.4 &mdash; Specifications for SAI general services</p>
+
+<table class="main">
+<tbody>
+<tr>
+<th>Item</th>
+<th>Binding Support</th>
+<th>Minimum Browser Support</th>
+</tr>
+<tr>
+<th colspan="3" bgcolor="#c0c0c0">Execution context services</th>
+</tr>
+<tr>
+<td>getSpecificationVersion</td>
+<td>Full Support</td>
+<td>Full Support</td>
+</tr>
+<tr>
+<td>getEncoding</td>
+<td>Shall provide</td>
+<td>Full Support</td>
+</tr>
+<tr>
+<td>getProfile</td>
+<td>SAIProfileDeclaration</td>
+<td>Full support.</td>
+</tr>
+<tr>
+<td>getComponents</td>
+<td>SAIComponentDeclarations</td>
+<td>Full Support</td>
+</tr>
+<tr>
+<td>getWorldURL</td>
+<td>Shall provide</td>
+<td>Full Support</td>
+</tr>
+<tr>
+<td>getNode</td>
+<td>Full Support</td>
+<td>Full Support</td>
+</tr>
+<tr>
+<td>createNode</td>
+<td>Full Support</td>
+<td>Full Support</td>
+</tr>
+<tr>
+<td>createProto</td>
+<td>Full Support</td>
+<td>Full Support</td>
+</tr>
+<tr>
+<td>Named Node Handling</td>
+<td>SAIActions of add and delete nodes and imports</td>
+<td>Full support.</td>
+</tr>
+<tr>
+<td>getProtoDeclaration</td>
+<td>Shall provide</td>
+<td>Full Support</td>
+</tr>
+<tr>
+<td>PROTO declaration Handling</td>
+<td>SAIActions of add and delete PROTO</td>
+<td>Full Support</td>
+</tr>
+<tr>
+<td>getExternProtoDeclaration</td>
+<td>Full Support</td>
+<td>Full Support</td>
+</tr>
+<tr>
+<td>EXTERNPROTO Declaration Handling</td>
+<td>SAIActions of add and delete EXTERNPROTO</td>
+<td>Full support.</td>
+</tr>
+<tr>
+<td>getRootNodes</td>
+<td>Shall provide</td>
+<td>Full Support</td>
+</tr>
+<tr>
+<td>getRoutes</td>
+<td>Shall provide</td>
+<td>Full Support</td>
+</tr>
+<tr>
+<td>Dynamic Route Handling</td>
+<td>SAIActions of add and delete route</td>
+<td>Full support.</td>
+</tr>
+<td>dispose</td>
+<td>Shall provide</td>
+<td>No restrictions</td>
+</tr>
+
+<tr>
+<th colspan="3" bgcolor="#c0c0c0">Scene services</th>
+</tr>
+<td>getMetaData</td>
+<td>Shall provide</td>
+<td>Full Support</td>
+</tr>
+<tr>
+<td>setMetaData</td>
+<td>Shall provide</td>
+<td>Full Support</td>
+</tr>
+<tr>
+<td>Named Node Handling</td>
+<td>SAIActions of add and delete exports</td>
+<td>Full support.</td>
+</tr>
+<td>Root Node Handling</td>
+<td>SAIActions of add and delete nodes</td>
+<td>Full support.</td>
+</tr>
+
+<tr>
+<th align="left" colspan="3" bgcolor="#c0c0c0">
+<p align="center">Node services</th>
+</tr>
+
+<tr>
+<td>getName</td>
+<td>Shall provide</td>
+<td>Full support</td>
+</tr>
+<tr>
+<td>getType</td>
+<td>Shall provide</td>
+<td>no restrictions</td>
+</tr>
+<tr>
+<td>getField</td>
+<td>Full Support</td>
+<td>All fields shall be accesible dependent on access rules for
+    internal and external interactions and node lifecycle.</td>
+</tr>
+<tr>
+<td>getFieldDefinitions</td>
+<td>Full Support</td>
+<td>Full Support</td>
+</tr>
+<tr>
+<td>dispose</td>
+<td>Shall provide</td>
+<td>No restrictions</td>
+</tr>
+<tr>
+<th colspan="3" bgcolor="#c0c0c0">Field services</th>
+</tr>
+<tr>
+<td>getAccessType</td>
+<td>Shall provide</td>
+<td>Full support</td>
+</tr>
+<tr>
+<td>getType</td>
+<td>see SAIFieldType</td>
+<td>Full support</td>
+</tr>
+<tr>
+<td>getName</td>
+<td>Full Support</td>
+<td>Field name without <i>set_</i> or <i>_changed</i> modifiers</td>
+</tr>
+<tr>
+<td>getValue</td>
+<td>get1Value not required</td>
+<td>Full Support</td>
+</tr>
+<tr>
+<td>setValue</td>
+<td>set1Value not required</td>
+<td>Full Support. Where fields are MF fields, minimum number of values to be 
+supported&nbsp; as specified in the applicable profile defined in
+<a href="references.html#[I19775_1]">ISO/IEC 19775-1</a>.</td>
+</tr>
+<tr>
+<td>Register Field Interest</td>
+<td>SAIActions of add and remove interest
+<p>eventOut and the output side of exposedFields shall be supported</p></td>
+<td>As per supported langauge binding(s).</td>
+</tr>
+
+<tr>
+<th colspan="3" bgcolor="#c0c0c0">Route services</th>
+</tr>
+<tr>
+<td>getSourceNode</td>
+<td>Full support</td>
+<td>Full Support</td>
+</tr>
+<tr>
+<td>getSourceField</td>
+<td>Full support</td>
+<td>Full Support</td>
+</tr>
+<tr>
+<td>getDestinationNode</td>
+<td>Full support</td>
+<td>Full Support</td>
+</tr>
+<tr>
+<td>getDestinationField</td>
+<td>Full support</td>
+<td>Full Support</td>
+</tr>
+
+<tr>
+<th align="left" colspan="3" bgcolor="#c0c0c0">
+<p align="center">Prototype services</th>
+</tr>
+
+<tr>
+<td>isExternProto</td>
+<td>Full support</td>
+<td>Full Support</td>
+</tr>
+<tr>
+<td>Create Instance</td>
+<td>Full support</td>
+<td>Full Support</td>
+</tr>
+<tr>
+<td>getFieldDefintions</td>
+<td>Full support</td>
+<td>Full Support</td>
+</tr>
+<tr>
+<td>Check Load State</td>
+<td>Full support</td>
+<td>Full Support</td>
+</tr>
+<tr>
+<td>Request Immediate Load</td>
+<td>Full support</td>
+<td>Full Support</td>
+</tr>
+
+</tbody>
+</table>
+</div>
+
+
+<div class="CenterDiv">
+
+<p class="TableCaption">
+<a name="t-SpecsForSAIScript"></a>Table 7.5 &mdash; Specifications for SAI script content interaction</p>
+
+<table class="main">
+<tbody>
+<tr>
+<th>Item</th>
+<th>Binding support</th>
+<th>Minimum browser support</th>
+</tr>
+<tr>
+<td>setBrowser</td>
+<td>Full support</td>
+<td>Full Support</td>
+</tr>
+<tr>
+<td>setFields</td>
+<td>Full support</td>
+<td>Full Support</td>
+</tr>
+<tr>
+<td>initialize</td>
+<td>Full support</td>
+<td>Full Support</td>
+</tr>
+<tr>
+<td>prepareEvents</td>
+<td>Full support</td>
+<td>Full Support</td>
+</tr>
+<tr>
+<td>eventsProcessed</td>
+<td>Full support</td>
+<td>Full Support</td>
+</tr>
+<tr>
+<td>shutdown</td>
+<td>Full support</td>
+<td>Full Support</td>
+</tr>
+
+</tbody>
+</table>
+</div>
+
+<div class="CenterDiv">
+
+<p class="TableCaption">
+<a name="t-SpecsForSAIUtils"></a>
+Table 7.6 &mdash; Specifications for SAI utility services</p>
+
+<table class="main">
+<tbody>
+<tr>
+<th>Item</th>
+<th>Binding support</th>
+<th>Minimum browser support</th>
+</tr>
+
+<tr>
+<td>Matrix</td>
+<td>At least 3x3 and 4x4 sizes</td>
+<td>Full Support</td>
+</tr>
+
+</tbody>
+</table>
+</div>
+
+<h2><a name="Level2"></a>7.3.4 Level 2</h2>
+
+<p>A browser conformant to Level 2 shall support everything in Level 1 and 
+shall support  all abstract node types derived from X3DNode for the components 
+implemented in the browser. The browser shall also support all additional 
+objects that may be introduced by the implementation.</p>
+
+<h2><a name="Level3"></a>7.3.5 Level 3</h2>
+
+<p>A browser conformant to Level 3 shall support all of the requirements of
+Level 2 and also support binding specific interfaces for each concrete
+node representation.</p>
+
+<img class="x3dbar" src="../Images/x3dbar.png" alt="--- X3D separator bar ---" width="430" height="23" />
+
+</body>
+</html>

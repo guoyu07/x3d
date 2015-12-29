@@ -1,0 +1,85 @@
+#X3D V3.0 utf8
+PROFILE Interactive
+META "filename" "GuidedTour.x3dv"
+
+Group {
+  children [
+    Transform { translation 0.0 -1.0 0.0
+      children [
+        Shape {
+          geometry Box { size 30.0 0.2 30.0 }
+          appearance Appearance {
+            material Material { }
+          }
+        }
+      ]
+    }
+    Transform { translation -1.0 0.0 0.0
+      children [
+        Shape {
+          geometry Cone { }
+          appearance Appearance {
+            material Material {
+              diffuseColor 0.5 0.8 0.0
+            }
+          }
+        }
+      ]
+    }
+    Transform { translation 1.0 0.0 0.0
+      children [
+        Shape {
+          geometry Cylinder { }
+          appearance Appearance {
+            material Material { diffuseColor 0.0 0.2 0.7
+            }
+          }
+        }
+      ]
+    }
+    DEF GuideTransform Transform {
+      children [
+	DEF TourGuide Viewpoint { description "Tour Guide"
+          jump FALSE
+        }
+       DEF ProxSensor ProximitySensor {
+         size 50.0 50.0 50.0
+        }
+        DEF StartTour TouchSensor {
+        }
+        Transform { translation 0.6 0.4 8.0
+          children [
+            Shape {
+              geometry Sphere { radius 0.2 }
+              appearance Appearance {
+                material Material { diffuseColor 1.0 0.6 0.0 }
+	      }
+	    }
+	  ]
+	}
+      ]
+    }
+  ]
+}
+DEF GuidePI PositionInterpolator {
+  keyValue [ 0.0 0.0 0.0, 0.0 0.0 -5.0, 2.0 0.0 -5.0, 
+             2.0 6.0 -15.0, -4.0 6.0 -15.0, -4.0 0.0 -5.0, 
+             0.0 0.0 -5.0, 0.0 0.0 0.0 ]
+  key [ 0.0 0.2 0.3 0.5 0.6 0.8 0.9 1.0 ]
+}
+DEF GuideRI OrientationInterpolator {
+  keyValue [ 0.0 1.0 0.0 0.0, 0.0 1.0 0.0 0.0, 0.0 1.0 0.0 1.2, 
+             0.0 1.0 0.0 3.0, 0.0 1.0 0.0 3.5, 0.0 1.0 0.0 5.0, 
+             0.0 1.0 0.0 0.0, 0.0 1.0 0.0 0.0 ]
+  key [ 0.0 0.2 0.3 0.5 0.6 0.8 0.9 1.0 ]
+}
+DEF TS TimeSensor {
+  cycleInterval 30.0
+}
+ROUTE ProxSensor.isActive TO StartTour.enabled
+ROUTE StartTour.touchTime TO TS.startTime
+ROUTE TS.isActive TO TourGuide.set_bind
+ROUTE TS.fraction_changed TO GuidePI.set_fraction
+ROUTE TS.fraction_changed TO GuideRI.set_fraction
+ROUTE GuidePI.value_changed TO GuideTransform.set_translation
+ROUTE GuideRI.value_changed TO GuideTransform.rotation

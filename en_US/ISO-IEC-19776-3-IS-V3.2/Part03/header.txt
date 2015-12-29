@@ -1,0 +1,5 @@
+X3D Binary Version             "3.1"
+XML Compression Version        "FastInfoSet 2004"
+Geometric Compression Version  "Java3D 2004"
+
+Attributes added to X3D tag.

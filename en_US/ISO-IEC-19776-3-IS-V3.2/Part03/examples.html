@@ -1,0 +1,366 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+<TITLE>ISO/IEC 19776-3.2:2010 X3D encodings -- Part 3: Compressed binary encoding -- Annex C Examples</TITLE>
+<link REL="stylesheet" HREF="X3DEncodings.css" TYPE="text/css">
+
+</head>
+<body>
+
+<div class="CenterDiv">
+<img class="x3dlogo" SRC="../Images/x3d.png" ALT="X3D logo" style="width: 176px; height: 88px" >
+</div>
+
+<div class="CenterDiv">
+<p class="HeadingPart">
+    Extensible 3D (X3D) encodings<br>
+    Part 3: Compressed binary encoding</p>
+
+<p class="HeadingClause">Annex C</p>
+
+<p class="AnnexType">(informative)</p>
+
+<p class="HeadingClause">Examples</p>
+
+</div>
+
+<img class="x3dbar" SRC="../Images/x3dbar.png" ALT="--- X3D separator bar ---" width="430" height="23" >
+
+<h1><img class="cube" src="../Images/cube.gif" alt="cube" >
+<a name="Topics"></a>C.1 Topics</H1>
+
+<P>This annex provides a variety of X3D examples using the XML  encoding. A link 
+is provided to the equivalent Compressed binary encoding.
+<a href="#t-Topics">Table C.1</a> lists the topics in this annex:</P>
+
+<div class="CenterDiv">
+<p class="TableCaption">
+<a name="t-Topics"></a>Table C.1 &mdash; Topics in this annex</P>
+
+  <table class="topics">
+  <TBODY>
+  <TR>
+    <TD>
+
+<P>
+<b><a href="#Topics">C.1 Topics</a><BR>
+<a href="#SimpleExample">C.2 Simple example</a><BR>
+<A href="#Instancing">C.3 Instancing (sharing)</A><BR>
+<A href="#PrototypeExample">C.4 Prototype example</A><BR>
+<A href="#ScriptingExample">C.5 Scripting example</A></b></TR>
+</TBODY>
+</TABLE>
+</DIV>
+
+<img class="x3dbar" SRC="../Images/x3dbar.png" ALT="--- X3D separator bar ---" width="430" height="23" >
+<h1><img class="cube" src="../Images/cube.gif" alt="cube" >
+<a name="SimpleExample"></a>C.2 Simple example</H1>
+
+<P>This example contains a simple scene defining a view of a red sphere and a
+blue box, lit by a directional light as shown in <a href="#f-SimpleExample">
+Figure C.1</a>:</P>
+
+<div class="CenterDiv">
+
+<img src="../Images/rsmbb.jpg"
+alt="Red sphere meets blue box" width="353" height="203">
+
+<p class="FigureCaption">
+<a name="f-SimpleExample"></a>Figure C.1 &mdash; Red sphere and blue box</p>
+</div>
+
+<p>
+The input textural encoding is:
+</p>
+<pre Class="listing">&lt;?xml version="1.0" encoding="utf-8"?>
+&lt;!DOCTYPE X3D PUBLIC "ISO//Web3D//DTD X3D 3.0//EN"
+  "http://www.web3d.org/specifications/x3d-3.0.dtd">
+
+&lt;X3D version='3.0' profile='Interchange'>
+  &lt;head>
+    &lt;meta name='filename' content='RedSphereBlueBox.x3d'/>
+  &lt;/head>
+  &lt;Scene>
+    &lt;Transform>
+      &lt;NavigationInfo headlight='false'
+        avatarSize='0.25 1.6 0.75' type='"EXAMINE"'/>
+      &lt;DirectionalLight/>
+      &lt;Transform translation='3.0 0.0 1.0'>
+        &lt;Shape>
+          &lt;Sphere radius='2.3'/>
+          &lt;Appearance>
+            &lt;Material diffuseColor='1.0 0.0 0.0'/>
+          &lt;/Appearance>
+        &lt;/Shape>
+      &lt;/Transform>
+      &lt;Transform translation='-2.4 0.2 1.0' rotation='0.0 0.707 0.707 0.9'>
+        &lt;Shape>
+          &lt;Box/>
+          &lt;Appearance>
+            &lt;Material diffuseColor='0.0 0.0 1.0'/>
+          &lt;/Appearance>
+        &lt;/Shape>
+      &lt;/Transform>
+    &lt;/Transform>
+  &lt;/Scene>
+&lt;/X3D>
+</PRE>
+<p>
+This file is encoded with all native Fast Infoset encoders without any X3D-specific compression.
+</p>
+<p>
+The Compressed binary encoded result is available here:&nbsp; <a href="Examples/RedSphereBlueBox.x3db"> RedSphereBlueBox.x3db</a>
+</p>
+
+<p><a target="3D_Scenexml" href="Examples/RedSphereBlueBox.x3db">Click here</a> to
+view this example in a 3D scene window.</P>
+
+<img class="x3dbar" SRC="../Images/x3dbar.png" ALT="--- X3D separator bar ---" width="430" height="23" >
+<h1><img class="cube" src="../Images/cube.gif" alt="cube" >
+<a name="Instancing"></a>C.3 Instancing (sharing)</H1>
+
+<P>Reading the following file results in three spheres being drawn. The first
+sphere defines a unit sphere at the origin. The second sphere, named "Joe",
+defines a smaller sphere translated along the +x axis, the third sphere is a
+reference to the second sphere and is translated along the -x axis. If any
+changes occur to the second sphere (<i>e.g.,</i> radius changes),  the third sphere
+will change to the picture shown in <a href="#f-Instancing">Figure C.2</a>:</P>
+
+<div class="CenterDiv">
+
+<img src="../Images/instancing.jpg" height="203" width="353"
+alt="Instancing">
+
+<p class="FigureCaption">
+<a name="f-Instancing"></a>Figure C.2 &mdash; Instancing</p>
+</div>
+
+<p>
+The Input Textural Encoding is:
+</p>
+
+<pre Class="listing">&lt;?xml version="1.0" encoding="utf-8"?>
+&lt;!DOCTYPE X3D PUBLIC "ISO//Web3D//DTD X3D 3.0//EN"
+  "http://www.web3d.org/specifications/x3d-3.0.dtd">
+
+&lt;X3D version='3.0' profile='Interchange'>
+  &lt;head>
+    &lt;meta name='filename' content='Instancing.x3d'/>
+  &lt;/head>
+  &lt;Scene>
+    &lt;Transform>
+      &lt;Shape>
+        &lt;Sphere/>
+      &lt;/Shape>
+      &lt;Transform translation='2.0 0.0 0.0'>
+        &lt;Shape DEF='Joe'>
+          &lt;Sphere radius='0.2'/>
+        &lt;/Shape>
+      &lt;/Transform>
+      &lt;Transform translation='-2.0 0.0 0.0'>
+        &lt;Shape USE='Joe'/>
+      &lt;/Transform>
+    &lt;/Transform>
+  &lt;/Scene>
+&lt;/X3D>
+</PRE>
+
+<p>This file is encoded with all native Fast Infoset encoders without any X3D-specific compression.
+</p>
+<p>
+The Compressed binary encoded result is available here: <a href="Examples/Instancing.x3db">
+Instancing.x3db</a>
+</p>
+
+<p><a target="3D_Scenexml" href="Examples/Instancing.x3db">Click here</a> to
+view this example in a 3D scene window.</P>
+
+<P>(Note that the spheres are unlit because no appearance was specified.)</P>
+
+<img class="x3dbar" SRC="../Images/x3dbar.png" ALT="--- X3D separator bar ---" width="430" height="23" >
+<h1><img class="cube" src="../Images/cube.gif" alt="cube" >
+<a name="PrototypeExample"></a>C.4 Prototype example</H1>
+
+<P>A simple table with variable colours for the legs and top might be prototyped
+as shown in <a href="#f-PrototypeExample">Figure C.3</a>:</P>
+
+<div class="CenterDiv">
+
+<img src="../Images/proto.jpg"
+alt="Prototype example" width="289" height="252">
+
+<p class="FigureCaption">
+<a name="f-PrototypeExample"></a>Figure C.3 &mdash; Prototype</p>
+</div>
+
+<p>
+The input textural encoding is:
+</p>
+
+<pre Class="listing">&lt;?xml version="1.0" encoding="UTF-8"?>
+&lt;!DOCTYPE X3D PUBLIC "ISO//Web3D//DTD X3D 3.0//EN"
+  "http://www.web3d.org/specifications/x3d-3.0.dtd">
+
+&lt;X3D version='3.0' profile='Immersive'>
+  &lt;head>
+    &lt;meta name='filename' content='Prototype.x3d'/>
+  &lt;/head>
+  &lt;Scene>
+    &lt;ProtoDeclare name='TwoColorTable'>
+      &lt;ProtoInterface>
+        &lt;field name='legColor' type='SFColor' value='.8 .4 .7'
+               accessType='initializeOnly'/>
+        &lt;field name='topColor' type='SFColor' value='.6 .6 .1'
+               accessType='initializeOnly'/>
+      &lt;/ProtoInterface>
+      &lt;ProtoBody>
+        &lt;Transform>
+          &lt;Transform translation='0.0 0.6 0.0'> &lt;!-- table top -->
+            &lt;Shape>
+              &lt;Appearance>
+                &lt;Material DEF='TableTopMaterial'>
+                  &lt;IS>
+                    &lt;connect nodeField='diffuseColor' protoField='topColor'/>
+                  &lt;/IS>
+                &lt;/Material>
+              &lt;/Appearance>
+              &lt;Box size='1.2 0.2 1.2'/>
+            &lt;/Shape>
+          &lt;/Transform>
+          &lt;Transform translation='-0.5 0.0 -0.5'> &lt;!-- first table leg -->
+             &lt;Shape DEF='Leg'>
+               &lt;Appearance>
+                 &lt;Material DEF='LegMaterial' diffuseColor='1.0 0.0 0.0'>
+                   &lt;IS>
+                     &lt;connect nodeField='diffuseColor' protoField='legColor'/>
+                   &lt;/IS>
+                 &lt;/Material>
+              &lt;/Appearance>
+              &lt;Cylinder height='1.0' radius='0.1'/>
+            &lt;/Shape>
+          &lt;/Transform>
+          &lt;Transform translation='0.5 0.0 -0.5'> &lt;!-- another table leg -->
+            &lt;Shape USE='Leg'/>
+          &lt;/Transform>
+          &lt;Transform translation='-0.5 0.0 0.5'>
+            &lt;Shape USE='Leg'/>   &lt;!-- another table leg -->
+          &lt;/Transform>
+          &lt;Transform translation='0.5 0.0 0.5'>
+            &lt;Shape USE='Leg'/>    &lt;!--another table leg -->
+          &lt;/Transform>  &lt;!-- End of root Transform's children -->
+        &lt;/Transform>    &lt;!-- End of root Transform -->
+      &lt;/ProtoBody>
+    &lt;/ProtoDeclare> &lt;!-- End of prototype -->
+          &lt;!-- The prototype is now defined. Although it contains a
+          number of nodes, only the legColor and topColor fields
+          are public.
+          Instead of using the default legColor and topColor, this
+          instance of the table has red legs and a green top: -->
+    &lt;ProtoInstance name='TwoColorTable'>
+      &lt;fieldValue name='legColor' value='1 0 0'/>
+      &lt;fieldValue name='topColor' value='0 1 0'/>
+    &lt;/ProtoInstance>
+    &lt;NavigationInfo type='"EXAMINE"'/>  &lt;!--Use the Examine viewer-->
+  &lt;/Scene>
+&lt;/X3D>
+
+
+</PRE>
+
+<p>This file is encoded with all native Fast Infoset encoders without any X3D-specific compression.
+</p>
+<p>
+The Compressed binary encoded result is available here: <a href="Examples/Prototype.x3db">Prototype.x3db</a>
+</p>
+
+<p><a target="3D_Scenexml" href="Examples/Prototype.x3db">Click here</a> to
+view this example in a 3D scene window.</P>
+
+<img class="x3dbar" SRC="../Images/x3dbar.png" ALT="--- X3D separator bar ---" width="430" height="23" >
+
+<h1><img class="cube" src="../Images/cube.gif" alt="cube" >
+<a name="ScriptingExample"></a>C.5 Scripting example</H1>
+
+<P>This Script node decides whether or not to open a bank vault given openVault
+and combinationEntered messages. To do this, it remembers whether or not the
+correct combination has been entered. The Script node combined with a Sphere, a
+TouchSensor and a Sound node to show how is works. When the pointing device is
+over the sphere, the <I>combinationEntered</I> inputOnly field of the Script is sent.
+Then, when the Sphere is touched (typically when the mouse button is pressed)
+the Script is sent the <I>openVault</I> inputOnly field. This generates the
+<I>vaultUnlocked</I> outputOnly field which starts a &lsquo;click&rsquo; sound. Here is the
+example:</P>
+
+<p>
+The input textural encoding is:
+</p>
+
+<pre Class="listing">&lt;?xml version="1.0" encoding="utf-8"?>
+&lt;!DOCTYPE X3D PUBLIC "ISO//Web3D//DTD X3D 3.0//EN"
+  "http://www.web3d.org/specifications/x3d-3.0.dtd">
+
+&lt;X3D version='3.0' profile='Immersive'>
+  &lt;head>
+    &lt;meta name='filename' content='Scripting.x3d'/>
+  &lt;/head>
+  &lt;Scene>
+    &lt;Script DEF='OpenVault'>
+      &lt;field name='openVault' type='SFTime'
+             accessType='inputOnly'/>
+      &lt;field name='combinationEntered' type='SFBool'
+             accessType='inputOnly'/>
+      &lt;field name='vaultUnlocked' type='SFTime'
+             accessType='outputOnly'/>
+      &lt;field name='unlocked' type='SFBool' value='false'
+             accessType='initializeOnly' />
+      &lt;![CDATA[
+      ecmascript:
+      function combinationEntered (value) {
+        unlocked = value;
+      }
+      function openVault(value) {
+      if (unlocked) vaultUnlocked = value;
+      }
+      ]]&gt;
+    &lt;/Script>
+    &lt;Shape>
+      &lt;Appearance>
+        &lt;Material diffuseColor='1 0 0'/>
+      &lt;/Appearance>
+      &lt;Sphere/>
+    &lt;/Shape>
+    &lt;Sound maxBack='1000' maxFront='1000' minBack='1000' minFront='1000'>
+      &lt;AudioClip DEF='Click' stopTime='1'
+        description='clicking sound' url='"click.wav"'/>
+    &lt;/Sound>
+    &lt;TouchSensor DEF='TS'/>
+    &lt;ROUTE fromNode='TS' fromField='isOver'
+           toNode='OpenVault' toField='combinationEntered'/>
+    &lt;ROUTE fromNode='TS' fromField='touchTime'
+           toNode='OpenVault' toField='openVault'/>
+    &lt;ROUTE fromNode='OpenVault' fromField='vaultUnlocked'
+           toNode='Click' toField='startTime'/>
+  &lt;/Scene>
+&lt;/X3D>
+</PRE>
+
+<P class="Note">NOTE&nbsp; The <I>openVault</I> inputOnly field and the <I>vaultUnlocked</I>
+outputOnly field
+are of type SFTime, which allows them to be wired directly to a TouchSensor or
+TimeSensor.</P>
+
+<p>This file is encoded with all native Fast Infoset encoders without any X3D-specific compression.
+</p>
+<p>
+The Compressed binary encoded result is available here: <a href="Examples/Scripting.x3db">Scripting.x3db</a>
+</p>
+
+<p><a target="3D_Scenexml" href="Examples/Scripting.x3db">Click here</a> to
+view this example in a 3D scene window.</P>
+
+<img class="x3dbar" SRC="../Images/x3dbar.png" ALT="--- X3D separator bar ---" width="430" height="23" >
+
+</body>
+</html>
