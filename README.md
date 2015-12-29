@@ -5,6 +5,7 @@ Web3D组织制定和维护的Web3D技术标准-X3D，它是ISO国际标准。
 
 文档目录结构
 
+<pre>
 v1/
     en_US/
     zh_CN/
@@ -19,3 +20,4 @@ v3/
     en_US/
     zh_CN/
     ...
+</pre>
