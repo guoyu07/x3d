@@ -1,4 +1,6 @@
-x3ddoc
+x3d doc
 ======
 
-x3d specification doc
+Web3D组织制定和维护的Web3D技术标准-X3D，它是ISO国际标准。
+
+
