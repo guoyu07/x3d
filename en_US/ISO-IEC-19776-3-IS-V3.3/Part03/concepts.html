@@ -1,0 +1,866 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html lang="en" xmlns:v="urn:schemas-microsoft-com:vml" xmlns:o="urn:schemas-microsoft-com:office:office">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<TITLE>ISO/IEC 19776-3:2015 Extensible 3D (X3D) encodings &mdash; Part 3: Compressed binary encoding &mdash; 4 Concepts</TITLE>
+<link rel="stylesheet" href="X3DEncodings.css" type="text/css">
+<style type="text/css">
+.style1 {
+				list-style-type: lower-alpha;
+}
+</style>
+</head>
+
+<body>
+<div class="CenterDiv">
+<img class="x3dlogo" SRC="../Images/x3d.png" ALT="X3D logo" style="width: 176px; height: 88px">
+</div>
+
+<div class="CenterDiv">
+<p class="HeadingPart">
+    Extensible 3D (X3D) encodings<br>
+Part 3: Compressed binary encoding</p>
+
+<p class="HeadingClause">4 Concepts</p>
+</div>
+
+<img class="x3dbar" SRC="../Images/x3dbar.png" ALT="--- X3D separator bar ---" width="430" height="23">
+
+<h1><img class="cube" src="../Images/cube.gif" alt="cube" width="20" height="19">
+<a name="IntroductionAndTopics"></a>4.1 Introduction and topics</H1>
+
+<H2><a name="Introduction"></a>4.1.1 Introduction</H2>
+
+<P>This clause describes key concepts in this part of ISO/IEC 19776. This
+includes how the X3D constructs defined in <a href="references.html#[I19775_1]">ISO/IEC 19775-1</a> are encoded as a 
+compressed binary file.</P>
+
+<H2><a name="Topics"></a>4.1.2 Topics</H2>
+
+<P><A href="#t-TopicsInThisClause">Table 4.1</A> lists the topics is this clause.</P>
+
+<div class="CenterDiv">
+
+<p class="TableCaption">
+<a name="t-TopicsInThisClause"></a>Table 4.1 &mdash; Topics in this clause</p>
+
+<TABLE class="topics">
+<TBODY>
+  <TR>
+    <TD valign="top">
+    
+    <p><b><A href="#IntroductionAndTopics">4.1 Introduction and topics</A></b><BR>
+    &nbsp;&nbsp;<A href="#Introduction">4.1.1 Introduction</A><BR>
+    &nbsp;&nbsp;<A href="#Topics">4.1.2 Topics</A><br>
+&nbsp; <a href="#ConventionsUsed">4.1.3 Conventions used</a></p>
+    <p><b>
+	<A href="#Overview">4.2 Overview</A></b><BR>
+    &nbsp;&nbsp;<a href="#OverviewIntroduction">4.2.1 Introduction</a><br>
+    &nbsp;&nbsp;<A href="#StructureOfX3DFile">4.2.2 The structure of an X3D file</A><BR>
+    &nbsp;&nbsp;<A href="#X3DCanonicalForm">4.2.3 X3D canonical form</A><BR>
+    &nbsp;&nbsp;<a href="#Header">4.2.4 Header</a><BR>
+    &nbsp;&nbsp;<A href="#PrototypeRepresentations">4.2.5 Prototype representations</A><br>
+    </p>
+    <p><b><a href="#CompressingX3DBinaryFiles">4.3 Compressing X3D binary 
+	files</a></b><BR>
+    &nbsp;&nbsp;<A href="#NodeCompresors">4.3.1 Node compressors</A><br>
+	  &nbsp;&nbsp;&nbsp;
+	  <a href="#ProcessOverview">4.3.1.1 Process overview</a><br>
+&nbsp;&nbsp;&nbsp; <a href="#Compression">4.3.1.2 Compression</a><br>
+&nbsp;&nbsp;&nbsp; <a href="#Preservation">4.3.1.3 Preservation</a><br>
+&nbsp;&nbsp;&nbsp; <a href="#UserSpecifiedParameters">4.3.1.4 User-specified 
+	parameters</a><BR>
+    &nbsp;&nbsp;<A href="#AdditionalFieldCompression">4.3.2 Additional field compression</A><BR>
+    &nbsp;&nbsp;<A href="#Fast-Infoset">4.3.3 XML binary compression using Fast 
+	infoset</A></TD>
+    <TD valign="top">
+    <p><b><a href="#DecompressingX3DBinaryFiles">
+    4.4 Decompressing X3D binary files</a></b><BR>
+    &nbsp;&nbsp;<a href="#XMLBinaryDecompressionUsingFastInfoSet">4.4.1 XML 
+	binary decompression using Fast infoset</a><br>
+	  &nbsp;&nbsp;<a href="#FieldDecompression">4.4.2 Field decompression</a><br>
+&nbsp;&nbsp;<a href="#NodeDecompressors">4.4.3 Node decompressors</a><br>
+&nbsp;&nbsp;&nbsp; <a href="#ProcessOverviewDecompression">4.4.3.1 Process overview</a><br>
+&nbsp;&nbsp;&nbsp; <a href="#Decompression">4.4.3.2 Decompression</a><BR>
+    &nbsp;&nbsp;&nbsp; <a href="#PreservationDecompression">4.4.3.3 
+	Preservation</a></p>
+	<p><b><A href="#X3DFilesAndTheWorldWideWeb">4.5 X3D files and the World Wide Web</A></b><BR>
+    &nbsp;&nbsp;<A href="#gzipCompression">4.5.1 gzip compression</A><BR>
+    &nbsp;&nbsp;<A href="#FileExtensionsAndMIMETypes">4.5.2 File extensions and MIME types</A></p>
+    </TD>
+  </TR>
+</TBODY>
+</TABLE>
+</DIV>
+
+
+<h2><a name="ConventionsUsed"></a>4.1.3 Conventions used</h2>
+<p>The following conventions are used throughout this part of ISO/IEC 19776.</p>
+<p><i>Italics</i> are used for event and field names and are also used when new 
+terms are introduced and equation variables are referenced.</p>
+<p>A <code>fixed-space</code> font is used for URL addresses and source code 
+examples. ISO/IEC 19776 Classic VRML encoding (see
+<a href="references.html#[I19776_2]">ISO/IEC 19776-2</a>) examples appear in <b><code>bold,</code>
+<code>fixed-space</code></b> font.</p>
+<p>Node type names are appropriately capitalized (<i>e.g.</i>, “The Billboard 
+node is a grouping node...”). However, the concept of the node is often referred 
+to in lower case in order to refer to the semantics of the node, not the node 
+itself (<i>e.g.</i>,&nbsp;“To rotate the billboard...”).</p>
+<p>The form &quot;0xhh&quot; expresses a byte as a hexadecimal number representing the bit 
+configuration for that byte.</p>
+<p>Throughout this part of ISO/IEC 19776, references are denoted using the “x.[ABCD]” 
+notation, where &quot;x&quot; denotes which clause or annex the reference is described in 
+and “[ABCD]” is an abbreviation of the reference title. An exception to this 
+convention is that International Standards are referenced by the number of the 
+standard.</p>
+<p class="Example">EXAMPLE 2.[ABCD] refers to a reference described in Clause 2 
+and C.[ABCD] refers to a reference described in Annex C.</p>
+
+
+<h1><img class="cube" src="../Images/cube.gif" alt="cube" width="20" height="19">
+<a name="Overview"></a>4.2 Overview</H1>
+
+<H2><a name="OverviewIntroduction"></a>4.2.1 Introduction</H2>
+
+<p>
+This X3D encoding provides a compact transmission format that minimizes delivery 
+size and maximizes parsing speed while following the precepts of XML (see
+<a href="references.html#[XML]">2.[XML]</a>). Privacy and ownership protections are 
+optionally provided using XML security mechanisms.
+</p>
+<p>There is an essential one-to-one match between the nodes and fields of the abstract X3D scene graph
+	and corresponding constructs in the Compressed binary encoding.  This section describes the design patterns that govern the correspondence.
+</p>
+
+<p>The following compression steps (as depicted in
+<a href="#X3DCompressionDataFlow">Figure 4.1</a>) are performed as part of the Compressed 
+binary encoding. The actual processing order and methods of accomplishment may 
+vary between applications. An implementation may skip any step so long as the 
+resultant compressed binary file is the same as if these steps were followed.</p>
+<ol type="a">
+	<li>Optional compression of nodes and their children.</li>
+	<li>Conversion of X3D scene into .x3d XML encoding as specified in
+	<a href="references.html#[I19776_1]">ISO/IEC 19776-1</a>, either as a file or 
+	alternatively as an XML-based memory representation</li>
+	<li>Normalizing XML structures by applying
+	X3D canonicalization (see <a href="#X3DCanonicalForm">4.2.3 X3D canonical 
+	form</a>) as an alternate formulation for
+	XML canonicalization (see <a href="references.html#[XML-Canonicalization]">2.[XML-Canonicalization]</a>).</li>
+	<li>Optional encryption and/or digital authentication of scene fragments 
+	using
+	XML encryption (see <a href="references.html#[XML-Encryption]">2.[XML-Encryption]</a>) and
+	XML signature (see <a href="references.html#[XML-Signature]">2.[XML-Signature]</a>).</li>
+	<li>XML-based compression using
+	Fast infoset algorithms as specified in
+	<a href="references.html#[I24824_1]">ISO/IEC 24824-1</a>.</li>
+	<li>Optional gzip compression of entire compressed scene as specified in
+	<a href="#gzipCompression">4.5.1 gzip compression</a>.</li>
+</ol>
+<div class="CenterDiv">
+<a name="X3DCompressionDataFlow"></a>
+<img src="../Images/X3DCompressionDataFlow.png" alt="Compression Data Flow">
+<p class="FigureCaption">Figure 4.1 &mdash; 
+Compression data flow/production chain</p>
+</div>
+	<p>The following decompression steps (as depicted in
+	<a href="#X3DDecompressionDataFlow">Figure 4.2</a>) are performed as 
+	part of the Compressed binary encoding. The actual processing order and 
+	methods of accomplishment may vary between applications. An implementation 
+	may skip any step so long as the resultant .X3D encoded file is the 
+	same as if these steps were followed.</p>
+<ol class="style1" start="7">
+	<li>Optional gzip decompression of entire compressed scene as specified in
+	<a href="#gzipCompression">4.5.1 gzip compression</a>.</li>
+	<li>XML-based decompression using Fast infoset algorithms as specified in
+	<a href="references.html#[I24824_1]">ISO/IEC 24824-1</a>.</li>
+	<li>Optional decryption and/or digital authentication of scene fragments 
+	using
+	XML encryption (see <a href="references.html#[XML-Encryption]">2.[XML-Encryption]</a>) and
+	XML signature (see <a href="references.html#[XML-Signature]">2.[XML-Signature]</a>).</li>
+	<li>Optional renormalizing XML structures by applying X3D canonicalization 
+	(see <a href="#X3DCanonicalForm">4.2.3 X3D canonical form</a>) as an alternate formulation for XML 
+	canonicalization (see <a href="references.html#[XML-Canonicalization]">
+	2.[XML-Canonicalization]</a>).</li>
+	<li>Conversion of X3D scene into .x3d XML encoding as specified in
+	<a href="references.html#[I19776_1]">ISO/IEC 19776-1</a>, either as a file or 
+	alternatively as an XML-based memory representation.</li>
+	<li>Optional decompression of nodes and their children.</li>
+</ol>
+<div class="CenterDiv">
+<a name="X3DDecompressionDataFlow"></a>
+<img src="../Images/X3DDecompressionDataFlow.png" alt="Deompression Data Flow">
+<p class="FigureCaption">Figure 4.2 &mdash; Decompression data flow/production chain</p>
+</div>
+<p>A registry of node compression methods is maintained under, and 
+using the established procedures of, the
+<a href="http://www.iso.ch/iso/standards_development/maintenance_agencies.htm">ISO International 
+Registration Authority for Items</a><sup><a href="#RegistryOfGraphicalItems">1</a></sup>. A 
+file conforming to this part of ISO/IEC 19776 includes only compressors 
+that have been standardized or have been approved for inclusion in the registry. See
+<a href="nodecompressors.html">Annex B Node compressor registry</a> for more information on registered node compressors.</p>
+
+<p>
+<a href="references.html#[I24824_1]">ISO/IEC 24824-1</a> specifies the technique used to encode a binary stream representing
+an X3D scene graph. This technique has the name of <i>Fast infoset</i>. 
+Conceptually, an XML-encoded canonical X3D document (possibly further modified 
+by node compressors) is passed to a Fast infoset processor to write the binary 
+stream.</p>
+<p class=footnote>
+<sup><a name="RegistryOfGraphicalItems"></a>1</sup>Contact information for the 
+ISO-designated Registration Authority for Items registered under the ISO/IEC 
+9973 procedures is available at the ISO Maintenance Agencies and Registration 
+Authorities web site:&nbsp;
+<a href="http://www.iso.ch/iso/standards_development/maintenance_agencies.htm">
+http://www.iso.ch/iso/standards_development/maintenance_agencies.htm</a>.</p>
+
+<H2><a name="StructureOfX3DFile"></a>4.2.2 The structure of an X3D file</H2>
+
+<P>An <I>X3D file</I> is structured as specified in
+<a href="references.html#[I19775_1]">ISO/IEC 19775-1</a>.</P>
+
+<H2><a name="X3DCanonicalForm"></a>4.2.3 X3D canonical form</H2>
+<p>
+Conceptually, the X3D scene input to the
+<a href="references.html#[I24824]">Fast infoset</a>
+encoder is an XML-encoded document with certain restrictions.
+X3D canonical form eliminates file ambiguities that have no impact on the 3D content
+but which otherwise would negatively impact security issues, compression or parsing performance.</p>
+<p>
+X3D canonical form is based on Canonical XML (see
+<a href="references.html#[XML-Canonicalization]">2.[XML-Canonicalization]</a>) 
+which specifically allows modification to the default XML canonicalization 
+rules. This provides the ability to establish equivalence between differently 
+formatted (but functionally identical) XML documents. This capability is 
+required for the application of XML Encryption (see
+<a href="references.html#[XML-Encryption]">2.[XML-Encryption]</a>) or XML 
+Signature (see <a href="references.html#[XML-Signature]">2.[XML-Signature]</a>) 
+syntax and processing techniques.</p>
+
+<p>
+The following X3D canonicalization restrictions are applied to an X3D scene (or scene fragment)
+prior to encryption, signature or compression:
+</p>
+<ol type="a">
+   <li>Whitespace rules:<ol>
+	<li>Whitespace is defined as carriage-return, line-feed, space, tab, and 
+	comma characters. Whitespace separates all MF-type array values, including 
+	individual element values within MFString arrays. 
+	</li>
+	<li>All whitespace characters are converted to a normalized 
+	(single-occurrence) blank character with no leading or trailing whitespace.</li>
+	<li>All literal characters within an SFString value are retained verbatim.</li>
+	<li>All literal characters within MFString array values are retained verbatim.</li>
+	</ol>
+	</li>
+	<li>Double-quote and single-quote characters:<ol type=1>
+		<li>Individual MFString array values are bounded by "double-quote" characters, each separated by a single space.</li>
+		<li>The overall MFString attribute is contained within 'single-quote' characters.</li>
+	</ol>
+	<blockquote>
+		<p class="Example">EXAMPLE 1&nbsp; <code>&lt;NavigationInfo&nbsp;type='"WALK"&nbsp;"EXAMINE"&nbsp;"ANY"'/&gt;</code>
+		</p>
+	</blockquote>
+	<ol type=1 start=3>
+		<li>Single-quote characters within an MFString value are replaced by the
+		<code>&amp;#8242;</code> character entity.</li>
+		<li>Double-quote characters within an MFString value are replaced by the
+		<code>&amp;#34;</code> character entity (and escaped by a leading backslash 
+		&quot;\&quot;&nbsp;character).</li>
+		<li>XML &amp;quot; character references that delimit individual strings in 
+		an MFString array are converted to double-quote characters.<p class="Example">EXAMPLE 1&nbsp; 
+		<code>&lt;Text string=&#39; &quot;\&amp;quot;Hello, quotation marks\&amp;quot;&quot; &quot;Line 2 
+		has no quotation marks&quot; &#39;/&gt;</code> displays the following 
+		two lines:</p>
+		<p class="Example">
+		&nbsp;&nbsp;&nbsp; “Hello, quotation marks”<br>
+		&nbsp;&nbsp;&nbsp;&nbsp;Line 2 has no quotation marks</p></li>
+	</ol></li>
+	<li>
+	<p>A default or substitute DTD as specified in Annex A of
+	<a href="references.html#[I19776_1]">ISO/IEC 19776-1</a>
+			  is included following the
+				<code>&lt;?xml&nbsp;version="1.0"&nbsp;encoding="UTF-8"?&gt;</code>
+				header in canonical form.</p>
+	<p class="Note">NOTE 1&nbsp; The default DTD is not included in the final 
+	Compressed binary encoding, only substitute DTD
+	values are compressed.</p></li>
+	<li>
+	<p>Default or substitute
+			 X3D schema (see Annex B of <a href="references.html#[I19776_1]">ISO/IEC 19776-1</a>) attributes are included in the root 
+	<code>&lt;X3D&gt;</code> element.</p>
+	<p class="Note">NOTE 2&nbsp; The default X3D Schema attributes are not included in
+	the final Compressed binary encoding, only substitute X3D schema attribute 
+	values are
+	compressed.</p></li>
+	<li>Floating point and double precision.
+	  <ol type=1>
+		<li>Floating point values are not converted to or from scientific 
+		notation; instead they retain their original form.</li>
+		<li>Numeric values using scientific notation use a lower-case 'e' character.</li>
+		<li>Leading plus signs are omitted, both for mantissa and exponent.</li>
+	</ol>
+	<blockquote>
+		<p class="Example">EXAMPLE 2&nbsp; <code>2.004e3</code> (equal to 2004.0).</p>
+	</blockquote>
+	<ol type=1 start=4>
+		<li>Decompressed values shall be numerically equal to, but need not 
+		necessarily match the form of, the original values.</li>
+		<li>Excess leading zeros, tens place or higher, are omitted.</li>
+		<li>Trailing zeros are omitted in the mantissa.</li>
+		<li>If there are no digits following the decimal point, the decimal 
+		point shall be omitted.</li>
+	</ol></li>
+	<li>Attributes with empty values are eliminated.
+	     Attributes with default values are eliminated in order to reduce encoded file size.
+	     Default values can be determined from the X3D&nbsp;DTD (see Annex A of
+	<a href="references.html#[I19776_1]">ISO/IEC 19776-1</a>)
+			 or
+			 X3D&nbsp;schema (see Annex B of
+	<a href="references.html#[I19776_1]">ISO/IEC 19776-1</a>).
+	 		 This rule supersedes the XML canonicalization
+			 rule that all attribute values are provided. </li>
+	<li>Attribute-value pairs for <code>DEF</code>, <code>USE</code> and (non-default) 
+	<code>containerField</code>
+	     shall appear before other attributes, which then follow in alphabetic order.
+			 This ordering typically provides higher parsing performance during subsequent decoding.
+	 		 This step supersedes the XML canonicalization
+			 rule that all attribute values are provided in alphabetic order.
+	</li>
+	<li>
+	<p>All MFNode content for a child field shall be provided in a contiguous block with no intermixed containerField usage.</p>
+	<p class="Example">EXAMPLE 3&nbsp; The following code exhibits X3D not in this form:</p>
+	<pre>      &lt;Collision&gt;
+         &lt;Shape containerField="children" /&gt;
+         &lt;Shape containerField="proxy" /&gt;
+         &lt;Shape containerField="children" /&gt;
+      &lt;/Collision&gt;</pre>
+	<p class="Example"><span class="normal">The proper child-element grouping 
+	for canonical form is:</span></p>
+	<pre>      &lt;Collision&gt;
+         &lt;Shape containerField="proxy" /&gt;
+         &lt;Shape containerField="children" /&gt;
+         &lt;Shape containerField="children" /&gt;
+      &lt;/Collision&gt;</pre></li>
+	<li>Comments are always preserved.
+	     Since default values for the Compressed binary encoding are lossless, comments are retained by default.</li>
+	<li>SFImage data is written in hexadecimal form separated by normalized whitespace.</li>
+	<li>SF/MFInt32 values will be converted to decimal form if in hexadecimal 
+	form.</li>
+	<li>Empty tag pairs consisting solely of a start-tag element and an end-tag 
+	element are replaced with a single empty-element tag.<p class="Example">EXAMPLE 4&nbsp; The construct:<blockquote>
+		<p class="Example"><code>&lt;Group DEF=&quot;someDEF&quot; class=&quot;someClass&quot;&gt;&lt;/Group&gt;</code></p>
+	</blockquote>
+	<p class="Example"><code>is converted to:</code></p>
+	<blockquote>
+		<p class="Example"><code>&lt;Group DEF=&quot;someDEF&quot; class=&quot;someClass&quot;/&gt;</code></p>
+	</blockquote></li>
+	<li>CDATA sections (typically, ECMAScript or shader source code) are not converted into character entities. 
+		This step supersedes the XML canonicalization rule that CDATA sections 
+		are replaced with their character content.</li>
+	<li>Except where specifically overridden by the preceding rules, apply the rules of
+			 XML canonicalization,
+			 summarized here:
+	<ol type="1">
+		<li>comments may optionally be included</li>
+		<li>normalize line feeds</li>
+		<li>normalize attribute values</li>
+		<li>resolve character and parsed entity references</li>
+		<li>sort attributes lexicographically</li>
+	</ol></li>
+	<li>X3D scenes in canonical form shall be well-formed, validated XML.
+	     This property is a prerequisite to subsequent XML-based compression techniques.</li>
+</ol>
+
+<H2><a name="Header"></a>4.2.4 Header</H2>
+
+The header follows the Fast infoset rules for header declaration as defined in 12.3
+of <a href="references.html#[I24824_1]">ISO/IEC 24824-1</a>.
+
+A valid Compressed binary encoded file shall contain either an XML file declaration
+(see <a href="references.html#[XML]">2.[XML]</a>) followed by the Fast infoset 
+header bits &#39;11100000000000000000000000000000000&#39; or just the Fast 
+infoset header bits.<p class="Example">
+EXAMPLE 1&nbsp; &lt;?xml encoding='finf'?&gt;'11100000000000000000000000000000000'<p class="Example">
+EXAMPLE 2&nbsp; &lt;?xml version='1.0' encoding='finf' standalone='yes'&gt; '11100000000000000000000000000000000'</p>Other XML header elements like the DTD 
+or schema definition are encoded using standard Fast infoset mechanisms.
+<p>
+Two additional fields are appended to the X3D tag to denote Compressed binary version information.
+These attributes are:<blockquote>
+	<TABLE class=nodes summary="X3D node characteristics">
+		<TBODY>
+			<TR class=nodes>
+				<TD class=node1 vAlign=top><span class="code"><B>&lt;X3D</B></span></TD>
+				<TD class=nodes vAlign=top>&nbsp;</TD>
+				<TD class=nodes vAlign=top>&nbsp;</TD>
+			</TR>
+			<TR class=nodes>
+				<TD class=nodes vAlign=top>
+				<DIV
+      class=nodes><span class="code">binaryVersion=&quot;3.3&quot;<BR>serializerVersion=&quot;Fast 
+					infoset 2004&quot;<br>
+					&gt;</span></DIV><span class="code">&nbsp;&nbsp;&nbsp;
+      			<BR><B>&lt;/X3D&gt;</B> </span></TD>
+				<TD class=nodes
+      vAlign=top><span class="code">SFString<BR>SFString<BR>&nbsp;</span></TD>
+				<TD class=nodes
+      vAlign=top><span class="code">[initializeOnly]<BR>[initializeOnly]<BR>&nbsp;</span></TD>
+			</TR>
+		</TBODY>
+	</TABLE>
+</blockquote>
+
+<H2><a name="PrototypeRepresentations"></a>4.2.5 Prototype representations</H2>
+<p>
+All Prototype-related elements are treated in a manner consistent with the representations of the
+X3D XML encoding.
+Thus, Prototype instances are treated as PrototypeInstance constructions in XML.</p>
+	<p class="Example">EXAMPLE</p>
+
+<pre>
+  &lt;ProtoDeclare name="ExampleSensor"&gt;
+   &lt;ProtoInterface&gt;
+     &lt;field accessType="initializeOnly" name="enabled" type="SFBool" value="true"/&gt;
+   &lt;/ProtoInterface&gt;
+   &lt;ProtoBody&gt;
+     &lt;TouchSensor description="touch to activate"&gt;
+      &lt;IS&gt;
+       &lt;connect nodeField="enabled" protoField="enabled"/&gt;
+      &lt;/IS&gt;
+     &lt;/TouchSensor&gt;
+    &lt;/ProtoBody&gt;
+   &lt;/ProtoDeclare&gt;
+   &lt;ProtoInstance name="ExampleSensor"&gt;
+    &lt;fieldValue name="enabled" value="false"/&gt;
+   &lt;/ProtoInstance&gt;
+<!--  &lt;/Scene&gt;
+&lt;/X3D&gt; -->
+</pre>
+
+<p>
+The following "native-tag" representation is not legal and shall not be used
+within the Compressed binary encoding:
+</p>
+<pre>
+   &lt;ExampleSensor enabled="false"/&gt;
+</pre>
+
+<h1><a name="CompressingX3DBinaryFiles"></a>4.3 Compressing X3D 
+binary files</H1>
+
+<H2><a name="NodeCompresors"></a>4.3.1 Node compressors</H2>
+<h3><a name="ProcessOverview"></a>4.3.1.1 Process overview</h3>
+
+<p>Node compressors are responsible for compressing a node and all its children. 
+Typically, this compressor has domain-specific knowledge about how to 
+compress a node&#39;s data.</p>
+<p class="Example">EXAMPLE&nbsp; Geometric compression techniques may be used to store 
+an IndexedFaceSet more compactly.</p>
+<p>The compressor shall restore the exact same scenegraph structure as was 
+compressed, including any ProtoInstance usage. In addition, no reordering of 
+data is allowed; <i>i.e.</i>, vertex values in a Coordinate node point array 
+shall not change ordinal position.</p>
+<p>A compressor shall only be assigned to handle a single node and all its 
+children. Other constructs, like Prototypes and Routes, may not be compressed 
+using node compressors. Furthermore, nodes that implement the X3DScriptNode or 
+X3DProgrammableShaderObject shall not be assigned a node compressor. A node 
+compressor can be used to compress the child nodes of these node types.</p>
+<p>Node compressors shall not be nested. A provided node compressor shall handle 
+all of the children nodes for that node type. A compressor may leave a node or field unaltered in 
+the compressed stream.</p>
+<h3><a name="Compression"></a>4.3.1.2 Compression</h3>
+<p>A node compressor transforms a scenegraph fragment using the following steps:</p>
+<ol type="a">
+	<li>Create a MetadataSet named &quot;.x3db&quot; with a default reference of &quot;Web3D&quot;. 
+	This value may be omitted to further reduce size.</li>
+	<li>Move user specified-metadata (if any) to become the first child of the 
+	created MetadataSet. This step is ignored if no user-specified metadata is 
+	provided.</li>
+	<li>Add a MetadataInteger entry for the encoding, named &quot;encoding&quot; with an 
+	integral value attribute. This must be an encoder specified in
+	<a href="nodecompressors.html">Annex B Node compressors</a>. It is suggested 
+	that the value for the <i>reference</i> field of the MetadataInteger node be a URI, 
+	pointing to further information for that encoder.</li>
+	<li>Add a MetadataInteger entry for the resulting compressed data, named 
+	&quot;payload&quot;.</li>
+	<li>Remove fields from the original scene graph handled by the encoder. 
+	Leave all remaining scene graph structure intact.</li>
+	<li>Add Encoder-specific metadata. Only one MetadataSet node is allowed at 
+	this level and it shall be named &quot;Encoder Metadata&quot;.</li>
+</ol>
+<p class="Example">EXAMPLE&nbsp; The following illustrates compressing an IndexedFaceSet</p>
+<p class="Example">An IndexedFaceSet containing a MetadataString and a 
+Coordinate node are to be compressed using a geometric compression algorithm 
+(encoding 1). The input scene graph looks like this:</p>
+<blockquote>
+	<span class="code">&lt;IndexedFaceSet coordIndex=&quot;0, 1, 2, 3, 4, 5, -1&quot;&gt;
+	<br>
+	&nbsp;&nbsp;&lt;MetadataString name=&quot;myData&quot; value=&quot;myValue&quot;&gt; <br>
+	&nbsp;&nbsp;&lt;Coordinate DEF=&quot;COORD&quot; point=&quot;1.0 2.0 3.0, 4.0 5.0 6.0&quot;&gt; <br>
+	&lt;/IndexedFaceSet&gt;</span></blockquote>
+<p class="Example">The geometric encoder compresses and encodes the coordIndex 
+and point fields into the payload section. The resulting form sent to Fast 
+infoset looks like this:</p>
+<blockquote>
+	<span class="code">
+	&lt;IndexedFaceSet&gt;<br>
+  &nbsp;
+  &lt;MetadataSet name=&quot;.x3db&quot; reference=&quot;Web3D&quot;&gt;<br>
+    &nbsp;&nbsp;&nbsp;
+    &lt;MetadataString name=&quot;myData&quot; value=&quot;myValue&quot;/&gt;<br>
+    &nbsp;&nbsp;&nbsp;
+    &lt;MetadataInteger name=&quot;encoding&quot; value=&quot;1&quot;&gt;<br>
+    &nbsp;&nbsp;&nbsp;
+    &lt;MetadataInteger name=&quot;payload&quot; value=<font face="Times"><i>&quot; the compressed and encoded coordIndex and point fields &quot;</i></font>&gt;<br>
+&nbsp;&nbsp;&nbsp; &lt;MetadataSet name=&quot;Encoder Metadata&quot;&gt;<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;MetadataSet name=&quot;MyEncoderMetadata&quot;&gt;<br>
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;MetadataString name=&quot;rate&quot; value=&quot;12:1&quot;/&gt;<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;/MetadataSet&gt;<br>
+&nbsp;&nbsp;&nbsp; &lt;/MetadataSet&gt;<br>
+  &nbsp;
+  &lt;/MetadataSet&gt;<br>
+  &nbsp;
+  &lt;Coordinate DEF=&quot;COORD&quot; point=&quot;1.0 2.0 3.0 4.0 5.0 6.0&quot;&gt;<br>
+&lt;/IndexedFaceSet&gt;
+	</span>
+</blockquote>
+<p class="Example">Then the final form parsed by a decoder engine of X3D files 
+encoded in the Compressed binary encoding 
+is:</p>
+<blockquote>
+	<span class="code">&lt;IndexedFaceSet coordIndex=&quot;0, 1, 2, 3, 4, 5, -1&quot;&gt;<br>
+	&nbsp;&nbsp;&lt;MetadataString name=&quot;myData&quot; value=&quot;myValue&quot;/&gt;<br>
+	&nbsp;&nbsp;&lt;Coordinate DEF=&quot;COORD&quot; point=&quot;1.0 2.0 3.0, 4.0 5.0 6.0&quot;&gt;<br>
+	&lt;/IndexedFaceSet&gt;</span></blockquote>
+
+<h3><a name="Preservation"></a>4.3.1.3 Preservation</h3>
+<p>An optional MetadataString may be specified before the encoding 
+MetadataInteger name using the keyword &quot;preserved&quot;. If the corresponding 
+&quot;preserved&quot; keyword is specified, the decompressed form shall retain all &quot;.x3db&quot; 
+MetadataSet data including the payload in addition to the uncompressed values in 
+the original node. The user&#39;s metadata is retained but will not be returned to 
+its original location.</p>
+<p class="Example">EXAMPLE&nbsp; The following example illustrates compressing an IndexedFaceSet with preserved parameters</p>
+<p class="Example">An IndexedFaceSet containing a MetadataString and a 
+Coordinate node is to be compressed using a geometric-compression algorithm 
+(encoding 1). The input scene graph looks like this:</p>
+<blockquote>
+	<span class="code">
+	&lt;IndexedFaceSet coordIndex=&quot;...&quot;&gt;<br>
+  &nbsp;
+  &lt;MetadataSet name=&quot;.x3db&quot; reference=&quot;Web3D&quot;&gt;<br>
+    &nbsp;&nbsp;&nbsp;
+    &lt;MetadataString name=&quot;myData&quot; value=&quot;myValue&quot;/&gt;<br>
+    &nbsp;&nbsp;&nbsp;
+    &lt;MetadataInteger name=&quot;preserved&quot; value=&quot;true&quot;&gt;<br>
+    &nbsp;&nbsp;&nbsp;
+    &lt;MetadataInteger name=&quot;encoding&quot; value=&quot;1&quot;/&gt;<br>
+    &nbsp;&nbsp;&nbsp;
+    &lt;MetadataSet name=&quot;Encoder Metadata&quot;&gt;<br>
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        &lt;MetadataString name=&quot;lossy&quot; value=&quot;true&quot;/&gt;<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        &lt;MetadataString name=&quot;coordinateBits&quot; value=&quot;15&quot;/&gt;<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        &lt;MetadataString name=&quot;normalBits&quot; value=&quot;6&quot;/&gt;<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        &lt;MetadataString name=&quot;colorBits&quot; value=&quot;9&quot;/&gt;<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        &lt;MetadataString name=&quot;textureBits&quot; value=&quot;9&quot;/&gt;<br>
+    &nbsp;&nbsp;&nbsp;
+    &lt;/MetadataSet&gt;<br>
+  &nbsp;
+  &lt;/MetadataSet&gt;<br>
+  &nbsp;
+  &lt;Coordinate DEF=&quot;COORD&quot; point=&quot;...&quot;&gt;<br>
+&lt;/IndexedFaceSet&gt;
+	</span>
+</blockquote>
+<p class="Example">The compressed X3D canonical form sent to Fast infoset looks 
+like this:</p>
+<blockquote>
+	<span class="code">
+	&lt;IndexedFaceSet&gt;<br>
+  &nbsp;
+  &lt;MetadataSet name=&quot;.x3db&quot; reference=&quot;Web3D&quot;&gt;<br>
+    &nbsp;&nbsp;&nbsp;
+    &lt;MetadataString name=&quot;myData&quot; value=&quot;myValue&quot;/&gt;<br>
+    &nbsp;&nbsp;&nbsp;
+    &lt;MetadataInteger name=&quot;encoding&quot; value=&quot;1&quot;&gt;<br>
+    &nbsp;&nbsp;&nbsp;
+    &lt;MetadataInteger name=&quot;payload&quot; value=&quot;<font face="Times"><i>the compressed and encoded coordIndex and point fields</i></font>&quot;&gt;<br>
+    &nbsp;&nbsp;&nbsp;
+    &lt;MetadataSet name=&quot;Encoder Metadata&quot;&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;MetadataSet name=&quot;MyEncoderMetadata&quot;&gt;<br>
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;MetadataString name=&quot;lossy&quot; value=&quot;true&quot;/&gt;<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;MetadataString name=&quot;coordinateBits&quot; value=&quot;15&quot;/&gt;<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;MetadataString name=&quot;normalBits&quot; value=&quot;6&quot;/&gt;<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;MetadataString name=&quot;colorBits&quot; value=&quot;9&quot;/&gt;<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;MetadataString name=&quot;textureBits&quot; value=&quot;9&quot;/&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;/MetadataSet&gt;<br>
+    &nbsp;&nbsp;&nbsp;
+    &lt;/MetadataSet&gt;<br>
+  &nbsp;
+  &lt;/MetadataSet&gt;<br>
+  &nbsp;
+  &lt;Coordinate DEF=&quot;COORD&quot; point=&quot;...&quot;&gt;<br>
+&lt;/IndexedFaceSet&gt;<br>
+	</span>
+</blockquote>
+<p class="Example">The final form parsed by the X3D engine is: </p>
+<blockquote>
+	<span class="code">
+	&lt;IndexedFaceSet coordIndex=&quot;0, 1, 2, 3, 4, 5, -1&quot;&gt;<br>
+  &nbsp;
+  &lt;MetadataSet name=&quot;.x3db&quot; reference=&quot;Web3D&quot;&gt;<br>
+    &nbsp;&nbsp;&nbsp;
+    &lt;MetadataString name=&quot;myData&quot; value=&quot;myValue&quot;/&gt;<br>
+    &nbsp;&nbsp;&nbsp;
+    &lt;MetadataInteger name=&quot;encoding&quot; value=&quot;1&quot;&gt;<br>
+    &nbsp;&nbsp;&nbsp;
+    &lt;MetadataSet name=&quot;Encoder Metadata&quot;&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;MetadataSet name=&quot;MyEncoderMetadata&quot;&gt;<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;MetadataString name=&quot;lossy&quot; value=&quot;true&quot;/&gt;<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;MetadataString name=&quot;coordinateBits&quot; value=&quot;15&quot;/&gt;<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;MetadataString name=&quot;normalBits&quot; value=&quot;6&quot;/&gt;<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;MetadataString name=&quot;colorBits&quot; value=&quot;9&quot;/&gt;<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;MetadataString name=&quot;textureBits&quot; value=&quot;9&quot;/&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;/MetadataSet&gt;<br>
+    &nbsp;&nbsp;&nbsp;
+    &lt;/MetadataSet&gt;<br>
+  &nbsp;
+  &lt;/MetadataSet&gt;<br>
+  &nbsp;
+  &lt;Coordinate DEF=&quot;COORD&quot; point=&quot;1.0 2.0 3.0 4.0 5.0 6.0&quot;/&gt;<br>
+&lt;/IndexedFaceSet&gt;<br>
+	</span>
+</blockquote>
+<h3><a id="UserSpecifiedParams" name="UserSpecifiedParameters"></a>4.3.1.4 
+User-specified parameters</h3>
+<p>An X3D Compressed binary processor compressing a node that already contains a MetadataSet with the name &quot;.x3db&quot; and reference &quot;Web3D&quot; shall generate the 
+payload block using the specified encoder and Encoder Metadata parameters. Any 
+unknown or incorrect values may be ignored for compression purposes.</p>
+<H2><a name="AdditionalFieldCompression"></a>4.3.2 Additional field compression</H2>
+
+<p>
+Further type-specific field compression is specified in
+<a href="EncodingOfFields.html">5 Encoding of fields</a>.
+<a href="tables.html#AttributeValueTable">Table A.2.5</a> specifies the indices 
+to use for each algorithm.</p>
+
+
+
+<H2><a name="Fast-Infoset"></a>4.3.3 XML binary compression using Fast infoset</H2>
+
+<p>
+This part of ISO/IEC 19776 uses Fast infoset to serialize and compress an X3D document. It uses several
+techniques that reduce the size of an X3D document and that increase the speed of creating and processing such documents.
+These techniques are based on the use of vocabulary tables that allow small (typically) integer values (vocabulary table indexes)
+to be used instead of character strings.</p>
+<p class="Example">
+EXAMPLE 1&nbsp; Character strings that form the names of nodes or fields in an X3D document.</p>
+<p>
+The tables that apply to this part of ISO/IEC 19776 are specified in
+<a href="tables.html">Annex A Fast infoset tables</a>.</p>
+<p>
+A further optimization uses the encoding algorithm vocabulary table.  This table identifies specialized encodings that can
+be employed for commonly occurring strings, again with a number of built-in algorithms.</p>
+<p class="Example">
+EXAMPLE 2&nbsp; If there is a string that
+looks like the decimal representation of an integer in the range -32768 to 32767, that string can be encoded by identifying that
+this vocabulary table is being used, giving the vocabulary table index, and then encoding the integer as a two-octet signed integer.
+Floating-point numbers and arrays of such numbers can be supported in the same way. </p>
+<p>
+This
+part of ISO/IEC 19776 defines several unique encoders for X3D that
+utilize type-aware knowledge to further compress data. Details are
+specified in <a href="EncodingOfFields.html">5 Encoding of fields</a>.</p>
+<p>
+Use of XML Signature and XML Encryption is documented within the context of 
+examples in <a href="examples.html">Annex C Examples</a>.</p>
+
+
+<h1><img class="cube" src="../Images/cube.gif" alt="cube" width="20" height="19">
+<a name="DecompressingX3DBinaryFiles"></a>4.4 Decompressing X3D binary files</H1>
+
+<H2><a name="XMLBinaryDecompressionUsingFastInfoSet"></a>4.4.1 XML binary 
+decompression using Fast infoset</H2>
+
+<p>
+ 		This part of ISO/IEC 19776 uses Fast infoset to deserialize and 
+		uncompress an X3D document. The tables that apply to this part of 
+		ISO/IEC 19776 are specified in
+<a href="tables.html">Annex A Fast infoset tables</a>.</p>
+<p>
+ 		The encoding algorithm vocabulary table is used to reference built-in 
+		algorithms to decompress field values.</p>
+<p>
+ 		This part of ISO/IEC 19776 defines several unique encoders for X3D that 
+		utilize type-aware knowledge to further compress data. Details are 
+		specified in <a href="EncodingOfFields.html">5 Encoding of fields</a>.</p>
+
+<H2><a name="FieldDecompression"></a>4.4.2 Field 
+decompression</H2>
+
+<p>
+ 		Type-specific field decompression is handled by the registered field 
+		encoders specified in <a href="EncodingOfFields.html">5 Encoding of fields</a>.</p>
+
+
+<H2><a name="NodeDecompressors"></a>4.4.3 Node decompressors</H2>
+
+<p>
+ 		Type-specific field decompression is handled by the registered field 
+		encoders specified in <a href="EncodingOfFields.html">5 Encoding of fields</a>.</p>
+
+
+<h3><a name="ProcessOverviewDecompression"></a>4.4.3.1 Process overview</h3>
+
+<p>Node compressors are responsible for decompressing a node and all its children. 
+Typically, this decompressor has domain-specific knowledge about how to 
+decompress a node&#39;s data.</p>
+<p>The decompressor shall restore the exact same scenegraph structure as was 
+compressed, including any ProtoInstance usage. In addition, no reordering of 
+data is allowed; <em>e.g.</em>, vertex values in a Coordinate node point array 
+shall not change ordinal position.</p>
+<p>A decompressor shall only be assigned to handle a single node and all its 
+children. Other constructs, like Prototypes and Routes, may not be compressed 
+using node compressors. Furthermore, nodes that implement the X3DScriptNode or 
+X3DProgrammableShaderObject shall not be assigned a node compressor. A node 
+decompressor can be used to decompress the child nodes of these node types.</p>
+<p>Node decompressors shall not be nested. A provided node decompressor shall 
+handle all of the children nodes for that node type.</p>
+<h3><a name="Decompression"></a>4.4.3.2 Decompression</h3>
+
+<p>A node decompressor transforms a compressed scenegraph fragment using the 
+following steps:</p>
+<ol type="a">
+				<li>Read encoder-specific metadata. This metadata does not go 
+				into the decompressed stream.</li>
+				<li>If &quot;.x3db&quot; MetadataSet preservation was not 
+				specified, move user-specified metadata back to its 
+								original position as immediate child of the 
+								parent node and remove MetadataSet node.</li>
+				<li>If &quot;.x3db&quot; MetadataSet preservation was specified, retain 
+				MetadataSet as specified in compressed form. User metadata will 
+				have moved locations.</li>		
+				<li>Restore the exact original scenegraph structure using the 
+				payload data and the unprocessed nodes and fields.</li>
+</ol>
+<p>If MetadataSet preservation was specified, see
+<a href="#PreservationDecompression">4.4.3.3 Preservation</a>.</p>
+<p class="Example">Example&nbsp; The following illustrates decompressing an 
+IndexedFaceSet:</p>
+<p class="Example">An Indexed<span class="style2">FaceSet node containing a 
+MetadataString node and a Coordinate node are to be compressed using a geometric 
+compression algorithm (encoding 1). The input scenegraph from FastInfoSet looks 
+like this:</span></p>
+<p class="ExampleCode">&lt;IndexedFaceSet&gt;<br>
+&nbsp; &lt;MetadataSet name=&quot;.x3db&quot; reference=&quot;Web3D&quot;&gt;<br>
+&nbsp;&nbsp;&nbsp; &lt;MetadataString name=&quot;myData&quot; value =&quot;myValue&quot;&gt;<br>
+&nbsp;&nbsp;&nbsp; &lt;MetadataInteger name=&quot;encoding&quot; value=&quot;1&quot;&gt;<br>
+&nbsp;&nbsp;&nbsp; &lt;MetadataInteger name=&quot;payload&quot; value=&quot;<font face="Times"><i>the compressed and 
+encoded coordIndex and point fields as a binary payload block</i></font>&quot;&gt;<br>
+&nbsp;&nbsp;&nbsp; &lt;MetadataSet name=&quot;Encoder Metadata&quot;&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;MetadataSet name=&quot;MyEncoderMetadata&quot;&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;MetadataString name=&quot;rate&quot; 
+value=&quot;12:1&quot;&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;/MetadataSet&gt;<br>
+&nbsp;&nbsp;&nbsp; &lt;/MetadataSet&gt;<br>
+&nbsp; &lt;/MetadataSet&gt;<br>
+&nbsp; &lt;Coordinate DEF=&quot;COORD&quot;&gt;<br>
+&lt;/IndexedFaceSet&gt;</p>
+<p class="Example">The .x3db MetadataSet is removed and the user&#39;s metadata 
+placed back in its original position. Then the final form parsed by a decoder 
+engine of X3D files encoded in the Compressed binary encoding is:</p>
+<p class="ExampleCode">&lt;IndexedFaceSet coordIndex=&quot;0, 1, 2, 3, 4, 5, -1&quot;&gt;<br>
+&nbsp; &lt;MetadataString name=&quot;myData&quot; value=&quot;myValue&quot;&gt;<br>
+&nbsp; &lt;Coordinate DEF=&quot;COORD&quot; point=&quot;1.0 2.0 3.0, 4.0 5.0 6.0&quot;&gt;<br>
+&lt;/IndexedFaceSet&gt;</p>
+<h3><a name="PreservationDecompression"></a>4.4.3.3 Preservation</h3>
+
+<p>If the preserved keyword was used when encoding, the .x3db MetadataSet node 
+will be retained in the decompressed stream. The user&#39;s metadata will be 
+retained but will not be returned to its original position.</p>
+<p class="Example">EXAMPLE&nbsp; The decompressed X3D form returned from Fast 
+infoset looks like this:</p>
+<p class="ExampleCode">&lt;IndexedFaceSet&gt;<br>
+&nbsp; &lt;MetadataSet name=&quot;.x3db&quot; reference=&quot;Web3D&quot;&gt;<br>
+&nbsp;&nbsp;&nbsp; &lt;MetadataString name=&quot;myData&quot; value =&quot;myValue&quot;&gt;<br>
+&nbsp;&nbsp;&nbsp; &lt;MetadataInteger name=&quot;encoding&quot; value=&quot;1&quot;&gt;<br>
+&nbsp;&nbsp;&nbsp; &lt;MetadataInteger name=&quot;payload&quot; value=&quot;<font face="Times"><i>the compressed and 
+encoded coordIndex and point fields as a binary payload block</i></font>&quot;&gt;<br>
+&nbsp;&nbsp;&nbsp; &lt;MetadataSet name=&quot;Encoder Metadata&quot;&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;MetadataSet name=&quot;Binary Params&quot;&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;MetadataString name=&quot;lossy&quot; 
+value=&quot;true&quot;&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;MetadataString name=&quot;coordinateBits&quot; 
+value=&quot;15&quot;&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;MetadataString name=&quot;normalBits&quot; 
+value=&quot;6&quot;&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;MetadataString name=&quot;colorBits&quot; 
+value=&quot;9&quot;&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;MetadataString name=&quot;textureBits&quot; 
+value=&quot;9&quot;&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;/MetadataSet&gt;<br>
+&nbsp;&nbsp;&nbsp; &lt;/MetadataSet&gt;<br>
+&nbsp; &lt;/MetadataSet&gt;<br>
+&nbsp; &lt;Coordinate DEF=&quot;COORD&quot; point=&quot;...&quot;&gt;<br>
+&lt;/IndexedFaceSet&gt;</p>
+<p class="Example">After the geometry decompressor converts the payload into 
+X3D, the final form parsed by the X3D engine is:</p>
+<p class="ExampleCode">&lt;IndexedFaceSet coordIndex=&quot;...&quot;&gt;<br>
+&nbsp; &lt;MetadataSet name=&quot;.x3db&quot; reference=&quot;Web3D&quot;&gt;<br>
+&nbsp;&nbsp;&nbsp; &lt;MetadataString name=&quot;myData&quot; value =&quot;myValue&quot;&gt;<br>
+&nbsp;&nbsp;&nbsp; &lt;MetadataInteger name=&quot;encoding&quot; value=&quot;1&quot;&gt;<br>
+&nbsp;&nbsp;&nbsp; &lt;MetadataSet name=&quot;Encoder Metadata&quot;&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;MetadataSet name=&quot;Binary Params&quot;&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;MetadataString name=&quot;lossy&quot; 
+value=&quot;true&quot;&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;MetadataString name=&quot;coordinateBits&quot; 
+value=&quot;15&quot;&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;MetadataString name=&quot;normalBits&quot; 
+value=&quot;6&quot;&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;MetadataString name=&quot;colorBits&quot; 
+value=&quot;9&quot;&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;MetadataString name=&quot;textureBits&quot; 
+value=&quot;9&quot;&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;/MetadataSet&gt;<br>
+&nbsp;&nbsp;&nbsp; &lt;/MetadataSet&gt;<br>
+&nbsp; &lt;/MetadataSet&gt;<br>
+&nbsp; &lt;Coordinate DEF=&quot;COORD&quot; point=&quot;...&quot;&gt;<br>
+&lt;/IndexedFaceSet&gt;</p>
+<p class="Example">The original user metadata is retained but now resides as a 
+child of the MetadataSet with the name &quot;.x3db&quot;.</p>
+
+<h1><img class="cube" src="../Images/cube.gif" alt="cube" width="20" height="19">
+<a name="X3DFilesAndTheWorldWideWeb"></a>4.5 X3D files and the World Wide Web</H1>
+
+<H2><a name="gzipCompression"></a>4.5.1 gzip compression</H2>
+
+<p>
+ 		An optional final step is gzip compression of the entire compressed scene 
+		as specified in <a href="references.html#[RFC1952]">2.[RFC1952]</a>.
+		This step supports global compression, while the other
+		compression techniques described in this part of ISO/IEC 19776 are localized to individual chunks of data.</p>
+
+<p class="Note">NOTE&nbsp; gzip compression of compressed binary encoded scenes
+may have a negative impact on parser processing performance during decompression.
+</p>
+
+
+<H2><a name="FileExtensionsAndMIMETypes"></a>4.5.2 File extensions and MIME types</H2>
+
+<P>Compressed binary encoded files shall use the file extension &ldquo;.x3db&rdquo;. The MIME-type
+associated with that binary compressed X3D encoded file is &ldquo;model/x3d+binary&rdquo;.</P>
+
+		<P>Compressed binary encoded files that have been &ldquo;gzipped&rdquo; shall use
+		a file extension of &ldquo;.x3db.gz&rdquo;. The MIME type is &ldquo;model/x3d+binary&rdquo;.
+		The content-encoding value is &ldquo;gzip&rdquo;.</P>
+
+		<P>The concept of MIME types is defined in
+		<a href="references.html#[RFC2077]">2.[RFC2077]</a>.</P>
+<p>
+<img class="x3dbar" src="../Images/x3dbar.png" alt="--- X3D separator bar ---" width="430" height="23"></p>
+
+</body>
+</html>

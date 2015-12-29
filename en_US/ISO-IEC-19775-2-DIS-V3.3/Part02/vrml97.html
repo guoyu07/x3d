@@ -1,0 +1,330 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+  <TITLE>Extensible 3D (X3D), ISO/IEC 19775-2:2010, Annex A VRML97 Scripting Backwards Compatibility</TITLE>
+  <link rel="stylesheet" href="X3D.css" type="text/css">
+</head>
+<body>
+
+<center>
+  <h1><img src="../Images/x3d.png" align="top" style="width: 176px; height: 88px" alt="X3D logo"></h1>
+<p class="HeadingPart">
+    Extensible 3D (X3D)<br>
+    Part 2: Scene access interface (SAI)</p>
+
+  <h1>Annex A</h1>
+  <h1>
+    <font size="+1">(informative)</font></h1>
+  <h1>VRML scripting backwards compatibility</h1>
+</center>
+
+<p>
+<img src="../Images/x3dbar.png" alt="--- X3D separator bar ---" height="23" width="430">
+</p>
+
+
+<h2><a name="TableOfContentsAndIntroduction"></a>A.1 Introduction and table of contents</h2>
+
+<h3><a name="Introduction"></a>A.1.1 Introduction</h3>
+
+<p>
+This annex provides a detailed description of how an X3D compliant application may
+provide support for backwards compatibility for scripting code originally designed
+and implemented for  <i><a href="references.html#[I14772_1]">ISO/IEC 14772-1</a> Virtual Reality Modeling Language (VRML) 
+Functional specification and UTF-8 encoding</i>. 
+It is provided for backwards-compatibility purposes only and shall not be 
+required for any browser to implement if they do not conform to part 1 of ISO/IEC 
+14772.
+</p>
+<p>
+The VRML event and scripting model had a number of flaws and incompatibilities
+even between languages. It is strongly recommended that this annex not be
+implemented by browsers that do not claim to support  VRML in addition
+to X3D.</p>
+
+<h3> <a name="Topics"></a>A.1.2 Topics</h3>
+
+<p>
+<a href="#t-Topics">Table A.1</a> lists the topics for this annex.
+</p>
+
+<div class="CenterDiv">
+
+<p class="TableCaption" align="center"><a name="t-Topics"></a><b>Table A.1</b> &#8212; <b>
+Topics</b></p>
+
+<table class=topics>
+<tbody>
+<tr>
+<td valign="top">
+<ul>
+  <li><a href="#TableOfContentsAndIntroduction">A.1 Introduction and Topics</a>
+    <ul>
+	  <li><a href="#Introduction">A.1.1 Introduction</a></li>
+	  <li><a href="#Topics">A.1.2 Topics</a></li>
+    </ul>
+  </li>
+  <li><a href="#Concepts">A.2 Concepts</a>
+    <ul>
+      <li><a href="#ConceptsIntroduction">A.2.1 Introduction</a>
+        <ul>
+          <li><a href="#RequirementsForBackwardsCompatibility">A.2.1.1 Requirements for backwards compatibility</a></li>
+          <li><a href="#DifferencesBetweenVRMLAndX3D">A.2.1.2 Differences between VRML and X3D</a></li>
+        </ul>
+      </li>
+      <li><a href="#BehaviourForUnsupportedScripting">A.2.2 Behaviour for unsupported scripting</a></li>
+      <li><a href="#BehaviourOnEncounteringExposedFields">A.2.3 Behaviour on encountering exposedFields</a></li>
+    </ul>
+  </li>
+  <li><a href="#ECMAScriptLanguageBinding">A.3 ECMAScript language binding</a>
+    <ul>
+      <li><a href="#ECMAScriptRequirements">A.3.1 Requirements</a></li>
+      <li><a href="#DeterminatioOfRequiredSpecification">A.3.2 Determination of required specification</a></li>
+      <li><a href="#SupportedScriptURLs">A.3.3 Supported script URLs</a>
+        <ul>
+          <li><a href="#InlineScriptDefinition">A.3.3.1 Inline script definition</a></li>
+          <li><a href="#ECMAScriptMIMETypes">A.3.3.2 MIME types</a></li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+  <li><a href="#JavaLanguageBinding">A.4 Java language binding</a>
+    <ul>
+      <li><a href="#JavaRequirements">A.4.1 Requirements</a></li>
+      <li><a href="#JavaDeterminatioOfRequiredSpecification">A.4.2 Determination of required specification</a></li>
+    </ul>
+  </li>
+</ul>
+
+<ul>
+  <li><a href="#t-Topics">Table A.1 &#8212; Topics</a></li>
+</ul>
+
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+
+<p>
+<img src="../Images/x3dbar.png" alt="--- X3D separator bar ---" height="23" width="430">
+</p>
+
+<h2><a name="Concepts"></a>A.2 Concepts</h2>
+
+<h3><a name="ConceptsIntroduction"></a>A.2.1 Introduction</h3>
+
+<h4><a name="RequirementsForBackwardsCompatibility"></a>A.2.1.1 Requirements for backwards compatibility</h4>
+
+<p>
+This annex specifies the requirements for browsers that wish to conform to
+this specification and also support the ability to run scripts written for
+the programmatic interfaces and event model semantics defined in 
+<a href="references.html#[I14772_1]">ISO/IEC 
+14772-1</a>, within an X3D 
+environment. That is, the URL in the Script node specified in <i>29.4.1 Script</i> 
+in <a href="references.html#[I19775_1]">ISO/IEC 19775-1</a> defines
+content that uses one of the interfaces defined in this part of ISO/IEC 19775.
+</p>
+
+<p>
+A browser shall not be conformant to this specification if it only supports 
+scripting interface defined in <a href="references.html#[I14772_1]">ISO/IEC 
+14772-1</a>. A conformant browser to this Annex shall also
+support the full requirements of this part of ISO/IEC 19775 including all required language
+bindings.
+</p>
+
+<h4><a name="DifferencesBetweenVRMLAndX3D"></a>A.2.1.2 Differences between VRML and X3D</h4>
+
+<p>
+The main difference between  VRML and this specification is the definition
+of the event model. The VRML specification left many decisions up to the
+browser implementer and therefore a lot of content was incompatible. The
+major issue was dealing with the way scene graph changes were propagated
+when the user code wrote to the field. In the Java language annex values
+would need to be delivered immediately, yet the ECMAScript language annex
+said they are to be deferred until the user code has exited execution. Such
+incompatibilities mean supporting direct backwards compatibility is an
+optional-only feature.
+</p>
+
+<h3><a name="BehaviourForUnsupportedScripting"></a>A.2.2 Behaviour for unsupported scripting</h3>
+
+<p>
+Determination of the supported script capabilities shall follow the rules
+specified in <i>9 Networking Component</i> in
+<a href="references.html#[I19775_1]">ISO/IEC 19775-1</a>. The
+browser shall attempt to load the URIs in the required order, determining whether
+an individual script file is supported. Rejection of unsupported script types
+shall be based on the rules defined in the annexes defined in this Part. A
+browser shall not preferentially support one specification over another beyond
+the preference order defined by the script node definition. For example, if the
+user content defines a VRML97 conformant script code in the <i>url</i> field
+before a X3D conformant script code, and the browser implementation supports
+backwards compatibility in a language as defined in this Annex, then the
+VRML97 script shall be executed.
+</p>
+<p>
+When user content defines internal interaction code that includes VRML-conformant
+scripts and the browser implementation does not support backwards compatibility,
+or does not support backwards compatibility in that language, the browser shall
+ignore that script and move to the next item in the <i>url</i> listings. This is
+the same behaviour as not being able to locate a file or the code is not in a
+language supported by the browser.
+</p>
+
+<h3><a name="BehaviourOnEncounteringExposedFields"></a>A.2.3 Behaviour on encountering exposedFields</h3>
+
+<p>
+The VRML specification does not permit the use of read and write fields (i.e.,
+exposedFields). The use of such fields is permitted in this specification. It is
+possible, though a highly discouraged practice, to define a scripting node with
+an exposedField and define the user code conformant to 
+<a href="references.html#[I14772_1]">ISO/IEC 
+14772-1</a>.
+</p>
+<p>
+In this situation, the browser shall treat the exposedField as a separate set
+of eventIn, eventOut and field objects. When the exposedField is written  from the event model, the user code shall be notified like a normal eventIn
+notification. After this point, the rules for reading and writing the value
+of the exposedField semantics defined in
+<a href="concepts.html#inputOutputFieldsContainingNode">4.8.3.8 inputOutput 
+fields and the containing node</a> shall be followed.</p>
+
+<p>
+<img src="../Images/x3dbar.png" alt="--- X3D separator bar ---" height="23" width="430">
+</p>
+
+<h3><a name="ECMAScriptLanguageBinding"></a>A.3 ECMAScript language binding</h3>
+
+<h4><a name="ECMAScriptRequirements"></a>A.3.1 Requirements</h4>
+
+<p>
+If a browser intends to support VRML backwards compatibility for the ECMAScript 
+language in the script node, it shall do so in conformance with <i>Annex C 
+ECMAScript language binding</i> in <a href="references.html#[I14772_1]">ISO/IEC 
+14772-1</a>.
+</p>
+
+<h4><a name="DeterminatioOfRequiredSpecification"></a>A.3.2 Determination of required specification</h4>
+
+<p>
+A browser shall determine which version of the specification is supported
+through the use of the protocol definition or MIME type given with the
+external file. No other indicators shall be used.
+</p>
+
+<h4><a name="SupportedScriptURLs"></a>A.3.3 Supported script URLs</h4>
+
+<h5><a name="InlineScriptDefinition"></a>A.3.3.1 Inline script definition</h5>
+
+<p>
+Browsers supporting the ECMAScript backwards compatibility shall support the use
+of inlined script nodes through the use of the customize protocol definition
+<i>javascript</i>. The support specified in <i>7 Conformance and minimum support 
+requirements</i> in <a href="references.html#[I14772_1]">ISO/IEC 
+14772-1</a> is required in addition to the other required
+protocols for the ECMAScript specification as specified in <i>Annex A ECMAScript 
+language binding</i> in <a href="references.html#[I14772_1]">ISO/IEC 
+14772-1</a>. An example of the inlined
+script definition is:
+</p>
+
+<pre>Script {
+    url "javascript: function foo() { ... }"
+}
+</pre>
+
+The url field may contain multiple URL's referencing either a remote file or
+in-line code as shown in the following example:
+
+<pre>Script {
+    url [
+        "http://foo.com/myScript.js",
+        "javascript: function foo( ) { ... }"
+    ]
+}
+</pre>
+
+<p>
+The use of the <i>javascript</i> protocol shall require the browser to support
+the objects and semantics defined in the VRML97 specification. It shall be an
+error for a browser that conforms to this specification to support the
+<i>javascript</i> protocol with script content that uses Objects defined in
+Annex A of this specification.
+</p>
+
+<p>
+The use of the <i>ecmascript:</i> protocol shall indicate the script conforms
+to Annex A of this specification. A browser shall not provide VRML97 defined
+objects to a script that uses the <i>ecmascript:</i> protocol.
+</p>
+
+<h5><a name="ECMAScriptMIMETypes"></a>A.3.3.2 MIME types</h5>
+
+<p>
+The MIME type for VRML ECMAScript source code is defined as follows:
+</p>
+
+<pre>application/javascript
+</pre>
+
+<p>
+For backwards compatibility with old web servers, it is recommended browsers also
+support the following mime type:
+</p>
+
+<pre>application/x-javascript
+</pre>
+
+<p>
+The use of the <code>application/ecmascript</code> or
+<code>application/x-ecmascript</code> MIME types shall indicate the script 
+conforms to Annex A of this specification. A browser shall not provide VRML-defined
+objects to a script that uses  these MIME types.
+</p>
+
+<p>
+<img src="../Images/x3dbar.png" alt="--- X3D separator bar ---" height="23" width="430">
+</p>
+
+<h3><a name="JavaLanguageBinding"></a>A.4 Java language binding</h3>
+
+<h4><a name="JavaRequirements"></a>A.4.1 Requirements</h4>
+<p>
+If a browser intends to support VRML97 backwards compatibility for the Java
+language in the script node, they shall do so in conformance with <i>Annex B 
+Java platform scripting reference</i> in <a href="references.html#[I14772_1]">ISO/IEC 
+14772-1</a>.
+</p>
+
+<h4><a name="JavaDeterminatioOfRequiredSpecification"></a>A.4.2 Determination of required specification</h4>
+
+<p>
+As it is impossible to pre-determine which set of classes and interfaces a Java
+class file implements through the use of the URL protocol or MIME type, a browser
+shall determine which version of the specification is supported
+by examining the base class or interfaces implemented by the user code.
+Determination of this may be made through the language introspection capabilities
+or using the <code>instanceof</code> operator.
+</p>
+
+<p>
+A Java script that claims to support <a href="references.html#[I14772_1]">ISO/IEC 
+14772-1</a> shall extend the base
+class <code>vrml.node.Script</code>. If a script class file extends the
+VRML97 base class and implements the
+<code>org.web3d.x3d.sai.X3DScriptImplementation</code> interface then the browser
+shall use the X3D SAI semantics and execution and is not required to support 
+<a href="references.html#[I14772_1]">ISO/IEC 
+14772-1</a> or objects that conform to <a href="references.html#[I14772_1]">ISO/IEC 
+14772-1</a>. It is recommended that a browser issue a warning
+when it detects such a situation.</p>
+
+<p>
+<img src="../Images/x3dbar.png" alt="--- X3D separator bar ---" height="23" width="430">
+</p>
+</body>
+</html>

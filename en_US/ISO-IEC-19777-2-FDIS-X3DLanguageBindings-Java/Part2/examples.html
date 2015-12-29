@@ -1,0 +1,688 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html lang="en">
+<head>
+
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>ISO/IEC 19777-2:2005 -- X3D Java binding -- Annex D Examples</title>
+<link rel="stylesheet" href="../Web3D_LB.css" type="text/css">
+</head>
+<body>
+
+<div class="CenterDiv">
+<img class="x3dlogo" SRC="../Images/x3d.png" ALT="X3D logo" width="115" height="106" > 
+</div>
+
+<div class="CenterDiv">
+<p class="HeadingPart">
+    Extensible 3D (X3D) language bindings<br />
+    Part 2:&nbsp; Java</p>
+
+<p class="HeadingClause">Annex D</p>
+
+<p class="AnnexType">(informative)</p>
+
+<p class="HeadingClause">Examples</p>
+
+</div>
+
+<img class="x3dbar" SRC="../Images/x3dbar.png" ALT="--- X3D separator bar ---" width="430" height="23">
+
+<h1><img class="cube" src="../Images/cube.gif" alt="cube" width="20" height="19">
+<a name="IntroductionAndTopics"></a>D.1 Introduction and topics</h1>
+
+<h2><a name="Introduction"></a>D.1.1 Introduction</h2>
+<p>This annex provides a variety of X3D examples showing ECMAScript operations.</P>
+
+<h2><a name="Topics"></a>D.1.2 Topics</h2>
+<p><a href="#t-Topics">Table D.1</a> contains a table of 
+contents that lists the topics in this clause:</P>
+
+<div class="CenterDiv">
+<p class="TableCaption">
+<a name="t-Topics"></a>Table D.1 &mdash; Topics in this annex</P>
+
+  <table class="topics">
+  <TBODY>
+  <TR>
+    <TD>
+
+<ul>
+	<li><a href="#IntroductionAndTopics">D.1 Introduction and topics</a><ul>
+		<li><a href="#Introduction">D.1.1 Introduction</a></li>
+		<li><a href="#Topics">D.1.2 Topics</a></li>
+	</ul>
+	</li>
+	<li><a href="#TouchSensorIsOverEvent">D.2 TouchSensor isOver event</a></li>
+	<li><a href="#CreateNodes">D.3 Create nodes</a></li>
+	<li><a href="#PerFrameNotification">D.4 Per frame notification</a></li>
+	<li><a href="#AddDynamicRoutes">D.5 Add dynamic routes</a></li>
+	<li><a href="#CreateNodesFromAPrototype">D.6 Create nodes from prototype</a><br/>
+	</li>
+</ul>
+
+</TD>
+</TR>
+</TBODY>
+</TABLE>
+</DIV>
+
+<img class="x3dbar" SRC="../Images/x3dbar.png" ALT="--- X3D separator bar ---" width="430" height="23">
+<h1><img class="cube" src="../Images/cube.gif" alt="cube" width="20" height="19">
+<a name="TouchSensorIsOverEvent"></a>D.2 TouchSensor isOver event</h2>
+
+<p>This example demonstrates a scripted response to a TouchSensor isOver event by
+changing the color of a Box from blue to red:</p>
+
+
+<pre class="listing">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
+&lt;!DOCTYPE X3D PUBLIC &quot;ISO//Web3D//DTD X3D 3.0//EN&quot; &quot;http://www.web3d.org/specifications/x3d-3.0.dtd&quot;&gt;
+&lt;X3D profile=&quot;Immersive&quot;&gt;
+  &lt;head&gt;
+    &lt;meta content=&quot;TouchSensorIsOverEvent.x3d&quot; name=&quot;filename&quot;/&gt;
+    &lt;meta content=&quot;Xeena VRML importer&quot; name=&quot;translator&quot;/&gt;
+    &lt;meta content=&quot;23 February 2005&quot; name=&quot;imported&quot;/&gt;
+    &lt;meta content=&quot;23 February 2005&quot; name=&quot;revised&quot;/&gt;
+    &lt;meta
+content=&quot;X3D-Edit, <a href="http://www.web3D.org/TaskGroups/x3d/translation/README.X3D-Edit.html%22%20name=%22generator%22/">http://www.web3D.org/TaskGroups/x3d/translation/README.X3D-Edit.html&quot; name=&quot;generator&quot;/</a>&gt;
+    &lt;meta content=&quot;Vrml97ToX3dNist, <a href="http://ovrt.nist.gov/v2_x3d.html%22%20name=%22generator%22/">http://ovrt.nist.gov/v2_x3d.html&quot; name=&quot;generator&quot;/</a>&gt;
+  &lt;/head&gt;
+  &lt;Scene&gt;
+    &lt;Group&gt;
+      &lt;Shape&gt;
+        &lt;Appearance&gt;
+          &lt;Material DEF=&quot;MAT&quot; diffuseColor=&quot;0 0 1&quot;/&gt;
+        &lt;/Appearance&gt;
+        &lt;Box/&gt;
+      &lt;/Shape&gt;
+      &lt;TouchSensor DEF=&quot;TS&quot;/&gt;
+    &lt;/Group&gt;
+    &lt;Script DEF=&quot;SC&quot; url=&quot;&amp;quot;SAIExample1.class&amp;quot; &quot;&gt;
+      &lt;field accessType=&quot;inputOnly&quot; name=&quot;isOver&quot; type=&quot;SFBool&quot;/&gt;
+      &lt;field accessType=&quot;outputOnly&quot; name=&quot;diffuseColor_changed&quot; type=&quot;SFColor&quot;/&gt;
+    &lt;/Script&gt;
+    &lt;ROUTE fromField=&quot;isOver&quot; fromNode=&quot;TS&quot; toField=&quot;isOver&quot; toNode=&quot;SC&quot;/&gt;
+    &lt;ROUTE fromField=&quot;diffuseColor_changed&quot; fromNode=&quot;SC&quot;
+      toField=&quot;set_diffuseColor&quot; toNode=&quot;MAT&quot;/&gt;
+  &lt;/Scene&gt;
+&lt;/X3D&gt;
+</pre>
+
+<pre class="listing">// Standard imports
+import java.util.Map;
+// Application specific imports
+import org.web3d.x3d.sai.*;
+
+public class SAIExample1
+    implements X3DScriptImplementation, X3DFieldEventListener {
+
+    /** Color Constant, RED */
+    private static final float[] RED = new float[] {1.0f, 0, 0};
+
+    /** Color Constant, BLUE */
+    private static final float[] BLUE = new float[] {0, 0, 1.0f};
+
+    /** A mapping for fieldName(String) to an X3DField object */
+    private Map fields;
+
+    /** The isOver field */
+    private SFBool isOver;
+
+    /** The diffuseColor_changed field */
+    private SFColor diffuseColor;
+
+    //----------------------------------------------------------
+    // Methods from the X3DScriptImplementation interface.
+    //----------------------------------------------------------
+    /**
+     * Set the browser instance to be used by this script implementation.
+     *
+     * @param browser The browser reference to keep
+     */
+    public void setBrowser(Browser browser) {
+    }
+
+    /**
+     * Set the listing of fields that have been declared in the file for
+     * this node. .
+     *
+     * @param The external view of ourselves, so you can add routes to yourself
+     *    using the standard API calls
+     * @param fields The mapping of field names to instances
+     */
+    public void setFields(X3DScriptNode externalView, Map fields) {
+        this.fields = fields;
+    }
+
+    /**
+     * Notification that the script has completed the setup and should go
+     * about its own internal initialization.
+     */
+    public void initialize() {
+        isOver = (SFBool) fields.get("isOver");
+        diffuseColor = (SFColor) fields.get("diffuseColor_changed");
+
+        // Listen to events on isOver
+        isOver.addX3DEventListener(this);
+    }
+
+    /**
+     * Notification that this script instance is no longer in use by the
+     * scene graph and should now release all resources.
+     */
+    public void shutdown() {
+    }
+
+    /**
+     * Notification that all the events in the current cascade have finished
+     * processing.
+     */
+    public void eventsProcessed() {
+    }
+
+    //----------------------------------------------------------
+    // Methods from the X3DFieldEventListener interface.
+    //----------------------------------------------------------
+
+    /**
+     * Handle field changes.
+     *
+     * @param evt The field event
+     */
+    public void readableFieldChanged(X3DFieldEvent evt) {
+        if (evt.getSource() == isOver) {
+            if (isOver.getValue() == true)
+                diffuseColor.setValue(RED);
+            else
+                diffuseColor.setValue(BLUE);
+        } else {
+            System.out.println("Unhandled event: " + evt);
+        }
+    }
+}
+</pre>
+
+<p><a target="3D_SceneJava" href="Examples/TouchSensorIsOverEvent.x3d">Click here</a> to 
+view this example in a 3D scene window.</P>
+
+
+
+<img class="x3dbar" SRC="../Images/x3dbar.png" ALT="--- X3D separator bar ---" width="430" height="23">
+<h1><img class="cube" src="../Images/cube.gif" alt="cube" width="20" height="19">
+<a name="CreateNodes"></a>D.3 Create nodes</h1>
+
+<p>This example shows using createX3DFromString to create nodes:</p>
+
+<pre class="listing">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
+&lt;!DOCTYPE X3D PUBLIC &quot;ISO//Web3D//DTD X3D 3.0//EN&quot; &quot;http://www.web3d.org/specifications/x3d-3.0.dtd&quot;&gt;
+&lt;X3D profile=&quot;Immersive&quot;&gt;
+  &lt;head&gt;
+    &lt;meta content=&quot;CreateNodes.x3d&quot; name=&quot;filename&quot;/&gt;
+    &lt;meta content=&quot;Xeena VRML importer&quot; name=&quot;translator&quot;/&gt;
+    &lt;meta content=&quot;*enter date of initial version here*&quot; name=&quot;created&quot;/&gt;
+    &lt;meta content=&quot;23 February 2005&quot; name=&quot;imported&quot;/&gt;
+    &lt;meta content=&quot;23 February 2005&quot; name=&quot;revised&quot;/&gt;
+    &lt;meta
+content=&quot;X3D-Edit, <a href="http://www.web3D.org/TaskGroups/x3d/translation/README.X3D-Edit.html%22%20name=%22generator%22/">http://www.web3D.org/TaskGroups/x3d/translation/README.X3D-Edit.html&quot; name=&quot;generator&quot;/</a>&gt;
+    &lt;meta content=&quot;Vrml97ToX3dNist, <a href="http://ovrt.nist.gov/v2_x3d.html%22%20name=%22generator%22/">http://ovrt.nist.gov/v2_x3d.html&quot; name=&quot;generator&quot;/</a>&gt;
+  &lt;/head&gt;
+  &lt;Scene&gt;
+    &lt;Transform DEF=&quot;HOLDER&quot; translation=&quot;-2.0 0.0 0.0&quot;/&gt;
+    &lt;Script DEF=&quot;SC&quot; url=&quot;SAIExample.class&quot;&gt;
+      &lt;field accessType=&quot;outputOnly&quot; name=&quot;children&quot; type=&quot;MFNode&quot;/&gt;
+    &lt;/Script&gt;
+    &lt;ROUTE fromField=&quot;children&quot; fromNode=&quot;SC&quot; toField=&quot;children&quot; toNode=&quot;HOLDER&quot;/&gt;
+  &lt;/Scene&gt;
+&lt;/X3D&gt;
+</pre>
+
+<pre class="listing">// Standard imports
+import java.util.Map;
+
+// Application specific imports
+import org.web3d.x3d.sai.*;
+
+public class SAIExample2
+    implements X3DScriptImplementation {
+
+    /** Color Constant, RED */
+    private static final float[] RED = new float[] {1.0f, 0, 0};
+
+    /** A mapping for fieldName(String) to an X3DField object */
+    private Map fields;
+
+    /** A reference to the browser */
+    private Browser browser;
+
+    /** The field to place the generated nodes via createX3DFromString */
+    private MFNode children;
+
+    //----------------------------------------------------------
+    // Methods from the X3DScriptImplementation interface.
+    //----------------------------------------------------------
+    /**
+     * Set the browser instance to be used by this script implementation.
+     *
+     * @param browser The browser reference to keep
+     */
+    public void setBrowser(Browser browser) {
+        this.browser = browser;
+    }
+
+    /**
+     * Set the listing of fields that have been declared in the file for
+     * this node. .
+     *
+     * @param The external view of ourselves, so you can add routes to yourself
+     *    using the standard API calls
+     * @param fields The mapping of field names to instances
+     */
+    public void setFields(X3DScriptNode externalView, Map fields) {
+        this.fields = fields;
+    }
+
+    /**
+     * Notification that the script has completed the setup and should go
+     * about its own internal initialization.
+     */
+    public void initialize() {
+        children = (MFNode) fields.get("children");
+
+        // Create nodes directly in the parent scene
+        X3DScene scene = (X3DScene) browser.getExecutionContext();
+
+        X3DShapeNode shape = (X3DShapeNode) scene.createNode("Shape");
+        X3DGeometryNode box = (X3DGeometryNode) scene.createNode("Box");
+
+        shape.setGeometry(box);
+        scene.addRootNode(shape);
+
+
+        // Create children using the createX3DFromString service
+        String vrmlCmd =
+            "PROFILE Interchange  Shape { geometry Sphere{} }";
+
+        X3DScene tmpScene = browser.createX3DFromString(vrmlCmd);
+        X3DNode[] nodes = tmpScene.getRootNodes();
+
+        // Nodes must be removed before adding to another scene
+        for(int i=0; i < nodes.length; i++) {
+            tmpScene.removeRootNode(nodes[i]);
+        }
+
+        children.setValue(nodes.length,nodes);
+    }
+
+    /**
+     * Notification that this script instance is no longer in use by the
+     * scene graph and should now release all resources.
+     */
+    public void shutdown() {
+    }
+
+    /**
+     * Notification that all the events in the current cascade have finished
+     * processing.
+     */
+    public void eventsProcessed() {
+    }
+}
+</pre>
+
+<p><a target="3D_SceneJava" href="Examples/CreateNodes.x3d">Click here</a> to 
+view this example in a 3D scene window.</P>
+
+<img class="x3dbar" SRC="../Images/x3dbar.png" ALT="--- X3D separator bar ---" width="430" height="23">
+<h1><img class="cube" src="../Images/cube.gif" alt="cube" width="20" height="19">
+<a name="PerFrameNotification"></a>D.4 Per frame notification</h1>
+
+<p> This example shows how to use per frame notification to produce 
+a frame rate annotation:</p>
+
+<pre class="listing">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
+&lt;!DOCTYPE X3D PUBLIC &quot;<a href="http://www.web3d.org/specifications/x3d-3.0.dtd">http://www.web3d.org/specifications/x3d-3.0.dtd</a>&quot;
+                     &quot;file:///www.web3d.org/TaskGroups/x3d/translation/x3d-3.0.dtd&quot;&gt;
+&lt;X3D profile=&quot;Immersive&quot;&gt;
+  &lt;head&gt;
+    &lt;meta content=&quot;PerFrameNotification.x3d&quot; name=&quot;filename&quot;/&gt;
+    &lt;meta content=&quot;Xeena VRML importer&quot; name=&quot;translator&quot;/&gt;
+    &lt;meta content=&quot;23 February 2005&quot; name=&quot;imported&quot;/&gt;
+    &lt;meta content=&quot;23 February 2005&quot; name=&quot;revised&quot;/&gt;
+    &lt;meta
+content=&quot;X3D-Edit, <a href="http://www.web3D.org/TaskGroups/x3d/translation/README.X3D-Edit.html%22%20name=%22generator%22/">http://www.web3D.org/TaskGroups/x3d/translation/README.X3D-Edit.html&quot; name=&quot;generator&quot;/</a>&gt;
+    &lt;meta content=&quot;Vrml97ToX3dNist, <a href="http://ovrt.nist.gov/v2_x3d.html%22%20name=%22generator%22/">http://ovrt.nist.gov/v2_x3d.html&quot; name=&quot;generator&quot;/</a>&gt;
+  &lt;/head&gt;
+  &lt;Scene&gt;
+    &lt;Script DEF=&quot;SC&quot; url=&quot;&amp;quot;SAIExample3.class&amp;quot; &quot;/&gt;
+  &lt;/Scene&gt;
+&lt;/X3D&gt;</pre>
+
+<pre class="listing">// Standard imports
+import java.util.Map;
+// Application specific imports
+import org.web3d.x3d.sai.*;
+
+public class SAIExample3
+    implements X3DPerFrameObserverScript {
+
+    /** When did the last frame start */
+    private long lastStartTime;
+
+    //----------------------------------------------------------
+    // Methods from the X3DScriptImplementation interface.
+    //----------------------------------------------------------
+    /**
+     * Set the browser instance to be used by this script implementation.
+     *
+     * @param browser The browser reference to keep
+     */
+    public void setBrowser(Browser browser) {
+    }
+
+    /**
+     * Set the listing of fields that have been declared in the file for
+     * this node. .
+     *
+     * @param The external view of ourselves, so you can add routes to yourself
+     *    using the standard API calls
+     * @param fields The mapping of field names to instances
+     */
+    public void setFields(X3DScriptNode externalView, Map fields) {
+    }
+
+    /**
+     * Notification that the script has completed the setup and should go
+     * about its own internal initialization.
+     */
+    public void initialize() {
+        lastStartTime = System.currentTimeMillis();
+    }
+
+    /**
+     * Notification that this script instance is no longer in use by the
+     * scene graph and should now release all resources.
+     */
+    public void shutdown() {
+    }
+
+    /**
+     * Notification that all the events in the current cascade have finished
+     * processing.
+     */
+    public void eventsProcessed() {
+    }
+
+    //----------------------------------------------------------
+    // Methods from the X3DPerFrameObserver interface.
+    //----------------------------------------------------------
+
+    /**
+     * Start of frame notification.
+     */
+    public void prepareEvents() {
+        float frameTime = (System.currentTimeMillis() - lastStartTime) / 1000f;
+        lastStartTime = System.currentTimeMillis();
+
+        float fps = 1.0f / frameTime;
+        System.out.println("FPS: " + fps);
+    }
+}
+</pre>
+
+<p><a target="3D_SceneJava" href="Examples/PerFrameNotification.x3d">Click here</a> to 
+view this example in a 3D scene window.</P>
+
+<img class="x3dbar" SRC="../Images/x3dbar.png" ALT="--- X3D separator bar ---" width="430" height="23">
+
+<h1><img class="cube" src="../Images/cube.gif" alt="cube" width="20" height="19">
+<a name="AddDynamicRoutes"></a>D.5 Add dynamic routes</h1>
+
+<p>This example shows adding dynamic routes:</p>
+
+<pre class="listing">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
+&lt;!DOCTYPE X3D PUBLIC &quot;ISO//Web3D//DTD X3D 3.0//EN&quot; &quot;http://www.web3d.org/specifications/x3d-3.0.dtd&quot;&gt;
+&lt;X3D profile=&quot;Immersive&quot;&gt;
+  &lt;Scene&gt;
+    &lt;Script DEF=&quot;SC&quot; url=&quot;SAIExample4.class&quot;&gt;
+      &lt;field accessType=&quot;inputOnly&quot; name=&quot;touchTime&quot; type=&quot;SFTime&quot;/&gt;
+    &lt;/Script&gt;
+  &lt;/Scene&gt;
+&lt;/X3D&gt;</pre>
+
+<pre class="listing">// Standard imports
+import java.util.Map;
+// Application specific imports
+import org.web3d.x3d.sai.*;
+
+public class SAIExample4
+    implements X3DScriptImplementation, X3DFieldEventListener {
+
+    /** A mapping for fieldName(String) to an X3DField object */
+    private Map fields;
+
+    /** A reference to the browser */
+    private Browser browser;
+
+    /** inputOnly touchTime */
+    private SFTime touchTime;
+
+    /** initializeOnly selfRef */
+    private X3DScriptNode selfRef;
+
+    //----------------------------------------------------------
+    // Methods from the X3DScriptImplementation interface.
+    //----------------------------------------------------------
+    /**
+     * Set the browser instance to be used by this script implementation.
+     *
+     * @param browser The browser reference to keep
+     */
+    public void setBrowser(Browser browser) {
+        this.browser = browser;
+    }
+
+    /**
+     * Set the listing of fields that have been declared in the file for
+     * this node. .
+     *
+     * @param The external view of ourselves, so you can add routes to yourself
+     *    using the standard API calls
+     * @param fields The mapping of field names to instances
+     */
+    public void setFields(X3DScriptNode externalView, Map fields) {
+        this.fields = fields;
+        selfRef = externalView;
+    }
+
+    /**
+     * Notification that the script has completed the setup and should go
+     * about its own internal initialization.
+     */
+    public void initialize() {
+        touchTime = (SFTime) fields.get("touchTime");
+
+        // Listen to events on touchTime
+        touchTime.addX3DEventListener(this);
+
+        // Create nodes directly in the parent scene
+        X3DScene scene = (X3DScene) browser.getExecutionContext();
+
+        X3DShapeNode shape = (X3DShapeNode) scene.createNode("Shape");
+        X3DGeometryNode box = (X3DGeometryNode) scene.createNode("Box");
+        X3DNode touchSensor = scene.createNode("TouchSensor");
+
+        shape.setGeometry(box);
+
+        // Create a Group to hold the nodes
+        X3DGroupingNode group = (X3DGroupingNode) scene.createNode("Group");
+
+        // Add the shape and sensor to the group
+        group.addChild(shape);
+        group.addChild(touchSensor);
+
+        // Add the nodes to the scene
+        scene.addRootNode(group);
+
+        // Get a handle to the toplevel execution context
+        scene.addRoute(touchSensor,"touchTime", selfRef, "touchTime");
+    }
+
+    /**
+     * Notification that this script instance is no longer in use by the
+     * scene graph and should now release all resources.
+     */
+    public void shutdown() {
+    }
+
+    /**
+     * Notification that all the events in the current cascade have finished
+     * processing.
+     */
+    public void eventsProcessed() {
+    }
+
+    //----------------------------------------------------------
+    // Methods from the X3DFieldEventListener interface.
+    //----------------------------------------------------------
+
+    /**
+     * Handle field changes.
+     *
+     * @param evt The field event
+     */
+    public void readableFieldChanged(X3DFieldEvent evt) {
+        if (evt.getSource() == touchTime) {
+            System.out.println("Poke!");
+        } else {
+            System.out.println("Unhandled event: " + evt);
+        }
+    }
+}
+</pre>
+
+<p><a target="3D_SceneECMA" href="Examples/AddDynamicRoutes.x3d">Click here</a> to 
+view this example in a 3D scene window.</P>
+
+<img class="x3dbar" SRC="../Images/x3dbar.png" ALT="--- X3D separator bar ---" width="430" height="23">
+<h1><img class="cube" src="../Images/cube.gif" alt="cube" width="20" height="19">
+<a name="CreateNodesFromAPrototype"></a>D.6 Create nodes from a prototype</h1>
+
+<p><p>This example shows creation of nodes from a prototype:</p>
+
+<pre class="listing">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
+&lt;!DOCTYPE X3D PUBLIC &quot;ISO//Web3D//DTD X3D 3.0//EN&quot; &quot;http://www.web3d.org/specifications/x3d-3.0.dtd&quot;&gt;
+&lt;X3D profile=&quot;Immersive&quot;&gt;
+  &lt;Scene&gt;
+    &lt;ProtoDeclare name=&quot;ColoredSphere&quot;&gt;
+      &lt;ProtoInterface&gt;
+        &lt;field accessType=&quot;initializeOnly&quot; name=&quot;color&quot; type=&quot;SFColor&quot; value=&quot;0.0 0.0 0.0&quot;/&gt;
+      &lt;/ProtoInterface&gt;
+      &lt;ProtoBody&gt;
+        &lt;Shape&gt;
+          &lt;Appearance&gt;
+            &lt;Material&gt;
+              &lt;IS&gt;
+                &lt;connect nodeField=&quot;diffuseColor&quot; protoField=&quot;color&quot;/&gt;
+              &lt;/IS&gt;
+            &lt;/Material&gt;
+          &lt;/Appearance&gt;
+          &lt;Sphere/&gt;
+        &lt;/Shape&gt;
+      &lt;/ProtoBody&gt;
+    &lt;/ProtoDeclare&gt;
+    &lt;Script DEF=&quot;SC&quot; url=&quot;SAIExample5.class&quot;/&gt;
+  &lt;/Scene&gt;
+&lt;/X3D&gt;
+</pre>
+
+<pre class="listing">// Standard imports
+import java.util.Map;
+// Application specific imports
+import org.web3d.x3d.sai.*;
+
+public class SAIExample5
+    implements X3DScriptImplementation {
+
+    /** Color Constant, RED */
+    private static final float[] RED = new float[] {1.0f, 0, 0};
+
+    /** A mapping for fieldName(String) to an X3DField object */
+    private Map fields;
+
+    /** A reference to the browser */
+    private Browser browser;
+
+    /** The field to place the generated nodes via createX3DFromString */
+    private MFNode children;
+
+    //----------------------------------------------------------
+    // Methods from the X3DScriptImplementation interface.
+    //----------------------------------------------------------
+    /**
+     * Set the browser instance to be used by this script implementation.
+     *
+     * @param browser The browser reference to keep
+     */
+    public void setBrowser(Browser browser) {
+        this.browser = browser;
+    }
+
+    /**
+     * Set the listing of fields that have been declared in the file for
+     * this node. .
+     *
+     * @param The external view of ourselves, so you can add routes to yourself
+     *    using the standard API calls
+     * @param fields The mapping of field names to instances
+     */
+    public void setFields(X3DScriptNode externalView, Map fields) {
+        this.fields = fields;
+    }
+
+    /**
+     * Notification that the script has completed the setup and should go
+     * about its own internal initialization.
+     */
+    public void initialize() {
+        // Create nodes directly in the parent scene
+        X3DScene scene = (X3DScene) browser.getExecutionContext();
+
+        // Create protoInstance nodes
+
+        // Get the proto declaration declared in the main scene
+        X3DProtoDeclaration protoDecl = scene.getProto("ColoredSphere");
+
+        // Create a new instance of this proto
+        X3DProtoInstance instance = protoDecl.createInstance();
+
+        // Get the color field and set it to red
+        SFColor color = (SFColor) instance.getField("color");
+        color.setValue(RED);
+
+        // Add the created proto instance to the scene
+        scene.addRootNode(instance);
+    }
+
+    /**
+     * Notification that this script instance is no longer in use by the
+     * scene graph and should now release all resources.
+     */
+    public void shutdown() {
+    }
+
+    /**
+     * Notification that all the events in the current cascade have finished
+     * processing.
+     */
+    public void eventsProcessed() {
+    }
+}
+</pre>
+
+<p><a target="3D_SceneJava" href="Examples/CreateNodesFromPrototype.x3d">Click here</a> to 
+view this example in a 3D scene window.</P>
+
+
+<img class="x3dbar" src="../Images/x3dbar.png" alt="--- X3D separator bar ---" width="430" height="23"  />
+
+</body>
+</html>

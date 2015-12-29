@@ -1,0 +1,1041 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html lang="en">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <title>ISO/IEC 19777-2:2005 -- X3D Java binding -- 5 Type definitions</title>
+<link REL="stylesheet" HREF="../Web3D_LB.css" TYPE="text/css">
+
+</head>
+<body>
+
+<div class="CenterDiv">
+<img class="x3dlogo" SRC="../Images/x3d.png" ALT="X3D logo" width="115" height="106">
+</div>
+
+<div class="CenterDiv">
+<p class="HeadingPart">
+    Extensible 3D (X3D) language bindings<br>
+    Part 2:&nbsp; Java</p>
+
+<p class="HeadingClause">5 Type definitions</p>
+</div>
+
+<img class="x3dbar" SRC="../Images/x3dbar.png" ALT="--- X3D separator bar ---" width="430" height="23">
+
+<h1><img class="cube" src="../Images/cube.gif" alt="cube" width="20" height="19">
+<a name="IntroductionAndTOC"></a>5.1 Introduction and table of contents</h1>
+
+<h2><a name="Introduction"></a>5.1.1 Introduction</h2>
+
+<p>The X3D Scene Authoring Interface (see <a href="references.html#[I19775]">
+2.[I19775]</a>) defines a set of fundamental abstract data types.
+This clause specifies the mapping from those data types to the data types defined in this
+binding. All implementation-dependent data types are defined after all implementation
+independent data types in each category.</p>
+
+<h2><a name="Topics"></a>5.1.2 Topics</h2>
+
+<p>See <a href="#t-Topics">Table 5.1</a> for the table of contents for this clause.</p>
+
+<div class="CenterDiv">
+
+<p class="TableCaption">
+<a name="t-Topics"></a>Table 5.1 &mdash; Topics in this clause</p>
+
+<table>
+  <tbody>
+  <tr>
+    <td>
+    <ul>
+    <li><a href="#IntroductionAndTOC">5.1 Introduction and Table of Contents</a><ul>
+    <li><a href="#Introduction">5.1.1 Introduction</a></li>
+    <li><a href="#Topics">5.1.2 Topics</a></li>
+    </ul>
+    </li>
+    <li><a href="#DataTtypeDefinitions">5.2 Data type definitions</a><ul>
+    <li><a href="#SAIAction">5.2.1 SAIAction</a></li>
+    <li><a href="#SAIBrowserApp">5.2.2 SAIBrowserApp</a></li>
+    <li><a href="#SAIBrowserName">5.2.3 SAIBrowserName</a></li>
+    <li><a href="#SAIBrowserRef">5.2.4 SAIBrowserRef</a></li>
+    <li><a href="#SAIBrowserVersion">5.2.5 SAIBrowserVersion</a></li>
+    <li><a href="#SAIComponentDeclaration">5.2.6 SAIComponentDeclaration</a></li>
+    <li><a href="#SAIComponentID">5.2.7 SAIComponentID</a></li>
+    <li><a href="#SAIExecutionContextID">5.2.8 SAIExecutionContextID</a></li>
+    <li><a href="#SAIFieldAccess">5.2.9 SAIFieldAccess</a></li>
+    <li><a href="#SAIFieldDefinition">5.2.10 SAIFieldDefinition</a></li>
+    <li><a href="#SAIFieldID">5.2.11 SAIFieldID</a></li>
+    <li><a href="#SAIFieldName">5.2.12 SAIFieldName</a></li>
+    <li><a href="#SAIFieldType">5.2.13 SAIFieldType</a></li>
+    <li><a href="#SAIFieldValue">5.2.14 SAIFieldValue</a></li>
+    <li><a href="#SAIFrameRate">5.2.15 SAIFrameRate</a></li>
+    <li><a href="#SAILoadState">5.2.16 SAILoadState</a></li>
+    <li><a href="#SAINavSpeed">5.2.17 SAINavSpeed</a></li>
+    <li><a href="#SAINodeID">5.2.18 SAINodeID</a></li>
+    <li><a href="#SAINodeType">5.2.19 SAINodeType</a></li>
+    <li><a href="#SAIParameterList">5.2.20 SAIParameterList</a></li>
+    <li><a href="#SAIProfileDeclaration">5.2.21 SAIProfileDeclaration</a></li>
+    <li><a href="#SAIPropertyList">5.2.22 SAIPropertyList</a></li>
+    <li><a href="#SAIProtoDeclaration">5.2.23 SAIProtoDeclaration</a></li>
+    <li><a href="#SAIRequesterID">5.2.24 SAIRequesterID</a></li>
+    <li><a href="#SAIRoute">5.2.25 SAIRoute</a></li>
+    <li><a href="#SAIScript">5.2.26 SAIScript</a></li>
+    <li><a href="#SAIScriptImplementation">5.2.27 SAIScriptImplementation</a></li>
+    <li><a href="#SAIScene">5.2.28 SAIScene</a></li>
+    <li><a href="#SAIString">5.2.29 SAIString</a></li>
+    <li><a href="#SAIURL">5.2.30 SAIURL</a></li>
+    </ul>
+    </li>
+    <li><a href="#ErrorDataTypes">5.3 Error data types</a><ul>
+    <li><a href="#SAIError">5.3.1 SAIError</a></li>
+    <li><a href="#SAIBrowserUnavailable">5.3.2 SAI_BROWSER_UNAVAILABLE</a></li>
+    <li><a href="#SAIConnectionError">5.3.3 SAI_CONNECTION_ERROR</a></li>
+    <li><a href="#SAIDisposed">5.3.4 SAI_DISPOSED</a></li>
+    <li><a href="#SAIImportedNode">5.3.5 SAI_IMPORTED_NODE</a></li>
+    <li><a href="#SAIInsufficientCapabilities">5.3.6 SAI_INSUFFICIENT_CAPABILITIES</a></li>
+    <li><a href="#SAIInvalidAccessType">5.3.7 SAI_INVALID_ACCESS_TYPE</a></li>
+    <li><a href="#SAIInvalidBrowser">5.3.8 SAI_INVALID_BROWSER</a></li>
+    <li><a href="#SAIInvalidDocument">5.3.9 SAI_INVALID_DOCUMENT</a></li>
+    <li><a href="#SAIInvalidField">5.3.10 SAI_INVALID_FIELD</a></li>
+    <li><a href="#SAIInvalidName">5.3.11 SAI_INVALID_NAME</a></li>
+    <li><a href="#SAIInvalidNode">5.3.12 SAI_INVALID_NODE</a></li>
+    <li><a href="#SAIInvalidOperationTiming">5.3.13 SAI_INVALID_OPERATION_TIMING</a></li>
+    <li><a href="#SAIInvalidURL">5.3.14 SAI_INVALID_URL</a></li>
+    <li><a href="#SAIInvalidX3D">5.3.15 SAI_INVALID_X3D</a></li>
+    <li><a href="#SAINodeNotAvailable">5.3.16 SAI_NODE_NOT_AVAILABLE</a></li>
+    <li><a href="#SAINodeNotAvailable">5.3.17 SAI_NODE_IN_USE</a></li>
+    <li><a href="#SAINotShared">5.3.18 SAI_NOT_SHARED</a></li>
+    <li><a href="#SAINotSupported">5.3.19 SAI_NOT_SUPPORTED</a></li>
+    <li><a href="#SAIURLUnavailable">5.3.20 SAI_URL_UNAVAILABLE</a></li>
+    </ul>
+    </li>
+    <li><a href="#EventTypes">5.4 Event types</a><ul>
+    <li><a href="#EventTypesConcepts">5.4.1 Concepts</a></li>
+    <li><a href="#SAIBrowserEvent">5.4.2 SAIBrowserEvent</a></li>
+    <li><a href="#SAIBConnectionError">5.4.3 SAI_B_ConnectionError</a></li>
+    <li><a href="#SAIBInitialized">5.4.4 SAI_B_Initialized</a></li>
+    <li><a href="#SAIBShutdown">5.4.5 SAI_B_Shutdown</a></li>
+    <li><a href="#SAIBURLError">5.4.6 SAI_B_URLError</a></li>
+    <li><a href="#EventTypesSAIFieldEvent">5.4.7 SAIFieldEvent</a></li>
+    </ul>
+    </li>
+    </ul>
+  </tr>
+</tbody>
+</table>
+</div>
+
+<h2><a name="DataTtypeDefinitions"></a>
+5.2 Data type definitions</h2>
+
+<h3><a name="SAIAction"></a>
+5.2.1 SAIAction</h3>
+
+<p>The action type is dependent on the method used.
+<a href="#SAIActionToJavaImplementationMapping">Table 5.2</a> defines the
+mapping between each service, the valid action types for that service and
+the Java implementation of that action. Actions are mapped as method names
+describing the action.</p>
+
+<div class="CenterDiv">
+
+<p class="TableCaption">
+<a name="t-SAIActionToJavaMapping"></a>
+Table 5.2 &mdash; SAIAction to Java implementation mapping</p>
+
+<table>
+<tbody>
+<tr>
+  <th>Service</th>
+  <th>Action Type</th>
+  <th>Java Implementation</th>
+</tr>
+<tr>
+  <td rowspan="2">dynamicRouteHandling</td>
+  <td>Add Route</td>
+  <td><code>X3DExecutionContext.addRoute()</code></td>
+</tr>
+<tr>
+  <td>Delete Route</td>
+  <td><code>X3DExecutionContext.deleteRoute()</code></td>
+</tr>
+<tr>
+  <td rowspan="2">updateControl</td>
+  <td>Begin Update</td>
+  <td><code>ExternalBrowser.beginUpdate()</code></td>
+</tr>
+<tr>
+  <td>End Update</td>
+  <td><code>ExternalBrowser.endUpdate()</code></td>
+</tr>
+<tr>
+  <td rowspan="2">registerBrowserInterest</td>
+  <td>Add</td>
+  <td><code>Browser.addBrowserListener()</code></td>
+</tr>
+<tr>
+  <td>Remove</td>
+  <td><code>Browser.removeBrowserListener()</code></td>
+</tr>
+<tr>
+  <td rowspan="2">registerFieldInterest</td>
+  <td>Add</td>
+  <td><code>X3DField.addFieldEventListener()</code></td>
+</tr>
+<tr>
+  <td>Remove</td>
+  <td><code>X3DField.removeFieldEventListener()</code></td>
+</tr>
+<tr>
+  <td rowspan="2">shareWorld</td>
+  <td>share</td>
+  <td><code>ExternalBrowser.shareBrowser()</code>
+ </td>
+</tr>
+<tr>
+  <td>unshare</td>
+  <td><code>ExternalBrowser.unshareBrowser()</code></td>
+</tr>
+<tr>
+  <td rowspan="3">getNode</td>
+  <td>DEF node</td>
+  <td><code>X3DExecutionContext.getNamedNode()</code></td>
+</tr>
+<tr>
+  <td>IMPORT node</td>
+  <td><code>X3DExecutionContext.getImportNode()</code></td>
+</tr>
+<tr>
+  <td>EXPORT node</td>
+  <td><code>X3DScene.getExportNode()</code></td>
+</tr>
+<tr>
+  <td rowspan="6">namedNodeHandling</td>
+  <td>add/update DEF node</td>
+  <td><code>X3DScene.updateNamedNode()</code></td>
+</tr>
+<tr>
+  <td>remove DEF node</td>
+  <td><code>X3DScene.removeNamedNode()</code></td>
+</tr>
+<tr>
+  <td>add/update IMPORT node</td>
+  <td><code>X3DScene.updateExportedNode()</code></td>
+</tr>
+<tr>
+  <td>remove IMPORT node</td>
+  <td><code>X3DScene.removeExportedNode()</code></td>
+</tr>
+<tr>
+  <td>add/update EXPORT node</td>
+  <td><code>X3DScene.updateImportedNode()</code></td>
+</tr>
+<tr>
+  <td>remove EXPORT node</td>
+  <td><code>X3DScene.removeImportedNode()</code></td>
+</tr>
+<tr>
+  <td rowspan="2" height="106">protoDeclarationHandling</td>
+  <td>add/update Proto</td>
+  <td><code>X3DScene.updateProtoNode()</code></td>
+</tr>
+<tr>
+  <td>remove Proto</td>
+  <td><code>X3DScene.removeProtoNode()</code></td>
+</tr>
+<tr>
+  <td rowspan="2">externprotoDeclarationHandling</td>
+  <td>add/update ExternProto</td>
+  <td><code>X3DScene.updateExternProtoNode()</code></td>
+</tr>
+<tr>
+  <td>remove ExternProto</td>
+  <td><code>X3DScene.removeExternProtoNode()</code></td>
+</tr>
+<tr>
+  <td rowspan="2">rootNodeHandling</td>
+  <td>add root node</td>
+  <td><code>X3DScene.addRootNode()</code></td>
+</tr>
+<tr>
+  <td>remove root node</td>
+  <td><code>X3DScene.removeRootNode()</code></td>
+</tr>
+<tr>
+  <td rowspan="4">changeViewpoint</td>
+  <td>next</td>
+  <td><code>Browser.nextViewpoint()</code></td>
+</tr>
+<tr>
+  <td>previous</td>
+  <td><code>Browser.previousViewpoint()</code></td>
+</tr>
+<tr>
+  <td>first</td>
+  <td><code>Browser.firstViewpoint()</code></td>
+</tr>
+<tr>
+  <td>last</td>
+  <td><code>Browser.lastViewpoint()</code></td>
+</tr>
+</tbody>
+</table>
+</div>
+
+<h3><a name="SAIBrowserApp"></a>
+5.2.2 SAIBrowserApp</h3>
+
+<p>The data type is implemented as the interface <code>X3DComponent</code>.
+The capability to obtain a SAIBrowserRef is implemented in the <code>getBrowser()</code>
+method which returns an instance of the <code>ExternalBrowser</code> class.</p>
+
+<h3><a name="SAIBrowserName"></a>
+5.2.3 SAIBrowserName</h3>
+
+<p>The data type is implemented as a <code>java.lang.String</code>.</p>
+
+<h3><a name="SAIBrowserRef"></a>
+5.2.4 SAIBrowserRef</h3>
+
+<p>The browser reference type is defined to be an instance of the <code>Browser</code>
+interface. This is the base representation used for both internal and external
+interaction. For external-only interactions, a derived
+interface of the <code>Browser</code> class is used: <code>ExternalBrowser</code>.</p>
+
+<h3><a name="SAIBrowserVersion"></a>
+5.2.5 SAIBrowserVersion</h3>
+
+<p>The data type is implemented as a <code>java.lang.String</code>. The NULL value
+is defined as the Java <code>null</code> primitive type.</p>
+
+<h3><a name="SAIComponentDeclaration"></a>
+5.2.6 SAIComponentDeclaration</h3>
+
+<p>The component declaration is represented by the <code>ComponentInfo</code>
+class. This class presents a read-only view of a component and it&#39;s information.</p>
+
+<h3><a name="SAIComponentID"></a>
+5.2.7 SAIComponent</h3>
+
+<p>The component ID is represented as two separate objects. The name of the component
+is defined using <code>java.lang.String</code> and the level is represented
+using the standard Java <code>int</code> primitive type.</p>
+
+<h3><a name="SAIExecutionContextID"></a>
+5.2.8 SAIExecutionContext</h3>
+
+<p>The execution context is represented by
+the <code>X3DExecutionContext</code> interface.</p>
+
+<h3><a name="SAIFieldAccess"></a>
+5.2.9 SAIFieldAccess</h3>
+
+<p>Field access is driven by the state of the field object. It shall have two methods to
+determine if it is readable (<code>isReadable()</code>) and Writable (<code>isWritable()</code>)
+These methods shall return <code>true</code> if the field is readable or writable
+respectively at the current state in time. Note that for a given field the
+return value for a particular SAIFieldID may change over time dependent on
+the current state in the life cycle.</p>
+
+<h3><a name="SAIFieldDefinition"></a>5.2.10 SAIFieldDefinition</h3>
+
+<p>The field declaration is represented by the class
+<code>X3DFieldDefinition</code> class.</p>
+
+<h3><a name="SAIFieldID"></a>
+5.2.11 SAIFieldID</h3>
+
+<p>The field identifier is represented as an instance of the class <code>X3DField</code>.
+ For each specific X3D field type, there shall be a derived class that represents
+the field type, and includes strong type checking for the values. An implementation
+is not required to return the same instance of Field for every query, but
+shall ensure that equivalence checking is correct through the implementation
+of the <code>equals()</code> method.</p>
+
+<h3><a name="SAIFieldName"></a>
+5.2.12 SAIFieldName</h3>
+
+<p>The name of the field is implemented as a <code>java.lang.String</code>.</p>
+
+<h3><a name="SAIFieldType"></a>
+5.2.13 SAIFieldType</h3>
+
+<p>The field type may be represented in two alternative fashions.</p>
+
+<p>The first alternative is provided through <code>getType()</code>
+method provided in the <code>X3DField</code> class. This returns an int which
+has one of the values defined by the constant types also defined in that class
+as shown in <a href="#t-MappingOfX3DFieldTypeToJava">Table 5.3</a>.
+ Constant int values are provided and all implementations shall use these
+values. This will ensure that classes compiled with one set of implementation
+classes will run with all browsers as the compiler will inline these constants.
+The end user is strongly advised not to use the direct numerical values,
+and use only the types definitions. The types are defined in the
+<code>X3DFieldTypes</code>
+interface. If a component defines new field types then the numerical values
+assigned shall not override the values already defined.</p>
+
+<div class="CenterDiv">
+
+<p class="TableCaption">
+<a name="t-MappingOfX3DFieldTypeToJava"></a>
+Table 5.3 &mdash; Mapping of X3D Field type
+to Java representation</p>
+
+<table>
+<tbody>
+<tr>
+<th>X3D Field type</th>
+<th>Java representation</th>
+<th>Value</th>
+</tr>
+<tr>
+  <td>SFBool</td>
+  <td><code>static final int SFBool</code></td>
+  <td>1</td>
+</tr>
+<tr>
+  <td>MFBool</td>
+  <td><code>static final int MFBool</code></td>
+  <td>2</td>
+</tr>
+<tr>
+  <td>MFColor</td>
+  <td><code>static final int MFColor</code></td>
+  <td>25</td>
+</tr>
+<tr>
+  <td>SFColor</td>
+  <td><code>static final int SFColor</code></td>
+  <td>26</td>
+</tr>
+<tr>
+  <td>MFColorRGBA</td>
+  <td><code>static final int MFColorRGBA</code></td>
+  <td>27</td>
+</tr>
+<tr>
+  <td>SFColorRGBA</td>
+  <td><code>static final int SFColorRGBA</code></td>
+  <td>28</td>
+</tr>
+<tr>
+  <td>SFDouble</td>
+  <td><code>static final int SFDouble</code></td>
+  <td>9</td>
+</tr>
+<tr>
+  <td>MFDouble</td>
+  <td><code>static final int MFDouble</code></td>
+  <td>10</td>
+</tr>
+<tr>
+  <td>SFFloat</td>
+  <td><code>static final int SFFloat</code></td>
+  <td>7</td>
+</tr>
+<tr>
+  <td>MFFloat</td>
+  <td><code>static final int MFFloat</code></td>
+  <td>8</td>
+</tr>
+<tr>
+  <td>SFImage</td>
+  <td><code>static final int SFImage</code></td>
+  <td>29</td>
+</tr>
+<tr>
+  <td>MFImage</td>
+  <td><code>static final int MFImage</code></td>
+  <td>30</td>
+</tr>
+<tr>
+  <td>SFInt32</td>
+  <td><code>static final int SFInt32</code></td>
+  <td>4</td>
+</tr>
+<tr>
+  <td>MFInt32</td>
+  <td><code>static final int MFInt32</code></td>
+  <td>3</td>
+</tr>
+<tr>
+  <td>SFLong</td>
+  <td><code>static final int SFLong</code></td>
+  <td>5</td>
+</tr>
+<tr>
+  <td>MFLong</td>
+  <td><code>static final int MFLong</code></td>
+  <td>6</td>
+</tr>
+<tr>
+  <td>SFNode</td>
+  <td><code>static final int SFNode</code></td>
+  <td>13</td>
+</tr>
+<tr>
+  <td>MFNode</td>
+  <td><code>static final int MFNode</code></td>
+  <td>14</td>
+</tr>
+<tr>
+  <td>SFRotation</td>
+  <td><code>static final int SFRotation</code></td>
+  <td>24</td>
+</tr>
+<tr>
+  <td>MFRotation</td>
+  <td><code>static final int MFRotation</code></td>
+  <td>23</td>
+</tr>
+<tr>
+  <td>SFString</td>
+  <td><code>static final int SFString</code></td>
+  <td>31</td>
+</tr>
+<tr>
+  <td>MFString</td>
+  <td><code>static final int MFString</code></td>
+  <td>32</td>
+</tr>
+<tr>
+  <td>SFTime</td>
+  <td><code>static final int SFTime</code></td>
+  <td>11</td>
+</tr>
+<tr>
+  <td>MFTime</td>
+  <td><code>static final int MFTime</code></td>
+  <td>12</td>
+</tr>
+<tr>
+  <td>SFVec2f</td>
+  <td><code>static final int SFVec2f</code></td>
+  <td>15</td>
+</tr>
+<tr>
+  <td>MFVec2f</td>
+  <td><code>static final int MFVec2f</code></td>
+  <td>16</td>
+</tr>
+<tr>
+  <td>SFVec2d</td>
+  <td><code>static final int SFVec2d</code></td>
+  <td>17</td>
+</tr>
+<tr>
+  <td>MFVec2d</td>
+  <td><code>static final int MFVec2d</code></td>
+  <td>18</td>
+</tr>
+<tr>
+  <td>SFVec3f</td>
+  <td><code>static final int SFVec3f</code></td>
+  <td>19</td>
+</tr>
+<tr>
+  <td>MFVec3f</td>
+  <td><code>static final int MFVec3f</code></td>
+  <td>20</td>
+</tr>
+<tr>
+  <td>SFVec3d</td>
+  <td><code>static final int SFVec3d</code></td>
+  <td>21</td>
+</tr>
+<tr>
+  <td>MFVec3d</td>
+  <td><code>static final int MFVec3d</code></td>
+  <td>22</td>
+</tr>
+</tbody>
+</table>
+</div>
+
+<p>The second alternative is provided by the class
+hierarchy. The <code>X3DField</code> class is derived to provide implementations
+of the exact field type. These classes are defined in the same package
+(<code>org.web3d.x3d.sai</code>) package.</p>
+
+
+<h3><a name="SAIFieldValue"></a>
+5.2.14 SAIFieldValue</h3>
+
+<p>The field value is defined on a per class and per field type instance.
+See the definitions of the individual field type classes for the exact definition of each type.
+As a general rule, the X3D data type maps the the equivalent Java primitive type using
+the mapping in <a href="#MappingOfX3DDataTypesToJava">Table 5.4</a></p>
+
+<div class="CenterDiv">
+
+<p class="TableCaption">
+<a name="t-MappingOfX3DDataTypesToJava"></a>Table 5.4 &mdash; Mapping of X3D data types to Java primitive data types</p>
+
+<table>
+<caption></caption>
+<tbody>
+    <tr>
+      <th>X3D Field Type</th>
+      <th>Java Primitive Type</th>
+    </tr>
+    <tr>
+      <td>Bool</td>
+      <td>boolean</td>
+    </tr>
+    <tr>
+      <td>Int32</td>
+      <td>int</td>
+    </tr>
+    <tr>
+      <td>Long</td>
+      <td>long</td>
+    </tr>
+    <tr>
+      <td>Float, Vec2f, Vec3f, Rotation</td>
+      <td>float</td>
+    </tr>
+    <tr>
+      <td>Double, Vec2d, Vec3d</td>
+      <td>double</td>
+    </tr>
+    <tr>
+      <td>Color</td>
+      <td>float</td>
+    </tr>
+    <tr>
+      <td>String</td>
+      <td>String</td>
+    </tr>
+    <tr>
+      <td>Time</td>
+      <td>double</td>
+    </tr>
+    <tr>
+      <td>Image</td>
+      <td>int</td>
+    </tr>
+</tbody>
+</table>
+</div>
+
+<h3><a name="SAIFrameRate"></a>
+5.2.15 SAIFrameRate</h3>
+
+<p>The data type is implemented as the Java primitive type <code>float</code>. A
+null value is defined as the value <code>0.0f</code>.</p>
+
+<h3><a name="SAILoadState"></a>
+5.2.16 SAILoadState</h3>
+
+<p>The load state is implemented as an integer primitive value. The values for each state are defined
+in <a href="#t-LoadStateTypeValueDefintions">Table 5.5</a>. The definitions of the values can be
+found in the <code>X3DLoadStateTypes</code> interface.</p>
+
+<div class="CenterDiv">
+
+<p class="TableCaption">
+<a name="t-LoadStateTypeValueDefintions"></a>
+Table 5.5 &mdash; Load state type value defintions</p>
+
+<table>
+    <tbody>
+     <tr>
+      <th>State</th>
+      <th>Java Constant</th>
+      <th>Value</th>
+    </tr>
+    <tr>
+      <td>NOT_STARTED</td>
+      <td><code>static final int LOAD_NOT_STARTED</code></td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <td>IN_PROGRESS</td>
+      <td><code>static final int LOAD_IN_PROGRESS</code></td>
+      <td>2</td>
+    </tr>
+    <tr>
+      <td>COMPLETE</td>
+      <td><code>static final int LOAD_COMPLETE</code></td>
+      <td>3</td>
+    </tr>
+    <tr>
+      <td>FAILED</td>
+      <td><code>static final int LOAD_FAILED</code></td>
+      <td>4</td>
+    </tr>
+</tbody>
+</table>
+</div>
+
+<p>It is strongly recommended that the end user does not use the direct int
+values. They should be using the defined constant types.</p>
+
+<h3><a name="SAINavSpeed"></a>
+5.2.17 SAINavSpeed</h3>
+
+<p>The data type is implemented as the Java primitive type <code>float</code>. A
+null value is defined as the value <code>0.0f</code>.</p>
+
+<h3><a name="SAINodeID"></a>
+5.2.18 SAINodeID</h3>
+
+<p>The node identifier is represented as an instance of <code>X3DNode</code>.</p>
+
+<h3><a name="SAINodeType"></a>
+5.2.19 SAINodeType</h3>
+
+<p>The node type is represented as a <code>java.lang.String</code>.</p>
+
+<h3><a name="SAIParameterList"></a>
+5.2.20 SAIParameterList</h3>
+
+<p>The data type is represented by the values in the
+<a href="#t-MappingSAIParameterListToJava">Table 5.6</a>.
+The table defines the services that use the data type, the method
+of the BrowserFactory class and the lists of argument types that
+method takes.</p>
+
+<div class="CenterDiv">
+
+<p class="TableCaption">
+<a name="t-MappingSAIParameterListToJava"></a>
+Table 5.6 &mdash; Mapping of SAIParameterList to Java parameter lists</p>
+
+<table>
+<tbody>
+<tr>
+  <th>Service</th>
+  <th>method</th>
+  <th>Java Parameters</th>
+</tr>
+<tr>
+  <td rowspan="3">getBrowser</td>
+  <td><code>getBrowser()</code></td>
+  <td><code>java.applet.Applet</code></td>
+</tr>
+<tr>
+  <td><code>getBrowser()</code></td>
+  <td><code>java.applet.Applet, String, int</code></td>
+</tr>
+<tr>
+  <td><code>getBrowser()</code></td>
+  <td><code>java.net.InetAddress, int</code></td>
+</tr>
+<tr>
+  <td>createBrowser</td>
+  <td><code>createVrmlComponent()</code></td>
+  <td>None</td>
+</tr>
+</tbody>
+</table>
+</div>
+
+<h3><a name="SAIProfileDeclaration"></a>
+5.2.21 SAIProfileDeclaration</h3>
+
+<p>The component declaration is represented by the <code>ProfileInfo</code> class.
+This class presents a read-only view of a profile and it's information.</p>
+
+<h3><a name="SAIPropertyList"></a>
+5.2.22 SAIPropertyList</h3>
+
+<p>The data type is implemented as an array of <code>java.lang.String</code>.
+Key/Value pairs are represented using the <code>java.util.Map</code> abstract data
+structure.</p>
+
+<h3><a name="SAIProtoDeclaration"></a>
+5.2.23 SAIProtoDeclaration</h3>
+
+<p>The proto declaration is represented by two separate interfaces - one each
+for PROTO and EXTERNPROTOs. For PROTOs, the interface is
+<code>X3DProtoDeclaration</code>. For EXTERNPROTOs the interface is
+<code>X3DExternProtoDeclaration</code>.</p>
+
+<h3><a name="SAIRequesterID"></a>
+5.2.24 SAIRequesterID</h3>
+
+<p>The requestor ID is represented as an instance of one of two classes depending
+on what information is being requested.</p>
+
+<p>The requestor ID is an instance of the class implementing the interface
+<code>BrowserListener</code> when the service request is registerBrowserInterest 
+as specified in
+6.3.20, registerBrowserInterest of ISO/IEC 19775-2 (see
+<a href="references.html#[I19775]">2.[I19775]</a>).</p>
+
+<p>The requestor ID is an instance of the class implementing the interface
+<code>X3DEventListener</code> when the service request is registerFieldInterest 
+as specified in 6.7.7 registerFieldInterest of ISO/IEC 19775-2 (see
+<a href="references.html#[I19775]">2.[I19775]</a>).</p>
+
+<h3><a name="SAIRoute"></a>
+5.2.25 SAIRoute</h3>
+
+<p>Routes are represented by the immutable data interface <code>org.web3d.x3d.sai.X3DRoute</code>.
+This allows fetching of all the route information, but it may not be changed.
+Browser's shall not expose to the end user extended versions of this class
+that allow direct modification of the route.</p>
+
+<h3><a name="SAIScript"></a>
+5.2.26 SAIScript</h3>
+
+<p>This is the external, containing node representation of the script that is
+passed to the script implementation class during the initialisation phase.
+It shall be represented by the abstract interface type
+<code>X3DScriptNode</code>. This represents the abstract node type as there
+may be more than one script node type.</p>
+
+<h3><a name="SAIScriptImplementation"></a>
+5.2.27 SAIScriptImplementation</h3>
+
+<p>The script implementation is marked by the interface <code>X3DScriptImplementation</code>.
+This marker interface must be present on the user class that is defined in
+the URL of the Script node. If it is not present, an error shall be generated,
+the URL ignored and the next URL in the list loaded.</p>
+
+<h3><a name="SAIScene"></a>
+5.2.28 SAIScene</h3>
+
+<p>The scene is represented by the interface <code>X3DScene</code> that extends
+the <code>X3DExecutionContext</code> interface. The
+scene interface holds all the methods that represent the Scene Services.
+A full definition of the interface and all its methods is in
+<a href="functions.html#SceneServices">6.5 Scene Services</a>.</p>
+
+<h3><a name="SAIString"></a>
+5.2.29 SAIString</h3>
+
+<p>The string is implemented as a <code>java.lang.String</code>.</p>
+
+<h3><a name="SAIURL"></a>
+5.2.30 SAIURL</h3>
+
+<p>The URL is implemented as a <code>java.lang.String</code>.</p>
+
+<h2><a name="ErrorDataTypes"></a>
+5.3 Error data types</h2>
+
+<h3><a name="SAIError"></a>
+5.3.1 SAIError</h3>
+
+<p>Java implementations of the errors rely on a set of derived classes based
+on the SAIError type.</p>
+
+<p>The error type is implemented as the exception class <code>X3DException</code>.
+This exception is in turn derived from the standard Java error type of
+<code>java.lang.RuntimeException</code>. All exceptions (errors) defined in
+this specification shall be derived from <code>X3DException</code>.</p>
+
+<h3><a name="SAIBrowserUnavailable"></a>
+5.3.2 SAI_BROWSER_UNAVAILABLE</h3>
+
+<p>The error type is implemented as the exception
+class <code>NoSuchBrowserException</code>.</p>
+
+<h3><a name="SAIConnectionError"></a>
+5.3.3 SAI_CONNECTION_ERROR</h3>
+
+<p>The error type is implemented as the exception
+class <code>ConnectionException</code>.</p>
+
+<h3><a name="SAIDisposed"></a>
+5.3.4 SAI_DISPOSED</h3>
+
+<p>The error type is implemented as two separate dual purpose exception classes
+depending on their scope.</p>
+
+<p><code>InvalidBrowserException</code> is used to indicate that an
+<a href="#SAIBrowserRef">SAIBrowserRef</a> has been disposed.</p>
+
+<p><code>InvalidExecutionContextException</code> is used to indicate that an
+<a href="#SAIExecutionContextID">SAIExecutionContextID</a> has been disposed.</p>
+
+<p><code>InvalidNodeException</code>
+is used to indicate that an <a href="#SAINodeID">SAINodeID</a> has been disposed.</p>
+
+<p><code>InvalidRouteException</code>
+is used to indicate that an <a href="#SAIRouteID">SAIRouteID</a> has been disposed.</p>
+
+<p><code>InvalidProtoException</code>
+is used to indicate that an <a href="#SAIProtoDeclaration">SAIProtoDeclaration</a> 
+has been disposed.</p>
+
+<h3><a name="SAIImportedNode"></a>
+5.3.5 SAI_IMPORTED_NODE</h3>
+
+<p>The error type is implemented as the exception class
+<code>InvalidImportException</code>.</p>
+
+<h3><a name="SAIInsufficientCapabilities"></a>
+5.3.6 SAI_INSUFFICIENT_CAPABILITIES</h3>
+
+<p>The error type is implemented as the exception class
+<code>InsufficientCapabilitiesException</code>.<p>
+
+<h3><a name="SAIInvalidAccessType"></a>
+5.3.7 SAI_INVALID_ACCESS_TYPE</h3>
+
+<p>The error type is implemented as two separate exceptions based on the implementation
+of <a href="#SAINodeID">SAINodeID</a> and the rules defined in
+<a href="#t-SAIActionToJavaMapping">Table 5.2</a>. These classes also
+derive from <code>InvalidFieldException</code>.</p>
+
+<p><code>InvalidWritableFieldException</code>
+is used to indicate the named field is not accessible as a writable field when
+attempting to create a route with the <code>X3DScene.addRoute()</code> method.</p>
+
+<p><code>InvalidReadableFieldException</code>
+is used to indicate the named field is not accessible as a readable field when
+attempting to create a route with the <code>X3DScene.addRoute()</code> method.</p>
+
+<h3><a name="SAIInvalidBrowser"></a>
+5.3.8 SAI_INVALID_BROWSER</h3>
+
+<p>The error type is implemented as the exception class
+<code>InvalidBrowserException</code>.</p>
+
+<h3><a name="SAIInvalidDocument"></a>
+5.3.9 SAI_INVALID_DOCUMENT</h3>
+
+<p>The error type is implemented as the exception class
+<code>InvalidDocumentException</code>.</p>
+
+<h3><a name="SAIInvalidField"></a>
+5.3.10 SAI_INVALID_FIELD</h3>
+
+<p>The error type is implemented as the exception class
+<code>InvalidFieldException</code>.
+Note that there are two derived classes from this class
+(<code>InvalidWritableFieldException</code>
+and <code>InvalidReadableFieldException)</code> that may be used at times where
+this error may be generated.</p>
+
+<h3><a name="SAIInvalidName"></a>
+5.3.11 SAI_INVALID_NAME</h3>
+
+<p>The error type is expressed as different exceptions dependent on the situation.
+The <code>X3DExecutionContext.getNamedNode()</code>,
+<code>X3DScene.getExportedNode()</code> and
+<code>X3DExecutionContext.getImportedNode()</code> methods use the
+<code>InvalidNodeException</code>. When accessing fields of a node, the error is
+expressed as an <code>InvalidFieldException</code>.</p>
+
+<h3><a name="SAIInvalidNode"></a>
+5.3.12 SAI_INVALID_NODE</h3>
+
+<p>The error type is implemented as the exception
+class <code>InvalidNodeException.</code></p>
+
+<h3><a name="SAIInvalidOperationTiming"></a>
+5.3.13 SAI_INVALID_OPERATION_TIMING</h3>
+
+<p>The error type is implemented as the exception
+class <code>InvalidOperationTimingException</code>.</p>
+
+<h3><a name="SAIInvalidURL"></a>
+5.3.14 SAI_INVALID_URL</h3>
+
+<p>The error type is implemented as the exception
+class <code>InvalidURLException</code>.</p>
+
+<h3><a name="SAIInvalidX3D"></a>5.3.15 SAI_INVALID_X3D</h3>
+
+<p>The error type is implemented as the exception
+class <code>InvalidX3DException</code>.</p>
+
+<h3><a name="SAINodeNotAvailable"></a>
+5.3.16 SAI_NODE_NOT_AVAILABLE</h3>
+
+<p>The error type is implemented as the exception
+class <code>NodeUnavailableException</code>.</p>
+
+<h3><a name="SAINodeInUse"></a>
+5.3.17 SAI_NODE_IN_USE</h3>
+
+<p>The error type is implemented as the exception
+class <code>NodeInUseException</code>.</p>
+
+<h3><a name="SAINotShared"></a>
+5.3.18 SAI_NOT_SHARED</h3>
+
+<p>The error type is implemented as the exception
+class <code>BrowserNotSharedException</code>.</p>
+
+<h3><a name="SAINotSupported"></a>
+5.3.19 SAI_NOT_SUPPORTED</h3>
+
+<p>The error type is implemented as the exception
+class <code>NotSupportedException</code>.</p>
+
+<h3><a name="SAIURLUnavailable"></a>
+5.3.20 SAI_URL_UNAVAILABLE</h3>
+
+<p>The error type is implemented as the exception
+class <code>URLUnavailableException</code>.</p>
+
+<h2><a name="EventTypes"></a>
+5.4 Event types</h2>
+
+<h3><a name="EventTypesConcepts"></a>
+5.4.1 Concepts</h3>
+
+<p>The Java implementation of the event handling and types is based around
+the Java AWT event listener model. A single event class is used to
+encapsulate the type of event and then parameters defining the actual event
+item that occurred.</p>
+
+<p>All event classes are derived from <code>java.util.EventObject</code>.
+The <code>getSource()</code>
+method of that class is employed to return the source that generated the
+event. When the event comes from a field, the return value of <code>getSource()</code>
+may be cast to <code>X3DField</code> or one of its derived types. If
+the event come from the browser, the source may be cast to
+<code>Browser</code> or <code>ExternalBrowser</code>.</p>
+
+<h3><a name="SAIBrowserEvent"></a>
+5.4.2 SAIBrowserEvent</h3>
+
+<p>The event type is implemented in the class <code>BrowserEvent</code>.
+Each of the individual events are expressed as actions that the event then
+passes to the registered listeners. The action type of the individual event
+is available through the <code>getID()</code> method.</p>
+
+<h3><a name="SAIBConnectionError"></a>
+5.4.3 SAI_BROWSER_ConnectionError</h3>
+
+<p>The event type is implemented as
+the <code>CONNECTION_ERROR</code>
+value for the browser event ID.</p>
+
+<h3><a name="SAIBInitialized"></a>
+5.4.4 SAI_BROWSER_Initialized</h3>
+
+<p>The event type is implemented as the <code>INITIALIZED</code>
+value for the browser event ID.</p>
+
+<h3><a name="SAIBShutdown"></a>
+5.4.5 SAI_BROWSER_Shutdown</h3>
+
+<p>The event type is implemented as the <code>SHUTDOWN</code>
+value for the browser event ID.</p>
+
+<h3><a name="SAIBURLError"></a>
+5.4.6 SAI_BROWSER_URLError</h3>
+
+<p>The event type is implemented as the <code>URL_ERROR</code>
+value for the browser event ID.</p>
+
+<h3><a name="EventTypesSAIFieldEvent"></a>
+5.4.7 SAIFieldEvent</h3>
+
+<p>The event type is implemented as the class <code>X3DFieldEvent</code>.
+This class contains methods for obtaining the source of the event, the time
+(in X3D time) and any user defined data that occurred with the event.</p>
+
+
+<p>
+<img class="x3dbar" src="../Images/x3dbar.png" alt="--- X3D separator bar ---" width="430" height="23"></p>
+
+</body>
+</html>

@@ -1,0 +1,1050 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html lang="en">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <title>ISO/IEC 19777-1 Edition 2:201x(E) &mdash; X3D ECMAScript binding &mdash; 5 Tables</title>
+<link REL="stylesheet" HREF="Web3D_LB.css" TYPE="text/css">
+
+</head>
+<body>
+
+<div class="CenterDiv">
+<img class="x3dlogo" SRC="../Images/x3d.png" ALT="X3D logo" width="176" height="88">
+</div>
+
+<div class="CenterDiv">
+<p class="HeadingPart">Information technology&nbsp;&mdash; Computer graphics, image processing 
+and environmental representation&nbsp;&mdash;<br> Extensible 3D (X3D) language bindings&nbsp;&mdash;<br>
+	    Part 1:&nbsp; ECMAScript</p>
+
+<p class="HeadingClause">5 Tables</p>
+</div>
+
+<img class="x3dbar" SRC="../Images/x3dbar.png" ALT="--- X3D separator bar ---" width="430" height="23">
+
+<h1><img class="cube" src="../Images/cube.gif" alt="cube" width="20" height="19">
+<a name="IntroAndTOC"></a>5.1 Introduction and table of contents</h1>
+
+<h2><a name="Introduction"></a>5.1.1 Introduction</h2>
+
+<p>This clause contains tables defining abbreviations used and mapping
+   abstract names from <a href="references.html#[I19775-2]">part 2 of ISO/IEC
+19775</a> to those of this binding.</p>
+
+<h2><a name="TOC"></a>5.1.2 Table of contents</h2>
+
+<p>See <a href="#t-Topics">Table 5.1</a> for the table of contents for this clause.</p>
+
+<div class="CenterDiv">
+
+<p class="TableCaption">
+<a name="t-Topics"></a>Table 5.1 &mdash; Topics in this clause</p>
+
+<table class="Topics">
+  <tbody>
+  <tr>
+    <td>
+    <ul>
+      <li><a href="#IntroAndTOC">5.1 Introduction and Table of Contents</a><ul>
+        <li><a href="#Introduction">5.1.1 Introduction</a></li>
+        <li><a href="#TOC">5.1.2 Table of contents</a></li>
+      </ul>
+      </li>
+      <li><a href="#MappingsOfAbstractNamesToECMAScript">5.2 Mappings of abstract names to ECMAScript binding names</a><ul>
+        <li><a href="#DataTypes">5.2.1 Data types</a></li>
+        <li><a href="#ErrorTypes">5.2.2 Error types</a></li>
+        <li><a href="#EventTypes">5.2.3 Event types</a></li>
+        <li><a href="#BrowserServices">5.2.4 Browser services</a></li>
+        <li><a href="#ExecutionContextServices">5.2.5 Execution context services</a></li>
+        <li><a href="#SceneServices">5.2.6 Scene services</a></li>
+        <li><a href="#NodeServices">5.2.7 Node services</a></li>
+        <li><a href="#FieldServices">5.2.8 Field services</a></li>
+        <li><a href="#RouteServices">5.2.9 Route services</a></li>
+        <li><a href="#PrototypeServices">5.2.10 Prototype services</a></li>
+        <li><a href="#ScriptServices">5.2.11 Script content services</a></li>
+        <li><a href="#MatrixServices">5.2.12 Matrix services</a></li>
+      </ul>
+      </li>
+    </ul>
+    <ul>
+      <li><a href="#t-Topics">Table 5.1 &mdash; Topics in this clause</a></li>
+      <li><a href="#t-DataTypesToECMAScriptMapping">Table 5.2 &mdash; Data type names
+      listed alphabetically by abstract name</a></li>
+      <li><a href="#t-DataClassesToECMAScriptMapping">Table 5.3 &mdash; Data class
+      names listed alphabetically by abstract name</a></li>
+      <li><a href="#t-ErrorTypeToECMASCriptMapping">Table 5.4 &mdash; Error class
+      names listed alphabetically by abstract name</a></li>
+      <li><a href="#t-EventTypesToECMAScriptMapping">Table 5.5 &mdash; Event type
+      names listed alphabetically by abstract name</a></li>
+      <li><a href="#t-BrowserSerivesToECMAScriptMapping">Table 5.6 &mdash; Browser
+      services listed alphabetically by abstract name</a></li>
+		<li><a href="#t-ECMAScriptSpecificBrowserServices">Table 5.7 — 
+		ECMAScript-specific browser services listed aphabetically by abstract 
+		name</a></li>
+      <li><a href="#t-ExecutionContextServicesToECMAScriptMapping">Table 5.8 &mdash;
+      Execution context services listed alphabetically by abstract name</a></li>
+      <li><a href="#t-SceneServicesToECMAScriptMapping">Table 5.9 &mdash; Scene
+      services listed alphabetically by abstract name</a></li>
+      <li><a href="#t-NodeServicesToECMAScriptMapping">Table 5.10 &mdash; Node services
+      listed alphabetically by abstract name</a></li>
+      <li><a href="#t-FieldServicesToECMAScriptMapping">Table 5.11 &mdash; Field
+      services listed alphabetically by abstract name</a></li>
+      <li><a href="#t-RouteServicesToECMAScriptMapping">Table 5.12 &mdash; Route
+      services listed alphabetically by abstract name</a></li>
+      <li><a href="#t-ProtoServicesToECMAScriptMapping">Table 5.13 &mdash; Prototye
+      services listed alphabetically by abstract name</a></li>
+      <li><a href="#t-ScriptServicesToECMAScriptMapping">Table 5.14 &mdash; Script
+      services listed alphabetically by abstract name</a></li>
+      <li><a href="#t-MatrixServicesToECMAScriptMapping">Table 5.15 &mdash;
+		Matrix
+      services listed alphabetically by abstract name</a></li>
+    </ul>
+  </tr>
+</tbody>
+</table>
+</div>
+
+<h2><a name="MappingsOfAbstractNamesToECMAScript"></a>5.2 Mappings of abstract names to ECMAScript binding names</h2>
+
+<h3><a name="DataTypes"></a>5.2.1 Data types</h3>
+
+<p>In <a href="#t-DataTypesToECMAScriptMapping">Table 5.2</a>, each row lists an
+abstract name of a data type from <a href="references.html#[I19775-2]">part 2 of ISO/IEC
+19775</a> followed by the corresponding bound name. The names of
+data types used to reference data items are not included but may be
+found in <a href="#t-DataClassesToECMAScriptMapping">Table 5.3</a>.</p>
+
+<div class="CenterDiv">
+
+<p class="TableCaption">
+<a name="t-DataTypesToECMAScriptMapping"></a>Table 5.2 &mdash; Data type names listed alphabetically by abstract name</p>
+
+<table>
+<tbody>
+<tr>
+  <th>Abstract name</th>
+  <th>ECMAScript bound name</th>
+</tr>
+<tr>
+  <td>SAIAction</td>
+  <td>N/A</td>
+</tr>
+<tr>
+  <td>SAIBrowserApp</td>
+  <td>N/A</td>
+</tr>
+<tr>
+  <td>SAIBrowserName</td>
+  <td>String</td>
+</tr>
+<tr>
+  <td>SAIBrowserRef</td>
+  <td>Browser<br>ExternalBrowser</td>
+</tr>
+<tr>
+  <td>SAIBrowserVersion</td>
+  <td>String</td>
+</tr>
+<tr>
+  <td>SAIComponentID</td>
+  <td>String<br>Numeric</td>
+</tr>
+<tr>
+  <td>SAIFieldAccess</td>
+  <td>X3DConstants</td>
+</tr>
+<tr>
+  <td>SAIFieldName</td>
+  <td>String</td>
+</tr>
+<tr>
+  <td>SAIFieldType</td>
+  <td>X3DConstants</td>
+</tr>
+<tr>
+  <td>SAIFieldValue</td>
+  <td>various. Defined by field type (see <a href="functions.html#FieldServices">
+  7.6</a>)</td>
+</tr>
+<tr>
+  <td>SAIFrameRate</td>
+  <td>Numeric</td>
+</tr>
+<tr>
+  <td>SAILoadState</td>
+  <td>X3DConstants</td>
+</tr>
+<tr>
+  <td>SAINavSpeed</td>
+  <td>Numeric</td>
+</tr>
+<tr>
+  <td>SAINodeID</td>
+  <td>SFNode</td>
+</tr>
+<tr>
+  <td>SAINodeType</td>
+  <td>X3DConstants</td>
+</tr>
+<tr>
+  <td>SAIParameterList</td>
+  <td>N/A</td>
+</tr>
+<tr>
+  <td>SAIPropertyList</td>
+  <td>String</td>
+</tr>
+<tr>
+  <td>SAIRequesterID</td>
+  <td>Object</td>
+</tr>
+<tr>
+  <td>SAIString</td>
+  <td>String</td>
+</tr>
+<tr>
+  <td>SAIURL</td>
+  <td>String</td>
+</tr>
+<tr>
+  <td>null</td>
+  <td>null</td>
+</tr>
+</tbody>
+</table>
+</div>
+
+<div class="CenterDiv">
+
+<p class="TableCaption">
+<a name="t-DataClassesToECMAScriptMapping"></a>Table 5.3 &mdash; Data class names listed alphabetically by abstract name</p>
+
+<table>
+<tbody>
+<tr>
+  <th>Abstract name</th>
+  <th>ECMAScript bound name</th>
+</tr>
+<tr>
+  <td>SAIBrowserRef</td>
+  <td>Browser<br>ExternalBrowser</td>
+</tr>
+<tr>
+  <td>SAIComponentDeclaration</td>
+  <td>ComponentInfo</td>
+</tr>
+<tr>
+  <td>SAIExecutionContextID</td>
+  <td>X3DExecutionContext</td>
+</tr>
+<tr>
+  <td>SAIFieldDefinition</td>
+  <td>X3DFieldDefinition</td>
+</tr>
+<tr>
+  <td>SAIFieldID</td>
+  <td>an instance of the ECMAScript object appropriate to the field type. Defined by field type (see <a href="functions.html#FieldServices">
+  7.6</a>)</td>
+</tr>
+<tr>
+  <td>SAIFieldValue</td>
+  <td>various. Defined by field type (see <a href="functions.html#FieldServices">
+  7.6</a>)</td>
+</tr>
+<tr>
+  <td>SAILoadState</td>
+  <td>X3DConstants</td>
+</tr>
+<tr>
+  <td>SAINodeID</td>
+  <td>SFNode</td>
+</tr>
+<tr>
+  <td>SAIProfileDeclaration</td>
+  <td>ProfileInfo</td>
+</tr>
+<tr>
+  <td>SAIProtoDeclaration</td>
+  <td>X3DProtoDeclaration or<br>X3DExternProtoDeclaration</td>
+</tr>
+<tr>
+  <td>SAIRoute</td>
+  <td>X3DRoute</td>
+</tr>
+<tr>
+  <td>SAIScene</td>
+  <td>X3DScene</td>
+</tr>
+<tr>
+  <td>SAIScript</td>
+  <td>SFNode</td>
+</tr>
+<tr>
+  <td>SAIScriptImplementation</td>
+  <td>N/A<br/>
+      </td>
+</tr>
+<tr>
+  <td>SAIScene</td>
+  <td>X3DScene</td>
+</tr>
+<tr>
+  <td>SAIStream</td>
+  <td>X3DStream</td>
+</tr>
+<tr>
+  <td>SAIUnitDeclaration</td>
+  <td>UnitInfo</td>
+</tr>
+</tbody>
+</table>
+</div>
+
+<h3><a name="ErrorTypes"></a>5.2.2 Error types</h3>
+
+<p>In <a href="#t-ErrorTypeToECMASCriptMapping">Table 5.4</a>, each row lists an
+abstract name of an error type from <a href="references.html#[I19775-2]">part 2
+of ISO/IEC 19775</a> followed by the corresponding bound name.</p>
+
+<div class="CenterDiv">
+
+<p class="TableCaption">
+<a name="t-ErrorTypeToECMASCriptMapping"></a>Table 5.4 &mdash; Error class names listed alphabetically by abstract name</p>
+
+<table>
+<tbody>
+<tr>
+  <th>Abstract name</th>
+  <th>ECMAScript bound name</th>
+</tr>
+<tr>
+  <td>SAI_BROWSER_UNAVAILABLE</td>
+  <td>X3DConstants.SAI_BROWSER_UNAVAILABLE_ERROR</td>
+</tr>
+<tr>
+  <td>SAI_CONNECTION_ERROR</td>
+  <td>X3DConstants.SAI_CONNECTION_ERROR</td>
+</tr>
+<tr>
+  <td>SAI_DISPOSED</td>
+  <td>X3DConstants.SAI_DISPOSED_ERROR
+  </td>
+</tr>
+<tr>
+  <td>SAI_IMPORTED_NODE</td>
+  <td>X3DConstants.SAI_IMPORTED_NODE_ERROR</td>
+</tr>
+<tr>
+  <td>SAI_INSUFFICIENT_CAPABILITY</td>
+  <td>X3DConstants.SAI_INSUFFICIENT_CAPABILITY_ERROR</td>
+</tr>
+<tr>
+  <td>SAI_INVALID_ACCESS_TYPE</td>
+  <td>X3DConstants.SAI_INVALID_ACCESS_TYPE_ERROR</td>
+</tr>
+<tr>
+  <td>SAI_INVALID_BROWSER</td>
+  <td>X3DConstants.SAI_INVALID_BROWSER_ERROR</td>
+</tr>
+<tr>
+  <td>SAI_INVALID_DOCUMENT</td>
+  <td>X3DConstants.SAI_INVALID_DOCUMENT_ERROR</td>
+</tr>
+<tr>
+  <td>SAI_INVALID_EXECUTION_CONTEXT</td>
+  <td>X3DConstants.SAI_INVALID_EXECUTION_CONTEXT_ERROR</td>
+</tr>
+<tr>
+  <td>SAI_INVALID_NAME</td>
+  <td>X3DConstants.SAI_INVALID_NAME_ERROR</td>
+</tr>
+<tr>
+  <td>SAI_INVALID_NODE</td>
+  <td>X3DConstants.SAI_INVALID_NODE_ERROR</td>
+</tr>
+<tr>
+  <td>SAI_INVALID_FIELD</td>
+  <td>X3DConstants.SAI_INVALID_FIELD_ERROR</td>
+</tr>
+<tr>
+  <td>SAI_INVALID_OPERATION_TIMING</td>
+  <td>X3DConstants.SAI_INVALID_OPERATION_TIMING_ERROR</td>
+</tr>
+<tr>
+  <td>SAI_INVALID_URL</td>
+  <td>X3DConstants.SAI_INVALID_URL_ERROR</td>
+</tr>
+<tr>
+  <td>SAI_INVALID_X3D</td>
+  <td>X3DConstants.SAI_INVALID_X3D_ERROR</td>
+</tr>
+<tr>
+  <td>SAI_NODE_NOT_AVAILABLE</td>
+  <td>X3DConstants.SAI_NODE_NOT_AVAILABLE_ERROR</td>
+</tr>
+<tr>
+  <td>SAI_NODE_IN_USE</td>
+  <td>X3DConstants.SAI_NODE_IN_USE_ERROR</td>
+</tr>
+<tr>
+  <td>SAI_NOT_SHARED</td>
+  <td>X3DConstants.SAI_NOT_SHARED_ERROR</td>
+</tr>
+<tr class="auto-style1">
+  <td>SAI_NOT_SUPPORTED</td>
+  <td>X3DConstants.SAI_NOT_SUPPORTED_ERROR</td>
+</tr>
+<tr>
+  <td>SAI_URL_UNAVAILABLE</td>
+  <td>X3DConstants.SAI_URL_UNAVAILABLE_ERROR</td>
+</tr>
+</tbody>
+</table>
+</div>
+
+<h3><a name="EventTypes"></a>5.2.3 Event types</h3>
+
+<p>In <a href="#t-EventTypesToECMAScriptMapping">Table 5.5</a>, each row lists
+an abstract name of an event type from <a href="references.html#[I19775-2]">part
+2 of ISO/IEC 19775</a> followed by the corresponding bound name.</p>
+
+<div class="CenterDiv">
+
+<p class="TableCaption">
+<a name="t-EventTypesToECMAScriptMapping"></a>Table 5.5 &mdash; Event type names listed alphabetically by abstract name</p>
+
+<table>
+<tbody>
+<tr>
+  <th>Abstract name</th>
+  <th>ECMAScript bound name</th>
+</tr>
+<tr>
+  <td>SAIBrowserEvent</td>
+  <td>BrowserEvent</td>
+</tr>
+<tr>
+  <td>SAI_BROWSER_Connection_Error</td>
+  <td>X3DConstants.CONNECTION_ERROR</td>
+</tr>
+<tr>
+  <td>SAI_BROWSER_Initialized</td>
+  <td>X3DConstants.INITIALIZED_EVENT</td>
+</tr>
+<tr>
+  <td>SAI_BROWSER_Shutdown</td>
+  <td>X3DConstants.SHUTDOWN_EVENT</td>
+</tr>
+<tr>
+  <td>SAI_BROWSER_URL_Error</td>
+  <td>X3DConstants.URL_ERROR_EVENT</td>
+</tr>
+<tr>
+  <td>SAIFieldEvent</td>
+  <td>user-defined callback</td>
+</tr>
+</tbody>
+</table>
+</div>
+
+
+<h3><a name="BrowserServices"></a>5.2.4 Browser services</h3>
+
+<p>In <a href="#t-BrowserSerivesToECMAScriptMapping">Table 5.6</a>, each row
+lists an abstract name of a browser service from
+<a href="references.html#[I19775-2]">part 2 of ISO/IEC 19775</a> followed by the corresponding bound name. </p>
+
+<div class="CenterDiv">
+
+<p class="TableCaption">
+<a name="t-BrowserSerivesToECMAScriptMapping"></a>Table 5.6 &mdash; Browser services listed alphabetically by abstract name</p>
+
+<table>
+<tbody>
+<tr>
+  <th>Abstract name</th>
+  <th>ECMAScript bound name</th>
+</tr>
+<tr>
+  <td>getBrowser</td>
+  <td>Application-specific</td>
+</tr>
+<tr>
+  <td>createBrowser</td>
+  <td>N/A</td>
+</tr>
+<tr>
+  <td>getName</td>
+  <td><b>Browser</b> property String <b>name</b></td>
+</tr>
+<tr>
+  <td>getVersion</td>
+  <td><b>Browser</b> property String <b>version</b></td>
+</tr>
+<tr>
+  <td>getCurrentSpeed</td>
+  <td><b>Browser</b> property Numeric <b>currentSpeed</b></td>
+</tr>
+<tr>
+  <td>getCurrentFrameRate</td>
+  <td><b>Browser</b> property Numeric <b>currentFrameRate</b></td>
+</tr>
+<tr>
+  <td>getSupportedProfiles</td>
+  <td><b>Browser</b> property ProfileInfo <b>supportedProfiles</b></td>
+</tr>
+<tr>
+  <td>getProfile</td>
+  <td>array access of ProfileInfo element</td>
+</tr>
+<tr>
+  <td>getSupportedComponents</td>
+  <td><b>Browser</b> property ComponentInfo <b>supportedComponents</b></td>
+</tr>
+<tr>
+  <td>getComponent</td>
+  <td>array access of ComponentInfo element</td>
+</tr>
+<tr>
+  <td>getExecutionContext</td>
+  <td><b>Browser</b> property X3DExecutionContext <b>currentScene</b></td>
+</tr>
+<tr>
+  <td>createScene</td>
+  <td>N/A</td>
+</tr>
+<tr>
+  <td>replaceWorld</td>
+  <td><b>Browser</b> function void <b>replaceWorld(X3DScene)</b></td>
+</tr>
+<tr>
+  <td>importDocument</td>
+  <td><b>Browser</b> function X3DScene <b>importDocument(org.w3c.dom.Node)</b></td>
+</tr>
+<tr>
+  <td>loadURL</td>
+  <td><b>Browser</b> function void <b>loadURL(MFString, String)</b></td>
+</tr>
+<tr>
+  <td>setDescription</td>
+  <td><b>Browser</b> property String <b>description</b></td>
+</tr>
+<tr>
+  <td>createX3DFromString</td>
+  <td><b>Browser</b> function X3DScene <b>createX3DFromString(String)</b></td>
+</tr>
+<tr>
+  <td>createX3DFromStream</td>
+  <td>N/A</td>
+</tr>
+<tr>
+  <td>createX3DFromURL</td>
+  <td><b>Browser</b> function X3DScene <b>createX3DFromURL(MFString, String, object)</b></td>
+</tr>
+<tr>
+  <td>Update Control</td>
+  <td><b>Browser</b> function void <b>beginUpdate()</b><br/>
+      <b>Browser</b> function void <b>endUpdate()</b></td>
+</tr>
+<tr>
+  <td>Register Browser Interest</td>
+  <td><b>Browser</b> function void <b>addBrowserCallback(String, object)</b><br/>
+      <b>Browser</b> function void <b>removeBrowserCallback(String)</b></td>
+</tr>
+<tr>
+  <td>Share World</td>
+  <td><b>Browser</b> function void <b>shareWorld(ExternalBrowser, SFNode, SFNode)</b></td>
+</tr>
+<tr>
+  <td>setSharedViewpoint</td>
+  <td><b>Browser</b> function void <b>setSharedViewpoint(SFNode)</b></td>
+</tr>
+<tr>
+  <td>setSharedNavigation</td>
+  <td><b>Browser</b> function void <b>setSharedNavigation(X3DNode)</b></td>
+</tr>
+<tr>
+  <td>getRenderingProperties</td>
+  <td><b>Browser</b> function String <b>getRenderingProperty(String)</b></td>
+</tr>
+<tr>
+  <td>getBrowserProperties</td>
+  <td><b>Browser</b> function String <b>getBrowserProperty(String)</b></td>
+</tr>
+<tr>
+  <td>changeViewpoint</td>
+  <td><b>Browser</b> function void <b>nextViewpoint()</b><br/>
+      <b>Browser</b> function void <b>previousViewpoint()</b><br/>
+      <b>Browser</b> function void <b>firstViewpoint()</b><br/>
+      <b>Browser</b> function void <b>lastViewpoint()</b>
+  </td>
+</tr>
+<tr>
+  <td>Print</td>
+  <td><b>Browser</b> function void <b>println(Object)</b></td>
+</tr>
+<tr>
+  <td>Dispose</td>
+  <td><b>Browser</b> function void <b>dispose()</b></td>
+</tr>
+</tbody>
+</table>
+</div>
+
+
+<p>In <a href="#t-ECMAScriptSpecificBrowserServices">Table 5.7</a>, each row
+lists an abstract name of an additional browser service only available in this 
+language binding followed by the corresponding bound name. </p>
+
+<div class="CenterDiv">
+
+<p class="TableCaption">
+<a name="t-ECMAScriptSpecificBrowserServices"></a>Table 5.7 &mdash; ECMAScript-specific browser services listed alphabetically by abstract name</p>
+
+<table>
+<tbody>
+<tr>
+  <th>Abstract&nbsp;name</th>
+  <th>ECMAScript bound name</th>
+</tr>
+<tr>
+  <td>Share World</td>
+  <td><b>Browser</b> function void <b>shareWorld(ExternalBrowser, SFNode, SFNode)</b></td>
+</tr>
+<tr>
+  <td>setSharedViewpoint</td>
+  <td><b>Browser</b> function void <b>setSharedViewpoint(SFNode)</b></td>
+</tr>
+<tr>
+  <td>setSharedNavigation</td>
+  <td><b>Browser</b> function void <b>setSharedNavigation(X3DNode)</b></td>
+</tr>
+</tbody>
+</table>
+</div>
+
+
+<h3>5.2.5 Execution context services</h3>
+
+<p>In <a href="#t-ExecutionContextServicesToECMAScriptMapping">Table 5.8</a>,
+each row lists an abstract name of an execution context service from
+<a href="references.html#[I19775-2]">part 2 of ISO/IEC 19775</a> followed by the corresponding </p>
+
+<p class="TableCaption">
+<a name="t-ExecutionContextServicesToECMAScriptMapping"></a>Table 5.8 &mdash; Execution context services listed alphabetically by abstract name</p>
+
+<p>bound name.</p>
+
+
+<div class="CenterDiv">
+
+<table>
+<tbody>
+<tr>
+  <th>Abstract name</th>
+  <th>ECMAScript bound name</th>
+</tr>
+<tr>
+  <td>getSpecificationVersion</td>
+  <td><b>X3DExecutionContext</b> property String <b>specificationVersion</b></td>
+</tr>
+<tr>
+  <td>getEncoding</td>
+  <td><b>X3DExecutionContext</b> property Numeric <b>encoding</b></td>
+</tr>
+<tr>
+  <td>getProfile</td>
+  <td><b>X3DExecutionContext</b> property ProfileInfo <b>profile</b></td>
+</tr>
+<tr>
+  <td>getComponents</td>
+  <td><b>X3DExecutionContext</b> property ComponentInfo <b>components</b></td>
+</tr>
+<tr>
+  <td>getWorldURL</td>
+  <td><b>X3DExecutionContext</b> property String <b>worldURL</b></td>
+</tr>
+<tr>
+  <td>getNode</td>
+  <td><b>X3DExecutionContext</b> property MFNode <b>rootNodes</b></td>
+</tr>
+<tr>
+  <td>createNode</td>
+  <td><b>X3DExecutionContext</b> function SFNode <b>createNode(String)</b></td>
+</tr>
+<tr>
+  <td>createProto</td>
+  <td><b>X3DExecutionContext</b> function SFNode <b>createProto(String)</b></td>
+</tr>
+<tr>
+  <td>Named node handling</td>
+  <td>N/A
+  </td>
+</tr>
+<tr>
+  <td>getProtoDeclaration</td>
+  <td><b>X3DExecutionContext</b> property X3DProtoDeclarations <b>protoDeclarations</b></td>
+</tr>
+<tr>
+  <td>PROTO Declaration Handling</td>
+  <td>N/A
+  </td>
+</tr>
+<tr>
+  <td>getExternProtoDeclaration</td>
+  <td><b>X3DExecutionContext</b> property X3DExternProtoDeclarations <b>externProtoDeclarations</b></td>
+</tr>
+<tr>
+  <td>EXTERNPROTO Declaration Handling</td>
+  <td>N/A
+  </td>
+</tr>
+<tr>
+  <td>getRootNodes</td>
+  <td><b>X3DExecutionContext</b> property MFNode <b>rootNodes</b></td>
+</tr>
+<tr>
+  <td>getRoutes</td>
+  <td><b>X3DExecutionContext</b> property RouteArray <b>routes</b></td>
+</tr>
+<tr>
+  <td>Dynamic Route Handling</td>
+  <td><b>X3DExecutionContext</b> function X3DRoute <b>addRoute(SFNode, String, SFNode, String)</b><br/>
+      <b>X3DExecutionContext</b> function void <b>deleteRoute(X3DRoute)</b>
+  </td>
+</tr>
+<tr>
+  <td>Dispose</td>
+  <td><b>X3DExecutionContext</b> function void <b>dispose()</b></td>
+</tr>
+</tbody>
+</table>
+</div>
+
+<h3><a name="SceneServices"></a>5.2.6 Scene services</h3>
+
+<p>In <a href="#t-SceneServicesToECMAScriptMapping">Table 5.9</a>, each row lists an abstract name of an scene service from
+<a href="references.html#[I19775-2]">part 2 of ISO/IEC 19775</a> followed by the corresponding bound name.</p>
+
+<div class="CenterDiv">
+
+<p class="TableCaption">
+<a name="t-SceneServicesToECMAScriptMapping"></a>Table 5.9 &mdash; Scene services listed alphabetically by abstract name</p>
+
+<table>
+<tbody>
+<tr>
+  <th>Abstract name</th>
+  <th>ECMAScript bound name</th>
+</tr>
+<tr>
+  <td>getMetaData</td>
+  <td><b>X3DScene</b> function String <b>getMetaData(String)</b></td>
+</tr>
+<tr>
+  <td>setMetaData</td>
+  <td><b>X3DScene</b> function void <b>setMetaData(String, String)</b></td>
+</tr>
+<tr>
+  <td>getNode</td>
+  <td><b>X3DScene</b> function SFNode <b>getExportedNode(String)</b></td>
+</tr>
+<tr>
+  <td>Named Node Handling</td>
+  <td><b>X3DScene</b> function void <b>updateExportedNode(String)</b><br/>
+      <b>X3DScene</b> function void <b>removeExportedNode(String)</b>
+  </td>
+</tr>
+<tr>
+  <td>Root Node Handling</td>
+  <td><b>X3DScene</b> function void <b>addRootNode(SFNode)</b><br/>
+      <b>X3DScene</b> function void <b>removeRootNode(SFNode)</b>
+  </td>
+</tr>
+</tbody>
+</table>
+</div>
+
+<h3><a name="NodeServices"></a>5.2.7 Node services</h3>
+
+<p>In <a href="#t-NodeServicesToECMAScriptMapping">Table 5.10</a>, each row lists
+an abstract name of an node service from <a href="references.html#[I19775-2]">
+part 2 of ISO/IEC 19775</a> followed by the corresponding bound name.</p>
+
+<div class="CenterDiv">
+
+<p class="TableCaption">
+<a name="t-NodeServicesToECMAScriptMapping"></a>Table 5.10 &mdash; Node services listed alphabetically by abstract name</p>
+
+<table>
+<tbody>
+<tr>
+  <th>Abstract name</th>
+  <th>ECMAScript bound name</th>
+</tr>
+<tr>
+  <td>getName</td>
+  <td><b>SFNode</b> function String <b>getName()</b></td>
+</tr>
+<tr>
+  <td>getType</td>
+  <td><b>SFNode</b> function Numeric <b>getType()</b></td>
+</tr>
+<tr>
+  <td>getField</td>
+  <td><b>SFNode</b> function X3DField <b>getField(String)</b></td>
+</tr>
+<tr>
+  <td>getFieldDefinitions</td>
+  <td><b>SFNode</b> function X3DFieldDefinitions <b>getFieldDefinitions()</b></td>
+</tr>
+<tr>
+  <td>Dispose</td>
+  <td><b>SFNode</b> function void <b>dispose()</b></td>
+</tr>
+</tbody>
+</table>
+</div>
+
+<h3><a name="FieldServices"></a>5.2.8 Field services</h3>
+
+<p>In <a href="#t-FieldServicesToECMAScriptMapping">Table 5.11</a>, each row
+lists an abstract name of a field service from
+<a href="references.html#[I19775-2]">part 2 of ISO/IEC 19775</a> followed by the corresponding bound name.</p>
+
+<div class="CenterDiv">
+
+<p class="TableCaption">
+<a name="t-FieldServicesToECMAScriptMapping"></a>Table 5.11 &mdash; Field services listed alphabetically by abstract name</p>
+
+<table>
+<tbody>
+<tr>
+  <th>Abstract name</th>
+  <th>ECMAScript bound name</th>
+</tr>
+<tr>
+  <td>getName</td>
+  <td><b>X3DField</b> function String <b>getName()</b></td>
+</tr>
+<tr>
+  <td>getType</td>
+  <td><b>X3DField</b> function int <b>getType()</b></td>
+</tr>
+<tr>
+  <td>getAccessType</td>
+  <td><b>X3DField</b> function boolean <b>isWritable()</b><br/>
+      <b>X3DField</b> function boolean <b>isReadable()</b>
+  </td>
+</tr>
+<tr>
+  <td>getValue</td>
+  <td><i>type</i> <b>getValue()</b><br/>
+      <i>type</i> <b>get1Value(int)</b><br/>
+  </td>
+</tr>
+<tr>
+  <td>setValue</td>
+  <td>void <b>setValue(<i>type</i>)</b><br/>
+      void <b>set1Value(int, <i>type</i>)</b><br/>
+  </td>
+</tr>
+<tr>
+  <td>Register Field Interest</td>
+  <td><b>X3DField</b> function void <b>addFieldCallback(String, Object)</b><br/>
+      <b>X3DField</b> function void <b>removeFieldCallback(String)</b></td>
+</tr>
+<tr>
+  <td>Dispose</td>
+  <td><b>X3DField</b> function void <b>dispose()</b></td>
+</tr>
+</tbody>
+</table>
+</div>
+
+<h3><a name="RouteServices"></a>5.2.9 Route services</h3>
+
+<p>In <a href="#t-RouteServicesToECMAScriptMapping">Table 5.12</a>, each row lists an abstract name of a route service from
+<a href="references.html#[I19775-2]">part 2 of ISO/IEC 19775</a> followed by the corresponding bound name.</p>
+
+<div class="CenterDiv">
+
+<p class="TableCaption">
+<a name="t-RouteServicesToECMAScriptMapping"></a>Table 5.12 &mdash; Route services listed alphabetically by abstract name</p>
+
+<table>
+<tbody>
+<tr>
+  <th>Abstract name</th>
+  <th>ECMAScript bound name</th>
+</tr>
+<tr>
+  <td>getSourceNode</td>
+  <td><b>X3DRoute</b> property SFNode <b>sourceNode</b></td>
+</tr>
+<tr>
+  <td>getSourceField</td>
+  <td><b>X3DRoute</b> property String <b>sourceField</b></td>
+</tr>
+<tr>
+  <td>getDestinationNode</td>
+  <td><b>X3DRoute</b> property SFNode <b>destinationNode</b></td>
+</tr>
+<tr>
+  <td>getDestinationField</td>
+  <td><b>X3DRoute</b> property String <b>destinationField</b></td>
+</tr>
+<tr>
+  <td>Dispose</td>
+  <td><b>X3DRoute</b> function void <b>dispose()</b></td>
+</tr>
+</tbody>
+</table>
+</div>
+
+<h3><a name="PrototypeServices"></a>5.2.10 Prototype services</h3>
+
+<p>In <a href="#t-ProtoServicesToECMAScriptMapping">Table 5.13</a>, each row
+lists an abstract name of a prototype service from
+<a href="references.html#[I19775-2]">part 2 of ISO/IEC 19775</a> followed by the corresponding bound name.</p>
+
+<div class="CenterDiv">
+
+<p class="TableCaption">
+<a name="t-ProtoServicesToECMAScriptMapping"></a>Table 5.13 &mdash; Prototye services listed alphabetically by abstract name</p>
+
+<table>
+<tbody>
+<tr>
+  <th>Abstract name</th>
+  <th>ECMAScript bound name</th>
+</tr>
+<tr>
+  <td>isExternProto</td>
+  <td><b>X3DProtoDeclaration</b> property boolean <b>isExternProto</b></td>
+</tr>
+<tr>
+  <td>createInstance</td>
+  <td><b>X3DProtoDeclaration</b> function <b>newInstance()</b></td>
+</tr>
+<tr>
+  <td>getFieldDefinitions</td>
+  <td><b>X3DProtoDeclaration</b> property FieldDefinitionArray <b>fields</b></td>
+</tr>
+<tr>
+  <td>Check Load State</td>
+  <td><b>X3DExternProtoDeclaration</b> property boolean <b>loadState</b></td>
+</tr>
+<tr>
+  <td>Request Immediate Load</td>
+  <td><b>X3DExternProtoDeclaration</b> function void <b>loadNow()</b></td>
+</tr>
+<tr>
+  <td>Dispose</td>
+  <td><b>X3DExternProtoDeclaration</b> function void <b>dispose()</b></td>
+</tr>
+</tbody>
+</table>
+</div>
+
+<h3><a name="ScriptServices"></a>5.2.11 Script content services</h3>
+
+<p>In <a href="#t-ScriptServicesToECMAScriptMapping">Table 5.14</a>, each row
+lists an abstract name of a script content service from
+<a href="references.html#[I19775-2]">part 2 of ISO/IEC 19775</a> followed by the corresponding bound name.</p>
+
+<div class="CenterDiv">
+
+<p class="TableCaption">
+<a name="t-ScriptServicesToECMAScriptMapping"></a>Table 5.14 &mdash; Script content services listed alphabetically by abstract name</p>
+
+<table>
+<tbody>
+<tr>
+  <th>Abstract name</th>
+  <th>ECMAScript bound name</th>
+</tr>
+<tr>
+  <td>setBrowser</td>
+  <td>N/A</td>
+</tr>
+<tr>
+  <td>setFields</td>
+  <td>N/A</td>
+</tr>
+<tr>
+  <td>initialize</td>
+  <td>void <b>initialize()</b></td>
+</tr>
+<tr>
+  <td>prepareEvents</td>
+  <td>void <b>prepareEvents()</b></td>
+</tr>
+<tr>
+  <td>eventsProcessed</td>
+  <td>void <b>eventsProcessed()</b></td>
+</tr>
+<tr>
+  <td>shutdown</td>
+  <td>void <b>shutdown()</b></td>
+</tr>
+</tbody>
+</table>
+</div>
+
+<h3><a name="MatrixServices"></a>5.2.12 Matrix services</h3>
+
+<p>In <a href="#t-MatrixServicesToECMAScriptMapping">Table 5.15</a>, each row
+lists an abstract name of a matrix service from
+<a href="references.html#[I19775-2]">part 2 of ISO/IEC 19775</a> followed by the corresponding bound name.</p>
+
+<div class="CenterDiv">
+
+<p class="TableCaption">
+<a name="t-MatrixServicesToECMAScriptMapping"></a>Table 5.15 &mdash; Matrix services listed alphabetically by abstract name</p>
+
+<table>
+<tbody>
+<tr>
+  <th>Abstract name</th>
+  <th>ECMAScript bound name</th>
+</tr>
+<tr>
+  <td>set</td>
+  <td><b>Matrix4</b> function void <b>set(SFVec3f, SFRotation, SFVec3f,
+	SFRotation, SFVec3f)</b></td>
+</tr>
+<tr>
+  <td>get</td>
+  <td><b>Matrix4</b> function void <b>get(SFVec3f, SFRotation, SFVec3f)</b></td>
+</tr>
+<tr>
+  <td>inverse</td>
+  <td><b>Matrix4</b> function Matrix4 <b>inverse()</b></td>
+</tr>
+<tr>
+  <td>transpose</td>
+  <td><b>Matrix4</b> function Matrix4 <b>transpose()</b></td>
+</tr>
+<tr>
+  <td>multiply</td>
+  <td><b>Matrix4</b> function Matrix4 <b>multLeft(Matrix4)</b><br/>
+      <b>Matrix4</b> function Matrix4 <b>multRight(Matrix4)</b></td>
+</tr>
+<tr>
+  <td>Matrix multiply with vector</td>
+  <td><b>Matrix4</b> function SFVec3f <b>multVecMatrix(SFVec3f)</b><br/>
+      <b>Matrix4</b> function SFVec3d <b>multVecMatrix(SFVec3d)</b><br/>
+      <b>Matrix4</b> function SFVec3f <b>multMatrixVec(SFVec3f)</b><br/>
+      <b>Matrix4</b> function SFVec3d <b>multMatrixVec(SFVec3d)</b><br/>
+  </td>
+</tr>
+</tbody>
+</table>
+</div>
+
+<p>
+<img class="x3dbar" src="../Images/x3dbar.png" alt="--- X3D separator bar ---" width="430" height="23"></p>
+
+</body>
+</html>

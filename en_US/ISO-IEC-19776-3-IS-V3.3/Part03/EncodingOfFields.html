@@ -1,0 +1,996 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+<TITLE>ISO/IEC 19776-3:2015 Extensible 3D (X3D) encodings &mdash; Part 3: Compressed binary encoding &mdash; 5 Encoding of fields</TITLE>
+<link REL="stylesheet" HREF="X3DEncodings.css" TYPE="text/css">
+
+</head>
+<body>
+
+<div class="CenterDiv">
+<img class="x3dlogo" SRC="../Images/x3d.png" ALT="X3D logo" style="width: 176px; height: 88px" >
+</div>
+
+<div class="CenterDiv">
+<p class="HeadingPart">
+    Extensible 3D (X3D)<br>
+    Part 3: Compressed binary encoding</p>
+
+<p class="HeadingClause">5 Encoding of fields</p>
+</div>
+
+<img class="x3dbar" SRC="../Images/x3dbar.png" ALT="--- X3D separator bar ---" width="430" height="23">
+<h1><img class="cube" src="../Images/cube.gif" alt="cube"  ><A name=Introduction></A>5.1 Introduction</h1>
+
+<H2><a name="Topics"></a>5.1.1 Topics</H2>
+<p><a href="#t-Topics">Table 5.1</a> lists the topics in this clause.</p>
+
+<div class="CenterDiv">
+<p class="TableCaption">
+<a name="t-Topics"></a>Table 5.1 &mdash; Topics</P>
+
+<TABLE class=topics>
+  <TBODY>
+  <TR class=topics>
+    <TD class=topics>
+<b>
+<A href="#Introduction">5.1 Introduction</A>
+<BR></b>&nbsp; <a href="#Topics">5.1.1 Topics</a>
+<BR>&nbsp; <a href="#Description">5.1.2 Description</a><p><b>
+<A href="#FieldEncoderForFastInfoSetUsage">5.2 Field encoder for Fast infoset usage</A>
+<BR></b>&nbsp; <a href="#FieldEncoderIntroduction">5.2.1 Introduction</a><br>
+&nbsp;
+<a href="#BooleanEncoder">5.2.2 Boolean encoder</a><br>
+&nbsp;
+<a href="#CDATAEncoder">5.2.3 CDATA encoder</a><br>
+&nbsp;
+<a href="#DoubleEncoder">5.2.4 Double encoder</a><br>
+&nbsp;
+<a href="#FloatEncoder">5.2.5 Float encoder</a><br>
+&nbsp;
+<a href="#IntegerEncoder">5.2.6 Integer encoder</a></p>
+<p><b><a href="#CompressionTechniques">5.3 Compression techniques</a></b><p><b>
+<a href="#X3DSpecificFloatingPointEncoders">5.4 X3D-specific floating
+point encoders</a></b><br>
+&nbsp;
+<a href="#QuantizedFloatArrayEncoder">5.4.1 Quantized float array encoder</a><br>
+&nbsp;
+<a href="#zlibFloatArrayEncoder">5.4.2 zlib float array encoder</a><br>
+&nbsp;
+<a href="#QuantizedzlibFloatArrayEncoder">5.4.3 Quantized zlib float array encoder</a><br>
+&nbsp;
+<a href="#QuantizedDoubleArrayEncoder">5.4.4 Quantized double array encoder</a><br>
+&nbsp;
+<a href="#ZlibDoubleArrayEncoder">5.4.5 zlib double array encoder</a><br>
+&nbsp; <a href="#QuantizedZlibDoubleArrayEncoder">5.4.6 Quantized zlib double 
+array encoder</a><br>
+    <TD class=topics>
+<p><b><a href="#X3DSpecificIntegerEncoders">5.5 X3D-specific integer encoders</a></b><br>
+&nbsp;
+<a href="#RangeIntegerArrayEncoder">5.5.1 Range integer array encoder</a><BR>
+&nbsp;
+<a href="#DeltazlibIntegerArrayEncoder">5.5.2 Delta zLib integer array encoder</a></p>
+<p><b><a href="#EncodingOfX3DFields">5.6 Encoding of X3D fields</a></b><br>
+&nbsp;
+<a href="#SFBoolAndMFBool">5.6.1 SFBool and MFBool</a><br>
+&nbsp;
+<a href="#SFColorAndMFColor">5.6.2 SFColorAndMFColor</a><br>
+&nbsp;
+<a href="#SFColorRGBAAndMFColorRGBA">5.6.3 SFColorRGBA and MFColorRGBA</a><br>
+&nbsp;
+<a href="#SFDoubleAndMFDouble">5.6.4 SFDouble and
+MFDouble</a><br>
+&nbsp;
+<a href="#SFFloatAndMFFlloat">5.6.5 SFFloat and
+MFFloat</a><br>
+&nbsp;
+<a href="#SFImageAndMFImage">5.6.6 SFImage and MFImage</a><br>
+&nbsp;
+<a href="#SFInt32AndMFInt32">5.6.7 SFInt32 and
+MFInt32</a><br>
+&nbsp; <a href="#SFMatrix3dAndMFMatrix3d">5.6.8 SFMatrix3d and MFMatrix3d</a><br>
+&nbsp; <a href="#SFMatrix3fAndMFMatrix3">5.6.9 SFMatrix3f and MFMatrix3f</a><br>
+&nbsp; <a href="#SFMatrix4dAndMFMatrix4d">5.6.10 SFMatrix4d and MFMatrix4d</a><br>
+&nbsp; <a href="#SFMatrix4fAndMFMatrix4f">5.6.11 SFMatrix4f and MFMatrix4f</a><br>
+&nbsp;
+<a href="#SFNodeAndMFNode">5.6.12 SFNode and MFNode</a><br>
+&nbsp;
+<a href="#SFRotationAndMFRotation">5.6.13 SFRotation
+and MFRotation</a><br>
+&nbsp;
+<a href="#SFStringAndMFString">5.6.14 SFString and
+MFString</a><br>
+&nbsp;
+<a href="#SFTimeAndMFTime">5.6.15 SFTime and MFTime</a><br>
+&nbsp;
+<a href="#SFVec2dAndMFVec2d">5.6.16 SFVec2d and
+MFVec2d</a><br>
+&nbsp;
+<a href="#SFVec2fAndMFVec2f">5.6.17 SFVec2f and
+MFVec2f</a><br>
+&nbsp;
+<a href="#SFVec3dAndMFVec3d">5.6.18 SFVec3d and
+MFVec3d</a><br>
+&nbsp;
+<a href="#SFVec3fAndMFVec3f">5.6.19 SFVec3f and
+MFVec3f</a><br>
+&nbsp; <a href="#SFVec4dAndMFVec4d">5.6.20 SFVec4d and MFVec4d</a><br>
+&nbsp; <a href="#SFVec4fAndMFVec4f">5.6.21 SFVec4f and MFVec4f</a></TD>
+  </TR>
+</TBODY>
+</TABLE>
+</DIV>
+
+<h2><A name=Description></A>5.1.2 Description</h2>
+
+<P>This clause specifies the syntax of <I>field</I> data type values.</P>
+
+<p>
+Field values follow the syntax for fields defined in 5 Encoding of Fields of
+<a href="references.html#[I19776_1]">ISO/IEC 19776-1</a>.  These field
+values are then encoded using Fast infoset rules as defined in
+<a href="references.html#[I24824_1]">ISO/IEC 24824-1</a>.  Specific rules for each field type follow.
+In general, SFNode and MFNode are encoded using Element rules as specified in 7.3.1 
+of
+<a href="references.html#[I24824_1]">ISO/IEC 24824-1</a>.
+Other field types are encoded using the Attribute rules specified in 7.4 of
+<a href="references.html#[I24824_1]">ISO/IEC 24824-1</a>.
+</p>
+<p>
+Each field specifies what method it has used to write its values.  This allows the 
+Compressed binary encoding to use type-specific
+knowledge to further compress a field.  Encoders are expected to pick the right methods to meet the users expectations
+for parsing speed versus file size.
+</p>
+<p>
+The usage of encoding algorithms not specified in this part of ISO/IEC 19776 or 
+in <a href="references.html#[I24824_1]">ISO/IEC 24824-1</a> is invalid.  A 
+conformant implementation need
+only support these algorithms to parse a Compressed binary encoded file.
+</p>
+<p>
+All field values shall end on a byte boundary.</P>
+
+<h1><img class="cube" src="../Images/cube.gif" alt="cube" >
+<a name="FieldEncoderForFastInfoSetUsage"></a>5.2 Field encoder for Fast infoset usage</h1>
+<H2><a name="FieldEncoderIntroduction"></a>5.2.1 Introduction</H2>
+
+<P>
+By default all field values are written in String form.
+<a href="references.html#[I24824_1]">ISO/IEC 24824-1</a>
+allows the
+specification of encoders to write values in a compact binary form. This
+subclause defines the encoders available for compressing X3D content.  Only encoders defined in this
+clause or in <a href="references.html#[I24824_1]">ISO/IEC 24824-1</a>
+may be used for compressing X3D content.  All X3D encoders defined in this document provide a
+unique URI to be used in the Encoding Algorithms table of the document serialization 
+as required by
+<a href="references.html#[I24824_1]">ISO/IEC 24824-1</a>.  If an encoder
+is used, this URI shall be added to the Encoding Algorithm Table described in 
+8.3 of <a href="references.html#[I24824_1]">ISO/IEC 24824-1</a>.</P>
+<A name="BooleanArrayEncoder"></A>
+
+<p>
+Fast infoset defines a set of native encoders to help speed parsing and decrease file size for commonly used constructs.
+When possible, these encoders are used for handling X3D field types.  This
+subclause specifies the encoders used along with a brief description of their
+function. See <a href="references.html#[I24824_1]">ISO/IEC 24824-1</a> for a detailed discussion of each encoder,
+including the exact definition of what is written to a stream.
+</p>
+
+<p>
+All encoders defined by <a href="references.html#[I24824_1]">ISO/IEC 24824-1</a>
+are lossless.</p>
+
+<h2><a name="BooleanEncoder"></a>5.2.2 Boolean encoder</h2>
+This encoder handles boolean values.  It can handle single values or a list of booleans separated by spaces.
+This encoder is named &quot;boolean&quot; and is defined in 10.7 of
+<a href="references.html#[I24824_1]">ISO/IEC 24824-1</a>.<h2>
+<a name="CDATAEncoder"></a>5.2.3 CDATA encoder</h2>
+This encoder handles blocks of character data.  This encoder is named &quot;cdata&quot;
+and is defined in 10.11 of <a href="references.html#[I24824_1]">ISO/IEC 24824-1</a>.
+
+<h2><a name="DoubleEncoder"></a>5.2.4 Double encoder</h2>
+This encoder handles double values.  It can handle single values or a list of doubles separated by spaces.
+This encoder is named &quot;double&quot; and&nbsp;is defined in 10.9 of
+<a href="references.html#[I24824_1]">ISO/IEC 24824-1</a>.
+
+<h2><a name="FloatEncoder"></a>5.2.5 Float encoder</h2>
+This encoder handles float values.  It can handle single values or a list of floats separated by spaces.
+This encoder is named &quot;float&quot; and is defined in 10.8 of
+<a href="references.html#[I24824_1]">ISO/IEC 24824-1</a>.
+
+<h2><a name="IntegerEncoder"></a>5.2.6 Integer encoder</h2>
+This encoder handles integer values.  It can handle single values or a list of integers separated by spaces.
+This encoder is named &quot;int&quot; and is defined in 10.5 of
+<a href="references.html#[I24824_1]">ISO/IEC 24824-1</a>.
+
+<h1><img class="cube" src="../Images/cube.gif" alt="cube" >
+<a name="CompressionTechniques"></a>5.3 Compression techniques</h1>
+<p>
+zlib compression is used for several encoders. zlib works by detecting common patterns in a stream and outputing short-hand tags for these patterns.
+<p>
+Implementations should reuse or reimplement the zlib library specified in
+<a href="references.html#[RFC1950]">2.[RFC1950]</a>.</p>
+<h1><a name="X3DSpecificFloatingPointEncoders"></a>5.4 X3D-specific floating point encoders</h1>
+
+<H2><a name="QuantizedFloatArrayEncoder"></a>5.4.1 Quantized float array encoder</H2>
+
+<p>
+This encoder takes an array of float values and encodes them as a quantized form of the
+single-precision floating point numbers specified in 
+<a href="references.html#[IEC60559]">IEC 60559</a>.
+A custom value is selected for the exponent, mantissa and sign bits typically used to encode floats.  The bias of 127
+is still used. These values are written to the stream first before the data.
+The exponent is encoded using three bits, giving a range of 1-8. Zero exponent bits cannot be used.
+The number of mantissa bits is encoded using five bits. One bit is used for the sign bit.  When a number uses 
+zero sign bits, it is assumed to be positive. The remaining bits are used for data.
+Data follows the float description using the extra seven bits of the second byte for storage.  Extra bits needed to byte align the data 
+array 
+are padded with bits of value 0.
+</P>
+<p>
+The number of floats written can be determined by:</p>
+<blockquote>
+	<p><span class="code">NumFloats = floor((numBytes &times; 8 - 9) / (exponent + mantissa + sign));
+	</span></p>
+</blockquote>
+<p>
+The &quot;9&quot; in the above formula represents the number of header bits.</p>
+<p>
+This technique is a lossy encoder.
+</p>
+
+<p>
+The URI for identifying this encoder is:</p>
+<blockquote>
+	<p><span class="code">&quot;encoder://web3d.org/QuantizedFloatArrayEncoder&quot;</span></p>
+</blockquote>
+<p class="Example">
+EXAMPLE</p>
+<blockquote>
+	<p class="Example">value to encode: "0.42 -1 0.1972"  <BR>parameters: exponent = 4 bits, mantissa = 4 bits, sign = 1 bits</p>
+	<p class="Example">resultant bits:
+
+</p>
+<div class=CenterDiv>
+	<table>
+		<tr>
+			<td>byte</td>
+			<td>Octet(s)</td>
+			<td>Description</td>
+		</tr>
+		<tr>
+			<td>1</td>
+			<td>100 00100</td>
+			<td>Exponent(4) written in 3 bits, Mantissa(4) 5 bits</td>
+		</tr>
+		<tr>
+			<td>2</td>
+			<td>1 0110101</td>
+			<td>Sign(0) 1 bit.  Start of 0.42</td>
+		</tr>
+		<tr>
+			<td>3</td>
+			<td>10 100000</td>
+			<td>End of 0.42, start of -1</td>
+		</tr>
+		<tr>
+			<td>4</td>
+			<td>000 01011</td>
+			<td>End of -1, start of 0.1972</td>
+		</tr>
+		<tr>
+			<td>5</td>
+			<td>0010 0000</td>
+			<td>End of 0.1972, 4 bits of padding</td>
+		</tr>
+	</table>
+</div>
+</blockquote>
+
+
+<H2><a name="zlibFloatArrayEncoder"></a>5.4.2 zlib float array encoder</H2>
+
+<p>
+This encoder uses the zlib library (see <a href="references.html#[RFC1950]">2.[RFC1950]</a>) to find patterns in float values.</P>
+The array of floats is sent to the zlib library unmodified.
+<p>
+<p>
+This technique is a lossless encoder.
+</p>
+
+<p>
+The URI for identifying this encoder is:</p>
+<blockquote>
+	<p><span class="code">&quot;encoder://web3d.org/zlibFloatArrayEncoder&quot;</span></p>
+</blockquote>
+
+
+<H2><a name="QuantizedzlibFloatArrayEncoder"></a>5.4.3 Quantized zlib float array encoder</H2>
+
+<p>
+This encoder takes an array of float values and encodes them as a quantized form of the
+single precision
+floating point numbers defined in <a href="references.html#[IEC60559]">IEC 60559</a>. 
+A custom value is selected for the exponent, mantissa and sign bits typically 
+used to encode floats. The bias of 127 is still used. These values are written 
+to the stream first before the data. The number of exponent bits is encoded 
+using three bits, giving a range of 1-8, zero exponent bits cannot be used. The 
+number of mantissa bits is encoded using five bits. One bit is used for the sign 
+bit. When a number uses zero sign bits, it is assumed to be positive. The seven 
+remaining bits are padded with &#39;0000000&#39; (padding) are appended to the bit 
+stream.</p>
+<p>
+The number of float values in the field is appended to the stream using four 
+bytes. The float values themselves are then encoded using the zlib library (see
+<a href="references.html#[RFC1950]">2.[RFC1950]</a>) and appended to the stream.
+</p>
+<p>
+This technique is a lossy encoder.
+</p>
+
+<p>
+The URI for identifying this encoder is:</p>
+<blockquote>
+	<p><span class="code">&quot;encoder://web3d.org/QuantizedzlibFloatArrayEncoder&quot;</span></p>
+</blockquote>
+
+<H2><a name="QuantizedDoubleArrayEncoder"></a>5.4.4 Quantized double array encoder</H2>
+
+<p>
+This encoder takes an array of double values and encodes them as a quantized form of the
+double precision floating point numbers defined in
+<a href="references.html#[IEC60559]">IEC 60559</a>.
+A custom value is selected for the exponent, mantissa and sign bits typically used to encode floats.  The bias of 1023
+is still used. These values are written to the stream first before the data.
+The number of exponent bits is encoded using four bits, giving a range of 0-15.
+The number of mantissa bits is encoded using six bits.  One bit is used for the sign bit.  When a number uses 
+zero sign bits it is assumed to be positive. The remaining bits are used for data.
+Data follows the float description using the extra seven bits of the second byte for storage.  Extra bits needed to byte align the data 
+are padded with bits of value 0.
+</P>
+<p>
+The number of doubles written can be determined by:</p>
+<blockquote>
+	<p><span class="code">NumDoubles = floor((numBytes &times; 8 - 11) / (exponent + mantissa + sign));
+	</span></p>
+</blockquote>
+<p>
+The &quot;11&quot; in the above formula represents the number of header bits.</p>
+<p>
+This technique is a lossy encoder.
+</p>
+
+<p>
+The URI for identifying this encoder is:</p>
+<blockquote>
+	<p><span class="code">&quot;encoder://web3d.org/QuantizedDoubleArrayEncoder&quot;</span></p>
+</blockquote>
+
+<H2><a name="ZlibDoubleArrayEncoder"></a>5.4.5 zlib double array encoder</H2>
+
+<p>
+This encoder use the zlib  algorithm to find patterns in double values (see
+<a href="references.html#[RFC1950]">2.[RFC1950]</a>).
+<p>
+This technique is a lossless encoder.
+</p>
+
+<p>
+The URI for identifying this encoder is:</p>
+<blockquote>
+	<p><span class="code">&quot;encoder://web3d.org/zlibDoubleArrayEncoder&quot;</span></p>
+</blockquote>
+
+<H2><a name="QuantizedZlibDoubleArrayEncoder"></a>5.4.6 Quantized zlib double array encoder</H2>
+
+<p>
+This encoder takes an array of double values and encodes them as a quantized form of the
+double precision floating point numbers defined in
+<a href="references.html#[IEC60559]">IEC 60559</a>.
+A custom value is selected for the exponent, mantissa and sign bits typically used to encode floats.  The bias of 1023
+is still used. These values are written to the stream first before the data.
+The number of exponent bits is encoded using four bits, giving a range of 0-15.
+The number of mantissa bits is encoded using six bits.  One bit is used for the sign bit.  When a number uses 
+zero sign bits, it is assumed to be positive. The remaining bits are used for data.
+Data follows the float description using the extra seven bits of the second byte for storage.  Extra bits needed to byte align the data 
+are padded with bits of value 0.
+</P>
+
+<p>
+These values are then encoded using the zlib library (see
+<a href="references.html#[RFC1950]">2.[RFC1950]</a>).
+<p>
+This technique is a lossy encoder.
+</p>
+
+<p>
+The URI for identifying this encoder is:</p>
+<blockquote>
+	<p><span class="code">&quot;encoder://web3d.org/QuantizedzlibDoubleArrayEncoder&quot;</span></p>
+</blockquote>
+
+<h1><img class="cube" src="../Images/cube.gif" alt="cube" >
+<a name="X3DSpecificIntegerEncoders"></a>5.5 X3D-specific integer encoders</h1>
+<H2><a name="RangeIntegerArrayEncoder"></a>5.5.1 Range integer array encoder</H2>
+
+<p>
+This encoder takes an array of integer values and encodes them in the least number of bits required to express
+the range of integers encoded.  This is accomplished by determining the range of the integers present.  All values are
+then shifted to a positive value (called <i>shift</i>).  Each integer is written using the number of bits required to encode the range of
+integer values present.<p>The <i>shift </i>value can be determined by:</p>
+<blockquote>
+	<p><span class="code">shift = -minValue;&nbsp; // sets minimum value in 
+	range of integers to zero</span></p>
+</blockquote>
+<p>The number of bits (<em>numBits</em>) used to represent each integer is 
+determined by:</p>
+<blockquote>
+	<p><span class="code">numBits = ceiling(log<sub>2</sub>(maxValue - minValue));</span></p>
+</blockquote>
+<p>The number of integers written can be determined by:</p>
+<blockquote>
+	<p><span class="code">length / numBits per Integer </span></p>
+</blockquote>
+<p>
+The <em>numBits</em> value is written out as an 8-bit byte immediately followed 
+by the <em>shift</em> value as a 32-bit integer.</p>
+<p>
+Unused bits following the last value of the integer array are set to 0 to 
+restore the overall encoded length to a byte boundary.</p>
+<p>
+This technique is a lossless encoder.
+</p>
+
+<p>
+The URI for identifying this encoder is:</p>
+<blockquote>
+	<p><span class="code">&quot;encoder://web3d.org/RangeIntArrayEncoder&quot;</span></p>
+</blockquote>
+
+<H2><a name="DeltazlibIntegerArrayEncoder"></a>5.5.2 Delta zlib integer array encoder</H2>
+
+<p>
+This encoder takes an array of integer values, calculates delta values and then encodes them using the zlib library 
+(see <a href="references.html#[RFC1950]">2.[RFC1950]</a>).
+<i>Span</i> is how many values to skip between deltas.  The range for <em>Span</em> 
+is 0-255. The first <i>Span</i> values are the original values, the rest are
+deltas.
+<p class="Example">
+EXAMPLE&nbsp; The following array: 0,1,2,-1,3,4,5,-1,6,9,8,-1 with a span of 4 generates the following deltas: 0,1,2,-1,3,3,3,0,3,5,3,0.<p>
+The span is written using eight bits. The number of integer values of the field 
+is appended to the stream using four bytes. The array of deltas is then 
+compressed using the zlib library and appended to the stream.<p>
+This technique is a lossless encoder.
+</p>
+
+<p>
+The URI for identifying this encoder is:</p>
+<blockquote>
+	<p><span class="code">&quot;encoder://web3d.org/DeltazlibIntArrayEncoder&quot;</span></p>
+</blockquote>
+
+<h1><img class="cube" src="../Images/cube.gif" alt="cube" >
+<a name="EncodingOfX3DFields"></a>5.6 Encoding of X3D fields</h1>
+<h2><a name="SFBoolAndMFBool"></a>5.6.1 SFBool and MFBool</h2>
+
+<p>
+SFBool and MFBool values are encoded using the "boolean" algorithm as defined in 10.7
+of <a href="references.html#[I24824_1]">ISO/IEC 24824-1</a>.
+</p>
+
+<h2><a name="SFColorAndMFColor"></a>5.6.2 SFColor and MFColor</h2><P>
+The SFColor field specifies one RGB (red-green-blue) colour triple.
+MFColor specifies zero or more RGB triples.</P>
+
+<P class="Example">EXAMPLE</P><BLOCKQUOTE><span class="code">    &lt;ColorNode color=&#39;"1 0 0&quot;, 
+	&quot;0 1 0&quot;, &quot;0 0 1"&#39;/></span></BLOCKQUOTE>
+<P class="Example">is an MFColor field, <I>color</I>, containing the three primary colours
+red, green, and blue.
+
+<p>
+SFColor and MFColor fields can be encoded using lossy and lossless techniques.
+</p>
+<p>
+Values can be losslessly encoded using these encoders:</p>
+<ol type="a">
+	<li><a href="#FloatEncoder">5.2.5 Float encoder</a>, or</li>
+	<li><a href="#zlibFloatArrayEncoder">5.4.2 zlib float array encoder</a>.</li>
+</ol>
+<p>
+Values can be lossy encoded using these encoders:</p>
+<ol type="a">
+	<li><a href="#QuantizedFloatArrayEncoder">5.4.1 Quantized float array 
+	encoder</a>, or</li>
+	<li><a href="#QuantizedzlibFloatArrayEncoder">5.4.3 Quantized zlib float array 
+	encoder</a>.</li>
+</ol>
+
+<h2><a name="SFColorRGBAAndMFColorRGBA"></a>5.6.3 SFColorRGBA and MFColorRGBA</h2><P>
+The SFColorRGBA field specifies one RGBA (red-green-blue-alpha) colour
+4-tuple. MFColorRGBA
+specifies zero or more RGBA 4-tuples.<P class="Example">
+EXAMPLE</P>
+<BLOCKQUOTE><span class="code">    &lt;ColorRGBANode color=&#39;"1 0 0 0.5&quot;, &quot;0 1 0 0.5&quot;, 
+	&quot;0 0 1 0.5"&#39;/></span></BLOCKQUOTE>
+<P class="Example">is an MFColorRGBA field, <I>color</I>, containing the three partially
+transparent primary colours
+red, green,  blue.</P>
+
+<p>
+SFColorRGBA and MFColorRGBA fields can be encoded using lossy and lossless techniques.
+</p>
+<p>
+Values can be losslessly encoded using these encoders:</p>
+<ol type="a">
+	<li><a href="#FloatEncoder">5.2.5 Float encoder</a>, or</li>
+	<li><a href="#zlibFloatArrayEncoder">5.4.2 zlib float array encoder</a>.</li>
+</ol>
+<p>
+Values can be lossy encoded using these encoders:</p>
+<ol type="a">
+	<li><a href="#QuantizedFloatArrayEncoder">5.4.1 Quantized float array 
+	encoder</a>, or</li>
+	<li><a href="#QuantizedzlibFloatArrayEncoder">5.4.3 Quantized zlib float array 
+	encoder</a>.</li>
+</ol>
+
+<h2><a name="SFDoubleAndMFDouble"></a>5.6.4 SFDouble and MFDouble</h2><P>
+The SFDouble field specifies one
+double-precision floating point number. MFDouble
+specifies zero or more double-precision floating point numbers.</P>
+<P class="Example">EXAMPLE</P><BLOCKQUOTE><span class="code">    &lt;NurbsCurve knot="1000.123456789, 200.123456789, 300.123456789"/></span></BLOCKQUOTE>
+<P class="Example">is an MFDouble field, <I>knot</I>, containing three double-precision floating
+point values.</P>
+
+<p>
+SFDouble and MFDouble fields can be encoded using lossy and lossless techniques.
+</p>
+<p>
+Values can be losslessly encoded using these encoders:</p>
+<ol type="a">
+	<li><a href="#DoubleEncoder">5.2.4 Double encoder</a>, or</li>
+	<li><a href="#zlibDoubleArrayEncoder">5.4.5 zlib double array encoder</a>.
+	</li>
+</ol>
+<p>
+Values can be lossy encoded using these encoders:</p>
+<ol type="a">
+	<li><a href="#QuantizedDoubleArrayEncoder">5.4.4 Quantized double array 
+	encoder</a>,</li>
+	<li><a href="#QuantizedzlibDoubleArrayEncoder">5.4.5 Quantized zlib double array</a>
+	</li>
+</ol>
+
+<h2><a name="SFFloatAndMFFlloat"></a>5.6.5 SFFloat and MFFloat</h2><P>
+The SFFloat field specifies one single-precision floating point number.
+MFFloat specifies zero or more single-precision floating point numbers.</P>
+<P class="Example">EXAMPLE</P><BLOCKQUOTE><span class="code">    &lt;ElevationGrid creaseAngle="0.785"/></span></BLOCKQUOTE>
+<P class="Example">is an SFFloat field, <I>creaseAngle</I>, containing a single floating point
+value.</P>
+
+<p>
+SFFloat and
+MFFloat fields can be encoded using lossy and lossless techniques.
+</p>
+<p>
+Values can be losslessly encoded using these encoders:</p>
+<ol type="a">
+	<li><a href="#FloatEncoder">5.2.5 Float encoder</a>, or</li>
+	<li><a href="#zlibFloatArrayEncoder">5.4.2 zlib float array encoder</a>.</li>
+</ol>
+<p>
+Values can be lossy encoded using these encoders:</p>
+<ol type="a">
+	<li><a href="#QuantizedFloatArrayEncoder">5.4.1 Quantized float array 
+	encoder</a>, or</li>
+	<li><a href="#QuantizedzlibFloatArrayEncoder">5.4.3 Quantized zlib float array 
+	encoder</a>.</li>
+</ol>
+
+<h2><a name="SFImageAndMFImage"></a>5.6.6 SFImage and MFImage</h2><P>The SFImage field specifies a single uncompressed
+two-dimensional pixel image. The MFImage field specifies zero or more SFImage 
+fields. SFImage fields are encoded as three integers representing the width, height and
+number of components in the image, followed by width &times; height hexadecimal or
+integer values representing the pixels in the image, separated by whitespace.</P>
+
+SFImage values can be losslessly encoded using these encoders:<ol type="a">
+	<li><a href="#RangeIntegerArrayEncoder">5.5.1 Range integer array encoder</a>, or</li>
+	<li><a href="#DeltazlibIntegerArrayEncoder">5.5.2 Delta zlib integer array 
+	encoder</a>.
+
+</li>
+</ol>
+
+<h2><a name="SFInt32AndMFInt32"></a>5.6.7 SFInt32 and MFInt32</h2><P>The SFInt32 field specifies one 32-bit integer. The MFInt32 field specifies
+zero or more 32-bit integers. SFInt32 and MFInt32 fields are encoded as an
+integer in decimal or hexadecimal (beginning with '0x') format.</P>
+<P class="Example">EXAMPLE</P><BLOCKQUOTE><span class="code">    &lt;IndexedLineSet coordIndex="0 1 -1">
+        &lt;Coordinate point="1 2 3, 3 2 1"/>
+    &lt;/IndexedLineSet></span></BLOCKQUOTE><P class="Example">The
+IndexedLineSet in this example contains an MFInt32 field, <i>coordIndex</i>, containing three integer values.</P>
+
+<p>
+SFInt32 fields shall be encoded using the encoder specified in
+<a href="#IntegerEncoder">5.2.6 Integer encoder</a>.
+
+<p>
+MFInt32 fields can only be encoded using lossless techniques.
+</p>
+<p>
+MFInt32 values can be losslessly encoded using any of these encoders:</p>
+<ol type="a">
+	<li><a href="#IntegerEncoder">5.2.6 Integer encoder</a>,</li>
+	<li><a href="#RangeIntegerArrayEncoder">5.5.1 Range integer array encoder</a>, or</li>
+	<li><a href="#DeltazlibIntegerArrayEncoder">5.5.2 Delta zlib integer array 
+	encoder</a>.
+
+</li>
+</ol>
+
+<h2><a name="SFMatrix3dAndMFMatrix3d"></a>5.6.8 SFMatrix3d and MFMatrix3d</h2><P>The SFMatrix3d field specifies a 
+3&times;3 matrix containing nine double-precision floating point numbers. An
+MFMatrix3d field specifies zero or more SFMatrix3d fields.</P>
+<P class="Example">EXAMPLE</P><BLOCKQUOTE><span class="code">    &lt;field name="two identities&quot;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; type="MFMatrix3d"<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; value=&#39;"1 0 0 0 1 0 0 0 1" "1 0 0 0 1 0 0 0 
+	1"&#39;/></span></BLOCKQUOTE>
+
+<p>
+SFMatrix3d and MFMatrix3d fields can be encoded using lossy and lossless techniques.
+</p>
+<p>
+Values can be losslessly encoded using these encoders:</p>
+<ol type="a">
+	<li><a href="#DoubleEncoder">5.2.4 Double encoder</a>, or</li>
+	<li><a href="#zlibDoubleArrayEncoder">5.4.5 zlib double array encoder</a>.
+	</li>
+</ol>
+<p>
+Values can be lossy encoded using these encoders:</p>
+<ol type="a">
+	<li><a href="#QuantizedDoubleArrayEncoder">5.4.4 Quantized double array 
+	encoder</a>,</li>
+	<li><a href="#QuantizedzlibDoubleArrayEncoder">5.4.5 Quantized zlib double array</a>
+	</li>
+</ol>
+
+<h2><a name="SFMatrix3fAndMFMatrix3"></a>5.6.9 SFMatrix3f and MFMatrix3f</h2><P>The SFMatrix3f field specifies a 
+3&times;3 matrix containing nine single-precision floating point numbers. An
+MFMatrix3f field specifies zero or more SFMatrix3f fields.</P>
+<P class="Example">EXAMPLE</P><BLOCKQUOTE><span class="code">    &lt;field name="two identities&quot;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; type="MFMatrix3f&quot;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; value=&#39;"1 0 0 0 1 0 0 0 1" "1 0 0 0 1 0 0 0 
+	1"&#39;/></span></BLOCKQUOTE>
+
+<p>
+SFMatrix3f and MFMatrix3f fields can be encoded using lossy and lossless techniques.
+</p>
+<p>
+Values can be losslessly encoded using these encoders:</p>
+<ol type="a">
+	<li><a href="#FloatEncoder">5.2.5 Float encoder</a>, or</li>
+	<li><a href="#zlibFloatArrayEncoder">5.4.2 zlib float array encoder</a>.</li>
+</ol>
+<p>
+Values can be lossy encoded using these encoders:</p>
+<ol type="a">
+	<li><a href="#QuantizedFloatArrayEncoder">5.4.1 Quantized float array 
+	encoder</a>, or</li>
+	<li><a href="#QuantizedzlibFloatArrayEncoder">5.4.3 Quantized zlib float array 
+	encoder</a>.</li>
+</ol>
+
+<h2><a name="SFMatrix4dAndMFMatrix4d"></a>5.6.10 SFMatrix4d and MFMatrix4d</h2><P>The SFMatrix4d field specifies a 
+4&times;4 matrix containing sixteen double-precision floating point numbers. An
+MFMatrix4d field specifies zero or more SFMatrix4d fields.</P>
+<P class="Example">EXAMPLE</P><BLOCKQUOTE><span class="code">    &lt;field name="two identities&quot;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; type="MFMatrix4d"<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; value=&#39;"1 0 0 0 0 1 0 0 0 0 1 0 0 0 0 1" 
+	&quot;1 0 0 0 0 1 0 0 0 0 1 0 0 0 0 1&quot;&#39;/></span></BLOCKQUOTE>
+
+<p>
+SFMatrix4d and MFMatrix4d fields can be encoded using lossy and lossless techniques.
+</p>
+<p>
+Values can be losslessly encoded using these encoders:</p>
+<ol type="a">
+	<li><a href="#DoubleEncoder">5.2.4 Double encoder</a>, or</li>
+	<li><a href="#zlibDoubleArrayEncoder">5.4.5 zlib double array encoder</a>.
+	</li>
+</ol>
+<p>
+Values can be lossy encoded using these encoders:</p>
+<ol type="a">
+	<li><a href="#QuantizedDoubleArrayEncoder">5.4.4 Quantized double array 
+	encoder</a>,</li>
+	<li><a href="#QuantizedzlibDoubleArrayEncoder">5.4.5 Quantized zlib double array</a>
+	</li>
+</ol>
+
+<h2><a name="SFMatrix4fAndMFMatrix4f"></a>5.6.11 SFMatrix4f and MFMatrix4f</h2><P>
+The SFMatrix4f field specifies a 
+4&times;4 matrix containing sixteen single-precision floating point numbers. An 
+MFMatrix4f field specifies zero or more SFMatrix4f fields.</P>
+<P class="Example">EXAMPLE</P><BLOCKQUOTE><span class="code">    &lt;field name="two identities&quot;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; type=&quot;MFMatrix4f&quot;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; value=&#39;&quot;1 0 0 0 0 1 0 0 0 0 1 0 0 0 0 1&quot; &quot;1 
+	0 0 0 0 1 0 0 0 0 1 0 0 0 0 1&quot;&#39;/&gt;<br>
+&nbsp;</span></BLOCKQUOTE>
+
+<p>
+SFMatrix4f and MFMatrix4f fields can be encoded using lossy and lossless techniques.
+</p>
+<p>
+Values can be losslessly encoded using these encoders:</p>
+<ol type="a">
+	<li><a href="#FloatEncoder">5.2.5 Float encoder</a>, or</li>
+	<li><a href="#zlibFloatArrayEncoder">5.4.2 zlib float array encoder</a>.</li>
+</ol>
+<p>
+Values can be lossy encoded using these encoders:</p>
+<ol type="a">
+	<li><a href="#QuantizedFloatArrayEncoder">5.4.1 Quantized float array 
+	encoder</a>, or</li>
+	<li><a href="#QuantizedzlibFloatArrayEncoder">5.4.3 Quantized zlib float array 
+	encoder</a>.</li>
+</ol>
+
+<h2><a name="SFNodeAndMFNode"></a>5.6.12 SFNode and MFNode</h2><P>The SFNode field specifies a single X3D node.
+The MFNode field specifies an array of zero or more nodes.
+</p>
+<p class="Example">
+EXAMPLE 1&nbsp;
+The following illustrates initialization of a
+user-defined prototype field, named <i>PositioningNodes</i>, having type MFNode:</P><BLOCKQUOTE><span class="code">    &lt;fieldValue name="PositioningNodes">
+		  &lt;Transform USE="someTransformInstance"/>
+		  &lt;GeoLocation DEF="defaultGeoLocationInstance"/>
+		  &lt;ESPDUTransform USE="someEspduTransformInstance"/>
+    &lt;/fieldValue></span></BLOCKQUOTE>
+
+<P>
+Nodes are handled by the generic Fast infoset rules for dealing with Elements as
+specified in 7.3 of <a href="references.html#[I24824_1]">ISO/IEC 24824-1</a>.  No special encoders are defined.</P>
+<h2><a name="SFRotationAndMFRotation"></a>5.6.13 SFRotation and MFRotation</h2><P>The SFRotation field specifies one arbitrary rotation. The MFRotation
+field specifies zero or more arbitrary rotations.</P>
+<P class="Example">EXAMPLE&nbsp; An SFRotation containing a
+&pi;/4&nbsp;radians rotation of a Box about the Y axis is:</P><BLOCKQUOTE><span class="code">    &lt;Transform rotation=&#39;"0.0 1.0 0.0 0.785"&#39;><br>
+&nbsp; &lt;Shape><br>
+&nbsp;&nbsp;&nbsp; &lt;Box/><br>
+&nbsp; &lt;/Shape><br>
+	&lt;/Transform></span></BLOCKQUOTE>
+
+<p>
+SFRotation and MFRotation fields can be encoded using lossy and lossless techniques.
+</p>
+<p>
+Values can be losslessly encoded using these encoders:</p>
+<ol type="a">
+	<li><a href="#FloatEncoder">5.2.5 Float encoder</a>, or</li>
+	<li><a href="#zlibFloatArrayEncoder">5.4.2 zlib float array encoder</a>.</li>
+</ol>
+<p>
+Values can be lossy encoded using these encoders:</p>
+<ol type="a">
+	<li><a href="#QuantizedFloatArrayEncoder">5.4.1 Quantized float array 
+	encoder</a>, or</li>
+	<li><a href="#QuantizedzlibFloatArrayEncoder">5.4.3 Quantized zlib float array 
+	encoder</a>.</li>
+</ol>
+
+
+	<h2><a name="SFStringAndMFString"></a>5.6.14 SFString and MFString</h2><P>The SFString and MFString fields contain strings formatted with the UTF-8
+universal character set (see <a href="references.html#[I10646]">ISO/IEC 10646</a>).
+SFString specifies a single string encoded as a sequence of UTF-8 octets enclosed in 
+double-quote characters
+(<i>e.g.</i>,&nbsp;<TT>"string"</TT>).&nbsp; The MFString
+specifies zero or more SFStrings enclosed in single-quote characters (<i>e.g.</i>, &#39;&quot;string1&quot;
+&quot;string2&quot;&#39;).</P>
+<P class="Note">NOTE&nbsp; The construct</P>
+<blockquote>
+	<P class="Note"><span class="code">&quot;string3&quot;</span></P>
+</blockquote>
+<P class="Note">is not a valid instance of an MFString. Such an MFString is properly specified as</P>
+<blockquote>
+	<P class="Note"><span class="code">&#39;&quot;string3&quot;&#39;</span></P>
+</blockquote>
+<P class="Example">EXAMPLE 1&nbsp; A node with an MFString:</P><blockquote>
+  <pre>&lt;NavigationInfo type=&#39;&quot;WALK&quot; &quot;ANY&quot;&#39; /&gt;</pre></blockquote><P>Any characters (including linefeeds and &lsquo;#&rsquo;) may appear within the 
+quotation marks.
+Special characters as defined by XML (<i>e.g.</i>, single-quote and double-quote 
+characters) are specified using the
+XML character entity encodings (see <a href="references.html#[XML]">2.[XML]</a>).</p>
+<P class="Example">EXAMPLE 2&nbsp; Two instances of the double-quote character
+are contained in
+the following SFString field <i>string</i>:</p><blockquote>
+
+<PRE>&lt;Text string=&#39;"He said, &amp;quot;Immel did it!&amp;quot;"&#39; /&gt;</PRE></blockquote>
+
+<p>
+SFString values are encoded directly as a string as specified in
+<a href="references.html#[I24824_1]">ISO/IEC 24824-1</a>. No encoders are used.
+</p>
+<p>MFString values are encoded directly as a string using the canonical form for MFStrings.  
+No encoders are used.
+</P>
+
+<h2><a name="SFTimeAndMFTime"></a>5.6.15 SFTime and MFTime</h2>
+<P>The SFTime field specifies a single time value. The MFTime field specifies
+zero or more time values.</p>
+
+<P class="Example">EXAMPLE</P><BLOCKQUOTE><span class="code">    &lt;TimeSensor cycleInterval="5.0"/></span></BLOCKQUOTE>
+<P class="Example">is an SFTime field, <I>cycleInterval</I>, representing a time of 5.0 seconds
+for the interval of the TimeSensor node.</P>
+
+<p>
+SFTime and MFTime fields shall be encoded using the encoder specified in
+<a href="#DoubleEncoder">5.2.4 Double encoder</a>.
+</p>
+<p>
+Lossy encoders are not allowed due to the sensitive nature of time values to the simulation model.
+</P>
+
+<h2><a name="SFVec2dAndMFVec2d"></a>5.6.16 SFVec2d and MFVec2d</h2><P>The SFVec2d field specifies a two-dimensional (2D)
+double-precision vector. An
+MFVec2d field specifies zero or more 2D double-precision vectors.</P>
+<P class="Example">EXAMPLE</P><BLOCKQUOTE><span class="code">    &lt;field name="corners"<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; type="MFVec2d"<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; value=&#39;"42.89978899 666.000123&quot;, &quot;84.97778978 933.70941"&#39;/></span></BLOCKQUOTE>
+
+<p>
+SFVec2d and MFVec2d fields can be encoded using lossy and lossless techniques.
+</p>
+<p>
+Values can be losslessly encoded using these encoders:</p>
+<ol type="a">
+	<li><a href="#DoubleEncoder">5.2.4 Double encoder</a>, or</li>
+	<li><a href="#zlibDoubleArrayEncoder">5.4.5 zlib double array encoder</a>.
+	</li>
+</ol>
+<p>
+Values can be lossy encoded using these encoders:</p>
+<ol type="a">
+	<li><a href="#QuantizedDoubleArrayEncoder">5.4.4 Quantized double array 
+	encoder</a>,</li>
+	<li><a href="#QuantizedzlibDoubleArrayEncoder">5.4.5 Quantized zlib double array</a>
+	</li>
+</ol>
+
+<h2><a name="SFVec2fAndMFVec2f"></a>5.6.17 SFVec2f and MFVec2f</h2>
+<P>The SFVec2f field specifies a two-dimensional (2D) single-precision vector. An MFVec2f field
+specifies zero or more 2D single-precision vectors.</p>
+<P class="Example">EXAMPLE</P><BLOCKQUOTE><span class="code">    &lt;TextureCoordinate point=&#39;"0.25 0.25&quot;, 
+	&quot;0.8 0.8"&#39;/></span></BLOCKQUOTE>
+
+<p>
+SFVec2f and MFVec2f fields can be encoded using lossy and lossless techniques.
+</p>
+<p>
+Values can be losslessly encoded using these encoders:</p>
+<ol type="a">
+	<li><a href="#FloatEncoder">5.2.5 Float encoder</a>, or</li>
+	<li><a href="#zlibFloatArrayEncoder">5.4.2 zlib float array encoder</a>.</li>
+</ol>
+<p>
+Values can be lossy encoded using these encoders:</p>
+<ol type="a">
+	<li><a href="#QuantizedFloatArrayEncoder">5.4.1 Quantized float array 
+	encoder</a>, or</li>
+	<li><a href="#QuantizedzlibFloatArrayEncoder">5.4.3 Quantized zlib float array 
+	encoder</a>.</li>
+</ol>
+
+<h2><a name="SFVec3dAndMFVec3d"></a>5.6.18 SFVec3d and MFVec3d</h2>
+
+<P>The SFVec3d field
+specifies a three-dimensional (3D) double-precision vector. An MFVec3d field
+specifies zero or more 3D double-precision vectors.</P>
+<P class="Example">EXAMPLE</P><BLOCKQUOTE><span class="code">    &lt;GeoOrigin geoCoords=&#39;"1000.123456789 
+	100.123456789 100.123456789"&#39;/></span></BLOCKQUOTE>
+<P class="Example">is an SFVec3d field, <I>geoCoords</I>, defining a high-precision vector value.</P>
+
+<p>
+SFVec3d and MFVec3d fields can be encoded using lossy and lossless techniques.
+</p>
+
+<p>
+Values can be losslessly encoded using these encoders:</p>
+<ol type="a">
+	<li><a href="#DoubleEncoder">5.2.4 Double encoder</a>, or</li>
+	<li><a href="#zlibDoubleArrayEncoder">5.4.5 zlib double array encoder</a>.
+	</li>
+</ol>
+<p>
+Values can be lossy encoded using these encoders:</p>
+<ol type="a">
+	<li><a href="#QuantizedDoubleArrayEncoder">5.4.4 Quantized double array 
+	encoder</a>,</li>
+	<li><a href="#QuantizedzlibDoubleArrayEncoder">5.4.5 Quantized zlib double array</a>
+	</li>
+</ol>
+
+<h2><a name="SFVec3fAndMFVec3f"></a>5.6.19 SFVec3f and MFVec3f</h2><P>The SFVec3f field
+specifies a three-dimensional (3D) single-precision vector. An MFVec3f field specifies zero or
+more 3D single-precision vectors.</P>
+<P class="Example">EXAMPLE</P><BLOCKQUOTE><span class="code">    &lt;Coordinate point=&#39;"1 2.24 3.4&quot;, 
+	&quot;3 2 1&quot;, &quot;4.5 1.2 5.745"&#39;/></span></BLOCKQUOTE>
+<P class="Example">is an SFVec3f field, <I>point</I>, defining three 3D vectors.</P><p>
+
+<p>
+SFVec3f and MFVec3f fields can be encoded using lossy and lossless techniques.
+</p>
+<p>
+Values can be losslessly encoded using these encoders:</p>
+<ol type="a">
+	<li><a href="#FloatEncoder">5.2.5 Float encoder</a>, or</li>
+	<li><a href="#zlibFloatArrayEncoder">5.4.2 zlib float array encoder</a>.</li>
+</ol>
+<p>
+Values can be lossy encoded using these encoders:</p>
+<ol type="a">
+	<li><a href="#QuantizedFloatArrayEncoder">5.4.1 Quantized float array 
+	encoder</a>, or</li>
+	<li><a href="#QuantizedzlibFloatArrayEncoder">5.4.3 Quantized zlib float array 
+	encoder</a>.</li>
+</ol>
+
+<h2><a name="SFVec4dAndMFVec4d"></a>5.6.20 SFVec4d and MFVec4d</h2>
+
+<P>The SFVec4d field
+specifies a four-dimensional (4D) double-precision vector. An MFVec4d field
+specifies zero or more 4D double-precision vectors.</P>
+<P class="Example">EXAMPLE</P><BLOCKQUOTE><span class="code">    &lt;MyCoordinate point=&#39;"1 
+	0.75 0.5 0&quot;, &quot;0.35 0.6 0.35 1.0&quot;, &quot;0.125 0.875 0.375 0.625"&#39;/></span></BLOCKQUOTE>
+<P class="Example">is an SFVec4d field, <I>point</I>, defining three 4D vectors.</P>
+
+<p>
+SFVec4d and MFVec4d fields can be encoded using lossy and lossless techniques.
+</p>
+
+<p>
+Values can be losslessly encoded using these encoders:</p>
+<ol type="a">
+	<li><a href="#DoubleEncoder">5.2.4 Double encoder</a>, or</li>
+	<li><a href="#zlibDoubleArrayEncoder">5.4.5 zlib double array encoder</a>.
+	</li>
+</ol>
+<p>
+Values can be lossy encoded using these encoders:</p>
+<ol type="a">
+	<li><a href="#QuantizedDoubleArrayEncoder">5.4.4 Quantized double array 
+	encoder</a>,</li>
+	<li><a href="#QuantizedzlibDoubleArrayEncoder">5.4.5 Quantized zlib double array</a>
+	</li>
+</ol>
+
+<h2><a name="SFVec4fAndMFVec4f"></a>5.6.21 SFVec4f and MFVec4f</h2><P>The SFVec4f field
+specifies a four-dimensional (4D) single-precision vector. An MFVec4f field specifies zero or
+more 4D single precision vectors.</P>
+<P class="Example">EXAMPLE</P><BLOCKQUOTE><span class="code">    &lt;TextureCoordinate point=&#39;"1.0 
+	0.75 0.5, 0&quot;, &quot;0.35 0.6 0.35, 1.0&quot;, &quot;0.125 0.875 0.375 0.625"&#39;/></span></BLOCKQUOTE>
+<P class="Example">is an SFVec4f field, <I>point</I>, defining three 4D vectors.</P><p>
+
+<p>
+SFVec4f and MFVec4f fields can be encoded using lossy and lossless techniques.
+</p>
+<p>
+Values can be losslessly encoded using these encoders:</p>
+<ol type="a">
+	<li><a href="#FloatEncoder">5.2.5 Float encoder</a>, or</li>
+	<li><a href="#zlibFloatArrayEncoder">5.4.2 zlib float array encoder</a>.</li>
+</ol>
+<p>
+Values can be lossy encoded using these encoders:</p>
+<ol type="a">
+	<li><a href="#QuantizedFloatArrayEncoder">5.4.1 Quantized float array 
+	encoder</a>, or</li>
+	<li><a href="#QuantizedzlibFloatArrayEncoder">5.4.3 Quantized zlib float array 
+	encoder</a>.</li>
+</ol>
+
+<p>&nbsp;</p>
+
+<p><img class="x3dbar" src="../Images/x3dbar.png" alt="--- X3D separator bar ---" width="430" height="23" ></p></body></html>

@@ -1,0 +1,1007 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html lang="en">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <title>ISO/IEC 19777-2:2005 -- X3D Java binding -- 4 Tables</title>
+<link REL="stylesheet" HREF="../Web3D_LB.css" TYPE="text/css">
+
+</head>
+<body>
+
+<div class="CenterDiv">
+<img class="x3dlogo" SRC="../Images/x3d.png" ALT="X3D logo" width="115" height="106">
+</div>
+
+<div class="CenterDiv">
+<p class="HeadingPart">
+    Extensible 3D (X3D) language bindings<br>
+    Part 2:&nbsp; Java</p>
+
+<p class="HeadingClause">4 Tables</p>
+</div>
+
+<img class="x3dbar" SRC="../Images/x3dbar.png" ALT="--- X3D separator bar ---" width="430" height="23">
+
+<h1><img class="cube" src="../Images/cube.gif" alt="cube">
+<a name="IntroductionAndTOC"></a>4.1 Introduction and table of contents</h1>
+
+<h2><a name="Introduction"></a>4.1.1 Introduction</h2>
+
+<p>This clause contains tables defining abbreviations used and mapping
+   abstract names from ISO/IEC 19775-2 (see <a href="references.html#[I19775]">
+2.I19775]</a>) to those of this binding.</p>
+
+<h2><a name="Topics"></a>4.1.2 Topics</h2>
+
+<p>See <a href="#t-Topics">Table 4.1</a> for the table of contents for this clause.</p>
+
+<div class="CenterDiv">
+
+<p class="TableCaption">
+<a name="t-Topics"></a>Table 4.1 &mdash; Topics in this clause</p>
+
+<table class="topics">
+  <tbody>
+  <tr>
+    <td>
+    <ul>
+    <li><a href="#IntroductionAndTOC">4.1 Introduction and Table of Contents</a><ul>
+    <li><a href="#Introduction">4.1.1 Introduction</a></li>
+    <li><a href="#Topics">4.1.2 Topics</a></li>
+    </ul>
+    </li>
+    <li><a href="#MappingOfAbstractNames">4.2 Mappings of abstract names to Java binding names</a><ul>
+    <li><a href="#DataTypes">4.2.1 Data types</a></li>
+    <li><a href="#ErrorTypes">4.2.2 Error types</a></li>
+    <li><a href="#EventTypes">4.2.3 Event types</a></li>
+    <li><a href="#BrowserServices">4.2.4 Browser services</a></li>
+    <li><a href="#ContextServices">4.2.5 Execution context services</a></li>
+    <li><a href="#SceneServices">4.2.6 Scene services</a></li>
+    <li><a href="#NodeServices">4.2.7 Node services</a></li>
+    <li><a href="#FieldServices">4.2.8 Field services</a></li>
+    <li><a href="#RouteServices">4.2.9 Route services</a></li>
+    <li><a href="#PrototypeServices">4.2.10 Prototype services</a></li>
+    <li><a href="#ScriptServices">4.2.11 Script content services</a></li>
+    <li><a href="#MatrixServices">4.2.12 Matrix services</a><br>
+&nbsp;</li>
+    </ul>
+    </li>
+    <li><a href="#t-Topics">Table 4.1 &mdash; Topics in this clause</a></li>
+    <li><a href="#t-DataTypesToJavaMapping">Table 4.2 &mdash; Data type names listed alphabetically by abstract name</a></li>
+    <li><a href="#t-DataClassesToJavaMapping">Table 4.3 &mdash; Data class names listed alphabetically by abstract name</a></li>
+    <li><a href="#t-ErrorTypeToJavaMapping">Table 4.4 &mdash; Error class names listed alphabetically by abstract name</a></li>
+    <li><a href="#t-EventTypesToJavaMapping">Table 4.5 &mdash; Event type names listed alphabetically by abstract name</a></li>
+    <li><a href="#t-BrowserSerivesToJavaMapping">Table 4.6 &mdash; Browser services listed alphabetically by abstract name</a></li>
+    <li><a href="#t-ContextServicesToJavaMapping">Table 4.7 &mdash; Execution context services listed alphabetically by abstract name</a></li>
+    <li><a href="#t-SceneServicesToJavaMapping">Table 4.8 &mdash; Scene services listed alphabetically by abstract name</a></li>
+    <li><a href="#t-NodeServicesToJavaMapping">Table 4.9 &mdash; Node services listed alphabetically by abstract name</a></li>
+    <li><a href="#t-FieldServicesToJavaMapping">Table 4.10 &mdash; Field services listed alphabetically by abstract name</a></li>
+    <li><a href="#t-RouteServicesToJavaMapping">Table 4.11 &mdash; Route services listed alphabetically by abstract name</a></li>
+    <li><a href="#t-ProtoServicesToJavaMapping">Table 4.12 &mdash; Prototype services listed alphabetically by abstract name</a></li>
+    <li><a href="#t-ScriptServicesToJavaMapping">Table 4.13 &mdash; Script services listed alphabetically by abstract name</a></li>
+    <li><a href="#t-MatrixServicesToJavaMapping">Table 4.14 &mdash; Utility services listed alphabetically by abstract name</a></li>
+    </ul>
+  </tr>
+</tbody>
+</table>
+</div>
+
+<h2><a name="MappingOfAbstractNames"></a>4.2 Mappings of abstract names to Java binding names</h2>
+
+<h3><a name="DataTypes"></a>
+4.2.1 Data types</h3>
+
+<p>In <a href="#t-DataTypesToJavaMapping">Table 4.2</a>, each row lists an abstract name of a data type from
+ISO/IEC 19775-2 followed by the corresponding bound name. The names of
+data types used to reference data items are not included but may be
+found in <a href="#t-DataClassesToJavaMapping">Table 4.3</a>.</p>
+
+<div class="CenterDiv">
+
+<p class="TableCaption">
+<a name="t-DataTypesToJavaMapping"></a>
+Table 4.2 &mdash; Data type names listed alphabetically by abstract name</p>
+
+<table>
+<tbody>
+<tr>
+  <th>Abstract Name</th>
+  <th>Bound Name</th>
+</tr>
+<tr>
+  <td>SAIAction</td>
+  <td>N/A</td>
+</tr>
+<tr>
+  <td>SAIBoolean</td>
+  <td>boolean</td>
+</tr>
+<tr>
+  <td>SAIBrowserApp</td>
+  <td>X3DComponent</td>
+</tr>
+<tr>
+  <td>SAIBrowserName</td>
+  <td>java.lang.string</td>
+</tr>
+<tr>
+  <td>SAIBrowserRef</td>
+  <td>Browser<br>ExternalBrowser</td>
+</tr>
+<tr>
+  <td>SAIBrowserVersion</td>
+  <td>java.lang.String</td>
+</tr>
+<tr>
+  <td>SAIComponentDeclaration</td>
+  <td>ComponentInfo class</td>
+</tr>
+<tr>
+  <td>SAIComponent</td>
+  <td>(java.lang.String, int)</td>
+</tr>
+<tr>
+  <td>SAIEncoding</td>
+  <td>int</td>
+</tr>
+<tr>
+  <td>SAIExecutionContext</td>
+  <td>X3DExecutionContext</td>
+</tr>
+<tr>
+  <td>SAIFieldAccess</td>
+  <td>X3DFieldTypes</td>
+</tr>
+<tr>
+  <td>SAIFieldName</td>
+  <td>java.lang.String</td>
+</tr>
+<tr>
+  <td>SAIFieldType</td>
+  <td>X3DFieldTypes</td>
+</tr>
+<tr>
+  <td>SAIFieldValue</td>
+  <td>various. Defined by field type. See Table 5.4</td>
+</tr>
+<tr>
+  <td>SAIFrameRate</td>
+  <td>float</td>
+</tr>
+<tr>
+  <td>SAILoadState</td>
+  <td>X3DLoadStates</td>
+</tr>
+<tr>
+  <td>SAINavSpeed</td>
+  <td>float</td>
+</tr>
+<tr>
+  <td>SAINodeID</td>
+  <td>X3DNode and derived-types</td>
+</tr>
+<tr>
+  <td>SAINodeType</td>
+  <td>X3DNodeTypes</td>
+</tr>
+<tr>
+  <td>SAIParameterList</td>
+  <td>java.lang.String</td>
+</tr>
+<tr>
+  <td>SAIPropertyList</td>
+  <td>java.util.Map</td>
+</tr>
+<tr>
+  <td>SAIRequesterID</td>
+  <td>java.lang.Object</td>
+</tr>
+<tr>
+  <td>SAIString</td>
+  <td>java.lang.String</td>
+</tr>
+<tr>
+  <td>SAIURL</td>
+  <td>java.util.String</td>
+</tr>
+<tr>
+  <td>null</td>
+  <td>null</td>
+</tr>
+</tbody>
+</table>
+</div>
+
+<div class="CenterDiv">
+
+<p class="TableCaption">
+<a name="t-DataClassesToJavaMapping"></a>
+Table 4.3 &mdash; Data class names listed alphabetically by abstract name</p>
+
+<table>
+<tbody>
+<tr>
+  <th>Abstract Name</th>
+  <th>Bound Name</th>
+</tr>
+<tr>
+  <td>SAIBrowserRef</td>
+  <td>Browser<br>ExternalBrowser</td>
+</tr>
+<tr>
+  <td>SAIComponentDeclaration</td>
+  <td>ComponentInfo</td>
+</tr>
+<tr>
+  <td>SAIExecutionContextID</td>
+  <td>X3DExecutionContext</td>
+</tr>
+<tr>
+  <td>SAIFieldDeclaration</td>
+  <td>X3DFieldDefinition</td>
+</tr>
+<tr>
+  <td>SAIFieldValue</td>
+  <td>various. Defined by field type</td>
+</tr>
+<tr>
+  <td>SAILoadState</td>
+  <td>X3DLoadStates</td>
+</tr>
+<tr>
+  <td>SAINodeID</td>
+  <td>X3DNode and derived-types</td>
+</tr>
+<tr>
+  <td>SAIProfileDeclaration</td>
+  <td>ProfileInfo</td>
+</tr>
+<tr>
+  <td>SAIProtoDeclaration</td>
+  <td>X3DProtoDeclaration</td>
+</tr>
+<tr>
+  <td>SAIRoute</td>
+  <td>X3DRoute</td>
+</tr>
+<tr>
+  <td>SAIScript</td>
+  <td>X3DScriptNodeType</td>
+</tr>
+<tr>
+  <td>SAIScriptImplementation</td>
+  <td>X3DScriptImplementation<br/>
+      X3DPerFrameObserverScript</td>
+</tr>
+<tr>
+  <td>SAIScene</td>
+  <td>X3DScene</td>
+</tr>
+</tbody>
+</table>
+</div>
+
+<h3><a name="ErrorTypes"></a>
+4.2.2 Error types</h3>
+
+<p>In <a href="#t-ErrorTypeToJavaMapping">Table 4.4</a>, each row lists an abstract name of an 
+exception from
+ISO/IEC 19775-2 followed by the corresponding bound name.</p>
+
+<div class="CenterDiv">
+
+<p class="TableCaption">
+<a name="t-ErrorTypeToJavaMapping"></a>
+Table 4.4 &mdash; Error class names listed alphabetically by abstract name</p>
+
+<table>
+<tbody>
+<tr>
+  <th>Abstract Name</th>
+  <th>Bound Name</th>
+</tr>
+<tr>
+  <td>SAI_BROWSER_UNAVAILABLE</td>
+  <td>NoSuchBrowserException</td>
+</tr>
+<tr>
+  <td>SAI_CONNECTION_ERROR</td>
+  <td>ConnectionException</td>
+</tr>
+<tr>
+  <td>SAI_INSUFFICIENT_CAPABILITIES</td>
+  <td>InsufficientCapabilitiesException</td>
+</tr>
+<tr>
+  <td>SAI_DISPOSED</td>
+  <td>InvalidBrowserException<br/>
+      InvalidExecutionContextException<br/>
+      InvalidNodeException<br/>
+      InvalidRouteException<br/>
+      InvalidProtoException
+  </td>
+</tr>
+<tr>
+  <td>SAI_IMPORTED_NODE</td>
+  <td>InvalidImportException</td>
+</tr>
+<tr>
+  <td>SAI_INVALID_ACCESS_TYPE</td>
+  <td>InvalidWritableFieldException<br/>
+      InvalidReadableFieldException</td>
+</tr>
+<tr>
+  <td>SAI_INVALID_BROWSER</td>
+  <td>InvalidBrowserException</td>
+</tr>
+<tr>
+  <td>SAI_INVALID_DOCUMENT</td>
+  <td>InvalidDocumentException</td>
+</tr>
+<tr>
+  <td>SAI_INVALID_NAME</td>
+  <td>InvalidNodeException<br/>
+      InvalidNameException</td>
+</tr>
+<tr>
+  <td>SAI_INVALID_NODE</td>
+  <td>InvalidNodeException</td>
+</tr>
+<tr>
+  <td>SAI_INVALID_FIELD</td>
+  <td>InvalidFieldException</td>
+</tr>
+<tr>
+  <td>SAI_INVALID_OPERATION_TIMING</td>
+  <td>InvalidOperationTimingException</td>
+</tr>
+<tr>
+  <td>SAI_INVALID_URL</td>
+  <td>InvalidURLException</td>
+</tr>
+<tr>
+  <td>SAI_INVALID_X3D</td>
+  <td>InvalidX3DException</td>
+</tr>
+<tr>
+  <td>SAI_NODE_NOT_AVAILABLE</td>
+  <td>NodeUnavailableException</td>
+</tr>
+<tr>
+  <td>SAI_NODE_IN_USE</td>
+  <td>NodeInUseException</td>
+</tr>
+<tr>
+  <td>SAI_NOT_SHARED</td>
+  <td>BrowserNotSharedException</td>
+</tr>
+<tr>
+  <td>SAI_NOT_SUPPORTED</td>
+  <td>NotSupportedException</td>
+</tr>
+<tr>
+  <td>SAI_URL_UNAVAILABLE</td>
+  <td>URLUnavailableException</td>
+</tr>
+</tbody>
+</table>
+</div>
+
+<h3><a name="EventTypes"></a>
+4.2.3 Event types</h3>
+
+<p>In <a href="#t-EventTypesToJavaMapping">Table 4.5</a>, each row lists an abstract name of an event type from
+ISO/IEC 19775-2 followed by the corresponding bound name.</p>
+
+<div class="CenterDiv">
+
+<p class="TableCaption">
+<a name="t-EventTypesToJavaMapping"></a>
+Table 4.5 &mdash; Event type names listed alphabetically by abstract name</p>
+
+<table>
+<tbody>
+<tr>
+  <th>Abstract Name</th>
+  <th>Bound Name</th>
+</tr>
+<tr>
+  <td>SAIBrowserEvent</td>
+  <td>BrowserEvent</td>
+</tr>
+<tr>
+  <td>SAI_BROWSER_ConnectionError</td>
+  <td>CONNECTION_ERROR</td>
+</tr>
+<tr>
+  <td>SAIFieldEvent</td>
+  <td>X3DFieldEvent</td>
+</tr>
+<tr>
+  <td>SAI_BROWSER_Initialized</td>
+  <td>INITIALIZED</td>
+</tr>
+<tr>
+  <td>SAI_BROWSER_Shutdown</td>
+  <td>SHUTDOWN</td>
+</tr>
+<tr>
+  <td>SAI_BROWSER_URLError</td>
+  <td>URL_ERROR</td>
+</tr>
+</tbody>
+</table>
+</div>
+
+
+<h3><a name="BrowserServices"></a>4.2.4 Browser services</h3>
+
+<p>In <a href="#t-BrowserSerivesToJavaMapping">Table 4.6</a>, each row lists an abstract name of an event type from
+ISO/IEC 19775-2 followed by the corresponding bound name. </p>
+
+<div class="CenterDiv">
+
+<p class="TableCaption">
+<a name="t-BrowserSerivesToJavaMapping"></a>
+Table 4.6 &mdash; Browser services listed alphabetically by abstract name</p>
+
+<table>
+<tbody>
+<tr>
+  <th>Abstract Name</th>
+  <th>Bound Name</th>
+</tr>
+<tr>
+  <td>getBrowser</td>
+  <td>ExternalBrowser getBrowser(java.applet.Applet)<br/>
+      ExternalBrowser getBrowser(java.applet.Applet, java.lang.String, int)
+      ExternalBrowser getBrowser(java.net.InetAddress, int)</td>
+</tr>
+<tr>
+  <td>createBrowser</td>
+  <td>X3DComponent createBrowser(java.util.Map)</td>
+</tr>
+<tr>
+  <td>getName</td>
+  <td>String getName()</td>
+</tr>
+<tr>
+  <td>String getVersion</td>
+  <td>getVersion()</td>
+</tr>
+<tr>
+  <td>getCurrentSpeed</td>
+  <td>float getCurrentSpeed()</td>
+</tr>
+<tr>
+  <td>getCurrentFrameRate</td>
+  <td>float getCurrentFrameRate()</td>
+</tr>
+<tr>
+  <td>getSupportedProfiles</td>
+  <td>ProfileInfo[] getSupportedProfiles</td>
+</tr>
+<tr>
+  <td>getProfile</td>
+  <td>ProfileInfo getProfile(java.lang.String)</td>
+</tr>
+<tr>
+  <td>getSupportedComponents</td>
+  <td>ComponentInfo[] getSupportedComponent()</td>
+</tr>
+<tr>
+  <td>getComponent</td>
+  <td>ComponentInfo getComponent(java.lang.String, int)</td>
+</tr>
+<tr>
+  <td>getExecutionContext</td>
+  <td>ExecutionContext getExecutionContext()</td>
+</tr>
+<tr>
+  <td>createScene</td>
+  <td>X3DScene createScene(ProfileInfo, ComponentInfo[])</td>
+</tr>
+<tr>
+  <td>replaceWorld</td>
+  <td>replaceWorld(X3DScene)</td>
+</tr>
+<tr>
+  <td>importDocument</td>
+  <td>X3DScene importDocument(org.w3c.dom.Node)</td>
+</tr>
+<tr>
+  <td>loadURL</td>
+  <td>void loadURL(java.lang.String[], java.lang.String[])</td>
+</tr>
+<tr>
+  <td>setDescription</td>
+  <td>void setDescription(java.lang.String)</td>
+</tr>
+<tr>
+  <td>createX3DFromString</td>
+  <td>X3DScene createX3DFromString(java.lang.String)</td>
+</tr>
+<tr>
+  <td>createX3DFromStream</td>
+  <td>X3DScene createX3DFromString(java.io.InputStream)</td>
+</tr>
+<tr>
+  <td>createX3DFromURL</td>
+  <td>X3DScene createX3DFromURL(java.lang.String[])</td>
+</tr>
+<tr>
+  <td>Update Control</td>
+  <td>void beginUpdate()<br/>
+      void endUpdate()</td>
+</tr>
+<tr>
+  <td>Register Browser Interest</td>
+  <td>void addBrowserListener(BrowserListener)
+      void removeBrowserListener(BrowserListener)</td>
+</tr>
+<tr>
+  <td>getRenderingProperties</td>
+  <td>java.util.Map getRenderingProperties()</td>
+</tr>
+<tr>
+  <td>getBrowserProperties</td>
+  <td>java.util.Map getBrowserProperties()</td>
+</tr>
+<tr>
+  <td>changeViewpoint</td>
+  <td>void nextViewpoint()<br/>
+      void previousViewpoint()<br/>
+      void firstViewpoint()<br/>
+      void lastViewpoint()
+  </td>
+</tr>
+<tr>
+  <td>Print</td>
+  <td>void print(Object)<br/>
+      void println(Object)</td>
+</tr>
+<tr>
+  <td>Dispose</td>
+  <td>void dispose()</td>
+</tr>
+</tbody>
+</table>
+</div>
+
+
+<h3><a name="ContextServices"></a>
+4.2.5 Execution context services</h3>
+
+<p>In <a href="#t-ContextServicesToJavaMapping">Table 4.7</a>, each row lists an abstract name of an execution context
+service from ISO/IEC 19775-2 followed by the corresponding bound name.</p>
+
+
+<div class="CenterDiv">
+
+<p class="TableCaption">
+<a name="t-ContextServicesToJavaMapping"></a>
+Table 4.7 &mdash; Execution context services listed alphabetically by abstract name</p>
+
+<table>
+<tbody>
+<tr>
+  <th>Abstract Name</th>
+  <th>Bound Name</th>
+</tr>
+<tr>
+  <td>getSpecificationVersion</td>
+  <td>String getSpecificationVersion()</td>
+</tr>
+<tr>
+  <td>getEncoding</td>
+  <td>int getEncoding()</td>
+</tr>
+<tr>
+  <td>getProfile</td>
+  <td>ProfileInfo getProfile()</td>
+</tr>
+<tr>
+  <td>getComponents</td>
+  <td>ComponentInfo[] getComponents()</td>
+</tr>
+<tr>
+  <td>getWorldURL</td>
+  <td>String getWorldURL()</td>
+</tr>
+<tr>
+  <td>getNode</td>
+  <td>X3DNode getNamedNode(java.lang.String)<br/>
+      X3DNode getExportedNode(java.lang.String)</td>
+</tr>
+<tr>
+  <td>createNode</td>
+  <td>X3DNode createNode(java.lang.String)</td>
+</tr>
+<tr>
+  <td>createProto</td>
+  <td>X3DNode createProto(java.lang.String)</td>
+</tr>
+<tr>
+  <td>Named node handling</td>
+  <td>void updateNamedNode(java.lang.String, X3DNode)<br/>
+      void updateImportedNode(java.lang.String, java.lang.String, X3DNode)<br/>
+      void removeNamedNode(java.lang.String)<br/>
+      void removeImportedNode(java.lang.String)
+  </td>
+</tr>
+<tr>
+  <td>getProtoDeclaration</td>
+  <td>X3DProtoDeclaration getProtoDeclaration(java.lang.String)</td>
+</tr>
+<tr>
+  <td>PROTO Declaration Handling</td>
+  <td>void updateProtoDeclaration(java.lang.String, X3DProtoDeclaration)<br/>
+      void removeProtoDeclaration(java.lang.String)
+  </td>
+</tr>
+<tr>
+  <td>getExternProtoDeclaration</td>
+  <td>X3DExternProtoDeclaration getExternProtoDeclaration(java.lang.String)</td>
+</tr>
+<tr>
+  <td>EXTERNPROTO Declaration Handling</td>
+  <td>void updateExternProtoDeclaration(java.lang.String, X3DExternProtoDeclaration)<br/>
+      void removeExternProtoDeclaration(java.lang.String)
+  </td>
+</tr>
+<tr>
+  <td>getRootNodes</td>
+  <td>X3DNode[] getRootNodes</td>
+</tr>
+<tr>
+  <td>getRoutes</td>
+  <td>X3DRoute[] getRoutes()</td>
+</tr>
+<tr>
+  <td>Dynamic Route Handling</td>
+  <td>X3DRoute[] addRoute(X3DNode, java.lang.String, X3DNode, java.lang.String)<br/>
+      void removeRoute(X3DRoute)
+  </td>
+</tr>
+<tr>
+  <td>Dispose</td>
+  <td>void dispose()</td>
+</tr>
+</tbody>
+</table>
+</div>
+
+<h3><a name="SceneServices"></a>
+4.2.6 Scene services</h3>
+
+<p>In <a href="#t-SceneServicesToJavaMapping">Table 4.8</a>, each row lists an abstract name of an scene service from
+ISO/IEC 19775-2 followed by the corresponding bound name.</p>
+
+<div class="CenterDiv">
+
+<p class="TableCaption">
+<a name="t-SceneServicesToJavaMapping"></a>
+Table 4.8 &mdash; Scene services listed alphabetically by abstract name</p>
+
+<table>
+<tbody>
+<tr>
+  <th>Abstract Name</th>
+  <th>Bound Name</th>
+</tr>
+<tr>
+  <td>getMetaData</td>
+  <td>java.lang.String getMetaData(java.lang.String)</td>
+</tr>
+<tr>
+  <td>setMetaData</td>
+  <td>void setMetaData(java.lang.String, java.lang.String)</td>
+</tr>
+<tr>
+  <td>getNode</td>
+  <td>X3DNode getExportedNode(java.lang.String)</td>
+</tr>
+<tr>
+  <td>Named Node Handling</td>
+  <td>void updateExportedNode(java.lang.String, java.lang.String)<br/>
+      void removeExportedNode(java.lang.String)
+  </td>
+</tr>
+<tr>
+  <td>Root Node Handling</td>
+  <td>void addRootNode(X3DNode)<br/>
+      void removeRootNode(X3DNode);
+  </td>
+</tr>
+</tbody>
+</table>
+</div>
+
+<h3><a name="NodeServices"></a>
+4.2.7 Node services</h3>
+
+<p>In <a href="#t-NodeServicesToJavaMapping">Table 4.9</a>, each row lists an abstract name of an node service from
+ISO/IEC 19775-2 followed by the corresponding bound name.</p>
+
+<div class="CenterDiv">
+
+<p class="TableCaption">
+<a name="t-NodeServicesToJavaMapping"></a>
+Table 4.9 &mdash; Node services listed alphabetically by abstract name</p>
+
+<table>
+<tbody>
+<tr>
+  <th>Abstract Name</th>
+  <th>Bound Name</th>
+</tr>
+<tr>
+  <td>getName</td>
+  <td>String getName()</td>
+</tr>
+<tr>
+  <td>getType</td>
+  <td>int[] getType()</td>
+</tr>
+<tr>
+  <td>getField</td>
+  <td>X3DField getField(java.lang.String)</td>
+</tr>
+<tr>
+  <td>getFieldDefinitions</td>
+  <td>X3DFieldDefinition getFieldDefinitions()</td>
+</tr>
+<tr>
+  <td>Dispose</td>
+  <td>void dispose()</td>
+</tr>
+</tbody>
+</table>
+</div>
+
+<h3><a name="FieldServices"></a>
+4.2.8 Field services</h3>
+
+<p>In <a href="#t-FieldServicesToJavaMapping">Table 4.10</a>, each row lists an abstract name of a field service from
+ISO/IEC 19775-2 followed by the corresponding bound name.</p>
+
+<div class="CenterDiv">
+
+<p class="TableCaption">
+<a name="t-FieldServicesToJavaMapping"></a>
+Table 4.10 &mdash; Field services listed alphabetically by abstract name</p>
+
+<table>
+<tbody>
+<tr>
+  <th>Abstract Name</th>
+  <th>Bound Name</th>
+</tr>
+<tr>
+  <td>getName</td>
+  <td>String getName()</td>
+</tr>
+<tr>
+  <td>getType</td>
+  <td>int getType()</td>
+</tr>
+<tr>
+  <td>getAccessType</td>
+  <td>boolean isWritable()<br/>
+      boolean isReadable()
+  </td>
+</tr>
+<tr>
+  <td>getValue</td>
+  <td><i>type</i> getValue()<br/>
+      void getValue(<i>type</i>)<br/>
+      <i>type</i> get1Value(int)<br/>
+  </td>
+</tr>
+<tr>
+  <td>setValue</td>
+  <td>void setValue(<i>type</i>)<br/>
+      void get1Value(int, <i>type</i>)<br/>
+  </td>
+</tr>
+<tr>
+  <td>Register Field Interest</td>
+  <td>void addFieldEventListener(X3DFieldEventListener)<br/>
+      void removeFieldEventListener(X3DFieldEventListener)</td>
+</tr>
+<tr>
+  <td>Dispose</td>
+  <td>void dispose()</td>
+</tr>
+</tbody>
+</table>
+</div>
+
+<h3><a name="RouteServices"></a>
+4.2.9 Route services</h3>
+
+<p>In <a href="#t-RouteServicesToJavaMapping">Table 4.11</a>, each row lists an abstract name of a route service from
+ISO/IEC 19775-2 followed by the corresponding bound name.</p>
+
+<div class="CenterDiv">
+
+<p class="TableCaption">
+<a name="t-RouteServicesToJavaMapping"></a>
+Table 4.11 &mdash; Route services listed alphabetically by abstract name</p>
+
+<table>
+<tbody>
+<tr>
+  <th>Abstract Name</th>
+  <th>Bound Name</th>
+</tr>
+<tr>
+  <td>getSourceNode</td>
+  <td>X3DNode getSourceNode()</td>
+</tr>
+<tr>
+  <td>getSourceField</td>
+  <td>java.lang.String getSourceField()</td>
+</tr>
+<tr>
+  <td>getDestinationNode</td>
+  <td>X3DNode getDestinationNode()</td>
+</tr>
+<tr>
+  <td>getDestinationField</td>
+  <td>java.lang.String getDestinationField()</td>
+</tr>
+<tr>
+  <td>Dispose</td>
+  <td>dispose()</td>
+</tr>
+</tbody>
+</table>
+</div>
+
+<h3><a name="PrototypeServices"></a>
+4.2.10 Prototype services</h3>
+
+<p>In <a href="#t-ProtoServicesToJavaMapping">Table 4.12</a>, each row lists an abstract name of a prototype service from
+ISO/IEC 19775-2 followed by the corresponding bound name.</p>
+
+<div class="CenterDiv">
+
+<p class="TableCaption">
+<a name="t-ProtoServicesToJavaMapping"></a>
+Table 4.12 &mdash; Prototype services listed alphabetically by abstract name</p>
+
+<table>
+<tbody>
+<tr>
+  <th>Abstract Name</th>
+  <th>Bound Name</th>
+</tr>
+<tr>
+  <td>isExternProto</td>
+  <td><i>instanceof<i> operator</td>
+</tr>
+<tr>
+  <td>createInstance</td>
+  <td>X3DProtoInstance createInstance()</td>
+</tr>
+<tr>
+  <td>getFieldDefinitions</td>
+  <td>X3DFieldDefinition[] getFieldDefinitions</td>
+</tr>
+<tr>
+  <td>Check Load State</td>
+  <td>int getLoadState()</td>
+</tr>
+<tr>
+  <td>Request Immediate Load</td>
+  <td>void loadNow()</td>
+</tr>
+<tr>
+  <td>Dispose</td>
+  <td>dispose()</td>
+</tr>
+</tbody>
+</table>
+</div>
+
+<h3><a name="ScriptServices"></a>
+4.2.11 Script content services</h3>
+
+<p>In <a href="#t-ScriptServicesToJavaMapping">Table 4.13</a>, each row lists an abstract name of a script content service
+from ISO/IEC 19775-2 followed by the corresponding bound name.</p>
+
+<div class="CenterDiv">
+
+<p class="TableCaption">
+<a name="t-ScriptServicesToJavaMapping"></a>Table 4.13 &mdash; Script content services listed alphabetically by abstract name</p>
+
+<table>
+<tbody>
+<tr>
+  <th>Abstract Name</th>
+  <th>Bound Name</th>
+</tr>
+<tr>
+  <td>setBrowser</td>
+  <td>void setBrowser(Browser)</td>
+</tr>
+<tr>
+  <td>setFields</td>
+  <td>setFields(X3DScriptNode, java.util.Map)</td>
+</tr>
+<tr>
+  <td>initialize</td>
+  <td>void initialize()</td>
+</tr>
+<tr>
+  <td>prepareEvents</td>
+  <td>void prepareEvents()</td>
+</tr>
+<tr>
+  <td>eventsProcessed</td>
+  <td>void eventsProcessed()</td>
+</tr>
+<tr>
+  <td>shutdown</td>
+  <td>void shutdown()</td>
+</tr>
+</tbody>
+</table>
+</div>
+
+<h3><a name="MatrixServices"></a>4.2.12 Matrix services</h3>
+
+<p>In <a href="#t-MatrixServicesToJavaMapping">Table 4.14</a>, each row lists an abstract name of a 
+matrix service from <a href="references.html#[I19775_2]">Part 2 of
+ISO/IEC 19775</a> followed by the corresponding bound name.</p>
+
+<div class="CenterDiv">
+
+<p class="TableCaption">
+<a name="t-MatrixServicesToJavaMapping"></a>Table 4.14 &mdash; Matrix services listed alphabetically by abstract name</p>
+
+<table>
+<tbody>
+<tr>
+  <th>Abstract Name</th>
+  <th>Bound Name</th>
+</tr>
+<tr>
+  <td>set</td>
+  <td>void set(SFVec3f, SFRotation, SFVec3f, SFRotation, SFVec3f).</td>
+</tr>
+<tr>
+  <td>get</td>
+  <td>void get(SFVec3f, SFRotation, SFVec3f)</td>
+</tr>
+<tr>
+  <td>inverse</td>
+  <td>void inverse()</td>
+</tr>
+<tr>
+  <td>transpose</td>
+  <td>void transpose()</td>
+</tr>
+<tr>
+  <td>Matrix.multiply</td>
+  <td>void multiplyLeft(Matrix)<br/>
+      void multiplyRight(Matrix)</td>
+</tr>
+<tr>
+  <td>Matrix Multiply with vector</td>
+  <td>void multiplyLeft(Matrix, SFVec3f)<br/>
+      void multiplyLeft(Matrix, SFVec3d)<br/>
+      void multiplyRight(Matrix, SFVec3f)<br/>
+      void multiplyRight(Matrix, SFVec3d)
+  </td>
+</tr>
+</tbody>
+</table>
+</div>
+
+<p>
+<img class="x3dbar" src="../Images/x3dbar.png" alt="--- X3D separator bar ---" width="430" height="23"></p>
+
+</body>
+</html>

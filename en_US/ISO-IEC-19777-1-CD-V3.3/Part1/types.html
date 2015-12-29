@@ -1,0 +1,1098 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html lang="en">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <title>ISO/IEC 19777-1 Edition 2:201x(E) -- X3D ECMAScript binding -- 6 Type definitions</title>
+<link REL="stylesheet" HREF="Web3D_LB.css" TYPE="text/css">
+
+</head>
+<body>
+
+<div class="CenterDiv">
+<img class="x3dlogo" SRC="../Images/x3d.png" ALT="X3D logo" width="176" height="88">
+</div>
+
+<div class="CenterDiv">
+<p class="HeadingPart">
+    Information technology&nbsp;&mdash; Computer graphics, image processing and 
+	environmental representation&nbsp;&mdash;<br> Extensible 3D (X3D) language bindings&nbsp;&mdash;<br>
+	    Part 1:&nbsp; ECMAScript</p>
+
+<p class="HeadingClause">6 Type definitions</p>
+</div>
+
+<img class="x3dbar" SRC="../Images/x3dbar.png" ALT="--- X3D separator bar ---" width="430" height="23">
+
+<h1><img class="cube" src="../Images/cube.gif" alt="cube" width="20" height="19">
+<a name="IntroAndTOC"></a>6.1 Introduction and table of contents</h1>
+
+<h2><a name="Introduction"></a>6.1.1 Introduction</h2>
+
+<p>The X3D Scene Authoring Interface defines a set of fundamental abstract data types.
+This clause gives the mapping from those data types to the data types defined in this
+binding. All implementation-dependent data types are defined after all implementation-independent data types in each category.</p>
+
+<h2><a name="TOC"></a>6.1.2 Table of contents</h2>
+
+<p>See
+<a href="#Table5.1">Table 6.1</a> for the table of contents for this clause.</p>
+
+<div class="CenterDiv">
+
+<p class="TableCaption">
+<a name="t-Topics"></a>Table 6.1 &mdash; Topics in this clause</p>
+
+<table class="Topics">
+  <tbody>
+  <tr>
+    <td>
+    <ul>
+    <li><a href="#IntroAndTOC">6.1 Introduction and Table of Contents</a><ul>
+    <li><a href="#Introduction">6.1.1 Introduction</a></li>
+    <li><a href="#TOC">6.1.2 Table of contents</a></li>
+    </ul>
+    </li>
+    <li><a href="#X3DFieldToECMAScriptConversion">6.2 X3D field to ECMAScript
+    variable conversion</a></li>
+    <li><a href="#DataTtypeDefinitions">6.3 Data type definitions</a><ul>
+    <li><a href="#SAIAction">6.3.1 SAIAction</a></li>
+    <li><a href="#SAIBrowserApp">6.3.2 SAIBrowserApp</a></li>
+    <li><a href="#SAIBrowserName">6.3.3 SAIBrowserName</a></li>
+    <li><a href="#SAIBrowserRef">6.3.4 SAIBrowserRef</a></li>
+    <li><a href="#SAIBrowserVersion">6.3.5 SAIBrowserVersion</a></li>
+    <li><a href="#SAIComponentDeclaration">6.3.6 SAIComponentDeclaration</a></li>
+    <li><a href="#SAIComponentID">6.3.7 SAIComponentID</a></li>
+    <li><a href="#SAIExecutionContextID">6.3.8 SAIExecutionContextID</a></li>
+    <li><a href="#SAIFieldAccess">6.3.9 SAIFieldAccess</a></li>
+    <li><a href="#SAIFieldDefinition">6.3.10 SAIFieldDefinition</a></li>
+    <li><a href="#SAIFieldID">6.3.11 SAIFieldID</a></li>
+    <li><a href="#SAIFieldName">6.3.12 SAIFieldName</a></li>
+    <li><a href="#SAIFieldType">6.3.13 SAIFieldType</a></li>
+    <li><a href="#SAIFieldValue">6.3.14 SAIFieldValue</a></li>
+    <li><a href="#SAIFrameRate">6.3.15 SAIFrameRate</a></li>
+    <li><a href="#SAILoadState">6.3.16 SAILoadState</a></li>
+    <li><a href="#SAINavSpeed">6.3.17 SAINavSpeed</a></li>
+    <li><a href="#SAINodeID">6.3.18 SAINodeID</a></li>
+    <li><a href="#SAINodeType">6.3.19 SAINodeType</a></li>
+    <li><a href="#SAIParameterList">6.3.20 SAIParameterList</a></li>
+    <li><a href="#SAIProfileDeclaration">6.3.21 SAIProfileDeclaration</a></li>
+    <li><a href="#SAIPropertyList">6.3.22 SAIPropertyList</a></li>
+    <li><a href="#SAIProtoDeclaration">6.3.23 SAIProtoDeclaration</a></li>
+    <li><a href="#SAIRequesterID">6.3.24 SAIRequesterID</a></li>
+    <li><a href="#SAIRoute">6.3.25 SAIRoute</a></li>
+    <li><a href="#SAIScene">6.3.26 SAIScene</a></li>
+    <li><a href="#SAIScript">6.3.27 SAIScript</a></li>
+    <li><a href="#SAIScriptImplementation">6.3.28 SAIScriptImplementation</a></li>
+		<li class="auto-style1"><a href="#SAIStream">6.3.29 SAIStream</a></li>
+    <li><a href="#SAIString">6.3.30 SAIString</a></li>
+		<li class="auto-style2"><a href="#SAIUnitDeclaration">6.3.31 SAIUnitDeclaration</a></li>
+    <li><a href="#SAIURL">6.3.30 SAIURL</a></li>
+    </ul>
+    </li>
+    <li><a href="#ErrorDataTypes">6.4 Error data types</a><ul>
+    <li><a href="#SAIError">6.4.1 SAIError</a></li>
+    <li><a href="#SAIBrowserUnavailable">6.4.2 SAI_BROWSER_UNAVAILABLE</a></li>
+    <li><a href="#SAIConnectionError">6.4.3 SAI_CONNECTION_ERROR</a></li>
+    <li><a href="#SAIDisposed">6.4.4 SAI_DISPOSED</a></li>
+	<li><a href="#SAIImportedNode"><span class="auto-style1">6.4.5 SAI_IMPORTED_NODE</span></a></li>
+	<li><a href="#SAIInsufficientCapability"><span class="auto-style1">6.4.6 SAI_INSUFFICIENT_CAPABILITY</span></a></li>
+    <li><a href="#SAIInvalidAccessType">6.4.7 SAI_INVALID_ACCESS_TYPE</a></li>
+    <li><a href="#SAIInvalidBrowser">6.4.8 SAI_INVALID_BROWSER</a></li>
+	<li><a href="#SAIInvalidDocument"><span class="auto-style1">6.4.9 SAI_INVALID_DOCUMENT</span></a></li>
+	<li><a href="#SAIInvalidExecutionContext"><span class="auto-style1">6.4.10 SAI_INVALID_EXECUTION_CONTEXT</span></a></li>
+    <li><a href="#SAIInvalidField">6.4.11 SAI_INVALID_FIELD</a></li>
+    <li><a href="#SAIInvalidName">6.4.12 SAI_INVALID_NAME</a></li>
+    <li><a href="#SAIInvalidNode">6.4.13 SAI_INVALID_NODE</a></li>
+	<li><a href="#SAIInvalidOperationTiming"><span class="auto-style1">6.4.14 SAI_INVALID_OPERATION_TIMING</span></a></li>
+    <li><a href="#SAIInvalidURL">6.4.15 SAI_INVALID_URL</a></li>
+    <li><a href="#SAIInvalidX3D">6.4.16 SAI_INVALID_X3D</a></li>
+    <li><a href="#SAINodeNotAvailable">6.4.17 SAI_NODE_NOT_AVAILABLE</a></li>
+    <li><a href="#SAINodeInUse">6.4.18 SAI_NODE_IN_USE</a></li>
+    <li><a href="#SAINotShared">6.4.19 SAI_NOT_SHARED</a></li>
+    <li><a href="#SAIURLUnavailable">6.4.20 SAI_URL_UNAVAILABLE</a></li>
+    </ul>
+    </li>
+    <li><a href="#EventTypes">6.5 Event types</a><ul>
+    <li><a href="#EventTypesGeneral">6.5.1 General concepts</a></li>
+    <li><a href="#EventTypesSAIBrowserEvent">6.5.2 SAIBrowserEvent</a></li>
+    <li><a href="#EventTypesSAIFieldEvent">6.5.3 SAIFieldEvent</a></li>
+    </ul>
+    </li>
+    </ul>
+    <ul>
+      <li><a href="#t-Topics">Table 6.1 &mdash; Topics in this clause</a></li>
+      <li><a href="#t-SAIActionToECMAScript">Table 6.2 &mdash; SAIAction to ECMAScript
+      implementation mapping</a></li>
+      <li><a href="#t-X3DFieldTypeToECMAScrip">Table 6.3 &mdash; Mapping of X3D Field
+      type to ECMAScript representation</a></li>
+      <li><a href="#t-t-X3DTypesToECMAScriptTypes">Table 6.4 &mdash; Mapping of X3D
+      data types to ECMAScript data types</a></li>
+      <li><a href="#t-LoadStateTypeValueDefs">Table 6.5 &mdash; Load state type value
+      defintions</a></li>
+      <li><a href="#t-SAIParamToECMAScriptParam">Table 6.6 &mdash; Mapping of SAI
+      event types to ECMAScript constants</a></li>
+    </ul>
+  </tr>
+</tbody>
+</table>
+</div>
+
+<h2><a name="X3DFieldToECMAScriptConversion"></a>6.2 X3D field to ECMAScript variable conversion</h2>
+
+<p>ECMAScript native datatypes consist of boolean, numeric and string. The
+language is not typed, so datatypes are implicit upon assignment. The VRML
+SFBool is mapped to the ECMAScript boolean. In addition to the ECMAScript
+<i>true</i> and <i>false</i> constants, the X3D TRUE and FALSE values may
+be used. The X3D SFInt32, SFFloat and SFTime fields are mapped to the numeric
+datatype and are maintained in double precision accuracy. These types
+are passed by value in function calls. All other X3D fields are mapped
+to ECMAScript objects. ECMAScript objects are passed by reference.</p>
+
+<p>The ECMAScript boolean, numeric and string are automatically converted
+to other datatypes when needed. See <a href="references.html#[I16262]">ISO/IEC
+16262</a>
+for more details.</p>
+
+<p>In ECMAScript, assigning a new value to a variable gives the variable
+the datatype of the new value, in addition to the value. Scalar values (boolean
+and numeric) are assigned by copying the value. Other objects are assigned
+by reference.</p>
+
+<p>When assignments are made to writable fields, the values are converted
+to the X3D field type. Values assigned are always copied. This contrasts
+with normal assignment in ECMAScript where all assignments except for scalar
+are performed by reference.</p>
+
+<p>For write-only objects within an internal interaction, assignment copies the
+value to the field, which will be sent upon completion of the current function
+in accordance with 4.8.3.3 Responding to events of
+<a href="references.html#[I19775-2]">part 2 of ISO/IEC 19775</a>. Assigning a write-only
+field object to an internal variable copies by reference. Subsequent assignments
+to that internal variable will behave like assignments to the write-only field
+(<i>i.e.</i>, an event will be sent at the end of the function). InitializeOnly field
+objects behave identically to write-only objects, except that no event is sent
+upon completion of the function.</p>
+
+<p>Assigning an element of a multi-valued field object to an internal variable
+creates a reference to that element. The type shall be the corresponding
+single valued object type. If the multi-valued object is an write-only field and
+an assignment is made to the internal variable, an event will be sent at the end
+of the function. Assigning a single valued field object to an element of a multi-valued field object object which is an
+initialize-only
+field or write-only field (which shall be of the corresponding type) copies
+the value of the single-valued field object into the multi-valued field object
+element. If the multi-valued field object is a write-only field an event will
+be sent at the end of the function.</p>
+
+<h2><a name="DataTtypeDefinitions"></a>6.3 Data type definitions</h2>
+
+<h3><a name="SAIAction"></a>6.3.1 SAIAction</h3>
+
+<p>The action type is dependent on the method used.
+<a href="#t-SAIActionToECMAScript">Table 6.2</a> defines the
+mapping between each service, the valid action types for that service and
+the Java implementation of that action. Actions are mapped as method names
+describing the action rather than strict primitive types.</p>
+
+<div class="CenterDiv">
+
+<p class="TableCaption">
+<a name="t-SAIActionToECMAScript"></a>
+Table 6.2 &mdash; SAIAction to ECMAScript implementation mapping</p>
+
+<table>
+<tbody>
+<tr>
+  <th>Abstract SAI service</th>
+  <th>Action type</th>
+  <th>ECMASCript implementation</th>
+</tr>
+<tr>
+  <td rowspan="2">Dynamic Route Handling</td>
+  <td>Add Route</td>
+  <td><code>X3DExecutionContext</code> function <code>addRoute()</code></td>
+</tr>
+<tr>
+  <td>Delete Route</td>
+  <td><code>X3DExecutionContext</code> function <code>deleteRoute()</code></td>
+</tr>
+<tr>
+  <td rowspan="2">Update Control</td>
+  <td>Begin Update</td>
+  <td><code>ExternalBrowser</code> function <code>beginUpdate()</code></td>
+</tr>
+<tr>
+  <td>End Update</td>
+  <td><code>ExternalBrowser</code> function <code>endUpdate()</code></td>
+</tr>
+<tr>
+  <td rowspan="2">Register Browser Interest</td>
+  <td>Add</td>
+  <td><code>Browser</code> function <code>addBrowserCallback()</code></td>
+</tr>
+<tr>
+  <td>Remove</td>
+  <td><code>Browser</code> function <code>removeBrowserCallback()</code></td>
+</tr>
+<tr>
+  <td rowspan="2">Register Event Interest</td>
+  <td>Add</td>
+  <td><i>FieldObject</i> function <code>addFieldCallback()</code></td>
+</tr>
+<tr>
+  <td>Remove</td>
+  <td><i>FieldObject</i> function <code>removeFieldCallback()</code></td>
+</tr>
+<tr>
+  <td rowspan="2">Share World</td>
+  <td>share</td>
+  <td><code>ExternalBrowser</code> function <code>shareBrowser()</code>
+ </td>
+</tr>
+<tr>
+  <td>unshare</td>
+  <td><code>ExternalBrowser</code> function <code>unshareBrowser()</code></td>
+</tr>
+<tr>
+  <td rowspan="3">getNode</td>
+  <td>DEF node</td>
+  <td><code>X3DExecutionContext</code> function <code>getNamedNode()</code></td>
+</tr>
+<tr>
+  <td>IMPORT node</td>
+  <td><code>X3DExecutionContext</code> function <code>getImportedNode()</code></td>
+</tr>
+<tr>
+  <td>EXPORT node</td>
+  <td><code>X3DScene</code> function <code>getExportedNode()</code></td>
+</tr>
+<tr>
+  <td rowspan="6">Named Node Handling</td>
+  <td>add/update DEF node</td>
+  <td><code>X3DExecutionContext</code> function <code>updateNamedNode()</code></td>
+</tr>
+<tr>
+  <td>remove DEF node</td>
+  <td><code>X3DExecutionContext</code> function <code>removedNamedNode()</code></td>
+</tr>
+<tr>
+  <td>add/update IMPORT node</td>
+  <td><code>X3DExecutionContext</code> function <code>updateImportedNode()</code></td>
+</tr>
+<tr>
+  <td>remove IMPORT node</td>
+  <td><code>X3DExecutionContext</code> function <code>removeImportedNode()</code></td>
+</tr>
+<tr>
+  <td>add/update EXPORT node</td>
+  <td><code>X3DScene</code> function <code>updateExportedNode()</code></td>
+</tr>
+<tr>
+  <td>remove EXPORT node</td>
+  <td><code>X3DScene</code> function <code>removeExportedNode()</code></td>
+</tr>
+<tr>
+  <td rowspan="2">PROTO Declaration Handling</td>
+  <td>add/update Proto</td>
+  <td><code>X3DExecutionContext</code> function <code>updateProtoDeclaration()</code></td>
+</tr>
+<tr>
+  <td>remove Proto</td>
+  <td><code>X3DExecutionContext</code> function <code>removeProtoDeclaration()</code></td>
+</tr>
+<tr>
+  <td rowspan="2">EXTERNPROTO Declaration Handling</td>
+  <td>add/update ExternProto</td>
+  <td><code>X3DExecutionContext</code> function <code>updateExternProtoDeclaration()</code></td>
+</tr>
+<tr>
+  <td>remove ExternProto</td>
+  <td><code>X3DExecutionContext</code> function <code>removeExternProtoDeclaration()</code></td>
+</tr>
+<tr>
+  <td rowspan="2">Root Node Handling</td>
+  <td>add root node</td>
+  <td><code>X3DScene</code> property <code>rootNodes</code>
+      (<code>MFNode</code> object type)</td>
+</tr>
+<tr>
+  <td>remove root node</td>
+  <td><code>X3DScene</code> property <code>rootNodes</code>
+      (<code>MFNode</code> object type)</td>
+</tr>
+<tr>
+  <td rowspan="4">Change Viewpoint</td>
+  <td>next</td>
+  <td>Browser function <code>nextViewpoint()</code></td>
+</tr>
+<tr>
+  <td>previous</td>
+  <td>Browser function <code>previousViewpoint()</code></td>
+</tr>
+<tr>
+  <td>first</td>
+  <td>Browser function <code>firstViewpoint()</code></td>
+</tr>
+<tr>
+  <td>last</td>
+  <td>Browser function <code>lastViewpoint()</code></td>
+</tr>
+</tbody>
+</table>
+</div>
+
+<h3><a name="SAIBrowserApp"></a>
+6.3.2 SAIBrowserApp</h3>
+
+<p>The data type is not provided by this specification as it is assumed
+the surrounding scripting context will make this information available in
+its own fashion. The capability to obtain an SAIBrowserRef is implemented
+in the <code>getBrowser()</code> function of that environment-specific
+object which returns an instance of the <code>ExternalBrowser</code> object.</p>
+
+<h3><a name="SAIBrowserName"></a>
+6.3.3 SAIBrowserName</h3>
+
+<p>The data type is implemented as the String standard object type.</p>
+
+<h3><a name="SAIBrowserRef"></a>
+6.3.4 SAIBrowserRef</h3>
+
+<p>The browser reference type is defined to be an instance of the <code>Browser</code>
+host object. This is the base representation used for both internal and external
+interaction. For external-only interactions, extra functions are available through the <code>ExternalBrowser</code> host object that corresponds
+with capabilities in addition to those of the basic <code>Browser</code> object. For
+external interactions, the <code>Browser</code> object shall not be defined.</p>
+
+<h3><a name="SAIBrowserVersion"></a>
+6.3.5 SAIBrowserVersion</h3>
+
+<p>The data type is implemented as the String standard object type.
+The NULL value is defined as the ECMAScript <code>null</code> value type.</p>
+
+<h3><a name="SAIComponentDeclaration"></a>
+6.3.6 SAIComponentDeclaration</h3>
+
+<p>The component declaration is represented by the <code>ComponentInfo</code>
+host object. This object presents a read-only view of a component and its
+information.</p>
+
+<h3><a name="SAIComponentID"></a>
+6.3.7 SAIComponentID</h3>
+
+<p>The component ID is represented as two separate primitive values. The name of
+the component is defined using an ECMAScript String and the level is represented
+using the numeric primitive type. If the user provides a level value that is 
+anything but a positive integer, the browser shall generate an error.</p>
+
+<h3><a name="SAIExecutionContextID"></a>
+6.3.8 SAIExecutionContextID</h3>
+
+<p>The execution content is represented by an instance of the X3DExecutionContext
+host object type.</p>
+
+<h3><a name="SAIFieldAccess"></a>
+6.3.9 SAIFieldAccess</h3>
+
+<p>Field access is driven by the state of the field object. It shall have two
+read-only Boolean properties to determine if it is readable
+(<code>readable</code>) and writeable (<code>writable</code>)
+These properties shall be <code>true</code> if the field is readable or writable
+respectively at the current point in time. Note that for a given field the
+value of the properties for a particular SAIFieldID may change over time
+dependent on the node's current state in the life cycle as specified in 4.4.3.5
+Object life cycle of <a href="references.html#[I19775-1]">part 1 of ISO/IEC
+19775</a>.</p>
+
+<h3><a name="SAIFieldDefinition"></a>
+6.3.10 SAIFieldDefinition</h3>
+
+<p>The field declaration is represented by the <code>X3DFieldDefinition</code>
+host object. This object has a number of read-only properties defined. The
+definition of the properties available are described in
+<a href="functions.html#X3DFieldDefinition">7.6.2 Field services and objects</a>
+.</p>
+
+<h3><a name="SAIFieldID"></a>
+6.3.11 SAIFieldID</h3>
+
+<p>The field identifier is represented as an instance of the object that
+is appropriate to the field type. For each specific X3D field type, there
+shall be a derived object that represents the field type, and includes strong
+type checking for the values. An implementation is not required to return
+the same object instance for every query, but shall ensure that equivalence
+checking is correct through the implementation of
+the <code>equals()</code> function.</p>
+
+<h3><a name="SAIFieldName"></a>
+6.3.12 SAIFieldName</h3>
+
+<p>The name of the field is implemented as a String standard object type.</p>
+
+<h3><a name="SAIFieldType"></a>
+6.3.13 SAIFieldType</h3>
+
+<p>The field type may be represented in two alternative fashions.</p>
+
+<p>The first alternative is provided through <code>getType()</code> function
+provided in the field object. This returns a numeric value which
+has one of the values defined by the defined in
+<a href="#t-X3DFieldTypeToECMAScript">Table 6.3</a>.</p>
+
+<div class="CenterDiv">
+
+<p class="TableCaption">
+<a name="t-X3DFieldTypeToECMAScrip"></a>
+Table 6.3 &mdash; Mapping of X3D Field type to ECMAScript representation</p>
+
+<table>
+<tbody>
+<tr>
+<th>X3D Field type</th>
+<th>ECMAScript representation</th>
+</tr>
+<tr>
+  <td>SFBool</td>
+  <td>X3DConstants.SFBool</td>
+</tr>
+<tr>
+  <td>MFBool</td>
+  <td>X3DConstants.MFBool</td>
+</tr>
+<tr>
+  <td>SFColor</td>
+  <td>X3DConstants.SFColor</td>
+</tr>
+<tr>
+  <td>MFColor</td>
+  <td>X3DConstants.MFColor</td>
+</tr>
+<tr>
+  <td>SFColorRGBA</td>
+  <td>X3DConstants.SFColorRGBA</td>
+</tr>
+<tr>
+  <td>MFColorRGBA</td>
+  <td>X3DConstants.MFColorRGBA</td>
+</tr>
+<tr>
+  <td>SFDouble</td>
+  <td>X3DConstants.SFDouble</td>
+</tr>
+<tr>
+  <td>MFDouble</td>
+  <td>X3DConstants.MFDouble</td>
+</tr>
+<tr>
+  <td>SFFloat</td>
+  <td>X3DConstants.SFFloat</td>
+</tr>
+<tr>
+  <td>MFFloat</td>
+  <td>X3DConstants.MFFloat</td>
+</tr>
+<tr>
+  <td>SFImage</td>
+  <td>X3DConstants.SFImage</td>
+</tr>
+<tr>
+  <td>MFImage</td>
+  <td>X3DConstants.MFImage</td>
+</tr>
+<tr>
+  <td>SFInt32</td>
+  <td>X3DConstants.SFInt32</td>
+</tr>
+<tr>
+  <td>MFInt32</td>
+  <td>X3DConstants.MFInt32</td>
+</tr>
+<tr>
+  <td>SFMatrix3d</td>
+  <td>X3DConstants.SFMatrix3d</td>
+</tr>
+<tr>
+  <td>MFMatrix3d</td>
+  <td>X3DConstants.MFMatrix3d</td>
+</tr>
+<tr>
+  <td>SFMatrix3f</td>
+  <td>X3DConstants.SFMatrix3f</td>
+</tr>
+<tr>
+  <td>MFMatrix3f</td>
+  <td>X3DConstants.MFMatrix3f</td>
+</tr>
+<tr>
+  <td>SFMatrix4d</td>
+  <td>X3DConstants.SFMatrix4d</td>
+</tr>
+<tr>
+  <td>MFMatrix4d</td>
+  <td>X3DConstants.MFMatrix4d</td>
+</tr>
+<tr>
+  <td>SFMatrix4f</td>
+  <td>X3DConstants.SFMatrix4f</td>
+</tr>
+<tr>
+  <td>MFMatrix4f</td>
+  <td>X3DConstants.MFMatrix4f</td>
+</tr>
+<tr>
+  <td>SFNode</td>
+  <td>X3DConstants.SFNode</td>
+</tr>
+<tr>
+  <td>MFNode</td>
+  <td>X3DConstants.MFNode</td>
+</tr>
+<tr>
+  <td>SFRotation</td>
+  <td>X3DConstants.SFRotation</td>
+</tr>
+<tr>
+  <td>MFRotation</td>
+  <td>X3DConstants.MFRotation</td>
+</tr>
+<tr>
+  <td>SFString</td>
+  <td>X3DConstants.SFString</td>
+</tr>
+<tr>
+  <td>MFString</td>
+  <td>X3DConstants.MFString</td>
+</tr>
+<tr>
+  <td>SFTime</td>
+  <td>X3DConstants.SFTime</td>
+</tr>
+<tr>
+  <td>MFTime</td>
+  <td>X3DConstants.MFTime</td>
+</tr>
+<tr>
+  <td>SFVec2d</td>
+  <td>X3DConstants.SFVec2d</td>
+</tr>
+<tr>
+  <td>MFVec2d</td>
+  <td>X3DConstants.MFVec2d</td>
+</tr>
+<tr>
+  <td>SFVec2f</td>
+  <td>X3DConstants.SFVec2f</td>
+</tr>
+<tr>
+  <td>MFVec2f</td>
+  <td>X3DConstants.MFVec2f</td>
+</tr>
+<tr>
+  <td>SFVec3d</td>
+  <td>X3DConstants.SFVec3d</td>
+</tr>
+<tr>
+  <td>MFVec3d</td>
+  <td>X3DConstants.MFVec3d</td>
+</tr>
+<tr>
+  <td>SFVec3f</td>
+  <td>X3DConstants.SFVec3f</td>
+</tr>
+<tr>
+  <td>MFVec3f</td>
+  <td>X3DConstants.MFVec3f</td>
+</tr>
+<tr>
+  <td>SFVec4f</td>
+  <td>X3DConstants.SFVec4f</td>
+</tr>
+<tr>
+  <td>MFVec4f</td>
+  <td>X3DConstants.MFVec4f</td>
+</tr>
+</tbody>
+</table>
+</div>
+
+<p>The second alternative is provided by the objects themselves. Field objects
+are derived to provide implementations of the exact field type. A list of
+all the objects for each field type and access type is provided in
+<a href="#FieldServices">7.5.4 Field Services</a>.</p>
+
+<h3><a name="SAIFieldValue"></a>
+6.3.14 SAIFieldValue</h3>
+
+<p>The field value is defined on a per object and per field type instance.
+See the definitions of the individual field type objects for the exact definition of each type.
+As a general rule, the X3D data type maps the the equivalent ECMAScript primitive type using
+the mapping in <a href="#t-t-X3DTypesToECMAScriptTypes">Table 6.4</a>.
+
+<div class="CenterDiv">
+
+<p class="TableCaption">
+<a name="t-t-X3DTypesToECMAScriptTypes"></a>
+Table 6.4 &mdash; Mapping of X3D data types to ECMAScript data types</p>
+
+<table>
+<tbody>
+<tr>
+  <th>X3D field type</th>
+  <th>ECMAScript type</th>
+</tr>
+<tr>
+  <td>SFBool</td>
+  <td>Boolean</td>
+</tr>
+<tr>
+  <td>SFColor, SFColorRGBA</td>
+  <td>Object</td>
+</tr>
+<tr>
+  <td>SFFloat, SFDouble</td>
+  <td>Numeric</td>
+</tr>
+<tr>
+  <td>SFImage</td>
+  <td>Object</td>
+</tr>
+<tr>
+  <td>SFInt32</td>
+  <td>Numeric</td>
+</tr>
+<tr>
+  <td>SFRotation</td>
+  <td>Object</td>
+</tr>
+<tr>
+  <td>SFString</td>
+  <td>String</td>
+</tr>
+<tr>
+  <td>SFTime</td>
+  <td>Numeric</td>
+</tr>
+<tr>
+  <td>SFVec2f, SFVec3f, SFVec2d, SFVec3d</td>
+  <td>Object</td>
+</tr>
+<tr>
+  <td>All MF fields</td>
+  <td>Object</td>
+</tr>
+</tbody>
+</table>
+</div>
+
+<h3><a name="SAIFrameRate"></a>
+6.3.15 SAIFrameRate</h3>
+
+<p>The data type is implemented as the numeric standard object type. A
+null value is defined as the value <code>0.0f</code>.</p>
+
+<h3><a name="SAILoadState"></a>
+6.3.16 SAILoadState</h3>
+
+<p>The load state is implemented as a numeric primitive type.
+The values for each state are defined in <a href="#t-LoadStateTypeValueDefs">Table
+6.5</a>. If a component defines
+new field types, the numerical values assigned shall not override the
+values already defined.</p>
+
+<div class="CenterDiv">
+
+<p class="TableCaption">
+<a name="t-LoadStateTypeValueDefs"></a>
+Table 6.5 &mdash; Load state type value definitions</p>
+
+<table>
+<tbody>
+<tr>
+  <th>State</th>
+  <th>Value</th>
+</tr>
+<tr>
+  <td>NOT_STARTED</td>
+  <td>X3DConstants.NOT_STARTED_STATE</td>
+</tr>
+<tr>
+  <td>IN_PROGRESS</td>
+  <td>X3DConstants.IN_PROGRESS_STATE</td>
+</tr>
+<tr>
+  <td>COMPLETE</td>
+  <td>X3DConstants.COMPLETE_STATE</td>
+</tr>
+<tr>
+  <td>FAILED</td>
+  <td>X3DConstants.FAILED_STATE</td>
+</tr>
+</tbody>
+</table>
+</div>
+
+<h3><a name="SAINavSpeed"></a>
+6.3.17 SAINavSpeed</h3>
+
+<p>The data type is implemented as the numeric standard object type.
+A null value is defined as the value <code>0.0f</code>.</p>
+
+<h3><a name="SAINodeID"></a>
+6.3.18 SAINodeID</h3>
+
+<p>The node identifier is represented as an instance of the <code>SFNode</code>
+object. This object is used for the dual purpose of representing an individual
+node as well as the single-value node field type. The identifier of a node field
+may be accessed directly as a property of the parent node. In the following
+example, the value of the appearance field of the Shape node is assigned a new
+value.</p>
+
+<pre>   myShape.appearance = someNewAppearanceNode;
+</pre>
+
+<h3><a name="SAINodeType"></a>
+6.3.19 SAINodeType</h3>
+
+<p>The node type is represented as a numeric constant value in the host object
+<code>X3DConstants</code>. The host object contains a collection of read-only
+numeric propeties named for each abstract node type defined in
+<a href="references.html#[I19775-1]">part 1 of ISO/IEC 19775</a>. The naming convention
+shall be to use the exact naming specified in part 1 of ISO/IEC 19775, maintaining
+case.</p>
+<p class="Example">EXAMPLE&nbsp; The following two constants define the X3DGroupingNode and
+X3DUrlObject abstract node types:</p>
+
+<pre class="listing">X3DConstants.X3DGroupingNode
+X3DConstants.X3DUrlObject
+</pre>
+
+<h3><a name="SAIParameterList"></a>
+6.3.20 SAIParameterList</h3>
+
+<p>The createBrowser and getBrowser services are not implemented by this
+language binding. Therefore, there is no requirement to define valid values
+for this abstract type.</p>
+
+<h3><a name="SAIProfileDeclaration"></a>
+6.3.21 SAIProfileDeclaration</h3>
+
+<p>The profile declaration is represented by the <code>ProfileInfo</code> host
+object type. See <a href="functions.html#ProfileInfo">7.8.1 ProfileInfo</a> for
+a detailed definition of this object.</p>
+
+<h3><a name="SAIPropertyList"></a>
+6.3.22 SAIPropertyList</h3>
+
+<p>The data type is implemented as an array of <code>String</code> standard
+object types. Key/Value pairs are declared in a single string in the
+following format with the '=' character as the separator. Whitespace
+surrounding the key and value are ignored although whitespace inside the
+key and value are legal.</p>
+
+<p>The following are considered valid values (as well as permutations of
+the given examples):</p>
+
+<pre class="listing">"key=value"
+"key = value"
+"key= value"
+"a key = some value"
+"a key =some value"
+</pre>
+
+<h3><a name="SAIProtoDeclaration"></a>
+6.3.23 SAIProtoDeclaration</h3>
+
+<p>The component declaration is represented by two separate object types: PROTO and
+EXTERNPROTO. For PROTO, the object is
+<code>X3DProtoDeclaration</code>. For EXTERNPROTO, the object is
+<code>X3DExternProtoDeclaration</code>.</p>
+
+<h3><a name="SAIRequesterID"></a>
+6.3.24 SAIRequesterID</h3>
+
+<p>The requestor ID is represented as the ECMAScript execution context of the
+code that is being evaluated. In addition, the calls shall pass in a String
+object instance that represents the name of the function to be called in the
+same execution context when the desired callback needs to be made. If the
+user does not provide the string, or the name is not valid in the context,
+the browser may ignore the request.</p>
+
+<h3><a name="SAIRoute"></a>
+6.3.25 SAIRoute</h3>
+
+<p>Routes are represented by the immutable object <code>X3DRoute</code>.
+This allows fetching of all the route information, but it may not be changed.
+Browsers shall not expose to the end user extended versions of this object
+that allow direct modification of the route.</p>
+
+<h3><a name="SAIScene"></a>6.3.26 SAIScene</h3>
+
+<p>The scene is represented by the object X3DScene. The
+scene interface holds all the functions that represent the Scene Services.
+A full definition of the interface and all its functions is in
+<a href="functions.html#SceneServices">7.3 Scene Services</a>.</p>
+
+<h3><a name="SAIScript"></a>6.3.27 SAIScript</h3>
+
+<p>This is the external, containing node representation of the script that is
+passed to the script implementation object during the initialisation phase.
+It shall be represented by an SFNode host object (see
+<a href="functions.html#SFNode">7.5.4 SFNode</a>) with the node type of
+<code>X3DConstants.X3DScriptNode</code>. This represents the abstract node type
+as there may be more than one script node type.</p>
+
+<h3><a name="SAIScriptImplementation"></a>
+6.3.28 SAIScriptImplementation</h3>
+
+<p>The SAIScriptImplementation abstract type corresponds to the ECMAScript
+concept of the Execution Context (not to be confused with the X3D definition).
+The ECMAScript Execution Context is a construct created by the browser
+implementation that wraps the user-provided code in the Script node's
+<i>url</i> field.</p>
+
+<p>Standard functions are defined for scripts in order to receive important
+information during its lifecylce. These standard functions
+are described in <a href="concepts.html#InternalInteractions">4.3.5 Internal
+Interactions</a> and <a href="functions.html#ScriptImplementation">7.9 Script
+Implementation Details</a></p>
+
+<h3 class="auto-style1"><a name="SAIStream"></a>6.3.29 SAIStream</h3>
+
+<p class="auto-style1">TO DO</p>
+
+<h3><a name="SAIString"></a>6.3.30 SAIString</h3>
+
+<p>The string is implemented as a String standard object type.</p>
+
+<h3 class="auto-style1"><a name="SAIUnitDeclaration"></a>6.3.31 
+SAIUnitDeclaration</h3>
+
+<p class="auto-style1">The SAIUnitDeclaration is represented as three separate primitive values. The 
+category is defined using an ECMAScript String, the name of the new default base 
+unit is defined using an ECMAScript String, and the conversion factor from the 
+new default base unit to the initial default base unit is represented using the 
+numeric primitive type.</p>
+
+<h3>6.3.32 SAIURL</h3>
+
+<p>The URL is implemented as the String standard object type.</p>
+
+<h2><a name="ErrorDataTypes"></a>
+6.4 Error data types</h2>
+
+<h3><a name="SAIError"></a>
+6.4.1 SAIError</h3>
+
+<p>ECMAscript implementations of the errors rely on a derived object based on
+the SAIError type.<br>
+<br>
+The error types are implemented using the host object X3DException. All
+exceptions (errors) defined in this specification shall be implemented as integer
+constant properties of the X3DException object. A user may catch exceptions
+using the try/catch keywords.</p>
+
+<h3><a name="SAIBrowserUnavailable"></a>
+6.4.2 SAI_BROWSER_UNAVAILABLE</h3>
+
+<p>The error type is implemented as the object
+<code>NoSuchBrowserException</code>.</p>
+
+<h3><a name="SAIConnectionError"></a>
+6.4.3 SAI_CONNECTION_ERROR</h3>
+
+<p>The error type is implemented as the
+object <code>ConnectionException</code>.</p>
+
+<h3><a name="SAIDisposed"></a>
+6.4.4 SAI_DISPOSED</h3>
+
+<p>The error type is implemented as two separate dual-purpose exception objects
+depending on their scope.</p>
+
+<p><code>InvalidBrowserException</code> is used to indicate the disposal of an <a href="#SAIBrowserRef">SAIBrowserRef</a>.</p>
+
+<p><code>InvalidNodeException</code>
+is used to indicate the disposal of an <a href="#SAINodeID">SAINodeID</a>.</p>
+
+<h3><span class="auto-style1">
+<a name="SAIImportedNode"></a>6.4.5 SAI_IMPORTED_NODE</span></h3>
+
+<p class="auto-style1">The error type is implemented as the
+object <code>InvalidImportedNodeException.</code></p>
+
+<h3><a name="SAIInsufficientCapability"></a><span class="auto-style1">6.4.6 
+SAI_INSUFFICIENT_CAPABILITY</span></h3>
+
+<p class="auto-style1">The error type is implemented as the
+object <code>InvalidInsufficientCapabilityException.</code></p>
+
+<h3><a name="SAIInvalidAccessType"></a>6.4.7 SAI_INVALID_ACCESS_TYPE</h3>
+
+<p>The error type is implemented as two separate exceptions based on the implementation
+of <a href="#SAINodeID">SAINodeID</a> and the rules defined in
+<a href="#SAIActionToECMAScriptImplementationMapping">Table 6.3</a>.
+These objects also derive from <code>InvalidFieldException</code>.</p>
+
+<p><code>InvalidEventInException</code>
+is used to indicate the named field is not accessible as a writable field when
+attempting to create a route with the <code>X3DExecutionContext.addRoute()</code>
+function.</p>
+
+<p><code>InvalidEventOutException</code>
+is used to indicate the named field is not accessible as a readable field when
+attempting to create a route with the <code>X3DExecutionContext.addRoute()</code>
+function.</p>
+
+<h3><a name="SAIInvalidBrowser"></a>
+6.4.8 SAI_INVALID_BROWSER</h3>
+
+<p>The error type is implemented as the
+object <code>InvalidBrowserException</code>.</p>
+
+<h3><a name="SAIInvalidDocument"></a><span class="auto-style1">6.4.9 
+SAI_INVALID_DOCUMENT</span></h3>
+
+<p class="auto-style1">The error type is implemented as the
+object <code>InvalidDocumentException.</code></p>
+
+<h3><a name="SAIInvalidExecutionContext"></a><span class="auto-style1">6.4.10 
+SAI_INVALID_EXECUTION_CONTEXT</span></h3>
+
+<p class="auto-style1">The error type is implemented as the
+object <code>InvalidExecutionContextException.</code></p>
+
+<h3><a name="SAIInvalidName"></a>6.4.11 SAI_INVALID_NAME</h3>
+
+<p>The error type is expressed as different exceptions dependent on the situation.
+The <code>X3DExecutionContext.getNamedNode()</code>,
+<code>X3DScene.getExportedNode()</code> and
+<code>X3DExecutionContext.getImportedNode()</code> functions use the
+<code>InvalidNodeException</code>. When accessing fields of a node, the error
+is expressed as an <code>InvalidFieldException</code>.</p>
+
+<h3><a name="SAIInvalidNode"></a>
+6.4.12 SAI_INVALID_NODE</h3>
+
+<p>The error type is implemented as the
+object <code>InvalidNodeException.</code></p>
+
+<h3><a name="SAIInvalidField"></a>
+6.4.13 SAI_INVALID_FIELD</h3>
+
+<p>The error type is implemented as the object <code>InvalidFieldException</code>.
+Note that there are two derived objects from this object (<code>InvalidEventInException</code>
+and <code>InvalidEventOutException) </code>that may be used at times where
+this error may be generated.</p>
+
+<h3><a name="SAIInvalidOperationTiming"></a><span class="auto-style1">6.4.14 
+SAI_INVALID_OPERATION_TIMING</span></h3>
+
+<p class="auto-style1">The error type is implemented as the
+object <code>InvalidOperationTimingException.</code></p>
+
+<h3><a name="SAIInvalidURL"></a>
+6.4.15 SAI_INVALID_URL</h3>
+
+<p>The error type is implemented as the
+object <code>InvalidURLException</code>.</p>
+
+<h3><a name="SAIInvalidX3D"></a>6.4.16 SAI_INVALID_X3D</h3>
+
+<p>The error type is implemented as the
+object <code>InvalidX3DException</code>.</p>
+
+<h3><a name="SAINodeNotAvailable"></a>
+6.4.17 SAI_NODE_NOT_AVAILABLE</h3>
+
+<p>The error type is implemented as the
+object <code>NodeUnavailableException</code>.</p>
+
+<h3><a name="SAINodeInUse"></a>
+6.4.18 SAI_NODE_IN_USE</h3>
+
+<p>The error type is implemented as the
+object <code>NodeInUseException</code>.</p>
+
+<h3><a name="SAINotShared"></a>
+6.4.19 SAI_NOT_SHARED</h3>
+
+<p>The error type is implemented as the
+object <code>BrowserNotSharedException</code>.</p>
+
+<h3><a name="SAIURLUnavailable"></a>
+6.4.20 SAI_URL_UNAVAILABLE</h3>
+
+<p>The error type is implemented as the
+object <code>URLUnavailableException</code>.</p>
+
+<h2><a name="EventTypes"></a>
+6.5 Event types</h2>
+
+<h3><a name="EventTypesGeneral"></a>
+6.5.1 General concepts</h3>
+
+<p>The ECMAScript design philosophy does not always mesh well with the idea of event object
+representations. As a consequence, this annex does not define event type
+objects for the <code>SAIBrowserEvent</code> and <code>SAIFieldEvent</code>
+object types. Instead a series of constants are defined and standard function
+calls are used.</p>
+
+<h3><a name="EventTypesSAIBrowserEvent"></a>
+6.5.2 SAIBrowserEvent</h3>
+
+<p>A function that is to act as a callback for browser events shall consist of
+two optional parameters. A reference to the browser object will be the first
+parameter and a numeric primitive value that represents the event type. will be
+the second parameter The
+mapping of the numeric value to the error types defined by the abstract
+specification is defined in <a href="#t-SAIParamToECMAScriptParam">Table 6.6</a></p>
+
+<div class="CenterDiv">
+
+<p class="TableCaption">
+<a name="t-SAIParamToECMAScriptParam"></a>
+Table 6.6 &mdash; Mapping of Abstract SAI event types to ECMAScript constants</p>
+
+<table>
+<tbody>
+<tr>
+  <th>Type</th>
+  <th>ECMAScript constant</th>
+</tr>
+<tr>
+  <td><code>SAI_BROWSER_Connection_Error</code></td>
+  <td>X3DConstants.CONNECTION_ERROR</td>
+</tr>
+<tr>
+  <td><code>SAI_BROWSER_Event</code></td>
+  <td>X3DConstants.BROWSER_EVENT</td>
+</tr>
+<tr>
+  <td><code>SAI_BROWSER_Initialized</code></td>
+  <td>X3DConstants.INITIALIZED_EVENT</td>
+</tr>
+<tr>
+  <td><code>SAI_BROWSER_Shutdown</code></td>
+  <td>X3DConstants.SHUTDOWN_EVENT</td>
+</tr>
+<tr>
+  <td><code>SAI_BROWSER_URL_Error</code></td>
+  <td>X3DConstants.INITIALIZED_ERROR</td>
+</tr>
+</tbody>
+</table>
+</div>
+
+<h3><a name="EventTypesSAIFieldEvent"></a>
+6.5.3 SAIFieldEvent</h3>
+
+<p>The event type is implemented as a set of parameters passed to the user
+defined callback function. The user function shall have parameters that are
+the pointer to the field, the timestamp of when the event happened and the
+user data that may have been registered with the field.</p>
+
+<p>
+<img class="x3dbar" src="../Images/x3dbar.png" alt="--- X3D separator bar ---" width="430" height="23"></p>
+
+</body>
+</html>

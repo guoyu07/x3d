@@ -1,0 +1,59 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>ISO/IEC 19777-1 Edition 2:201x(E) &mdash; X3D ECMAScript binding &mdash; Annex A Relationship to ISO/IEC 14772</title>
+<link rel="stylesheet" href="Web3D_LB.css" type="text/css">
+</head>
+<body>
+
+<div class="CenterDiv">
+<img class="x3dlogo" src="../Images/x3d.png" alt="x3d logo" width="176" height="88">
+</div>
+
+<div class="CenterDiv">
+<p class="HeadingPart">
+    Information technology&nbsp;&mdash; Computer graphics, image processing and 
+	environmental representation&nbsp;&mdash;<br> Extensible 3D (X3D) language bindings&nbsp;&mdash;<br>
+	    Part 1:&nbsp; ECMAScript</p>
+
+<p class="HeadingClause">Annex A</p>
+
+<p class="AnnexType">(Normative)</p>
+
+<p class="HeadingClause">Relationship to ISO/IEC 14772</p>
+
+</div>
+
+<img class="x3dbar" SRC="../Images/x3dbar.png" ALT="--- X3D separator bar ---" width="430" height="23">
+
+<p>Annex C ECMAScript scripting reference of
+<a href="references.html#[I14772_1]">Part 1 of ISO/IEC 14772</a> defines an ECMAScript
+specification to the script interface. Most of the standard objects added by
+this specification are interchangable. However, due to the differing
+capabilities of the SAI and VRML services, the Browser object definitions are
+not interchangeable between the two environments. This applies to all of the
+objects defined in ISO/IEC 14772-1 C ECMAScript scripting reference. This
+specification defines the interfaces that user code shall use in order to
+interact with an X3D scene graph.</p>
+<p>Because the two object sets look very similar, but are not totally
+interchangable, when a browser finds a script that defines its content with
+ECMAScript, it shall determine which set of objects to support based on the
+declared protocol type if the script code is inlined. Scripts that require
+backwards compatibility shall use the protocol type &quot;<B><code><span style="font-weight: 400">javascript:</span></code></b>&quot;.
+The objects and semantics from ISO/IEC 14772-1 Annex C are to be used. In all
+other cases, it is assumed to be the semantics and objects defined in this part
+of ISO/IEC 19777.</p>
+<p>External access to the browser shall be through the use of the objects and
+semantics defined in this part of ISO/IEC 19777. A conformant browser shall only
+support these objects and semantics when registering standard objects with the
+containing application&#39;s ECMAScript engine. Although
+<a href="references.html#[I14772_2]">part 2 of ISO/IEC14772</a> does not
+define formal bindings to the browser for ECMAScript programming, it shall be an
+error to support VRML objects and semantics if the browser claims
+conformance to this specification.</p>
+
+<p><img class="x3dbar" src="../Images/x3dbar.png" alt="--- X3D separator bar ---" width="430" height="23"></p>
+
+</body>
+</html>
