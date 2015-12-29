@@ -1,0 +1,214 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html lang="en">
+<HEAD>
+<meta http-equiv="Content-Language" content="en-us">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+<TITLE>ISO/IEC 19775-1:2004/Am1:2006 -- 11 Rendering component</TITLE>
+<link href="../../X3D.css" type="text/css" rel=stylesheet>
+
+</HEAD>
+<BODY>
+
+<p class="MergeLocation">Table 11.1</p>
+<p class="MergeInstructions">In the HTML, change the hyperlink for 11.5 to &quot;<span style="font-style: normal">#SupportLevels</span>&quot;.</p>
+
+<p class="MergeLocation">11.3.2, Node signature</p>
+<p class="MergeInstructions">Insert the following new field definition as the 
+first field:</p>
+<p>&ldquo;<span class="code"><span style="font-style: normal">MFNode [in,out] attrib 
+[] [X3DVertexAttributeNode]</span></span>&rdquo;</p>
+
+<p class="MergeInstructions">Append the range &quot;<span class="code"><span style="font-style: normal">[X3DColorObject]</span></span>&quot; 
+to the definition of the <span class="code"><span style="font-style: normal">
+color</span></span> field.</p>
+<p class="MergeInstructions">Append the range &quot;<span class="code"><span style="font-style: normal">[X3DCoordinateNode]</span></span>&quot; 
+to the definition of the <span style="font-style: normal"><span class="code">
+coord</span></span> field.</p>
+
+<p class="MergeInstructions">Insert the following new field definition after the&nbsp;<span class="code"><span style="font-style: normal">c</span></span><span style="font-style: normal"><span class="code">oord</span></span> field:</p>
+<p>&ldquo;<span class="code">SFNode [in,out] fogCoord [] [FogCoordinate]</span>&rdquo;</p>
+
+<p class="MergeInstructions">Append the range &quot;<span class="code"><span style="font-style: normal">[X3DNormalNode]</span></span>&quot; 
+to the definition of the <span class="code"><span style="font-style: normal">
+normal</span></span> field.</p>
+<p class="MergeInstructions">Append the range &quot;<span class="code"><span style="font-style: normal">[X3DTextureCoordinateNode]</span></span>&quot; 
+to the definition of the <span class="code"><span style="font-style: normal">
+texCoord</span></span> field.</p>
+
+<p class="MergeLocation">11.3.2</p>
+
+<p class="MergeInstructions">Append the following text as new paragraphs:</p>
+<p>&ldquo;If the <i>attrib</i> field is not empty it shall contain a list of 
+per-vertex attribute information for programmable shaders as specified in
+<a href="shaders.html#Pervertexattributes">32.2.2.4 Per-vertex attributes</a>.</p>
+<p>If the <i>fogCoord</i> field is not empty, it shall contain a list of 
+per-vertex depth values for calculating fog depth as specified in
+<a href="enveffects.html#FogColourCalculation">24.2.2.5 Fog colour calculation</a>.&rdquo;</p>
+
+<p class="MergeLocation">11.4.4, Node signature</p>
+<p class="MergeInstructions">Insert the following new field definition as the 
+first [in,out] field in the node signature:</p>
+<p>&ldquo;<span class="code"><span style="font-style: normal">MFNode [in,out] attrib 
+[] [X3DVertexAttributeNode]</span></span>&rdquo;</p>
+
+<p class="MergeInstructions">Insert the following new field definition after the&nbsp;
+<span class="code">coord</span> field:</p>
+<p>&ldquo;<span class="code">SFNode [in,out] fogCoord [] [FogCoordinate]</span>&rdquo;</p>
+
+<p class="MergeLocation">11.4.4, 3rd paragraph, last sentence</p>
+<p class="MergeInstructions">Replace the existing sentence with the following 
+text:</p>
+<p>&ldquo;The width and style of lines are determined by the line properties 
+specified in an associated Appearance node. If no line properties are specified, 
+the default values for fields of the LineProperties node shall be used (see
+<a href="shape.html#LineProperties">12.4.3 LineProperties</a>).”</p>
+
+<p class="MergeLocation">11.4.5, Node signature</p>
+<p class="MergeInstructions">Insert the following new field definition as the 
+first [in,out] field in the node signature:</p>
+<p>&ldquo;<span class="code"><span style="font-style: normal">MFNode [in,out] attrib 
+[] [X3DVertexAttributeNode]</span></span>&rdquo;</p>
+
+<p class="MergeInstructions">Insert the following new field definition after the&nbsp;
+<span class="code">coord</span> field:</p>
+<p>&ldquo;<span class="code">SFNode [in,out] fogCoord [] [FogCoordinate]</span>&rdquo;</p>
+
+<p class="MergeLocation">11.4.6, Node signature</p>
+<p class="MergeInstructions">Insert the following new field definition as the 
+first [in,out] field in the node signature:</p>
+<p>&ldquo;<span class="code"><span style="font-style: normal">MFNode [in,out] attrib 
+[] [X3DVertexAttributeNode]</span></span>&rdquo;</p>
+
+<p class="MergeInstructions">Insert the following new field definition after the&nbsp;
+<span class="code">coord</span> field:</p>
+<p>&ldquo;<span class="code">SFNode [in,out] fogCoord [] [FogCoordinate]</span>&rdquo;</p>
+
+<p class="MergeInstructions">Remove the text &quot;<span class="code"><span style="font-style: normal">or 
+-1</span></span>&quot; from the range specification for the <span class="code">
+<span style="font-style: normal">set_index</span></span> and <span class="code">
+<span style="font-style: normal">index</span></span> fields.</p>
+
+<p class="MergeLocation">11.4.6, 1st paragraph, penultimate sentence</p>
+<p class="MergeInstructions">Append the missing period.</p>
+
+<p class="MergeLocation">11.4.6, last paragraph, 1st sentence</p>
+<p class="MergeInstructions">Replace the first sentence with the following text:</p>
+<p>&quot;The <i>solid</i> field determines whether the IndexedTriangleSet is visible 
+when viewed from the backside.&quot;</p>
+
+<p class="MergeLocation">11.4.7, Node signature</p>
+<p class="MergeInstructions">Insert the following new field definition as the 
+first [in,out] field in the node signature:</p>
+<p>&ldquo;<span class="code"><span style="font-style: normal">MFNode [in,out] attrib 
+[] [X3DVertexAttributeNode]</span></span>&rdquo;</p>
+
+<p class="MergeInstructions">Insert the following new field definition after the&nbsp;<span class="code"><span style="font-style: normal">creaseAngle</span></span> field:</p>
+<p>&ldquo;<span class="code">SFNode [in,out] fogCoord [] [FogCoordinate]</span>&rdquo;</p>
+
+<p class="MergeInstructions">Remove <span class="code">
+<span style="font-style: normal">creaseAngle</span></span> field.</p>
+
+<p class="MergeInstructions">Insert the following new field definition after the&nbsp;
+<span class="code">ccw</span> field:</p>
+<p>&ldquo;<span class="code">SFBool [] colorPerVertex TRUE</span>&rdquo;</p>
+
+<p class="MergeLocation">11.4.8, Node signature</p>
+<p class="MergeInstructions">Insert the following new field definition as the 
+first [in,out] field in the node signature:</p>
+<p>&ldquo;<span class="code"><span style="font-style: normal">MFNode [in,out] attrib 
+[] [X3DVertexAttributeNode]</span></span>&rdquo;</p>
+
+<p class="MergeInstructions">Insert the following new field definition after the&nbsp;
+<span class="code">coord</span> field:</p>
+<p>&ldquo;<span class="code">SFNode [in,out] fogCoord [] [FogCoordinate]</span>&rdquo;</p>
+
+<p class="MergeInstructions">Move the <span class="code">
+<span style="font-style: normal">metadata</span></span> field to precede the&nbsp;
+<span style="font-style: normal"><span class="code">vertexCount</span></span> 
+field.</p>
+
+<p class="MergeLocation">11.4.8, last paragraph, last sentence</p>
+<p class="MergeInstructions">Replace the existing sentence with the following 
+text:</p>
+<p>&ldquo;The width and style of lines are determined by the line properties 
+specified in an associated Appearance node. If no line properties are specified, 
+the default values for the fields of the LineProperties node shall be used (see
+<a href="shape.html#LineProperties">12.4.3 LineProperties</a>).”</p>
+
+<p class="MergeLocation">11.4.9, Node signature</p>
+<p class="MergeInstructions">In the vector field, change the allowed range to &quot;<span class="code"><span style="font-style: normal">[-1,1]</span></span>&quot;.</p>
+
+<p class="MergeLocation">11.4.10, Node signature</p>
+<p class="MergeInstructions">Insert the following new field definition as the 
+first [in,out] field in the node signature:</p>
+<p>&ldquo;<span class="code"><span style="font-style: normal">MFNode [in,out] attrib 
+[] [X3DVertexAttributeNode]</span></span>&rdquo;</p>
+
+<p class="MergeInstructions">Insert the following new field definition after the&nbsp;
+<span class="code">coord</span> field:</p>
+<p>&ldquo;<span class="code">SFNode [in,out] fogCoord [] [FogCoordinate]</span>&rdquo;</p>
+
+<p class="MergeLocation">11.4.11, Node signature</p>
+<p class="MergeInstructions">Insert the following new field definition as the 
+first [in,out] field in the node signature:</p>
+<p>&ldquo;<span class="code"><span style="font-style: normal">MFNode [in,out] attrib 
+[] [X3DVertexAttributeNode]</span></span>&rdquo;</p>
+
+<p class="MergeInstructions">Insert the following new field definition after the&nbsp;<span class="code">fanCount</span> field:</p>
+<p>&ldquo;<span class="code">SFNode [in,out] fogCoord [] [FogCoordinate]</span>&rdquo;</p>
+
+<p class="MergeLocation">11.4.11, Figure 11.1</p>
+<p class="MergeInstructions">Replace the figure with the following figure:</p>
+<p class="MergeInstructions" align="center">
+<img src="../../Images/TriangleFanSet.jpg" alt="TriangleFanSet"></p>
+
+<p class="MergeLocation">11.4.12, Node signature</p>
+<p class="MergeInstructions">Insert the following new field definition as the 
+first [in,out] field in the node signature:</p>
+<p>&ldquo;<span class="code"><span style="font-style: normal">MFNode [in,out] attrib 
+[] [X3DVertexAttributeNode]</span></span>&rdquo;</p>
+
+<p class="MergeInstructions">Insert the following new field definition after the&nbsp;
+<span class="code">coord</span> field:</p>
+<p>&ldquo;<span class="code">SFNode [in,out] fogCoord [] [FogCoordinate]</span>&rdquo;</p>
+
+<p class="MergeLocation">11.4.12, 2nd paragraph</p>
+<p class="MergeInstructions">Replace two occurrences of
+<span style="font-style: normal">&quot;coordinate node&quot;</span> with
+<span style="font-style: normal">&quot;Coordinate node&quot;.</span></p>
+
+<p class="MergeLocation">11.4.12, 2nd paragraph, last sentence</p>
+<p class="MergeInstructions">Replace the existing sentence with the following 
+text:</p>
+<p>“If the coordinate node does not contain a multiple of three coordinate 
+values, the remaining vertices shall be ignored.”</p>
+
+<p class="MergeLocation">11.4.12, 3rd paragraph</p>
+<p class="MergeInstructions">Remove the third and fourth sentences.</p>
+
+<p class="MergeLocation">11.4.12, 5th paragraph</p>
+<p class="MergeInstructions">Replace the first sentence with the following text:</p>
+<p>&quot;The <i>solid</i> field determines whether the TriangleSet is visible when 
+viewed from the backside.&quot;</p>
+
+<p class="MergeLocation">11.4.13, Subclause number</p>
+<p class="MergeInstructions">Replace the subclause heading for the 
+TriangleStripSet node to the following:</p>
+<h2>&quot;11.4.13 TriangleStripSet&quot;</h2>
+
+<p class="MergeLocation">11.4.13, Node signature</p>
+<p class="MergeInstructions">Insert the following new field definition as the 
+first [in,out] field in the node signature:</p>
+<p>&ldquo;<span class="code"><span style="font-style: normal">MFNode [in,out] attrib 
+[] [X3DVertexAttributeNode]</span></span>&rdquo;</p>
+
+<p class="MergeInstructions">Insert the following new field definition after the&nbsp;
+<span class="code">coord</span> field:</p>
+<p>&ldquo;<span class="code">SFNode [in,out] fogCoord [] [FogCoordinate]</span>&rdquo;</p>
+
+<p class="MergeLocation">11.5</p>
+<p class="MergeInstructions">In the HTML, change the bookmark for 11.5 to &quot;<span style="font-style: normal">SupportLevels</span>&quot;.</p>
+
+</BODY>
+</HTML>

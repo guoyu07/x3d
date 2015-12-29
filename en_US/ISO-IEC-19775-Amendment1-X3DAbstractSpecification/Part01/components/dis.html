@@ -1,0 +1,65 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html lang="en">
+<HEAD>
+
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+ 
+<TITLE>ISO/IEC 19775-1:2004/Am1:2006 -- 28 Distributed interactive simulation (DIS) component</TITLE>
+<link href="../../X3D.css" type="text/css" rel=stylesheet>
+
+</HEAD>
+<BODY>
+
+<p class="MergeLocation">Table 28.1</p>
+<p class="MergeInstructions">In the HTML, change the hyperlink for 28.4 to &quot;<span style="font-style: normal">#SupportLevels</span>&quot;.</p>
+
+<p class="MergeLocation">28.2.3, 1st paragraph</p>
+<p class="MergeInstructions">Append the following text:</p>
+<p>&quot;Since nodes in the DIS component can receive data from the network, these 
+nodes are also sensors. Thus, these nodes implement the <i>X3DSensorNode</i> 
+interface and include both <i>enabled</i> and <i>isActive</i> fields.&quot;</p>
+
+<p class="MergeLocation">28.3.1, node signature</p>
+<p class="MergeInstructions">Replace the node signature header with the 
+following:</p>
+<p>&quot;<span class="code">EspduTransform: X3DGroupingNode, X3DSensorNode {</span>&quot;</p>
+<p class="MergeInstructions">In the detonationLocation and 
+detonationRelativeLocation fields, change the default field value to &quot;<span style="font-style: normal"><span class="code">0 
+0 0</span></span>&quot;.</p>
+<p class="MergeInstructions">Insert the following field after the definition of 
+the detonationResult field:</p>
+
+<p>&quot;<span class="code">SFBool [in,out] enabled TRUE</span>&quot;</p>
+
+<p class="MergeLocation">28.3.2, node signature</p>
+<p class="MergeInstructions">Replace the node signature header with the 
+following:</p>
+<p>&quot;<span class="code">ReceiverPdu: X3DSensorNode, X3DBoundedObject {</span>&quot;</p>
+<p class="MergeInstructions">Insert the following field after the definition of 
+the applicationID field:</p>
+
+<p>&quot;<span class="code">SFBool [in,out] enabled TRUE</span>&quot;</p>
+
+<p class="MergeLocation">28.3.3, node signature</p>
+<p class="MergeInstructions">Replace the node signature header with the 
+following:</p>
+<p>&quot;<span class="code">SignalPdu: X3DSensorNode, X3DBoundedObject {</span>&quot;</p>
+<p class="MergeInstructions">Insert the following field after the definition of 
+the dataLength field:</p>
+
+<p>&quot;<span class="code">SFBool [in,out] enabled TRUE</span>&quot;</p>
+
+<p class="MergeLocation">28.3.4, node signature</p>
+<p class="MergeInstructions">Replace the node signature header with the 
+following:</p>
+<p>&quot;<span class="code">TransmitterPdu: X3DSensorNode, X3DBoundedObject {</span>&quot;</p>
+<p class="MergeInstructions">Insert the following field after the definition of 
+the cryptoSystem field:</p>
+
+<p>&quot;<span class="code">SFBool [in,out] enabled TRUE</span>&quot;</p>
+
+<p class="MergeLocation">28.4</p>
+<p class="MergeInstructions">In the HTML, change the bookmark for 28.4 to &quot;<span style="font-style: normal">SupportLevels</span>&quot;.</p>
+
+</BODY>
+</HTML>

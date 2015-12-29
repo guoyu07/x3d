@@ -1,0 +1,199 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html lang="en">
+<HEAD>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+<TITLE>ISO/IEC 19775-1:2004/Am1:2006 -- 23 Navigation component</TITLE>
+<link href="../../X3D.css" type="text/css" rel=stylesheet>
+
+</HEAD>
+<BODY>
+
+<p class="MergeLocation">Table 23.1</p>
+<p class="MergeInstructions">In the HTML, change the hyperlink for 23.5 to &quot;<span style="font-style: normal">#SupportLevels</span>&quot;.</p>
+
+<p class="MergeLocation">23.2.4, 2nd paragraph</p>
+<p class="MergeInstructions">Replace with the following text:</p>
+<p>&ldquo;Collision nodes can be used to generate events when viewer and objects 
+collide, and can be used to designate that certain objects should be treated as 
+not being subject to collision detection and should not be recognized as terrain for navigation 
+modes that require terrain following to be supported. Browser support for inter-object 
+collision is not specified.&rdquo;</p>
+
+<p class="MergeLocation">23.3.2, 4th paragraph</p>
+<p class="MergeInstructions">Replace with the following text:</p>
+<p>&ldquo;The Collision node&#39;s <i>enabled</i> field enables and disables collision 
+detection as well as terrain following when the navigation type requires it. If <i>
+enabled</i> is set to <span class="code">FALSE</span>, the children and all 
+descendants of the Collision node shall not be checked for collision or terrain, 
+even though they are drawn. This includes any descendent Collision nodes that 
+have <i>enabled</i> set to <span class="code">TRUE</span> (<i>i.e.</i>, setting
+<i>enabled</i> to <span class="code">FALSE</span> turns collision off for every 
+child node below it).</p>
+<p>The value of the <i>isActive</i> field indicates the current state of the 
+Collision node. An <i>isActive</i> <span class="code">TRUE</span> event is 
+generated when a collision occurs. An <i>isActive</i> <span class="code">FALSE</span> 
+event is generated when a collision no longer occurs.&rdquo;</p>
+
+<p class="MergeLocation">23.3.2, 5th, 6th, and 7th paragraphs</p>
+<p class="MergeInstructions">Change all references to the &quot;collide&quot; field to be 
+references to the &quot;enabled&quot; field.</p>
+
+<p class="MergeLocation">23.3.3, node signature</p>
+<p class="MergeInstructions">Insert the following text as a new field after the
+<span class="code">metadata</span> field:</p>
+<p>&ldquo;<span class="code">&nbsp; SFInt32 [out] level_changed</span>&rdquo;</p>
+
+<p class="MergeInstructions">Insert the following text as a new field after the
+<span class="code">center</span> field:</p>
+<p>&ldquo;<span class="code">&nbsp; SFBool [] forceTransitions FALSE</span>&rdquo;</p>
+
+<p class="MergeLocation">23.3.3, 5th paragraph</p>
+<p class="MergeInstructions">Append the following new sentence:</p>
+<p>&ldquo;The L(d)<sup>th</sup> node of the children field (denoted by L<sub>i</sub> 
+in the equation above) is that which is displayed. When L(d) is activated for display, the LOD node generates a <i>level_changed</i> event with value 
+<span class="code">i</span> where the value of i identifies which value of 
+L was activated for display.&rdquo;</p>
+
+<p class="MergeLocation">23.3.4, node signature</p>
+<p class="MergeInstructions">Add the following field after <span class="code">
+<span style="font-style: normal">speed</span></span>:</p>
+<p><span class="code">&nbsp;&nbsp;&nbsp; MFFloat [in, out] transitionTime&nbsp;&nbsp;&nbsp;&nbsp; 
+1.0 [0, &infin;)</span></p>
+<p class="MergeInstructions">Replace the default value of field
+<span class="code">transitionType</span> with <span style="font-style: normal">&#39;<span class="code">[&quot;LINEAR&quot;]</span></span><span style="font-style: normal">&#39;.</span></p>
+
+<p class="MergeInstructions">Add the following field after <span class="code">
+<span style="font-style: normal">isBound</span></span>:</p>
+<p><span class="code">&nbsp;&nbsp;&nbsp; SFBool&nbsp; [out]&nbsp;&nbsp;&nbsp;&nbsp; transitionComplete<br>
+&nbsp;</span></p>
+
+<p class="MergeLocation">23.3.4, 1st paragraph</p>
+<p class="MergeInstructions">Replace the 3rd and 4th sentences with the following text:</p>
+<p>&ldquo;The <i>range</i> field specifies the ideal distances (termed <i>level 
+distances</i>) at which to switch between the levels. If <i>forceTransitions</i> 
+is <span class="code">TRUE</span>, browsers shall switch levels at the level 
+distances specified. If <i>forceTransistions</i> is <span class="code">FALSE</span>, 
+browsers may disregard level distances in order to provide better performance.”</p>
+
+<p class="MergeLocation">23.3.4, 11th paragraph</p>
+<p class="MergeInstructions">Append the following text:</p>
+<p>&ldquo;<span class="code">NONE</span> has an effect only when it is the first 
+supported navigation type. If <span class="code">NONE</span> is not the first 
+supported navigation type, it has no effect.&rdquo;</p>
+
+<p class="MergeLocation">23.3.4, 13th paragraph</p>
+<p class="MergeInstructions">Insert the following new paragraph after the 
+paragraph on transitionType:</p>
+<p>&ldquo;The <i>transitionTime</i> field specifies the duration of any viewpoint 
+transition. The transition starts when the next Viewpoint node is bound. The 
+duration of the transition depends on the value of the <i>transitionType</i> 
+field. If <i>transitionType</i> is &quot;<span class="code">TELEPORT</span>&quot;, the 
+transition is instantaneous and completes at the same time it starts. A 
+transition type of &quot;<span class="code">LINEAR</span>&quot; indicates that the 
+transition lasts the number of seconds specified by the first value in the <i>
+transitionTime</i> field. If <i>transitionType</i> is &quot;<span class="code">ANIMATE</span>&quot;, <i>
+transitionTime</i> provides browser-dependent parameters to the browsers 
+viewpoint animation engine. When a transition completes, a <i>transitionComplete</i> 
+event is signaled.”</p>
+
+<p class="MergeLocation">23.3.4, 14th paragraph, penultimate sentence</p>
+<p class="MergeInstructions">Replace <span style="font-style: normal">&quot;<span class="code">ANIMATE</span>&quot;</span> 
+with <span style="font-style: normal">&quot;<span class="code">LINEAR</span>&quot;</span>.</p>
+
+<p class="MergeLocation">23.3.5, 6th paragraph</p>
+<p class="MergeInstructions">Replace the entire paragraph with the following 
+text:</p>
+
+<p>&ldquo;The <i>jump</i> field specifies whether the user&#39;s view &quot;jumps&quot; to the 
+position and orientation of a bound Viewpoint node or remains unchanged. This 
+jump is instantaneous and discontinuous in that no collisions are performed and 
+no ProximitySensor nodes are checked in between the starting and ending jump 
+points. If the user&#39;s position before the jump is inside a ProximitySensor the
+<i>exitTime</i> of that sensor shall send the same timestamp as the bind field. 
+Similarly, if the user&#39;s position after the jump is inside a ProximitySensor the
+<i>enterTime</i> of that sensor shall send the same timestamp as the bind field. 
+Regardless of the value of <i>jump</i> at bind time, the relative viewing 
+transformation between the user&#39;s view and the current Viewpoint node shall be 
+stored with the current Viewpoint node for later use when <i>un-jumping</i> 
+(i.e.,&nbsp;popping the Viewpoint node binding stack from a Viewpoint node with <i>
+jump</i> <code>TRUE</code>). The following summarizes the bind stack rules (see
+<a href="../../../../FDIS%20Master/Part01/components/core.html#Bindablechildrennodes">
+7.2.2 Bindable children nodes</a>) with additional rules regarding Viewpoint 
+nodes (displayed in boldface type):&rdquo;</p>
+
+<p class="MergeInstructions">Replace items <span style="font-style: normal">e.</span> 
+and <span style="font-style: normal">f.</span> with the following 
+text:</p>
+<ol type="a" start="5">
+	<li>&ldquo;When a <i>set_bind</i> <span class="code">TRUE</span> event is received 
+	by a Viewpoint node,<ol>
+		<li>If it is <u>not</u> on the top of the stack:&nbsp; <b>The relative 
+		transformation from the current top of stack Viewpoint node to the 
+		user&#39;s view is stored with the current top of stack Viewpoint node.</b> 
+		The current top of stack node sends an <i>isBound</i> <span class="code">
+		FALSE</span> event. The new node is moved to the top of the stack and 
+		becomes the currently bound Viewpoint node. The new Viewpoint node (top 
+		of stack) sends an <i>isBound</i> <span class="code">TRUE</span> event.
+		<b>If <i>jump</i> is <span class="code">TRUE</span> for the new 
+		Viewpoint node, the user&#39;s view is transitioned to match the values in 
+		the position and orientation fields of the new Viewpoint node. The 
+		transition is determined by the currently bound NavigationInfo node.</b></li>
+		<li>If the node is already at the top of the stack, this event has no 
+		affect.</li>
+	</ol>
+	</li>
+	<li>When a <i>set_bind</i> <code>FALSE</code> event is received by a 
+	Viewpoint node in the stack, it is removed from the stack. If it was on the 
+	top of the stack, the following actions shall occur:<ol>
+		<li>An <i>isBound</i> <span class="code">FALSE</span> event is sent;</li>
+		<li>the next node in the stack becomes the currently bound Viewpoint 
+		node<i> </i>(<i>i.e.</i>,&nbsp;pop)<i> </i>and issues an<i> isBound </i>
+		<code>TRUE</code><i> </i>event; and</li>
+		<li><b>if its <i>jump</i> field value is <code>TRUE</code>, the user&#39;s 
+		view is transitioned to the <i>position</i> and <i>orientation</i> of 
+		the next Viewpoint node in the stack <u>with</u> the stored relative 
+		transformation of this next Viewpoint node applied. The transition is 
+		determined by the currently bound NavigationInfo node.</b>&rdquo;
+
+</li>
+	</ol>
+	</li>
+</ol>
+
+<p class="MergeLocation">23.3.5, 7th paragraph (after item i.)</p>
+<p class="MergeInstructions">Replace with the following text:</p>
+<p>&ldquo;The <i>jump</i> field may change after a Viewpoint node is bound. The rules 
+described above still apply. If <i>jump</i> was <span class="code">TRUE</span> when the Viewpoint node is bound, 
+but changed to <span class="code">FALSE</span> before the <i>set_bind</i>
+<span class="code">FALSE</span> is sent, the Viewpoint node does 
+not un-move during unbind. If <i>jump</i> was <span class="code">FALSE</span> when the Viewpoint node is bound, 
+but changed to <span class="code">TRUE</span> before the <i>set_bind</i>
+<span class="code">FALSE</span> is sent, the Viewpoint node does 
+perform the un-move during unbind.&rdquo;</p>
+
+<p class="MergeLocation">23.3.5, 8th and 9th paragraphs along with items j. and 
+k.</p>
+<p class="MergeInstructions">Replace with the following text:</p>
+<p class="Example">&ldquo;NOTE&nbsp; There are two other mechanisms that result in 
+the binding of a new Viewpoint:</p>
+<ol start="10" type="a">
+	<li>
+	<p class="Example">An Anchor node&#39;s url field specifies a &quot;#ViewpointName&quot;.</li>
+	<li>
+	<p class="Example">A script invokes the loadURL() method and the URL 
+	argument specifies<br>
+	a &quot;#ViewpointName&quot;.</li>
+</ol>
+<p class="Example">Both of these mechanisms override the <i>jump</i> field value 
+of the specified Viewpoint node (#ViewpointName) and assume that <i>jump</i> is
+<span class="code">TRUE</span> when binding to the new Viewpoint. The behaviour 
+of the viewer transition to the newly bound Viewpoint depends on the currently 
+bound NavigationInfo node&#39;s <i>transitionType</i> field value (see 23.3.4 
+NavigationInfo).&rdquo;</p>
+
+<p class="MergeLocation">23.5</p>
+<p class="MergeInstructions">In the HTML, change the bookmark for 23.5 to &quot;<span style="font-style: normal">SupportLevels</span>&quot;.</p>
+
+</BODY>
+</HTML>

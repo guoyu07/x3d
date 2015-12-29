@@ -1,0 +1,64 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html lang="en">
+<HEAD>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+<TITLE>ISO/IEC 19775-1:2004/Am1:2006 -- 25 Geospatial component</TITLE>
+<link href="../../X3D.css" type="text/css" rel=stylesheet>
+
+</HEAD>
+<BODY>
+
+<p class="MergeLocation">Table 25.1</p>
+<p class="MergeInstructions">In the HTML, change the hyperlink for 25.4 to &quot;<span style="font-style: normal">#SupportLevels</span>&quot;.</p>
+
+<p class="MergeLocation">25.3.4, node signature</p>
+<p class="MergeInstructions">In the node header, replace &quot;<span class="code"><span style="font-style: normal">X3DGroupingNode</span></span>&quot; 
+with &quot;<span class="code">X3DChildNode, X3DBoundedObject</span>&quot;</p>
+<p class="MergeInstructions">Remove the addChildren and removeChildren fields.</p>
+
+<p class="MergeInstructions">Insert the following text as a new field after the
+<span class="code">children</span> field:</p>
+<p>&ldquo;<span class="code">&nbsp; SFInt32 [out] level_changed</span>&rdquo;</p>
+
+<p class="MergeLocation">25.3.4, 5th paragraph</p>
+<p class="MergeInstructions">Replace the sixth sentence with the following text:</p>
+<p>&ldquo;The child URLs shall be arranged in the same order as in the figure; <i>i.e.</i>,
+<i>child1Url</i> represents the bottom-left quadtree child.&rdquo;</p>
+
+<p class="MergeLocation">25.3.4, 7th paragraph</p>
+<p class="MergeInstructions">Replace the paragraph with the following text:</p>
+<p>“The <i>children</i> field is used to expose a portion of the scene graph for 
+the currently loaded set of nodes. The value returned as an event is an MFNode 
+containing the currently selected tile. This will either be the node specified 
+by the <i>rootNode</i> field or the nodes specified by the <i>child1Url</i>, <i>
+child2Url</i>, <i>child3Url</i>, and <i>child4Url</i> fields. The GeoLOD node 
+shall generate a new <i>children</i> output event each time the scene graph is 
+changed (EXAMPLE whenever nodes are loaded or unloaded). When the new children 
+event is generated, the GeoLOD node shall also generate a <i>level_changed</i> 
+event with value 
+<span class="code">0</span> or <span class="code">1</span> indicating the value 
+of the <i>whichChoice</i> field of the Switch node.”</p>
+
+<p class="MergeLocation">25.3.6, node signature</p>
+<p class="MergeInstructions">Change the access type of the geoSystem field from 
+&quot;<span style="font-style: normal">[in, out]</span>&quot; to &quot;<span style="font-style: normal">[]</span>&quot; 
+and move the field to follow the metadata field.</p>
+
+<p class="MergeLocation">25.3.8 GeoTouchSensor node signature</p>
+<p class="MergeInstructions">Insert the following field definition as the new first 
+field:</p>
+<pre class="listing">&lsquo;  SFString [in,out] description    &quot;&quot;&rsquo;</pre>
+
+<p class="MergeLocation">25.3.8</p>
+<p class="MergeInstructions">Insert the following text as the second paragraph:</p>
+<p>&ldquo;The <i>description</i> field in the GeoTouchSensor node specifies a textual 
+description of the GeoTouchSensor node. This may be used by browser-specific 
+user interfaces that wish to present users with more detailed information about 
+the GeoTouchSensor.&rdquo;</p>
+
+<p class="MergeLocation">25.4</p>
+<p class="MergeInstructions">In the HTML, change the bookmark for 25.4 to &quot;<span style="font-style: normal">SupportLevels</span>&quot;.</p>
+
+</BODY>
+</HTML>

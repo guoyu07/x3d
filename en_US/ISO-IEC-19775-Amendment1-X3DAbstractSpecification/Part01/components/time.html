@@ -1,0 +1,32 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html lang="en">
+<HEAD>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+<TITLE>ISO/IEC 19775-1:2004/Am1:2006 -- 7 Core component</TITLE>
+<link href="../../X3D.css" type="text/css" rel=stylesheet>
+
+</HEAD>
+<BODY>
+
+<p class="MergeLocation">Table 8.1</p>
+<p class="MergeInstructions">In the HTML, change the hyperlink for 8.5 to &quot;<span style="font-style: normal">#SupportLevels</span>&quot;.</p>
+
+<p class="MergeLocation">8.2.4.4, 2nd&nbsp; and 3rd paragraphs</p>
+<p class="MergeInstructions">Replace with the following text:</p>
+<p>&quot;An active time-dependent node may be paused when its SFTime fields are such 
+that<i> now ≥ pauseTime </i>&gt; <i>resumeTime</i>. When a time-dependent node is 
+paused, the time-dependent node shall send out a <span class="code">TRUE</span> 
+event on <i>isPaused</i> and a <i>pauseTime_changed</i> event reporting the 
+simulation time when the node was paused.</p>
+<p>An active but paused time-dependent node shall resume at the first simulation 
+tick when <i>now</i>&nbsp;≥&nbsp;<i>resumeTime</i>&nbsp;&gt; <i>pauseTime</i>. The time-dependent 
+node then resumes generating its output events from the paused state at the 
+simulation tick. A <i>resumeTime_changed</i> event is also generated reporting 
+the simulation time when the node was resumed.&quot;</p>
+
+<p class="MergeLocation">8.5</p>
+<p class="MergeInstructions">In the HTML, change the bookmark for 8.5 to &quot;<span style="font-style: normal">#SupportLevels</span>&quot;.</p>
+
+</BODY>
+</HTML>

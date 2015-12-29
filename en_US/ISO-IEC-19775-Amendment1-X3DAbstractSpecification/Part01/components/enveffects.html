@@ -1,0 +1,220 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html lang="en">
+<HEAD>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+<TITLE>ISO/IEC 19775-1:2004/Am1:2006 -- 24 Environmental effects component</TITLE>
+<link href="../../X3D.css" type="text/css" rel=stylesheet>
+
+</HEAD>
+<BODY>
+
+<p class="MergeLocation">24.1.2</p>
+<p class="MergeInstructions">Replace Table 24.1 with the following:</p>
+<p>&ldquo;</p>
+
+<table id="table1">
+    <tr> 
+      <td> 
+        <ul>
+          <li><a href="#Introduction">24.1 Introduction</a>
+          <ul>
+            <li><a href="#Name">24.1.1 Name</a></li>
+            <li><a href="#Overview">24.1.2 Overview</a> </li>
+          </ul>
+          </li>
+          <li><a href="#Concepts">24.2 Concepts</a><ul>
+          <li><a href="#Backgrounds">24.2.1 Backgrounds</a></li>
+			<li><a href="#FogSemantics">24.2.2 Fog semantics</a><ul>
+          <li><a href="#FogSemanticsOverview">24.2.2.1 Overview</a></li>
+			<li><a href="#GlobalFogSemantics">24.2.2.2 Global fog semantics</a></li>
+			<li><a href="#LocalFogSemantics">24.2.2.3 Local fog semantics</a></li>
+			<li><a href="#LocalAndBindableFogInteraction">24.2.2.4 Local and 
+			bindable fog interaction</a></li>
+			<li><a href="#FogColourCalculation">24.2.2.5 Fog colour calculation</a></li>
+        </ul>
+        	</li>
+        </ul>
+        	</li>
+            <li><a href="#Abstracttypes">24.3 Abstract types</a>  
+            <ul>
+              <li><a href="#X3DBackgroundNode">24.3.1 <i>X3DBackgroundNode</i></a></li>
+				<li><a href="#X3DFogObject">24.3.2 <i>X3DFogObject</i></a></li>
+            </ul></li>
+          <li><a href="#NodeReference">24.4 Node reference</a>  
+            <ul>
+              <li><a href="#Background">24.4.1 Background</a></li> 
+              <li><a href="#Fog">24.4.2 Fog</a></li>
+				<li><a href="#FogCoordinate">24.4.3 FogCoordinate</a></li>
+				<li><a href="#LocalFog">24.4.4 LocalFog</a></li> 
+              <li><a href="#TextureBackground">24.4.5 TextureBackground</a></li> 
+            </ul></li>
+          <li><a href="#SupportLevels">24.5 Support levels</a></li>  
+        </ul>
+        <ul>
+          <li><a href="#f-BackgroundNode">Figure 24.1 &mdash; Background node</a></li>
+        </ul>
+        <ul>
+          <li><a href="#t-Topics">Table 24.1 — Topics</a></li>
+          <li><a href="#t-supportlevels">Table 24.2 &mdash; Environmental effects component support levels</a></li>
+        </ul>
+      </td>
+    </tr>
+  </table>
+<p>&rdquo;</p>
+
+<p class="MergeLocation">24.2</p>
+<p class="MergeInstructions">Insert the following new heading after the 24.2 
+heading:</p>
+<h2>&quot;<a name="Backgrounds"></a>24.2.1 Backgrounds&quot;</h2>
+<p class="MergeInstructions">Insert the following text as a new subclause:</p>
+<h2>&ldquo;<a name="FogSemantics"></a>24.2.2 Fog semantics</h2>
+<h3><a name="FogSemanticsOverview"></a>24.2.2.1 Overview</h3>
+<p>This part of ISO/IEC 19775 supports two types of fog:&nbsp; global and local.</p>
+<h3><a name="GlobalFogSemantics"></a>24.2.2.2 Global fog semantics</h3>
+<p>Global fog applies to the entire world and is specified using a Fog node. 
+Global fog blends the colours of all objects with the fog colour based on 
+distance from the object to the camera. The further the distance the greater the 
+amount of fog colour.</p>
+<h3><a name="LocalFogSemantics"></a>24.2.2.3 Local fog semantics</h3>
+<p>Local fog applies only within the same transformation hierarchy that contains the LocalFog node. This limits the effect of the fog to subsets of the world and 
+supports the creation of realistic effects such as a smoke-filled room inside a 
+larger building that is not smoke-filled. If a local fog and a global fog are 
+both defined and 
+active, the lighting contribution from the local fog shall be used instead of 
+the global effect.</p>
+<p>Local fog effects shall not affect nodes derived from X3DBackgroundNode.</p>
+<h3><a name="LocalAndBindableFogInteraction"></a>24.2.2.4 Local and bindable fog interaction</h3>
+<p>If a global Fog node is bound and a LocalFog node is enabled, the LocalFog 
+node shall have precedence over the globally bound Fog node, in determining the fog colour contribution to the lighting equations defined in <a href="lighting.html">17 Lighting component</a>.</p>
+<h3><a name="FogColourCalculation"></a>24.2.2.5 Fog colour calculation</h3>
+<p>During the traversal of the scene graph, if more than one LocalFog node is 
+encountered in the path from the root to a given renderable leaf node, only the 
+contribution of the LocalFog instance closest to the leaf node shall be used. 
+All other fog values shall be ignored.&rdquo;</p>
+<p class="MergeLocation">24.3</p>
+<p class="MergeInstructions">Insert the following as a new subclause 24.3.2:</p>
+<h2>&ldquo;<a name="X3DFogObject"></a>24.3.2 <i>X3DFogObject</i></h2>
+<pre class="node">X3DFogObject {
+  SFColor  [in,out] color           1 1 1    [0,1]
+  SFString [in,out] fogType         &quot;LINEAR&quot; [&quot;LINEAR&quot;|&quot;EXPONENTIAL&quot;]
+  SFFloat  [in,out] visibilityRange 0        [0,-&infin;)
+}</pre>
+<p><i>X3DFogObject</i> is the abstract type that describes a node that influences the 
+lighting equation through the use of fog semantics. It defines the basic colour 
+and rendering effects that influence the lighting equations as described in 
+<a href="lighting.html">17 
+Lighting component</a>.&rdquo;</p>
+<p class="MergeLocation">24.4.2</p>
+<p class="MergeInstructions">Replace the first line of the Fog node declaration 
+with:</p>
+<pre class="node">&ldquo;Fog : X3DBindableNode, X3DFogObject {&rdquo;</pre>
+<p class="MergeLocation">24.4</p>
+<p class="MergeInstructions">Insert the following new nodes after the Fog node:</p>
+
+<h2>“<a name="FogCoordinate"></a>24.4.3 FogCoordinate</h2>
+<pre>FogCoordinate : X3DGeometricPropertyNode {
+  MFFloat [in,out] depth    []   [0,1]
+  SFNode  [in,out] metadata NULL [X3DMetadataObject]
+}
+</pre>
+<p>This node defines a set of explicit fog depths on a per-vertex basis. This 
+depth value shall be applied per-vertex and used to replace the automatically 
+generated depth. Fog coordinates take precedence over implicitly generated 
+depths; specifying fog coordinates will result in the implicit depth (visibilityRange) 
+being ignored. Details on lighting equations can be found in 
+<a href="lighting.html#LightingModel">17.2.2 Lighting 
+model</a>.</p>
+<p>One depth value per vertex shall be supplied. If the user does not provide 
+a&nbsp; sufficient number of depth values, the last value defined shall be replicated for any further vertices. 
+If too many depth values are supplied, the excess depth values shall be ignored.</p>
+<h2><a name="LocalFog"></a>24.4.4 LocalFog</h2>
+<pre>LocalFog : X3DChildNode, X3DFogObject {
+  SFColor  [in,out] color           1 1 1    [0,1]
+  SFBool   [in,out] enabled         TRUE
+  SFString [in,out] fogType         &quot;LINEAR&quot; [&quot;LINEAR&quot;|&quot;EXPONENTIAL&quot;]
+  SFNode   [in,out] metadata        NULL     [X3DMetadataObject]
+  SFFloat  [in,out] visibilityRange 0        [0,-∞)
+}
+</pre>
+<p>The LocalFog node provides a way to simulate atmospheric effects by blending 
+objects with the colour specified by the color field based on the distances of 
+the various objects from the viewer. The distances are calculated in the 
+coordinate space of the LocalFog node. The <i>visibilityRange</i> field specifies the 
+distance in metres (in the local coordinate system) at which objects are totally 
+obscured by the fog. Objects located outside the <i>visibilityRange</i> from the viewer 
+are drawn with a constant colour of <i>color</i>. Objects very close to the viewer are 
+blended very little with the fog color. A <i>visibilityRange</i> of 0.0 disables the 
+LocalFog node. The <i>visibilityRange</i> is affected by the scaling transformations of 
+the LocalFog node&rsquo;s parents; translations and rotations have no affect on 
+<i>visibilityRange</i>.</p>
+<p>The <i>fogType</i> field controls how much of the fog colour is blended with the 
+object as a function of distance. If <i>fogType</i> is <span class="code">&quot;LINEAR&quot;</span>, the amount of blending 
+is a linear function of the distance, resulting in a depth cueing effect. If <i>fogType</i> is 
+<span class="code">&quot;EXPONENTIAL&quot;</span>, an exponential increase in blending is used, resulting 
+in a more natural fog appearance.</p>
+<p>The effect of fog on lighting calculations is described in 
+<a href="lighting.html">17 Lighting 
+component</a>.&rdquo;</p>
+
+<p class="MergeLocation">24.4.3</p>
+<p class="MergeInstructions">Renumber the TextureBackground subclause as &quot;<span style="font-style: normal; font-weight: 700">24.4.5</span>&quot;.</p>
+
+<p class="MergeLocation">24.4.3, 3rd paragraph</p>
+<p class="MergeInstructions">Replace the 3rd paragraph with the following text:</p>
+<p>&quot;TextureBackground supports a <i>transparency</i> value that allows the scene 
+to overlay other elements in an application. A <i>transparency</i> value of zero 
+specifies that the background is fully opaque obscuring all content in the 
+underlying window. A <i>transparency</i> value of one specifies that the 
+background specified by the TextureBackground node is fully transparent causing 
+the TextureBackground to not be visible so that all underlying content appears 
+as the background. The value of the <i>transparency</i> field is applied to the
+<i>skyColor</i> and <i>groundColor</i> by first converting the <i>transparency</i> 
+value to an alpha value using the formula:</p>
+<blockquote>
+	<p><span class="code">alpha = (1 - transparency)</span></p>
+</blockquote>
+<p>The alpha value is then multiplied against the components of the <i>skyColor</i> 
+and <i>groundColor</i> (including the alpha component, if provided) to obtain 
+the color that is applied to the underlying window content. The <i>transparency</i> 
+value is not applied to the six texture fields. Transparency of these fields can 
+be achieved by using alpha values within their images.&quot;</p>
+
+<p class="MergeLocation">24.5</p>
+<p class="MergeInstructions">In the HTML, change the bookmark for 24.5 to &quot;<span style="font-style: normal">SupportLevels</span>&quot;.</p>
+
+<p class="MergeLocation">24.5, Table 24.2</p>
+<p class="MergeInstructions">Append the following text to Table 24.2:</p>
+
+<table id="table2">
+      <tr> 
+        <td align="center"><b>4</b></td>
+        <td>Core 1<br>
+        Time 1<br>
+        Grouping 
+          1</td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+      </tr>
+      <tr> 
+        <td align="center"></td>
+        <td></td>
+        <td>All Level 3 Environmental Effects nodes</td>
+        <td>All fields fully supported.</td>
+      </tr>
+      <tr> 
+        <td></td>
+        <td></td>
+        <td>FogCoordinate</td>
+        <td>All fields fully supported.</td>
+      </tr>
+      <tr> 
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+        <td>LocalFog</td>
+        <td>All fields fully supported.</td>
+      </tr>
+    </table>
+
+</BODY>
+</HTML>

@@ -1,0 +1,173 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html lang="en">
+<head>
+
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+<TITLE>ISO/IEC 19776-2:200x -- X3D Classic VRML encoding -- 5 Encoding of fields</TITLE>
+<link REL="stylesheet" HREF="X3DEncodings.css" TYPE="text/css">
+
+</head>
+<body>
+
+<p class="MergeLocation">5.1, Table 5.1</p>
+<p class="MergeInstructions">Replace Table 5.1 with the following:</p>
+<div class="CenterDiv">
+
+<TABLE class="topics" width="90%">
+	<TBODY>
+		<TR>
+			<TD width="50%"><A href="#Introduction"><font size="2">5.1 Introduction</font></A><font size="2">
+			<BR>&nbsp;&nbsp;<a href="#Topics">5.1.1 Topics</a> <BR>&nbsp;&nbsp;<a href="#Description">5.1.2 Description</a>
+			<BR><A href="#SFBool">5.2 SFBool and MFBool</A> <BR>
+			<A href="#SFColor">5.3 SFColor and MFColor</A> <br>
+			<a href="#SFColorRGBA">5.4 SFColorRGBA and MFColorRGBA</a><BR>
+			<A href="#SFFloat">5.5 SFDouble and MFDouble</A> <BR>
+			<A href="#SFFloat">5.6 SFFloat and MFFloat</A> <BR>
+			<a href="#SFImage">5.7 SFImage and MFImage</a><br>
+			<A href="#SFInt32">5.8 
+SFInt32 and MFInt32</A><br>
+			<a href="#SFMatrix3D">5.9 SFMatrix3d and MFMatrix3d</a><br>
+			<a href="#SFMatrix3f">5.10 SFMatrix3f and MFMatrix3f</a></font></TD>
+			<TD width="50%"><font size="2"><a href="#SFMatrix4d">5.11 SFMatrix4d 
+			and MFMatrix4d</a><br>
+			<a href="#SFMatrix4f">5.12 SFMatrix4f and MFMatrix4f</a><br></font>
+			<a href="#SFNode"><font size="2">5.13 SFNode and MFNode</font></a><font size="2">
+			<BR><A href="#SFRotation">5.14 SFRotation and MFRotation</A> <BR>
+			<A href="#SFString">5.15 SFString and MFString</A> <BR>
+			<A href="#SFTime">5.16 SFTime&nbsp;and&nbsp;MFTime</A> <BR>
+			<A href="#SFVec2f">5.17 SFVec2d and MFVec2d</A> <BR>
+			<A href="#SFVec2f">5.18 SFVec2f and MFVec2f</A> <BR>
+			<A href="#SFVec3f">5.19 SFVec3d and MFVec3d</A> <BR></font>
+			<font size="2"><A href="#SFVec3f">5.20 SFVec3f and MFVec3f</A> <BR>
+			<a href="#SFVec4d">5.21 SFVec4d and MFVec4d</a> <BR>
+			<a href="#SFVec4f">5.22 SFVec4f and MFVec4f</a></font></TD>
+		</TR>
+	</TBODY>
+</TABLE>
+</div>
+<p class="MergeLocation">5.8</p>
+<p class="MergeInstructions">Insert the following new field types after 5.8 and 
+renumber the remaining subclauses:</p>
+<h1>
+<img class="cube" alt="cube" src="Images/cube.gif"><a name="SFMatrix3d"></a>5.9 SFMatrix3d and MFMatrix3d</h1>
+
+<p>The SFMatrix3d field specifies a 3×3 matrix of double-precision floating 
+point numbers. MFMatrix3d specifies zero or more 3×3 matrices of 
+double-precision floating point numbers. Each SFMatrix3d is encoded as nine 
+ISO&nbsp;C double-precision floating point values (see
+<a href="references.html#[I9899]">2.[I9899]</a>) separated by whitespace. The 
+first three double-precision floating point numbers represent the top row of the 
+matrix. The second three double-precision floating point numbers represent 
+second row of the matrix. The last three double-precision floating point numbers 
+represent the bottom row of the matrix.</p>
+<p class="Example">EXAMPLE</p>
+<p class="ExampleCode">fooMatrix3d [ 1.5968734 0.7658987778666 0 0.4387899877 1 
+0 0 0 1,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+2.7338246644 0.5 0 4.389222333 2.5 0 0 0 1 ]</p>
+<h1>
+<img class="cube" alt="cube" src="Images/cube.gif"><a name="SFMatrix3f"></a>5.10 SFMatrix3f 
+and MFMatrix3f</h1>
+
+<p>The SFMatrix3d field specifies a 3×3 matrix of single-precision floating 
+point numbers. MFMatrix3d specifies zero or more 3×3 matrices of 
+single-precision floating point numbers. Each SFMatrix3d is encoded as nine 
+ISO&nbsp;C single-precision floating point values (see
+<a href="references.html#[I9899]">2.[I9899]</a>) separated by whitespace. The 
+first three single-precision floating point numbers represent the top row of the 
+matrix. The second three single-precision floating point numbers represent 
+second row of the matrix. The last three single-precision floating point numbers 
+represent the bottom row of the matrix.</p>
+<p class="Example">EXAMPLE</p>
+<p class="ExampleCode">fooMatrix3f [ 3.05 43.89 0 77.89 54.32 0 -3.5 2.78 1,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+89.777 33.486 0 3222.2 1 17.0 4.0 -3.9 0.5 ]</p>
+<h1>
+<img class="cube" alt="cube" src="Images/cube.gif"><a name="SFMatrix4d"></a>5.11 
+SFMatrix4d and MFMatrix4d</h1>
+
+<p>The SFMatrix3d field specifies a 4×4 matrix of double-precision floating 
+point numbers. MFMatrix3d specifies zero or more 4×4 matrices of 
+double-precision floating point numbers. Each SFMatrix3d is encoded as sixteen 
+ISO&nbsp;C double-precision floating point values (see
+<a href="references.html#[I9899]">2.[I9899]</a>) separated by whitespace. The 
+first four double-precision floating point numbers represent the top row of the 
+matrix. The second four double-precision floating point numbers represent second 
+row of the matrix. The third four double-precision floating point numbers 
+represent the third row of the matrix. The last four double-precision floating 
+point numbers represent the bottom row of the matrix.</p>
+<p class="Example">EXAMPLE</p>
+<p class="ExampleCode">fooMatrix3d [ 1.5968734 0.7658987778666 0 0.4387899877<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 1 
+0 0 0<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+36.31896667 0.5 -13.4879906634 0<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0 
+0 0 1,<br>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+2.7338246644 0.5 0 4.389222333<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+2.5 0 0 0<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+987.883 -0.5432 3289.77 1<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+-43.5 43.5 -10 1]</p>
+<h1>
+<img class="cube" alt="cube" src="Images/cube.gif"><a name="SFMatrix4f"></a>5.12 
+SFMatrix4f and MFMatrix4f</h1>
+
+<p>The SFMatrix3d field specifies a 4×4 matrix of single-precision floating 
+point numbers. MFMatrix3d specifies zero or more 4×4 matrices of 
+single-precision floating point numbers. Each SFMatrix3d is encoded as sixteen 
+ISO&nbsp;C single-precision floating point values (see
+<a href="references.html#[I9899]">2.[I9899]</a>) separated by whitespace. The 
+first four single-precision floating point numbers represent the top row of the 
+matrix. The second four single-precision floating point numbers represent second 
+row of the matrix. The third four single-precision floating point numbers 
+represent the third row of the matrix.&nbsp; The last four single-precision 
+floating point numbers represent the bottom row of the matrix.</p>
+<p class="Example">EXAMPLE</p>
+<p class="ExampleCode">fooMatrix3f [ 3.05 43.89 0 77.89<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+54.32 0 -3.5 2.78<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+14.322210443 -0.00007788666 2.1 1<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+-0.5 0.5 2.9987799 13.34,<br>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+89.777 33.486 0 3222.2<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 1 
+17.0 4.0 -3.9<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+-33.3333 17.6689 0.5 1<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 1 
+1 -3 1.115 ]</p>
+<p class="MergeLocation">5.16</p>
+<p class="MergeInstructions">Append the following new field types as the last 
+two field types:</p>
+<h1>
+<img class="cube" height="19" alt="cube" src="../../../FDISMasterPart2_Test/Images/cube.gif" width="20">
+<a name="SFVec4d"></a>5.21 SFVec4d and MFVec4d</h1>
+<p>The SFVec3d field specifies a three-dimensional (3D) high-precision vector. 
+An MFVec3d field specifies zero or more 3D high-precision vectors. SFVec3d&#39;s and 
+MFVec3d&#39;s are encoded as four ISO&nbsp;C floating point values (see
+<a href="references.html#[I9899]">2.[I9899]</a>) separated by whitespace. </p>
+<p class="Example">EXAMPLE</p>
+<p class="ExampleCode"><b>fooVec3d [ 1.000000000001 42 666.35357878, 7 94 
+0.100000000007 ]</b></p>
+<h1>
+<img class="cube" height="19" alt="cube" src="../../../FDISMasterPart2_Test/Images/cube.gif" width="20">
+<a name="SFVec4f"></a>5.22 SFVec4f and MFVec4f</h1>
+<p>The SFVec3f field specifies a three-dimensional (3D) vector. An MFVec3f field 
+specifies zero or more 3D vectors. SFVec3f&#39;s and MFVec3f&#39;s are encoded as four 
+ISO&nbsp;C floating point values (see <a href="references.html#[I9899]">2.[I9899]</a>) 
+separated by whitespace. </p>
+<p class="Example">EXAMPLE</p>
+<p class="ExampleCode"><b>fooVec3f [ 1 42 666, 7 94 0 ]</b></p>
+<p>&nbsp;</p>
+
+</body>
+</html>

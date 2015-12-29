@@ -1,0 +1,200 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+<TITLE>ISO/IEC 19776-1:2005/Amd1:200x X3D XML encoding -- 5 Encoding of fields</TITLE>
+<link REL="stylesheet" HREF="X3DEncodings.css" TYPE="text/css">
+
+</head>
+<body>
+
+<p class="MergeLocation">5.1, Table 5.1</p>
+<p class="MergeInstructions">Replace Table 5.1 with the following:</p>
+<div class="CenterDiv">
+	<table class="topics" width="90%" id="table1">
+		<tr>
+			<td width="50%">
+			<a href="#Introduction">
+			<font size="2">5.1 Introduction</font></a><font size="2"> <br>
+			&nbsp;&nbsp;<a href="#Topics">5.1.1 
+			Topics</a> <br>
+			&nbsp;&nbsp;<a href="#Description">5.1.2 
+			Description</a> <br>
+			<a href="#SFBool">
+			5.2 SFBool and MFBool</a> <br>
+			<a href="#SFColor">
+			5.3 SFColor and MFColor</a> <br>
+			<a href="#SFColorRGBA">
+			5.4 SFColorRGBA and MFColorRGBA</a><br>
+			<a href="#SFFloat">
+			5.5 SFDouble and MFDouble</a> <br>
+			<a href="#SFFloat">
+			5.6 SFFloat and MFFloat</a> <br>
+			<a href="#SFImage">
+			5.7 SFImage and MFImage</a><br>
+			<a href="#SFInt32">
+			5.8 SFInt32 and MFInt32</a><br>
+			<a href="#SFMatrix3d">5.9 SFMatrix3d and MFMatrix3d</a><br>
+			<a href="#SFMatrix3f">
+			5.10 SFMatrix3f and MFMatrix3f</a></font></td>
+			<td width="50%"><font size="2">
+			<a href="#SFMatrix4d">
+			5.11 SFMatrix4d and MFMatrix4d</a><br>
+			<a href="#SFMatrix4f">
+			5.12 SFMatrix4f and MFMatrix4f</a><br>
+			</font>
+			<a href="#SFNode">
+			<font size="2">5.13 SFNode and MFNode</font></a><font size="2"> <br>
+			<a href="#SFRotation">
+			5.14 SFRotation and MFRotation</a> <br>
+			<a href="#SFString">
+			5.15 SFString and MFString</a> <br>
+			<a href="#SFTime">
+			5.16 SFTime&nbsp;and&nbsp;MFTime</a> <br>
+			<a href="#SFVec2f">
+			5.17 SFVec2d and MFVec2d</a> <br>
+			<a href="#SFVec2f">
+			5.18 SFVec2f and MFVec2f</a> <br>
+			<a href="#SFVec3f">
+			5.19 SFVec3d and MFVec3d</a> <br>
+			<a href="#SFVec3f">
+			5.20 SFVec3f and MFVec3f</a> <br>
+			<a href="#SFVec4d">
+			5.21 SFVec4d and MFVec4d</a> <br>
+			<a href="#SFVec4f">
+			5.22 SFVec4f and MFVec4f</a></font></td>
+		</tr>
+	</table>
+</div>
+<p class="MergeLocation">5.8</p>
+<p class="MergeInstructions">Insert the following new field types after 5.8 and 
+renumber the remaining subclauses:</p>
+
+<h1>
+<a name="SFMatrix3d"></a>
+<img class="cube" alt="cube" src="Images/cube.gif">5.9 
+SFMatrix3d and MFMatrix3d</h1>
+<p>The SFMatrix3d field specifies a 3&times;3 matrix of double precision float 
+elements. An MFMatrix3d field specifies zero or more 3&times;3 double precision 
+matrices. Each SFMatrix3d field is encoded as nine ISO&nbsp;C double-precision 
+floating point values (see <a href="Part01/references.html#[I9899]">ISO/IEC 9899</a>) 
+separated by whitespace. The first three double precision floating point numbers 
+represent the top row of the matrix. The second three double precision floating 
+point numbers represent second row of the matrix. The last three double 
+precision floating point numbers represent the bottom row of the matrix.</p>
+<p class="Example">EXAMPLE</p>
+<p class="ExampleCode"><span class="code">&lt;field name=&quot;corners&quot;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; type=&quot;MFMatrix3d&quot;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; value=&quot;</span>1.5968734 0.7658987778666 0 0.4387899877 1 0 0 0 1,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;2.7338246644 0.5 0 4.389222333 2.5 0 0 0 1<span class="code">&quot;/&gt;</span></p>
+<h1>
+<a name="SFMatrix3f"></a>
+<img class="cube" alt="cube" src="Images/cube.gif">5.10 
+SFMatrix3f and MFMatrix3f</h1>
+<p>The SFMatrix3d field specifies a 3&times;3 matrix of single precision float values. 
+An MFMatrix3d field specifies zero or more 3&times;3 single precision matrices. Each 
+SFMatrix3d field is encoded as nine ISO&nbsp;C single precision floating point values 
+(see <a href="Part01/references.html#[I9899]">ISO/IEC 9899</a>) separated by 
+whitespace. The first three single precision floating point numbers represent 
+the top row of the matrix. The second three single precision floating point 
+numbers represent second row of the matrix. The last three single precision 
+floating point numbers represent the bottom row of the matrix.</p>
+<p class="Example">EXAMPLE</p>
+<p class="ExampleCode"><span class="code">&lt;field name=&quot;corners&quot;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; type=&quot;MFMatrix3f&quot;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; value=&quot;</span>3.05 43.89 0 77.89 54.32 0 -3.5 2.78 1,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;89.777 33.486 0 3222.2 1 17.0 4.0 -3.9 0.5<span class="code">&quot;/&gt;</span></p>
+<h1>
+<a name="SFMatrix4d"></a>
+<img class="cube" alt="cube" src="Images/cube.gif">5.11 
+SFMatrix4d and MFMatrix4d</h1>
+<p>The SFMatrix3d field specifies a 4&times;4 matrix of double precision float 
+elements. An MFMatrix3d field specifies zero or more 4&times;4 double precision 
+matrices. Each SFMatrix3d field is encoded as sixteen ISO&nbsp;C double-precision 
+floating point values (see <a href="Part01/references.html#[I9899]">ISO/IEC 9899</a>) 
+separated by whitespace. The first four double precision floating point numbers 
+represent the top row of the matrix. The second four double precision floating 
+point numbers represent second row of the matrix. The third four double 
+precision floating point numbers represent the third row of the matrix. The last 
+four double precision floating point numbers represent the bottom row of the 
+matrix.</p>
+<p class="Example">EXAMPLE</p>
+<p class="ExampleCode"><span class="code">&lt;field name=&quot;corners&quot;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; type=&quot;MFMatrix4d&quot;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; value=&quot;</span>1.5968734 0.7658987778666 0 0.4387899877<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1 0 0 0<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;36.31896667 0.5 -13.4879906634 0<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;0 0 0 1,<br>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;2.7338246644 0.5 0 4.389222333<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;2.5 0 0 0<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;987.883 -0.5432 3289.77 1<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;-43.5 43.5 -10 1<span class="code">&quot;/&gt;</span></p>
+<h1>
+<a name="SFMatrix4f"></a>
+<img class="cube" alt="cube" src="Images/cube.gif">5.12 
+SFMatrix4f and MFMatrix4f</h1>
+<p>The SFMatrix3d field specifies a 4&times;4 matrix of single precision float values. 
+An MFMatrix3d field specifies zero or more 4&times;4 single precision matrices. Each 
+SFMatrix3d field is encoded as sixteen ISO&nbsp;C single precision floating point 
+values (see <a href="Part01/references.html#[I9899]">ISO/IEC 9899</a>) separated 
+by whitespace. The first four single precision floating point numbers represent 
+the top row of the matrix. The second four single precision floating point 
+numbers represent second row of the matrix. The third four single precision 
+floating point numbers represent the third row of the matrix.&nbsp;The last four 
+single precision floating point numbers represent the bottom row of the matrix.
+</p>
+<p class="Example">EXAMPLE</p>
+<p class="ExampleCode"><span class="code">&lt;field name=&quot;corners&quot;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; type=&quot;MFMatrix4f&quot;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; value=&quot;</span>3.05 43.89 0 77.89<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;54.32 0 -3.5 2.78<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;14.322210443 -0.00007788666 2.1 1<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;-0.5 0.5 2.9987799 13.34,<br>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;89.777 33.486 0 3222.2<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1 17.0 4.0 -3.9<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;-33.3333 17.6689 0.5 1<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1 1 -3 1.115<span class="code">&quot;/&gt;</span></p>
+<p class="MergeLocation">5.16</p>
+<p class="MergeInstructions">Append the following new field types as the last 
+two field types:</p>
+<h1>
+<a name="SFVec4d"></a>
+<img class="cube" alt="cube" src="Images/cube.gif" height="19" width="20"> 
+5.21 SFVec4d and MFVec4d</h1>
+<p>The SFVec4d field specifies a four-dimensional (4D) double precision vector 
+(or a three-dimensional homogeneous vector). 
+An MFVec4d field specifies zero or more 4D double precision vectors. SFVec4d&#39;s and 
+MFVec4d&#39;s are encoded as four ISO&nbsp;C floating point values (see
+<a href="references.html#%5BI9899%5D">ISO/IEC 9899</a>) 
+separated by whitespace.</p>
+<p class="Example">EXAMPLE</p>
+<blockquote>
+	<span class="code">&lt;field name=&quot;point=&quot;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; type=&quot;MFVec4d&quot;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; value=&quot;1.000000000001 42 666.35357878 
+	0.5748998763, 7 94 0.100000000007 1.11111111111&quot;/&gt;</span></blockquote>
+<p class="Example">is an MFVec4d field, <i>point</i>, defining a double 
+precision vector value.</p>
+<h1>
+<a name="SFVec4f"></a>
+<img class="cube" alt="cube" src="Images/cube.gif" height="19" width="20"> 
+5.22 SFVec4f and MFVec4f</h1>
+<p>The SFVec4f field specifies a four-dimensional (4D) single precision vector 
+(or a three-dimensional homogeneous vector). 
+An MFVec4f field specifies zero or more 4D single precision vectors. SFVec4f&#39;s and 
+MFVec4f&#39;s are encoded as four ISO&nbsp;C floating point values (see
+<a href="references.html#%5BI9899%5D">ISO/IEC 9899</a>) 
+separated by whitespace.</p>
+<p class="Example">EXAMPLE</p>
+<blockquote>
+	<span class="code">&lt;field name=&quot;point=&quot;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; type=&quot;MFVec4f&quot;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; value=&quot;1 42 666 13.5, 7 -94.7 0 3.678&quot;/&gt;</span></blockquote>
+<p class="Example">is an MFVec4d field, <i>point</i>, defining a single 
+precision vector value.</p>
+<p>&nbsp;</p>
+
+</body></html>

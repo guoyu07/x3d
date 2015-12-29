@@ -1,0 +1,47 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html lang="en">
+<HEAD>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+<TITLE>ISO/IEC 19775-1:2004/Am1:2006 -- 12 Shape component</TITLE>
+<link href="../../X3D.css" type="text/css" rel=stylesheet>
+
+</HEAD>
+<BODY>
+
+<p class="MergeLocation">Table 12.1</p>
+<p class="MergeInstructions">In the HTML, change the hyperlink for 12.5 to &quot;<span style="font-style: normal">#SupportLevels</span>&quot;.</p>
+
+<p class="MergeLocation">12.4.1, Node signature</p>
+<p class="MergeInstructions">Insert the following new field definition after the 
+definition of the metadata field:</p>
+<p>&ldquo;<span class="code">MFNode [in,out] shaders [] [X3DShaderNode]</span>&rdquo;</p>
+<p class="MergeLocation">12.4.1</p>
+<p class="MergeInstructions">In the second paragraph, replace &ldquo;<span style="font-style: normal">
+<span class="code">NULL</span>or</span>&rdquo; 
+with &ldquo;<span class="code"><span style="font-style: normal">NULL</span></span>
+<span style="font-style: normal">or</span>&rdquo;.</p>
+<p class="MergeInstructions">Append the following new paragraph:</p>
+<p>&ldquo;The <i>shaders</i> field contains a listing, in order of preference, of 
+nodes that describe programmable shaders that replace the fixed rendering 
+requirements of this part of ISO/IEC 19775 with user-provided functionality. If the 
+field is not empty, one shader node is selected and the fixed rendering requirements defined 
+by this specification are ignored. The field shall contain one of the various 
+types of shader nodes as specified in <a href="shaders.html">31 Programmable shaders component</a>.&rdquo;</p>
+<p class="MergeLocation">12.5, heading</p>
+<p class="MergeInstructions">In the HTML, change the bookmark for 12.5 to &quot;<span style="font-style: normal">SupportLevels</span>&quot;.</p>
+
+<p class="MergeLocation">12.5, 1st paragraph</p>
+<p class="MergeInstructions">Renumber the table as Table 12.3 and update the 
+reference.</p>
+<p class="MergeLocation">12.5, Table </p>
+<p class="MergeInstructions">In the Level 1 row for the Appearance node, append 
+the following text to the entry in the Support column:</p>
+<p>&quot;Shaders not supported.&quot;</p>
+<p class="MergeInstructions">In the Level 2 row for the Appearance node, append 
+the following text to the entry in the Support column:</p>
+<p>&quot;Shaders not supported.&quot;</p>
+<p>&nbsp;</p>
+
+</BODY>
+</HTML>

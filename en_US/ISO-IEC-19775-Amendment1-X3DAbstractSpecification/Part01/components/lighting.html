@@ -1,0 +1,92 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html lang="en">
+<HEAD>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+<TITLE>ISO/IEC 19775-1:2004/Am1:2006 -- 17 Lighting component</TITLE>
+<link href="../../X3D.css" type="text/css" rel=stylesheet>
+
+</HEAD>
+<BODY>
+
+<p class="MergeLocation">Table 17.1</p>
+<p class="MergeInstructions">In the HTML, change the hyperlink for 17.5 to &quot;<span style="font-style: normal">#SupportLevels</span>&quot;.</p>
+
+<p class="MergeLocation">17.2.1.2</p>
+<p class="MergeInstructions">Replace with the following text:</p>
+<p>“Each light type defines a <i>global</i> field that determines whether the light is 
+global or scoped. Global lights illuminate all objects that fall within their 
+volume of lighting influence. Scoped lights only illuminate objects that are in 
+the same transformation hierarchy as the light; i.e., only the children and 
+descendants of its enclosing parent group are illuminated. This allows the 
+creation of realistic effects such as lights that illuminate a single room.”</p>
+
+<p class="MergeLocation">17.2.2.1</p>
+<p class="MergeInstructions">Append the following text as a new paragraph:</p>
+<p>&ldquo;If a programmable shader is defined for an Appearance node, the lighting 
+model shall be disabled and replaced by the functionality implemented by the 
+shader program.&rdquo;</p>
+
+<p class="MergeLocation">17.2.2.2, 2nd paragraph</p>
+<p class="MergeInstructions">Replace the paragraph with the following text:</p>
+<p class="Example">“NOTE Geometry nodes that represent lines or points do not 
+support lighting.”</p>
+
+<p class="MergeLocation">17.2.2.4, lighting equation regarding &quot;on&quot; state</p>
+<p class="MergeInstructions">In the text for 
+<span style="font-style: normal"> <span class="code">
+on<sub>1</sub></span>,</span> replace the 
+description of value 0 with the following text:</p>
+<p>“0, if light source i does not affect this geometry. The following conditions 
+indicate that light source i does not affect this geometry:<br>
+<br>
+&nbsp; a. if the geometry is farther away than <i>radius</i> for PointLight or 
+SpotLight;<br>
+&nbsp; b. if the geometry is outside the enclosing X3DGroupNode; and/or<br>
+&nbsp; c. if the <i>on</i> field is FALSE.”</p>
+
+<p class="MergeLocation">17.3.1, Node signature</p>
+<p class="MergeInstructions">Insert the following new field after the
+<span style="font-style: normal">color</span> field:</p>
+<p>&ldquo;<span class="code">SFBool [in,out] global FALSE</span>&rdquo;</p>
+
+<p class="MergeLocation">17.3.1, 1st paragraph</p>
+<p class="MergeInstructions">Append the following text:</p>
+<p>“A description of the <i>global</i> field is in <a href="#Scopingoflights">
+17.2.1.2 Scoping of lights.</a>”</p>
+
+<p class="MergeLocation">17.4.1, Node signature</p>
+<p class="MergeInstructions">Insert the following new field after the
+<span style="font-style: normal">direction</span> field:</p>
+<p>&ldquo;<span class="code">SFBool [in,out] global FALSE</span>&rdquo;</p>
+
+<p class="MergeLocation">17.4.1, 1st paragraph</p>
+<p class="MergeInstructions">Append the following text:</p>
+<p>“A description of the <i>global</i> field is in <a href="#Scopingoflights">
+17.2.1.2 Scoping of lights.</a>”</p>
+
+<p class="MergeLocation">17.4.2, Node signature</p>
+<p class="MergeInstructions">Insert the following new field after the
+<span style="font-style: normal">color</span> field:</p>
+<p>&ldquo;<span class="code">SFBool [in,out] global TRUE</span>&rdquo;</p>
+
+<p class="MergeLocation">17.4.2, 1st paragraph</p>
+<p class="MergeInstructions">Append the following text:</p>
+<p>“A description of the <i>global</i> field is in <a href="#Scopingoflights">
+17.2.1.2 Scoping of lights.</a>”</p>
+
+<p class="MergeLocation">17.4.3, Node signature</p>
+<p class="MergeInstructions">Insert the following new field after the
+<span style="font-style: normal">direction</span> field:</p>
+<p>&ldquo;<span class="code">SFBool [in,out] global TRUE</span>&rdquo;</p>
+
+<p class="MergeLocation">17.4.3, 1st paragraph</p>
+<p class="MergeInstructions">Append the following text:</p>
+<p>“A description of the <i>global</i> field is in <a href="#Scopingoflights">
+17.2.1.2 Scoping of lights.</a>”</p>
+
+<p class="MergeLocation">17.5</p>
+<p class="MergeInstructions">In the HTML, change the bookmark for 17.5 to &quot;<span style="font-style: normal">SupportLevels</span>&quot;.</p>
+
+</BODY>
+</HTML>
