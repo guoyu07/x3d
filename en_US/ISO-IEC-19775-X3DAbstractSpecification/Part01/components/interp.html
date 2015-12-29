@@ -1,0 +1,557 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html lang="en">
+<HEAD>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"> 
+
+<TITLE>Extensible 3D (X3D), ISO/IEC 19775-1:2004, Part 1 -- 19 Interpolation component</TITLE>
+<link rel="stylesheet" href="../../X3D.css" type="text/css">
+
+</HEAD>
+<BODY>
+
+<div class="CenterDiv">
+<IMG class="x3dlogo" SRC="../../Images/x3d.png" ALT="X3D logo" width="115" height="106"> 
+</div>
+
+<div class="CenterDiv">
+<p class="HeadingPart">
+    Extensible 3D (X3D)<br />
+    Part 1: Architecture and base components</p>
+<p class="HeadingClause">19 Interpolation component</p>
+</div>
+
+<IMG class="x3dbar" SRC="../../Images/x3dbar.png" ALT="--- X3D separator bar ---" width="430" height="23">
+
+<h1><a name="Introduction"></a>
+<img class="cube" src="../../Images/cube.gif" alt="cube" width="20" height="19"> 
+19.1 Introduction</h1>
+<h2><a name="Name"></a>19.1.1 Name</h2>
+<p>The name of this component is &quot;Interpolation&quot;. This name shall be used when referring 
+to this component in the COMPONENT statement (see
+<a href="core.html#COMPONENTStatement">7.2.5.4 Component statement</a>).</p>
+<h2><a name="Overview"></a>19.1.2 Overview</h2>
+
+<p>This subclause describes the Interpolation component of this part of ISO/IEC 
+19775. <a href="#t-Topics">Table 19.1</a> provides links to the major 
+  topics in this subclause.</p>
+
+<div class="CenterDiv">
+
+<p class="TableCaption">
+<a name="t-Topics"></a><b>
+Table 19.1 &mdash; Topics</b></p>
+
+  <table>
+    <tr> 
+      <td> 
+<ul>
+        <li><a href="#Introduction">19.1 Introduction</a>
+        <ul>
+          <li><a href="#Name">19.1.1 Name</a></li>
+          <li><a href="#Overview">19.1.2 Overview</a> </li>
+        </ul>
+        <li><a href="#Concepts">19.2 Concepts</a>
+<ul>
+<li><a href="#Interpolators">19.2.1 Interpolators</a></li>
+<li><a href="#Linearinterpolation">19.2.2 Linear interpolation</a></li>
+</ul>
+        <li><a href="#Abstracttypes">19.3 Abstract types</a><br />
+<ul>
+<li><a href="#X3DInterpolatorNode">19.3.1 <i>X3DInterpolatorNode</i></a></li>
+</ul>
+        <li><a href="#Nodereference">19.4 Node reference</a><br />
+<ul>
+<li><a href="#ColorInterpolator">19.4.1 ColorInterpolator</a></li>
+<li><a href="#CoordinateInterpolator">19.4.2 CoordinateInterpolator</a></li>
+<li><a href="#CoordinateInterpolator2D">19.4.3 CoordinateInterpolator2D</a></li>
+<li><a href="#NormalInterpolator">19.4.4 NormalInterpolator</a></li>
+<li><a href="#OrientationInterpolator">19.4.5 OrientationInterpolator</a></li>
+<li><a href="#PositionInterpolator">19.4.6 PositionInterpolator</a></li>
+<li><a href="#PositionInterpolator2D">19.4.7 PositionInterpolator2D</a></li>
+<li><a href="#ScalarInterpolator">19.4.8 ScalarInterpolator</a></li>
+</ul>
+        <li><a href="#Supportlevels">19.5 Support levels</a>
+</ul>
+<ul>
+<li><a href="#t-Topics">Table 19.1 &mdash; Topics</a></li>
+<li><a href="#t-supportlevels">Table 19.2 &mdash; Interpolation component support levels</a></li>
+</ul>
+      </td>
+    </tr>
+  </table>
+</div>
+
+<h1><img class="cube" src="../../Images/cube.gif" alt="cube" width="20" height="19">
+<a name="Concepts"></a>
+19.2 Concepts</h1>
+
+<p>This clause includes six Interpolator nodes 
+all of which provide keyframe-based animation capability.</p>
+
+<h2><a name="Interpolators"></a>
+19.2.1 Interpolators</h2>
+
+<p>The Interpolator nodes provide linear interpolation between animation key frame 
+  values. The following node types are Interpolator nodes, each based on the type 
+  of value that is interpolated:</p>
+
+<ul>
+  <li><a href="#ColorInterpolator">ColorInterpolator</a> </li>
+  <li><a href="#CoordinateInterpolator">CoordinateInterpolator</a></li>
+  <li><a href="#CoordinateInterpolator2D">CoordinateInterpolator2D</a> </li>
+  <li><a href="#NormalInterpolator">NormalInterpolator</a> </li>
+  <li><a href="#OrientationInterpolator">OrientationInterpolator</a> </li>
+  <li><a href="#PositionInterpolator">PositionInterpolator</a></li>
+  <li><a href="#PositionInterpolator2D">PositionInterpolator2D</a> </li>
+  <li><a href="#ScalarInterpolator">ScalarInterpolator</a></li>
+</ul>
+
+<p>All Interpolator nodes are based on the abstract type 
+<a href="#X3DInterpolatorNode">X3DInterpolatorNode</a>. 
+</p>
+
+
+<h2><a name="Linearinterpolation"></a>
+19.2.2 Linear interpolation</h2>
+
+<p>The X3D Interpolator nodes specified in this clause are designed for linear 
+key framed animation. Each of these nodes defines a piecewise-linear function, 
+<i>f(t)</i>, on the interval <i>(&minus;</i>&#8734;,&#8734;<i>)</i>. The piecewise-linear 
+function is defined by <i>n</i> values of <i>t</i>, called <i>key</i>, and the 
+<i>n</i> corresponding values of <i>f(t)</i>, called <i>keyValue</i>. The keys 
+shall be monotonically non-decreasing, otherwise the results are undefined.</p>
+
+<p>An interpolator node evaluates <i>f(t)</i> given any value of <i>t</i> (via 
+the <i>fraction</i> field) as follows: Let the <i>n</i> keys <i>t<sub>0</sub></i>, 
+<i>t<sub>1</sub></i>, <i>t<sub>2</sub></i>, ..., <i>t<sub>n&minus;1</sub></i> partition 
+the domain <i>(&minus;</i>&#8734;,&#8734;<i>)</i> into the <i>n+1</i> subintervals 
+given by <i>(-</i>&#8734;, <i>t<sub>0</sub>)</i>, <i>[t<sub>0</sub></i>, <i>t<sub>1</sub>)</i>, 
+<i>[t<sub>1</sub></i>, <i>t<sub>2</sub>)</i>, ... , <i>[t<sub>n&minus;1</sub></i>, 
+<i>+</i>&#8734;<i>)</i>. Also, let the <i>n</i> values <i>v<sub>0</sub></i>, 
+<i>v<sub>1</sub></i>, <i>v<sub>2</sub></i>, ..., <i>v<sub>n-1</sub></i> be the 
+values of <i>f(t)</i> at the associated key values. The piecewise-linear interpolating 
+function, <i>f(t)</i>, is defined to be: </p>
+
+<pre class="listing">    <i>f(t)</i> = <i>v<sub>0</sub></i>,    if<i> t &le; t<sub>0</sub></i>,
+         = <i>v<sub>n&minus;1</sub></i>,   if <i>t &ge; t<sub>n&minus;1</sub></i>,
+         = <i>linterp(t, v<sub>i</sub></i>, <i>v<sub>i+1</sub>)</i>,    if <i>t<sub>i</sub> &le; t &le; t<sub>i+1</sub></i>,
+
+     where <i>linterp(t,x,y)</i> is the linear interpolant, 
+           <i>i</i> belongs to <i>{0,1,..., n&minus;2}</i>.
+</pre>
+
+<p>The third conditional value of <i>f(t)</i> allows the defining of multiple values 
+for a single key, (i.e., limits from both the left and right at a discontinuity 
+in <i>f(t))</i>. The first specified value is used as the limit of <i>f(t)</i> from 
+the left, and the last specified value is used as the limit of <i>f(t)</i> from 
+the right. The value of <i>f(t)</i> at a multiply defined key is indeterminate, 
+but should be one of the associated limit values.</p>
+
+<h1><img class="cube" src="../../Images/cube.gif" alt="cube" width="20" height="19">
+<a name="Abstracttypes"></a>
+19.3 Abstract types</h1>
+<h2><a name="X3DInterpolatorNode"></a>
+19.3.1 <i>X3DInterpolatorNode</i></h2>
+
+<pre class="node">X3DInterpolatorNode : X3DChildNode { 
+  SFFloat      [in]     set_fraction       (-&#8734;,&#8734;)
+  MFFloat      [in,out] key           []   (-&#8734;,&#8734;)
+  MF&lt;type>     [in,out] keyValue      []
+  SFNode       [in,out] metadata      NULL [X3DMetadataObject]
+  [S|M]F&lt;type> [out]    value_changed
+}
+</pre> 
+
+<p>The abstract node X3DInterpolatorNode forms the basis for all types of interpolators 
+  specified in this clause.</p>
+
+<p>The <i>key</i> field contains the list of key times, 
+which could appear as: 
+<pre class="listing">    key [0 0.25 0.65 0.75 1]
+</pre> 
+to indicate there are five key frames in this node. 
+The <i>keyValue</i> field contains values for the target field, 
+one complete set of values for each key. Interpolator nodes containing no keys 
+    in the <i>key</i> field shall not produce any events. However, an input 
+    event that replaces an empty <i>key</i> field with one that contains keys 
+    will cause the interpolator node to produce events the next time that a <i>
+    set_fraction</i> event is received..</p>
+ 
+<p>The <i>set_fraction</i> inputOnly field receives an SFFloat event and causes the interpolator 
+node function to evaluate, resulting in a <i>value_changed</i> output event of the 
+specified type with the same timestamp as the <i>set_fraction</i> event. </p>
+
+<p>The contents of the <i>keyValue</i> and <i>value_changed</i> fields 
+are dependent on the type of the node (e.g., the PositionInterpolator 
+fields use MFVec3f values). 
+Each value or set of values in the <i>keyValue</i> field corresponds 
+in order to the parameter value in the <i>key</i> field.</p>
+
+<p>For interpolator nodes that produce a single value, results are undefined if 
+the number of values in the <i>key</i> field is not the same as the number of 
+values in the <i>keyValue</i> field.</p>
+
+<p>For Interpolator nodes that produce multiple values, the <i>keyValue</i> field 
+is an <i>n</i>x<i>m</i> array of values, where <i>n</i> is the number of values 
+in the <i>key</i> field and <i>m</i> is the number of values at each key frame. 
+Each <i>m</i> values in the <i>keyValue</i> field correspond, in order, to a 
+parameter value in the <i>key</i> field. Each <i>value_changed</i> event shall 
+contain <i>m</i> interpolated values. Results are undefined if the number of 
+values in the <i>keyValue</i> field is not a positive integer multiple of the 
+number of values in the <i>key</i> field. </p>
+
+<p>If an X3DInterpolatorNode <i>value_changed</i> outputOnly field is read before it receives 
+any inputs, <i>keyValue</i>[0] is returned if <i>keyValue</i> is not empty. 
+If <i>keyValue</i> is empty (i.e., [ ]), the initial value for the respective 
+field 
+type is returned (<span class="code">EXAMPLE</span>&nbsp; (0, 0, 0) for SFVec3f); see 
+<a href="../fieldsDef.html">5 Field type reference</a> for initial event values.</p>
+
+<p>The location of an X3DInterpolatorNode in the transformation hierarchy has 
+no effect on its operation. For example, if a parent of an interpolator node 
+is a Switch node with <i>whichChoice</i> set to &minus;1 (i.e.,&#160;ignore its children), 
+the interpolator continues to operate as specified (receives and sends events).</p>
+
+<p>A typical simplified structure for a key frame animation implementation involves 
+a TimeSensor, ROUTEs, and the target node. </p>
+
+<pre class="listing">  Transform { 
+    Shape 
+       IndexedFaceSet { coordIndex='... &minus;1 ... >
+           Coordinate DEF='Moved' point [ x y z, ... ] # <i>t0Geometry</i>
+       }                  
+    } 
+  } 
+
+  CoordinateInterpolator DEF='Mover' 
+      key [t0 t1 t2 ]            #   <i>list of key times, 0 to 1</i>
+      keyValue ' x y z, ... '    #   <i>one geometry per key time</i> 
+
+  TimeSensor DEF='Timer' cycleInterval 5 loop TRUE 
+
+  ROUTE Timer.fraction_changed TO Mover.set_value  
+  ROUTE Mover.value_changed TO Moved.point 
+</pre>
+
+<p>In typical operation, the key frame <i>set_fraction</i> event arrives from 
+a TimeSensor to signal that the time value has advanced. This value varies from 
+0 to 1 depending upon where the TimeSensor is in its cycle time. For example, 
+if the TimeSensor has a cycleTime of 10 seconds, and 5 seconds has elapsed in 
+its cycle,  the set_fraction value will be 0.5. </p>
+
+<p>In this example structure, the IndexedFaceSet contains a Coordinate field named 
+<i>Moved</i>. This defines the time equals zero geometry for the node. The CoordinateInterpolator 
+node named <i>Mover</i> contains the list of key frame times and the corresponding 
+sets of Coordinates in the keyValue field. When the <i>set_fraction</i> event 
+arrives for <i>key</i>,  the corresponding interpolated <i>keyValue</i> is sent 
+to the target Coordinate node for rendering.</p>
+
+<h1><img class="cube" src="../../Images/cube.gif" alt="cube" width="20" height="19">
+<a name="Nodereference"></a>
+19.4 Node reference</h1>
+
+<h2><a name="ColorInterpolator"></a>
+19.4.1 ColorInterpolator</h2>
+
+<pre class="node">ColorInterpolator : X3DInterpolatorNode {
+  SFFloat [in]     set_fraction       (-∞,∞)
+  MFFloat [in,out] key           []   (-∞,∞)
+  MFColor [in,out] keyValue      []   [0,1]
+  SFNode  [in,out] metadata      NULL [X3DMetadataObject]
+  SFColor [out]    value_changed
+}</pre>
+
+<p>This node interpolates among a list of MFColor key values 
+to produce an SFColor (RGB) <i>value_changed</i> event. 
+The number of colours in the <i>keyValue</i> field shall be 
+equal to the number of key frames in the <i>key</i> field. 
+The <i>keyValue</i> field and <i>value_changed</i> 
+events are defined in RGB colour space. A linear interpolation using 
+the value of <i>set_fraction</i> as input is performed in HSV space 
+(see <a href="../bibliography.html#[FOLEY]">[FOLEY]</a> for description of 
+RGB and HSV colour spaces). The results are undefined when interpolating 
+between two consecutive keys with complementary hues.</p>
+
+<h2><a name="CoordinateInterpolator"></a>
+19.4.2 CoordinateInterpolator</h2>
+
+<pre class="node">CoordinateInterpolator : X3DInterpolatorNode {
+  SFFloat [in]     set_fraction       (-∞,∞)
+  MFFloat [in,out] key           []   (-∞,∞)
+  MFVec3f [in,out] keyValue      []   (-∞,∞)
+  SFNode  [in,out] metadata      NULL [X3DMetadataObject]
+  MFVec3f [out]    value_changed
+}</pre>
+
+<p>This node linearly interpolates among a list of MFVec3f 
+values to produce an MFVec3f <i>value_changed</i> event. 
+The number of coordinates in the <i>keyValue</i> field shall 
+be an integer multiple of the number of key frames in the <i>key</i> 
+field. That integer multiple defines how many coordinates will be contained 
+in the <i>value_changed </i>events.</p>
+
+<h2><a name="CoordinateInterpolator2D"></a>
+19.4.3 CoordinateInterpolator2D</h2>
+
+<pre class="node">CoordinateInterpolator2D : X3DInterpolatorNode {
+  SFFloat [in]     set_fraction       (-∞,∞)
+  MFFloat [in,out] key           []   (-∞,∞)
+  MFVec2f [in,out] keyValue      []   (-∞,∞)
+  SFNode  [in,out] metadata      NULL [X3DMetadataObject]
+  MFVec2f [out]    value_changed
+}
+</pre>
+
+<p>This node linearly interpolates among a list of MFVec2f values to produce an 
+MFVec2f <i>value_changed</i> event. The number of coordinates in the <i>keyValue</i> 
+field shall be an integer multiple of the number of key frames in the <i>key</i> 
+field. That integer multiple defines how many coordinates will be contained 
+in the <i>value_changed </i>events.</p>
+
+<h2><a name="NormalInterpolator"></a>
+19.4.4 NormalInterpolator</h2>
+
+<pre class="node">NormalInterpolator : X3DInterpolatorNode {
+  SFFloat [in]     set_fraction       (-∞,∞)
+  MFFloat [in,out] key           []   (-∞,∞)
+  MFVec3f [in,out] keyValue      []   (-∞,∞)
+  SFNode  [in,out] metadata      NULL [X3DMetadataObject]
+  MFVec3f [out]    value_changed
+}</pre>
+
+<p>The NormalInterpolator node interpolates among a list 
+of normal vector sets specified by the <i>keyValue</i> field
+to produce an MFVec3f <i>value_changed</i> event. 
+The output vector, <i>value_changed</i>, shall be 
+a set of normalized vectors.</p>
+
+<p>Values in the <i>keyValue</i> field shall be of unit length. 
+The number of normals in the <i>keyValue</i> field shall be an integer 
+multiple of the number of key frames in the <i>key</i> field. That integer 
+multiple defines how many normals will be contained in the 
+<i>value_changed</i> events.</p>
+
+<p>Normal interpolation shall be performed on the surface 
+of the unit sphere. That is, the output values for a linear interpolation 
+from a point P on the unit sphere to a point Q also on the unit sphere 
+shall lie along the shortest arc (on the unit sphere) connecting points 
+P and Q. Also, equally spaced input fractions shall result in arcs of 
+equal length. The results are undefined if P and Q are diagonally opposite.</p>
+
+<h2><a name="OrientationInterpolator"></a>
+19.4.5 OrientationInterpolator</h2>
+
+<pre class="node">OrientationInterpolator : X3DInterpolatorNode {
+  SFFloat    [in]     set_fraction       (-∞,∞)
+  MFFloat    [in,out] key           []   (-∞,∞)
+  MFRotation [in,out] keyValue      []   [-1,1] or (-∞,∞)
+  SFNode     [in,out] metadata      NULL [X3DMetadataObject]
+  SFRotation [out]    value_changed
+}</pre>
+
+<p>The OrientationInterpolator node interpolates among a 
+list of rotation values specified in the <i>keyValue</i> field 
+to produce an SFRotation <i>value_changed</i> event. 
+These rotations are absolute in object space and therefore are not cumulative. 
+The <i>keyValue</i> field shall contain exactly as many rotations as 
+there are key frames in the <i>key</i> field.</p>
+
+<p>An orientation represents the final position of an object 
+after a rotation has been applied. An OrientationInterpolator interpolates 
+between two orientations by computing the shortest path on the unit 
+sphere between the two orientations. The interpolation is linear in 
+arc length along this path. The results are undefined if the two orientations 
+are diagonally opposite.</p>
+
+<p>If two consecutive <i>keyValue </i>values exist such that 
+the arc length between them is greater than &#960;, 
+the interpolation will take place on the arc complement. 
+For example, the interpolation between the orientations</p>
+
+    <blockquote>
+
+<p>(0, 1, 0, 0) and (0, 1, 0, 5.0)</p>
+
+    </blockquote>
+
+<p>is equivalent to the rotation between the orientations</p>
+
+    <blockquote>
+
+<p>(0, 1, 0, 2<font face="Times New Roman">&#960;</font>) and (0, 1, 0, 5.0).</p>
+
+    </blockquote>
+
+<h2><a name="PositionInterpolator"></a>
+19.4.6 PositionInterpolator</h2>
+
+<pre class="node">PositionInterpolator : X3DInterpolatorNode {
+  SFFloat [in]     set_fraction       (-∞,∞)
+  MFFloat [in,out] key           []   (-∞,∞)
+  MFVec3f [in,out] keyValue      []   (-∞,∞)
+  SFNode  [in,out] metadata      NULL [X3DMetadataObject]
+  SFVec3f [out]    value_changed
+}
+</pre>
+
+<p>The PositionInterpolator node linearly interpolates among 
+a list of 3D vectors
+to produce an SFVec3f <i>value_changed</i> event. 
+The <i>keyValue</i> field shall contain exactly 
+as many values as in the <i>key</i> field.</p>
+
+<h2><a name="PositionInterpolator2D"></a>
+19.4.7 PositionInterpolator2D</h2>
+
+<pre class="node">PositionInterpolator2D : X3DInterpolatorNode {
+  SFFloat [in]     set_fraction       (-∞,∞)
+  MFFloat [in,out] key           []   (-∞,∞)
+  MFVec2f [in,out] keyValue      []   (-∞,∞)
+  SFNode  [in,out] metadata      NULL [X3DMetadataObject]
+  SFVec2f [out]    value_changed
+}
+</pre>
+
+<p>The PositionInterpolator node linearly interpolates among a list of 2D vectors 
+to produce an SFVec2f <i>value_changed</i> event. The <i>keyValue</i> field 
+shall contain exactly as many values as in the <i>key</i> field.</p>
+
+<h2><a name="ScalarInterpolator"></a>
+19.4.8 ScalarInterpolator</h2>
+
+<pre class="node">ScalarInterpolator : X3DInterpolatorNode {
+  SFFloat [in]     set_fraction       (-∞,∞)
+  MFFloat [in,out] key           []   (-∞,∞)
+  MFFloat [in,out] keyValue      []   (-∞,∞)
+  SFNode  [in,out] metadata      NULL [X3DMetadataObject]
+  SFFloat [out]    value_changed
+}
+</pre>
+
+<p>This node linearly interpolates among a list of SFFloat 
+values to produce an SFFloat <i>value_changed</i> event.
+This interpolator is appropriate for any parameter defined using 
+a single floating point value. Examples include width, radius, and intensity 
+fields. The <i>keyValue</i> field shall contain exactly as many numbers 
+as there are key frames in the <i>key</i> field.</p>
+
+<h1><img class="cube" src="../../Images/cube.gif" alt="cube" width="20" height="19">
+<a name="Supportlevels"></a>
+19.5 Support levels</h1>
+
+<p>The Interpolation component provides two levels of 
+support as specified in 
+<a href="#t-supportlevels">Table 19.2</a>.</p>
+
+<div class="CenterDiv">
+
+<p class="TableCaption">
+<a name="t-supportlevels"></a>
+Table 19.2<b>
+&mdash; </b>Interpolation component support levels</p>
+  
+<table>
+    <tr> 
+      <th>Level</th>
+      <th>Prerequisites</th>
+      <th>Nodes/Features</th>
+      <th>Support</th>
+    </tr>
+    <tr> 
+      <td align="center"><b>1</b></td>
+      <td>Core 1<br>
+      Grouping 1<br />
+                      Shape 1</td>
+      <td></td>
+      <td></td>
+    </tr>
+    <tr> 
+      <td align="center">&nbsp;</td>
+      <td></td>
+      <td><i>X3DInterpolatorNode </i>(abstract)</td>
+      <td>n/a</td>
+    </tr>
+    <tr> 
+      <td align="center">&nbsp;</td>
+      <td></td>
+      <td>CoordinateInterpolator</td>
+      <td>All fields fully supported.</td>
+    </tr>
+      <tr>
+      <td align="center"></td>
+      <td></td>
+      <td>OrientationInterpolator</td>
+      <td>All fields fully supported.</td>
+      </tr>
+    <tr> 
+      <td align="center"></td>
+      <td></td>
+      <td>PositionInterpolator</td>
+      <td>All fields fully supported.</td>
+    </tr>
+    <tr> 
+      <td align="center"></td>
+      <td></td>
+      <td>ScalarInterpolator</td>
+      <td>All fields fully supported.</td>
+    </tr>
+    <tr> 
+      <td align="center"><b>2</b></td>
+      <td>Core 1<br>
+      Grouping 1<br>
+      Shape 1</td>
+      <td></td>
+      <td></td>
+    </tr>
+    <tr> 
+      <td align="center"></td>
+      <td></td>
+      <td>All Level 1 Interpolation nodes</td>
+      <td>All fields fully supported. </td>
+    </tr>
+      <tr>
+      <td align="center"></td>
+      <td></td>
+      <td>ColorInterpolator</td>
+      <td>All fields fully supported</td>
+      </tr>
+      <tr>
+      <td align="center"></td>
+      <td></td>
+      <td>NormalInterpolator</td>
+      <td>All fields fully supported.</td>
+      </tr>
+      <tr>
+      <td align="center"><b>3</b></td>
+      <td>Core 1<br>
+      Grouping 1<br>
+      Shape 1</td>
+      <td></td>
+      <td></td>
+      </tr>
+      <tr>
+      <td align="center"></td>
+      <td></td>
+      <td>All Level 2 Interpolation nodes</td>
+      <td>All fields fully supported.</td>
+      </tr>
+    <tr>
+      <td align="center">&nbsp;</td>
+      <td>&nbsp;</td>
+      <td>CoordinateInterpolator2D</td>
+      <td>All fields fully supported</td>
+    </tr>
+    <tr>
+      <td align="center">&nbsp;</td>
+      <td>&nbsp;</td>
+      <td>PositionInterpolator2D</td>
+      <td>All fields fully supported.</td>
+    </tr>
+  </table>
+</div>
+
+<p>
+<img class="x3dbar" src="../../Images/x3dbar.png" alt="--- X3D separator bar ---" width="430" height="23"></p>
+
+</BODY>
+</HTML>

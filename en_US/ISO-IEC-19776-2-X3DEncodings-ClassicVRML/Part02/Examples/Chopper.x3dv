@@ -1,0 +1,68 @@
+#X3D V3.0 utf8
+PROFILE Immersive
+META "filename" "Chopper.x3dv"
+
+EXTERNPROTO Rotor [
+  # nodeType Transform
+  initializeOnly SFTime rate
+  initializeOnly MFNode children
+  inputOutput    SFTime startTime
+  inputOutput    SFTime stopTime
+][
+  "Rotor.x3dv#Rotor"
+]
+PROTO Chopper [
+  initializeOnly SFTime rotorSpeed 1
+] {
+  Group {
+    children [
+      DEF Touch TouchSensor { 
+        description "touch to toggle rotor rotation" 
+      }
+      Inline {
+        url [ "ChopperBody.x3dv" ]
+        load TRUE 
+      }
+      DEF Top Rotor {
+        stopTime 1
+        rate IS rotorSpeed
+        children Inline { 
+          url [ "ChopperRotor.x3dv" ] 
+          load TRUE 
+        }
+      }
+    ]
+  }
+  DEF RotorScript Script {
+    inputOnly      SFTime startOrStopEngine
+    outputOnly     SFTime startEngine
+    outputOnly     SFTime stopEngine
+    initializeOnly SFBool engineStarted FALSE
+    url [ "ecmascript: 
+    function startOrStopEngine(value) {
+      // start or stop engine: 
+      if (!engineStarted) {
+        startEngine = value; engineStarted = TRUE; 
+      } 
+      else { 
+        stopEngine = value; engineStarted = FALSE; } 
+      }
+      " ]
+  }
+  ROUTE Touch.touchTime TO RotorScript.startOrStopEngine
+  ROUTE RotorScript.startEngine TO Top.startTime
+  ROUTE RotorScript.stopEngine TO Top.stopTime
+}
+Viewpoint {
+  description "Example16"
+  position 0 0 5
+}
+NavigationInfo {
+  type [ "EXAMINE" "ANY" ]
+}
+Group {
+  children [
+    DEF MikesChopper Chopper {
+    }
+  ]
+}

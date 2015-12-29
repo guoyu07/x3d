@@ -1,0 +1,23 @@
+#X3D V3.0 utf8
+PROFILE Interactive
+META "filename" "PointSet.x3dv"
+
+Shape {
+  geometry PointSet {
+    color Color { color [ 1.0 0.0 0.0 ] }
+    coord DEF mypts Coordinate {
+      point [ 0.0 0.0 0.0, 2.0 2.0 2.0, 3.0 3.0 3.0 ]
+    }
+  }
+}
+Transform {
+  translation 2.0 0.0 0.0
+  children [
+    Shape {
+      geometry PointSet {
+	color Color { color [ 0.5 0.5 0.0 ] }
+	coord USE mypts
+      }
+    }
+  ]
+}

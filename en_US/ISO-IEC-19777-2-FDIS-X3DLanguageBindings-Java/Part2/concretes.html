@@ -1,0 +1,161 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html lang="en">
+
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>ISO/IEC 19777-2:2005 -- X3D Java Binding -- Annex C Concrete node interfaces</title>
+<link REL="stylesheet" HREF="../Web3D_LB.css" TYPE="text/css">
+</head>
+<body>
+
+<div class="CenterDiv">
+<img class="x3dlogo" SRC="../Images/x3d.png" ALT="X3D logo" width="115" height="106">
+</div>
+
+<div class="CenterDiv">
+<p class="HeadingPart">
+    Extensible 3D (X3D) language bindings<br />
+    Part 2:&nbsp; Java</p>
+
+<p class="HeadingClause">Annex C</p>
+
+<p class="AnnexType">(normative)</p>
+
+<p class="HeadingClause">Concrete node interfaces</p>
+
+</div>
+
+<img class="x3dbar" SRC="../Images/x3dbar.png" ALT="--- X3D separator bar ---" width="430" height="23">
+
+<h1><img class="cube" src="../Images/cube.gif" alt="cube" width="20" height="19"> 
+C.1 Introduction and topics</h1>
+
+<h2><a name="Introduction"></a>C.1.1 Introduction</h2>
+
+<p>This annex provides the definition of the rules to generate interface signature for
+each interface that represents the concrete node instance as defined in IS0/IEC 19775-1
+(see <a href="references.html#[I19775]">2.[19775]</a>).</p>
+
+<h2><a name="Topics"></a>C.1.2 Topics</h2>
+
+<p>See <a href="#TopicsTable">Table C.1</a> for the topics in this clause.</p>
+
+<p class="TableCaption" align="center">
+<a name="TopicsTable"></a>Table C.1 &mdash; Topics</p>
+<div class=CenterDiv>
+
+  <table class="topics">
+  <tbody>
+  <tr>
+    <td>
+    <ul>
+    <li><a href="#IntroductionAndTOC">C.1 Introduction and Topics</a><ul>
+    <li><a href="#Introduction">C.1.1 Introduction</a></li>
+	<li><a href="#Topics">C.1.2 Topic</a></li>
+    </ul>
+  	</li>
+    <li><a href="#GenerationRules">C.2 Generation rules</a><ul>
+    <li><a href="#PackageDefinition">C.2.1 Package definition</a></li>
+    <li><a href="#ClassDefinitions">C.2.2 Class definitions</a></li>
+    <li><a href="#ClassDerivation">C.2.3 Class derivation</a></li>
+    <li><a href="#X3DAudioClipNode">C.2.4 Method declarations</a></li>
+    </ul>
+    </li>
+    <li><a href="#Examples">C.3 Examples</a><ul>
+    <li><a href="#Group">C.3.1 Group</a></li>
+    <li><a href="#Text">C.3.2 Text</a></li>
+    <li><a href="#ColorInterpolator">C.3.3 ColorInterpolator</a></li>
+    </ul>
+    </li>
+    </ul>
+  </tr>
+</tbody>
+</table>
+</div>
+
+<img class="x3dbar" SRC="../Images/x3dbar.png" ALT="--- X3D separator bar ---" width="430" height="23">
+
+<h1><img class="cube" src="../Images/cube.gif" alt="cube" width="20" height="19">
+<a name="GenerationRules"></a>C.2 Generation rules</h1>
+
+<h2><a name="PackageDefinition"></a>C.2.1 Package definition</h2>
+
+<p>Each concrete class shall belong to the sub-package name according to the component
+formal name under the <code>org.web3d.x3d.sai</code> parent package. 
+(See 3.3.1.4 Package Structure)</p>
+
+<h2><a name="ClassDefinitions"></a>C.2.2 Class definitions</h2>
+
+<p>Concrete node representations in Java shall be expressed as public interfaces. </p>
+
+<h2><a name="ClassDerivation"></a>C.2.3 Class derivation</h2>
+
+<p>Each concrete node shall extend the interfaces defined in Annex B as appropriate
+for the abstract node requirements for each node type. For example, The Inline 
+interface definition is</p?
+
+<pre>
+    public interface Inline extends X3DChildNode, X3DBoundedObject, X3DUrlObject {
+      ...
+    }
+</pre>
+
+<h2><a name="MethodDeclarations"></a>C.2.4 Method declarations</h2><p>Within each node interface there shall be methods to read and set the values for 
+every field. The naming convention for each field method shall follow the definition
+in <a href="abstracts.html#Conventions">B.1.2 Conventions</a> for the abstract
+interfaces. Where fields are already covered by the abstract interface, the concrete
+interface is not required to redeclare the same methods. The concrete interface shall
+declare methods that are not defined by the abstract node representation.</p><img class="x3dbar" SRC="../Images/x3dbar.png" ALT="--- X3D separator bar ---" width="430" height="23">
+
+<h1><img class="cube" src="../Images/cube.gif" alt="cube" width="20" height="19"> <a name="Examples"></a>C.3 Examples</h1><h2><a name="Group"></a>C.3.1 Group</h2><p>No additional field definitions are required because all fields are covered
+by the base interfaces.</p><pre class="listing">package org.web3d.x3d.sai.group;
+
+import org.web3d.x3d.sai.*;
+
+public interface Group extends X3DGroupingNode {
+}
+</pre><h2><a name="Text"></a>C.3.2 Text</h2><p>Text is a type of X3DGeometryNode, which does not have any fields defined in the 
+base node, so all fields must be declared.</p><pre class="listing">package org.web3d.x3d.sai.text;
+
+import org.web3d.x3d.sai.*;
+
+public interface Text extends X3DGeometryNode {
+&nbsp;&nbsp;&nbsp; public void setFontStyle(X3DFontStyleNode node);
+
+&nbsp;&nbsp;&nbsp; public void setFontStyle(X3DProtoInstance node);
+
+	public X3DNode getFontStyle();
+
+	public void setLength(float[] length);
+
+	public int getNumLength();
+
+	public void getLength(float[] length);
+
+	public void setMaxExtent(float extend);
+
+	public float getMaxExtent();
+
+	public void setString(String[] string);
+
+	public int getNumString();
+
+	public void getString(String[] string);
+
+}
+</pre><h2><a name="ColorInterpolator"></a>C.3.3 ColorInterpolator</h2><p>Text is a type of X3DInterpolatorNode, which has some fields defined in the abstract 
+node type as well as some local fields.</p><pre class="listing">package org.web3d.x3d.sai.interpolator;
+
+import org.web3d.x3d.sai.*;
+
+public interface ColorInterpolator extends X3DInterpolatorNode {
+&nbsp;&nbsp;&nbsp; public void setKeyValue(float[] keyValue);
+
+	public int getNumKeyValue();
+
+	public void getKeyValue(float[] keyValue);
+
+	public void getValueChanged(float[] color);
+}
+</pre><p>
+<img class="x3dbar" src="../Images/x3dbar.png" alt="--- X3D separator bar ---" width="430" height="23"></p></body></html>

@@ -1,0 +1,2461 @@
+><PRE>&lt;!--
+# Extensible 3D (X3D) Document Type Definition (DTD) x3d-3.0.dtd
+#
+# X3D Specification DTD:
+#
+#	http://www.web3D.org/specifications/x3d-3.0.dtd
+#
+#	current version:  3.0.11
+#
+#	revised:          31 December 2003
+#
+#	Author:           Don Brutzman
+#
+# X3D Specification DTDs:
+#	http://www.web3d.org/specifications/x3d-3.0.dtd
+#	http://www.web3d.org/specifications/x3d-3.0-InputOutputFields.dtd
+#	http://www.web3d.org/specifications/x3d-3.0-Web3dExtensions.dtd
+#
+# Final doctype:
+#  &lt;!DOCTYPE X3D PUBLIC "ISO//Web3D//DTD X3D 3.0//EN" "http://www.web3d.org/specifications/x3d-3.0.dtd"&gt;
+#
+# Transitional doctype:
+#  &lt;!DOCTYPE X3D PUBLIC "http://www.web3d.org/specifications/x3d-3.0.dtd" "file:///www.web3d.org/TaskGroups/x3d/translation/x3d-3.0.dtd"&gt;
+#
+# Typical system location for this resource:
+#	file://c:/www.web3d.org/TaskGroups/x3d/translation/x3d-3.0.dtd
+#	  file:///www.web3d.org/TaskGroups/x3d/translation/x3d-3.0.dtd
+#
+# Change log:
+#	http://www.web3d.org/TaskGroups/x3d/translation/x3d-dtd-changelog.txt
+#
+# Further information on the Extensible 3D (X3D) specification is available at
+#	http://www.web3D.org/x3d.html
+--&gt;
+
+&lt;!--	Profile:  default is Full profile and all components.
+	Authors can override these default IGNORE/INCLUDE values.
+	If InterchangeProfile or InterchangeProfile is INCLUDEd, then IGNORE all others. --&gt;
+&lt;!ENTITY % ImmersiveProfile	"INCLUDE"&gt;
+&lt;!ENTITY % InterchangeProfile	"IGNORE"&gt;
+&lt;!ENTITY % InteractiveProfile	"IGNORE"&gt;
+&lt;!ENTITY % DISComponent 	"INCLUDE"&gt;
+&lt;!ENTITY % GeoSpatialComponent	"INCLUDE"&gt;
+&lt;!ENTITY % HAnimComponent 	"INCLUDE"&gt;
+&lt;!ENTITY % NurbsComponent 	"INCLUDE"&gt;
+&lt;!ENTITY % Web3dExtensionComponent	"INCLUDE"&gt;
+&lt;!ENTITY % X3dInputOutputFields	"INCLUDE"&gt;
+&lt;!ENTITY % X3dExtensions	"IGNORE"&gt;
+
+&lt;!ENTITY % profileNames "(Full|Immersive|Interactive|Interchange|Core|MPEG4Interactive)"&gt;
+
+&lt;!ENTITY % componentNames  "(Core|DIS|EnvironmentalEffects|EnvironmentalSensor|EventUtilities|Geometry2D|Geometry3D|Geospatial|Grouping|H-Anim|Interpolation|KeyDeviceSensor|Lighting|Navigation|Networking|NURBS|PointingDeviceSensor|Rendering|Scripting|Shape|Sound|Text|Texturing|Time)"&gt;
+
+&lt;!ENTITY % componentLevels "(1|2|3|4)"&gt;
+
+&lt;!ENTITY % X3dFieldTypes " SFBool | MFBool | SFColor | MFColor | SFColorRGBA | MFColorRGBA | SFDouble | MFDouble | SFFloat | MFFloat | SFImage | MFImage | SFInt32 | MFInt32 | SFNode | MFNode | SFRotation | MFRotation | SFString | MFString | SFTime | MFTime | SFVec2f | MFVec2f | SFVec3f | MFVec3f| SFVec3d | MFVec3d "&gt;
+
+&lt;!-- X3D type definitions as DTD types --&gt;
+&lt;!ENTITY % SFBool	"(true|false)"&gt;
+&lt;!ENTITY % MFBool	"CDATA"&gt;
+&lt;!ENTITY % SFColor	"CDATA"&gt;
+&lt;!ENTITY % MFColor	"CDATA"&gt;
+&lt;!ENTITY % SFColorRGBA	"CDATA"&gt;
+&lt;!ENTITY % MFColorRGBA	"CDATA"&gt;
+&lt;!ENTITY % SFFloat	"CDATA"&gt;
+&lt;!ENTITY % MFFloat	"CDATA"&gt;
+&lt;!ENTITY % SFDouble	"CDATA"&gt;
+&lt;!ENTITY % MFDouble	"CDATA"&gt;
+&lt;!ENTITY % SFImage	"CDATA"&gt;
+&lt;!ENTITY % MFImage	"CDATA"&gt;
+&lt;!ENTITY % SFInt32	"CDATA"&gt;
+&lt;!ENTITY % MFInt32	"CDATA"&gt;
+&lt;!ENTITY % SFRotation	"CDATA"&gt;
+&lt;!ENTITY % MFRotation	"CDATA"&gt;
+&lt;!ENTITY % SFString	"CDATA"&gt;
+&lt;!ENTITY % MFString	"CDATA"&gt;
+&lt;!ENTITY % SFTime	"CDATA"&gt;
+&lt;!ENTITY % MFTime	"CDATA"&gt;
+&lt;!ENTITY % SFVec2f	"CDATA"&gt;
+&lt;!ENTITY % MFVec2f	"CDATA"&gt;
+&lt;!ENTITY % SFVec3f	"CDATA"&gt;
+&lt;!ENTITY % MFVec3f	"CDATA"&gt;
+&lt;!ENTITY % SFVec3d	"CDATA"&gt;
+&lt;!ENTITY % MFVec3d	"CDATA"&gt;
+
+&lt;!ENTITY % TextureCoordinateGeneratorModes	"(SPHERE|CAMERASPACENORMAL|CAMERASPACEPOSITION|CAMERASPACEREFLECTIONVECTOR|SPHERE-LOCAL|COORD|COORD-EYE|NOISE|NOISE-EYE|SPHERE-REFLECT|SPHERE-REFLECT-LOCAL)"&gt;
+&lt;!ENTITY % MultiTextureModes		"CDATA"&gt;	&lt;!-- MFString --&gt;
+&lt;!ENTITY % MultiTextureSourceValues	"CDATA"&gt;	&lt;!-- MFString --&gt;
+&lt;!ENTITY % MultiTextureFunctionValues	"CDATA"&gt;	&lt;!-- MFString --&gt;
+
+&lt;!--	User needs to append | after listing each new node in any of these extensions.
+	For an example, see examples/ProtoTagDtdDeclarationExamples.xml   --&gt;
+&lt;!ENTITY % AppearanceNodeExtensions ""&gt;
+&lt;!ENTITY % AudioClipNodeExtensions ""&gt;
+&lt;!ENTITY % BindableNodeExtensions ""&gt;
+&lt;!ENTITY % ColorNodeExtensions ""&gt;
+&lt;!ENTITY % CoordinateNodeExtensions ""&gt;
+&lt;!ENTITY % FontStyleNodeExtensions ""&gt;
+&lt;!ENTITY % EventUtilityNodeExtensions ""&gt;
+&lt;!ENTITY % GeometryNodeExtensions ""&gt;
+&lt;!ENTITY % GroupingNodeExtensions ""&gt;
+&lt;!ENTITY % InterpolatorNodeExtensions ""&gt;
+&lt;!ENTITY % LightNodeExtensions ""&gt;
+&lt;!ENTITY % MaterialNodeExtensions ""&gt;
+&lt;!ENTITY % MetadataNodeExtensions ""&gt;
+&lt;!ENTITY % NormalNodeExtensions ""&gt;
+&lt;!ENTITY % ScriptNodeExtensions ""&gt;
+&lt;!ENTITY % SensorNodeExtensions ""&gt;
+&lt;!ENTITY % ShapeNodeExtensions ""&gt;
+&lt;!ENTITY % SoundNodeExtensions ""&gt;
+&lt;!-- MovieTexture must be able to appear twice: --&gt;
+&lt;!ENTITY % MovieTextureNodeExtensions ""&gt;
+&lt;!ENTITY % TextureNodeExtensions ""&gt;
+&lt;!ENTITY % TextureCoordinateNodeExtensions ""&gt;
+&lt;!ENTITY % TextureTransformNodeExtensions ""&gt;
+&lt;!ENTITY % UrlNodeExtensions ""&gt;
+&lt;!ENTITY % WorldInfoNodeExtensions ""&gt;
+&lt;!-- Users defining PROTOs do not override any of the following parameter entity declarations. --&gt;
+&lt;![%ImmersiveProfile;[
+&lt;!ENTITY % WildcardNodes       	" (ProtoInstance) " &gt;
+]]&gt;
+&lt;![%InterchangeProfile;[
+&lt;!ENTITY % WildcardNodes       	" " &gt;
+]]&gt;
+&lt;![%DISComponent;[
+&lt;!ENTITY % DISGroupingNodes	" EspduTransform | SignalPdu | ReceiverPdu | TransmitterPdu | " &gt;
+]]&gt;
+&lt;![%GeoSpatialComponent;[
+&lt;!ENTITY % GeoCoordinateNode		" GeoCoordinate | " &gt;
+&lt;!ENTITY % GeoElevationGridNode		" GeoElevationGrid | " &gt;
+&lt;!ENTITY % GeoGroupingNodes		" GeoLocation | GeoLOD | " &gt;
+&lt;!ENTITY % GeoMetadataNode		" GeoMetadata | " &gt;
+&lt;!ENTITY % GeoOriginNode		" GeoOrigin | " &gt;
+&lt;!ENTITY % GeoBehaviorNodes		" GeoPositionInterpolator | GeoTouchSensor | " &gt;
+&lt;!ENTITY % GeoViewpointNode		" GeoViewpoint | " &gt;
+]]&gt;
+&lt;![%HAnimComponent;[
+&lt;!ENTITY % HAnimGroupingNodes		" HAnimJoint | HAnimSegment | HAnimSite | HAnimHumanoid | " &gt;
+&lt;!ENTITY % DisplacerNode		" HAnimDisplacer | " &gt;
+]]&gt;
+&lt;![%NurbsComponent;[
+&lt;!ENTITY % NurbsGroupingNodes	  " Contour2D | NurbsGroup | NurbsTextureSurface | " &gt;
+&lt;!ENTITY % NurbsGeometryNodes	  " ContourPolyline2D | NurbsCurve | NurbsCurve2D | NurbsPatchSurface | NurbsTrimmedSurface | NurbsSweptSurface | NurbsSwungSurface | " &gt;
+&lt;!ENTITY % NurbsInterpolators	  " NurbsPositionInterpolator | NurbsOrientationInterpolator | NurbsSurfaceInterpolator | " &gt;
+&lt;!ENTITY % NurbsControlCurveNodes " NurbsCurve | ContourPolyline2D " &gt;
+]]&gt;
+
+&lt;![%Web3dExtensionComponent;[
+
+&lt;!ENTITY % Web3dExtensionGeometryNodes	" XvlShell | " &gt;
+
+]]&gt;
+
+
+&lt;!-- otherwise set tag lists to null strings if not previously defined by DIS, GeoSpatial, HAnim, Nurbs, Web3dExtension --&gt;
+&lt;!ENTITY % DISGroupingNodes ""&gt;
+&lt;!ENTITY % GeoCoordinateNode ""&gt;
+&lt;!ENTITY % GeoElevationGridNode ""&gt;
+&lt;!ENTITY % GeoGroupingNodes ""&gt;
+&lt;!ENTITY % GeoMetadataNode ""&gt;
+&lt;!ENTITY % GeoOriginNode ""&gt;
+&lt;!ENTITY % GeoBehaviorNodes ""&gt;
+&lt;!ENTITY % GeoViewpointNode ""&gt;
+&lt;!ENTITY % HAnimGroupingNodes ""&gt;
+&lt;!ENTITY % DisplacerNode ""&gt;
+&lt;!ENTITY % NurbsGroupingNodes ""&gt;
+&lt;!ENTITY % NurbsGeometryNodes ""&gt;
+&lt;!ENTITY % NurbsInterpolators ""&gt;
+&lt;!ENTITY % Web3dExtensionGroupingNodes ""&gt;
+&lt;!ENTITY % Web3dExtensionGeometryNodes ""&gt;
+&lt;!-- no further content-model extensions needed --&gt;
+
+&lt;![%InterchangeProfile;[
+&lt;!ENTITY % AudioClipNodes "" &gt;
+&lt;!ENTITY % FontStyleNodes "" &gt;
+&lt;!ENTITY % EventUtilityNodes "" &gt;
+&lt;!ENTITY % MovieTextureNodes "" &gt;
+&lt;!ENTITY % NormalNodes "" &gt;
+&lt;!ENTITY % ScriptNodes "" &gt;
+&lt;!ENTITY % SoundNodes "" &gt;
+&lt;!ENTITY % TextureCoordinateNodes "" &gt;
+&lt;!ENTITY % TextureTransformNodes "" &gt;
+]]&gt;
+
+&lt;!-- UrlNodes used by LoadSensor --&gt;
+&lt;!ENTITY % UrlNodes " %UrlNodeExtensions; Anchor | AudioClip | ImageTexture | Inline | MovieTexture | Script "&gt;
+
+&lt;!-- Declarations appearing only in ImmersiveProfile --&gt;
+&lt;![%ImmersiveProfile;[
+
+&lt;!ENTITY % AudioClipNodes		" %AudioClipNodeExtensions; AudioClip " &gt;
+
+&lt;!ENTITY % FontStyleNodes		" %FontStyleNodeExtensions; FontStyle " &gt;
+
+&lt;!ENTITY % EventUtilityNodes		" %EventUtilityNodeExtensions; BooleanFilter | BooleanSequencer | BooleanToggle | BooleanTrigger | IntegerSequencer | IntegerTrigger | TimeTrigger " &gt;
+
+&lt;!ENTITY % MovieTextureNodes		" %MovieTextureNodeExtensions; MovieTexture " &gt;
+
+&lt;!ENTITY % NormalNodes			" %NormalNodeExtensions; Normal " &gt;
+
+&lt;!ENTITY % ScriptNodes			" %ScriptNodeExtensions; Script " &gt;
+
+&lt;!ENTITY % SoundNodes			" %SoundNodeExtensions; Sound " &gt;
+
+&lt;!ENTITY % TextureCoordinateNodes	" %TextureCoordinateNodeExtensions; TextureCoordinate | TextureCoordinateGenerator | MultiTextureCoordinate | NurbsTextureCoordinate " &gt;
+
+&lt;!ENTITY % TextureTransformNodes	" %TextureTransformNodeExtensions; TextureTransform | MultiTextureTransform " &gt;
+]]&gt;
+
+&lt;!-- Declarations appearing differently in X3dExtensions, ImmersiveProfile and InterchangeProfile --&gt;
+&lt;!-- X3D Extensions (superset overriding some ImmersiveProfile declarations) not yet defined. --&gt;
+&lt;![%X3dExtensions;[
+
+&lt;!ENTITY % AppearanceNodeX3dExtensions "" &gt;
+&lt;!ENTITY % GeometryNodesX3dExtensions  "" &gt;
+]]&gt;
+
+&lt;!ENTITY % AppearanceNodeX3dExtensions ""&gt;
+&lt;!ENTITY % GeometryNodesX3dExtensions ""&gt;
+
+&lt;![%InterchangeProfile;[
+
+&lt;!ENTITY % AppearanceNodes  	" Appearance " &gt;
+
+&lt;!ENTITY % BehaviorLeafNodes	" CoordinateInterpolator | KeySensor | OrientationInterpolator | PositionInterpolator | ScalarInterpolator | TimeSensor | TouchSensor " &gt;
+
+&lt;!ENTITY % BindableNodes    	" Background | NavigationInfo | Viewpoint " &gt;
+
+&lt;!ENTITY % ColorNodes       	" Color | ColorRGBA " &gt;
+
+&lt;!ENTITY % CoordinateNodes  	" Coordinate | CoordinateDouble " &gt;
+
+&lt;!ENTITY % GeometryNodes    	" IndexedFaceSet | IndexedLineSet | LineSet | PointSet " &gt;
+
+&lt;!ENTITY % GroupingNodes    	" Anchor | Group | Inline | Transform " &gt;
+
+&lt;!ENTITY % LightNodes       	" DirectionalLight " &gt;
+
+&lt;!ENTITY % MaterialNodes    	" Material " &gt;
+
+&lt;!ENTITY % ShapeNodes       	" Shape " &gt;
+
+&lt;!ENTITY % TextureNodes     	" ImageTexture " &gt;
+
+&lt;!ENTITY % WorldInfoNodes   	" WorldInfo " &gt;
+]]&gt;
+
+&lt;![%ImmersiveProfile;[
+
+&lt;!ENTITY % AppearanceNodes  	" %AppearanceNodeExtensions; %AppearanceNodeX3dExtensions; Appearance " &gt;
+
+&lt;!ENTITY % BehaviorLeafNodes	" %InterpolatorNodeExtensions; %SensorNodeExtensions; %ScriptNodeExtensions; %GeoBehaviorNodes; %DisplacerNode; %NurbsInterpolators; %EventUtilityNodes; | ColorInterpolator | CoordinateInterpolator | CoordinateInterpolator2D | CylinderSensor |  KeySensor | LoadSensor | NormalInterpolator | OrientationInterpolator | PlaneSensor | PositionInterpolator | PositionInterpolator2D | ProximitySensor | ScalarInterpolator | Script | SphereSensor | StringSensor | TimeSensor | TouchSensor | VisibilitySensor " &gt;
+
+&lt;!ENTITY % BindableNodes    	" %BindableNodeExtensions; %GeoViewpointNode; Background | Fog | NavigationInfo | TextureBackground | Viewpoint " &gt;
+
+&lt;!ENTITY % ColorNodes       	" %ColorNodeExtensions; Color | ColorRGBA " &gt;
+
+&lt;!ENTITY % CoordinateNodes  	" %CoordinateNodeExtensions; %GeoCoordinateNode; Coordinate | CoordinateDouble " &gt;
+]]&gt;
+
+&lt;![%ImmersiveProfile;[
+
+&lt;!ENTITY % Geometry2DNodes    	" Arc2D | ArcClose2D | Circle2D | Disk2D | Polyline2D | Polypoint2D | Rectangle2D | TriangleSet2D " &gt;
+
+&lt;!ENTITY % GeometryNodes    	" %GeometryNodeExtensions; %GeometryNodesX3dExtensions; %GeoElevationGridNode; %NurbsGeometryNodes; %Web3dExtensionGeometryNodes; %Geometry2DNodes; | Box | Cone | Cylinder | ElevationGrid | Extrusion | IndexedFaceSet | IndexedLineSet | LineSet | PointSet | Sphere | Text | IndexedTriangleFanSet | IndexedTriangleSet | IndexedTriangleStripSet | TriangleFanSet | TriangleSet | TriangleStripSet " &gt;
+
+&lt;!ENTITY % GroupingNodes    	" %GroupingNodeExtensions; %DISGroupingNodes; %GeoGroupingNodes; %HAnimGroupingNodes; %NurbsGroupingNodes; %Web3dExtensionGroupingNodes; Anchor | Billboard | Collision | Group | Inline | LOD | StaticGroup | Switch | Transform " &gt;
+
+&lt;!ENTITY % LightNodes       	" %LightNodeExtensions; DirectionalLight | SpotLight | PointLight " &gt;
+
+&lt;!ENTITY % MaterialNodes    	" %MaterialNodeExtensions; Material " &gt;
+
+&lt;!ENTITY % ShapeNodes       	" %ShapeNodeExtensions; Shape " &gt;
+
+&lt;!ENTITY % TextureNodes     	" %TextureNodeExtensions; ImageTexture | MovieTexture | MultiTexture | PixelTexture " &gt; &lt;!--| CompositeTexture3D --&gt;
+
+&lt;!ENTITY % MultiTextureChildTextures " %TextureNodeExtensions; ImageTexture | MovieTexture | PixelTexture " &gt;
+
+&lt;!ENTITY % WorldInfoNodes   	  " %WorldInfoNodeExtensions; %GeoMetadataNode; WorldInfo " &gt;
+]]&gt;
+
+&lt;!ENTITY % MetadataNodes " %MetadataNodeExtensions; MetadataDouble | MetadataFloat | MetadataInteger | MetadataSet | MetadataString "&gt;
+
+&lt;![%InterchangeProfile;[
+
+&lt;!ENTITY % GeometricPropertyNodes " %ColorNodes; " &gt;
+
+&lt;!ENTITY % AppearanceChildNodes	" %MaterialNodes; " &gt;
+
+&lt;!ENTITY % SceneLeafNodes   	" %LightNodes; | %ShapeNodes; | %WorldInfoNodes; " &gt;
+
+&lt;!ENTITY % ProtoNodes       	"" &gt;
+]]&gt;
+
+&lt;![%ImmersiveProfile;[
+
+&lt;!ENTITY % GeometricPropertyNodes " %CoordinateNodes; | %ColorNodes; | %NormalNodes; | %TextureCoordinateNodes; " &gt;
+
+&lt;!ENTITY % AppearanceChildNodes	" %MaterialNodes; | %TextureNodes; | %TextureTransformNodes; " &gt;
+
+&lt;!ENTITY % SceneLeafNodes   	" %GeoOriginNode; %LightNodes; | %ShapeNodes; | %SoundNodes; | %WorldInfoNodes; " &gt;
+
+&lt;!ENTITY % OtherLeafNodes   	" AudioClip | LineProperties | FillProperties " &gt;
+
+&lt;!ENTITY % ProtoNodes       	" %OtherLeafNodes; | %AppearanceNodes; | %AppearanceChildNodes; | %BehaviorLeafNodes; | %BindableNodes; | %FontStyleNodes; | %GeometricPropertyNodes; | %GeometryNodes; | %GroupingNodes; | %SceneLeafNodes; | ProtoDeclare | ProtoInstance " &gt;
+]]&gt;
+
+&lt;![%InterchangeProfile;[
+
+&lt;!ENTITY % ChildrenNodes	" %BehaviorLeafNodes; | %BindableNodes; | %GroupingNodes; | %SceneLeafNodes; | ROUTE | EXPORT | IMPORT " &gt;
+
+&lt;!ENTITY % SceneNodes       	" %ChildrenNodes; | %WildcardNodes; " &gt;
+]]&gt;
+
+&lt;![%ImmersiveProfile;[
+
+&lt;!ENTITY % ChildrenNodes    	" %BehaviorLeafNodes; | %BindableNodes; | %GroupingNodes; | %SceneLeafNodes; | ROUTE | EXPORT | IMPORT " &gt;
+
+&lt;!-- need any order for prototypes --&gt;
+
+&lt;!ENTITY % SceneNodes       	" ExternProtoDeclare | ProtoDeclare | %ChildrenNodes; | %WildcardNodes; " &gt;
+]]&gt;
+
+&lt;!ENTITY % AllVRML97Nodes " Anchor|Appearance|AudioClip|Background|BooleanFilter|BooleanSequencer|BooleanToggle|BooleanTrigger|Billboard|Box|Collision|Color|ColorInterpolator|Cone|Coordinate|CoordinateDouble|CoordinateInterpolator|Cylinder|CylinderSensor|DirectionalLight|ElevationGrid|Extrusion|FillProperties|Fog|FontStyle|Group|head|ImageTexture|IndexedFaceSet|IndexedLineSet|Inline|IntegerSequencer|IntegerTrigger|KeySensor|LineProperties|LineSet|LOD|Material|MovieTexture|MultiTextureCoordinate|NavigationInfo|Normal|NormalInterpolator|OrientationInterpolator|PixelTexture|PlaneSensor|PointLight|PointSet|PositionInterpolator|ProximitySensor|ScalarInterpolator|Scene|Script|Shape|Sound|Sphere|SphereSensor|SpotLight|StringSensor|StaticGroup|Switch|Text|TextureBackground|TextureCoordinate|TextureCoordinateGenerator|TextureTransform|TimeSensor|TimeTrigger|TouchSensor|Transform|TriangleFanSet|TriangleSet|TriangleStripSet|Viewpoint|VisibilitySensor|PositionInterpolator2D|CoordinateInterpolator2D|WorldInfo "&gt;
+&lt;!ENTITY % AllGeoSpatialTags " GeoCoordinate|GeoElevationGrid|GeoLocation|GeoLOD|GeoMetadata|GeoOrigin|GeoPositionInterpolator|GeoTouchSensor|GeoViewpoint "&gt;
+&lt;!ENTITY % AllHAnimTags " HAnimDisplacer|HAnimHumanoid|HAnimJoint|HAnimSegment|HAnimSite "&gt;
+&lt;!-- SensorNodes not used (yet, anyway) in tagset content-model definitions. --&gt;
+&lt;!ENTITY % SensorNodes " Anchor | Collision | CylinderSensor | KeySensor | PlaneSensor | ProximitySensor | SphereSensor | StringSensor | TimeSensor | TouchSensor | VisibilitySensor "&gt;
+&lt;!ENTITY % DragSensors " CylinderSensor | PlaneSensor | SphereSensor "&gt;
+&lt;!ENTITY % EnvironmentalSensorNodes " Collision | ProximitySensor | TimeSensor | VisibilitySensor "&gt;
+&lt;!ENTITY % PointingDeviceSensors " Anchor | CylinderSensor | PlaneSensor | SphereSensor | TouchSensor "&gt;
+&lt;!ENTITY % KeyDeviceSensors " "&gt;
+&lt;!ENTITY % InterpolatorNodes " ColorInterpolator | CoordinateInterpolator | CoordinateInterpolator2D | NormalInterpolator | OrientationInterpolator | PositionInterpolator | PositionInterpolator2D | ScalarInterpolator "&gt;
+&lt;!ENTITY % TimeDependentNodes " AudioClip | MovieTexture | TimeSensor "&gt;
+
+&lt;!-- ****************************** X3D DTD ****************************** --&gt;
+&lt;![%ImmersiveProfile;[
+
+&lt;!ELEMENT Anchor (IS?, (%MetadataNodes;)?, ( %ChildrenNodes; | %WildcardNodes; )* ) &gt;
+&lt;!ATTLIST Anchor 
+	description %SFString; #IMPLIED
+	parameter   %MFString; #IMPLIED
+	url         %MFString; #IMPLIED
+	bboxCenter  %SFVec3f;  "0 0 0"
+	bboxSize    %SFVec3f;  "-1 -1 -1"
+	containerField NMTOKEN "children"
+	class       CDATA      #IMPLIED
+	DEF         ID         #IMPLIED 
+	USE         IDREF      #IMPLIED &gt;
+]]&gt;
+&lt;![%InterchangeProfile;[
+
+&lt;!ELEMENT Anchor (%MetadataNodes;)?, ( %ChildrenNodes; | %WildcardNodes; )* &gt; 
+&lt;!ATTLIST Anchor 
+	url         %MFString; #IMPLIED
+	bboxCenter  %SFVec3f;  "0 0 0"
+	bboxSize    %SFVec3f;  "-1 -1 -1"
+	containerField NMTOKEN "children"
+	class       CDATA      #IMPLIED
+	DEF         ID         #IMPLIED 
+	USE         IDREF      #IMPLIED &gt;
+]]&gt;
+&lt;![%ImmersiveProfile;[
+
+&lt;!-- Complete, unordered, concisely enumerated version of Appearance by Heiko Grussbach.  Prepended either-order FillProperties/LineProperties. --&gt;
+&lt;!ELEMENT Appearance (IS?, (%MetadataNodes;)?,
+(  (FillProperties, LineProperties?) | (LineProperties, FillProperties)? )?,
+(  ((%MaterialNodes;), (((%TextureNodes;),((%TextureTransformNodes;)|%WildcardNodes;)?) |
+			((%TextureTransformNodes;),((%TextureNodes;)|%WildcardNodes;)?) |
+			(%WildcardNodes;,((%TextureNodes;)|(%TextureTransformNodes;)|%WildcardNodes;)?) )? )
+ | ((%TextureNodes;), (	((%MaterialNodes;),((%TextureTransformNodes;)|%WildcardNodes;)?) |
+			((%TextureTransformNodes;),((%MaterialNodes;)|%WildcardNodes;)?) |
+			(%WildcardNodes;,((%MaterialNodes;)|(%TextureTransformNodes;)|%WildcardNodes;)?) )? )
+ | ((%TextureTransformNodes;), (((%MaterialNodes;),((%TextureNodes;)|%WildcardNodes;)?) |
+			((%TextureNodes;),((%MaterialNodes;)|%WildcardNodes;)?) |
+			(%WildcardNodes;,((%MaterialNodes;)|(%TextureNodes;)|%WildcardNodes;)?) )? )
+ | (%WildcardNodes;, (	((%MaterialNodes;),((%TextureNodes;)|(%TextureTransformNodes;)|%WildcardNodes;)?) |
+			((%TextureNodes;),((%MaterialNodes;)|(%TextureTransformNodes;)|%WildcardNodes;)?) |
+			((%TextureTransformNodes;),((%MaterialNodes;)|(%TextureNodes;)|%WildcardNodes;)?) |
+			(%WildcardNodes;,((%MaterialNodes;)|(%TextureNodes;)|(%TextureTransformNodes;)|%WildcardNodes;)?) )? )
+)? ) &gt;
+]]&gt;
+&lt;![%InterchangeProfile;[
+
+&lt;!ELEMENT Appearance ( (%MetadataNodes;)?, 
+(  ((%MaterialNodes;), (%TextureNodes;)?  )
+ | ((%TextureNodes;),  (%MaterialNodes;)? )
+)? ) &gt; 
+]]&gt;
+&lt;!ATTLIST Appearance
+	containerField NMTOKEN "appearance"
+	class CDATA #IMPLIED
+	DEF ID #IMPLIED
+	USE IDREF #IMPLIED
+&gt;
+&lt;![%ImmersiveProfile;[
+
+&lt;!ELEMENT AudioClip ( (IS?), (%MetadataNodes;)? ) &gt;
+&lt;!ATTLIST AudioClip
+	description %SFString; #IMPLIED
+	loop        %SFBool;   "false"
+	pitch       %SFFloat;  "1.0"
+	startTime   %SFTime;   "0"
+	stopTime    %SFTime;   "0"
+	pauseTime   %SFTime;   "0"
+	resumeTime  %SFTime;   "0"
+	url         %MFString; #IMPLIED
+	containerField NMTOKEN "source"
+	class       CDATA      #IMPLIED
+	DEF         ID         #IMPLIED
+	USE         IDREF      #IMPLIED&gt;
+]]&gt;
+&lt;!ELEMENT Background ((IS?), (%MetadataNodes;)?)&gt;
+&lt;!ATTLIST Background
+	groundAngle %MFFloat; #IMPLIED
+	groundColor %MFColor; #IMPLIED
+	backUrl %MFString; #IMPLIED
+	bottomUrl %MFString; #IMPLIED
+	frontUrl %MFString; #IMPLIED
+	leftUrl %MFString; #IMPLIED
+	rightUrl %MFString; #IMPLIED
+	topUrl %MFString; #IMPLIED
+	skyAngle %MFFloat; #IMPLIED
+	skyColor %MFColor; "0 0 0"
+	containerField NMTOKEN "children"
+	class CDATA #IMPLIED
+	DEF ID #IMPLIED
+	USE IDREF #IMPLIED
+&gt;
+&lt;![%ImmersiveProfile;[
+
+&lt;!ELEMENT Billboard (IS?, (%MetadataNodes;)?, ( %ChildrenNodes; | %WildcardNodes; )* ) &gt;
+&lt;!ATTLIST Billboard
+	axisOfRotation %SFVec3f; "0 1 0"
+	bboxCenter     %SFVec3f; "0 0 0"
+	bboxSize       %SFVec3f; "-1 -1 -1"
+	containerField NMTOKEN "children"
+	class	 CDATA     #IMPLIED
+	DEF            ID        #IMPLIED 
+	USE            IDREF     #IMPLIED&gt;
+
+&lt;!ELEMENT BooleanFilter ( (IS?), (%MetadataNodes;)? ) &gt;
+&lt;!ATTLIST BooleanFilter
+	containerField NMTOKEN "children"
+	class    CDATA     #IMPLIED
+	DEF      ID        #IMPLIED
+	USE      IDREF     #IMPLIED&gt;
+
+&lt;!ELEMENT BooleanSequencer ( (IS?), (%MetadataNodes;)? ) &gt;
+&lt;!ATTLIST BooleanSequencer
+	key      %MFFloat; #IMPLIED
+	keyValue %MFFloat; #IMPLIED
+	containerField NMTOKEN "children"
+	class    CDATA     #IMPLIED
+	DEF      ID        #IMPLIED
+	USE      IDREF     #IMPLIED&gt;
+
+&lt;!ELEMENT BooleanToggle ( (IS?), (%MetadataNodes;)? ) &gt;
+&lt;!ATTLIST BooleanToggle
+	toggle      %SFBool;  "false"
+	containerField NMTOKEN "children"
+	class    CDATA     #IMPLIED
+	DEF      ID        #IMPLIED
+	USE      IDREF     #IMPLIED&gt;
+
+&lt;!ELEMENT BooleanTrigger ( (IS?), (%MetadataNodes;)? ) &gt;
+&lt;!ATTLIST BooleanTrigger
+	containerField NMTOKEN "children"
+	class    CDATA     #IMPLIED
+	DEF      ID        #IMPLIED
+	USE      IDREF     #IMPLIED&gt;
+]]&gt;
+&lt;![%ImmersiveProfile;[
+
+&lt;!-- Geometry2D nodes --&gt;
+
+&lt;!ELEMENT Arc2D ( (IS?), (%MetadataNodes;)? ) &gt;
+&lt;!ATTLIST Arc2D
+	radius     %SFFloat; "1"
+	startAngle %SFFloat; "0"
+	endAngle   %SFFloat; "1.570796"
+	containerField NMTOKEN "geometry"
+	class      CDATA    #IMPLIED
+	DEF  ID    #IMPLIED 
+	USE  IDREF #IMPLIED&gt;
+
+&lt;!ELEMENT ArcClose2D ( (IS?), (%MetadataNodes;)? ) &gt;
+&lt;!ATTLIST ArcClose2D
+	radius      %SFFloat; "1"
+	startAngle  %SFFloat; "0"
+	endAngle    %SFFloat; "1.570796"
+	closureType (PIE|CHORD) "PIE"
+	containerField NMTOKEN "geometry"
+	class       CDATA    #IMPLIED
+	DEF  ID     #IMPLIED 
+	USE  IDREF  #IMPLIED&gt;
+
+&lt;!ELEMENT Circle2D ( (IS?), (%MetadataNodes;)? ) &gt;
+&lt;!ATTLIST Circle2D
+	radius     %SFFloat; "1"
+	containerField NMTOKEN "geometry"
+	class      CDATA    #IMPLIED
+	DEF  ID    #IMPLIED 
+	USE  IDREF #IMPLIED&gt;
+
+&lt;!ELEMENT Disk2D ( (IS?), (%MetadataNodes;)? ) &gt;
+&lt;!ATTLIST Disk2D
+	innerRadius %SFFloat; "0"
+	outerRadius %SFFloat; "1"
+	containerField NMTOKEN "geometry"
+	class       CDATA    #IMPLIED
+	DEF  ID     #IMPLIED 
+	USE  IDREF  #IMPLIED&gt;
+
+&lt;!ELEMENT Polyline2D ( (IS?), (%MetadataNodes;)? ) &gt;
+&lt;!ATTLIST Polyline2D
+	lineSegments %MFVec2f; #IMPLIED
+	containerField NMTOKEN "geometry"
+	class        CDATA     #IMPLIED
+	DEF  ID      #IMPLIED 
+	USE  IDREF   #IMPLIED&gt;
+
+&lt;!ELEMENT Polypoint2D ( (IS?), (%MetadataNodes;)? ) &gt;
+&lt;!ATTLIST Polypoint2D
+	points       %MFVec2f; #IMPLIED
+	containerField NMTOKEN "geometry"
+	class        CDATA     #IMPLIED
+	DEF  ID      #IMPLIED 
+	USE  IDREF   #IMPLIED&gt;
+
+&lt;!ELEMENT Rectangle2D ( (IS?), (%MetadataNodes;)? ) &gt;
+&lt;!ATTLIST Rectangle2D
+	size         %SFVec2f; "2 2"
+	containerField NMTOKEN "geometry"
+	class        CDATA     #IMPLIED
+	DEF  ID      #IMPLIED 
+	USE  IDREF   #IMPLIED&gt;
+
+&lt;!ELEMENT TriangleSet2D ( (IS?), (%MetadataNodes;)? ) &gt;
+&lt;!ATTLIST TriangleSet2D
+	vertices     %MFVec2f; #IMPLIED
+	containerField NMTOKEN "geometry"
+	class        CDATA     #IMPLIED
+	DEF  ID      #IMPLIED 
+	USE  IDREF   #IMPLIED&gt;
+]]&gt;
+&lt;![%ImmersiveProfile;[
+
+&lt;!ELEMENT Box ( (IS?), (%MetadataNodes;)? ) &gt;
+&lt;!ATTLIST Box
+	size %SFVec3f; "2 2 2"
+	containerField NMTOKEN "geometry"
+	class       CDATA       #IMPLIED
+	DEF  ID        #IMPLIED 
+	USE  IDREF     #IMPLIED&gt;
+
+&lt;!ELEMENT Collision ( (IS?), (%MetadataNodes;)?, ( %ChildrenNodes; | %WildcardNodes; )* )  &gt;
+&lt;!ATTLIST Collision
+	enabled     %SFBool;  "true"
+	bboxCenter  %SFVec3f; "0 0 0"
+	bboxSize    %SFVec3f; "-1 -1 -1"
+	containerField NMTOKEN "children"
+	class       CDATA       #IMPLIED
+	DEF         ID        #IMPLIED 
+	USE         IDREF     #IMPLIED &gt;
+]]&gt;
+&lt;!ELEMENT Color ((IS?), (%MetadataNodes;)?)&gt;
+&lt;!ATTLIST Color
+	color %MFColor; #IMPLIED
+	class CDATA #IMPLIED
+	containerField NMTOKEN "color"
+	DEF ID #IMPLIED
+	USE IDREF #IMPLIED
+&gt;
+&lt;!ELEMENT ColorRGBA ((IS?), (%MetadataNodes;)?)&gt;
+&lt;!ATTLIST ColorRGBA
+	color %MFColorRGBA; #IMPLIED
+	containerField NMTOKEN "color"
+	class CDATA #IMPLIED
+	DEF ID #IMPLIED
+	USE IDREF #IMPLIED
+&gt;
+&lt;!ELEMENT component EMPTY&gt;
+&lt;!ATTLIST component
+	name  %componentNames;  #REQUIRED
+	level %componentLevels; #REQUIRED
+&gt;
+
+&lt;![%ImmersiveProfile;[
+
+&lt;!ELEMENT ColorInterpolator ( (IS?), (%MetadataNodes;)? ) &gt;
+&lt;!ATTLIST ColorInterpolator
+	key         %MFFloat; #IMPLIED
+	keyValue    %MFColor; #IMPLIED
+	containerField NMTOKEN "children"
+	class       CDATA       #IMPLIED
+	DEF         ID        #IMPLIED
+	USE         IDREF     #IMPLIED&gt;
+
+&lt;!ELEMENT Cone ( (IS?), (%MetadataNodes;)? ) &gt;
+&lt;!ATTLIST Cone
+	bottomRadius %SFFloat; "1"
+	height       %SFFloat; "2"
+	side         %SFBool;  "true"
+	bottom       %SFBool;  "true"
+	containerField NMTOKEN "geometry"
+	class       CDATA       #IMPLIED
+	DEF          ID        #IMPLIED
+	USE          IDREF     #IMPLIED&gt;
+]]&gt;
+&lt;!ELEMENT Coordinate ((IS?), (%MetadataNodes;)?)&gt;
+&lt;!ATTLIST Coordinate
+	point %MFVec3f; #IMPLIED
+	containerField NMTOKEN "coord"
+	class CDATA #IMPLIED
+	DEF ID #IMPLIED
+	USE IDREF #IMPLIED
+&gt;
+&lt;!ELEMENT CoordinateDouble ((IS?), (%MetadataNodes;)?)&gt;
+&lt;!ATTLIST CoordinateDouble
+	point %MFVec3d; #IMPLIED
+	containerField NMTOKEN "coord"
+	class CDATA #IMPLIED
+	DEF ID #IMPLIED
+	USE IDREF #IMPLIED
+&gt;
+&lt;!ELEMENT CoordinateInterpolator ((IS?), (%MetadataNodes;)?)&gt;
+&lt;!ATTLIST CoordinateInterpolator
+	key %MFFloat; #IMPLIED
+	keyValue %MFVec3f; #IMPLIED
+	containerField NMTOKEN "children"
+	class CDATA #IMPLIED
+	DEF ID #IMPLIED
+	USE IDREF #IMPLIED
+&gt;
+&lt;![%ImmersiveProfile;[
+
+&lt;!ELEMENT CoordinateInterpolator2D ( (IS?), (%MetadataNodes;)? ) &gt;
+&lt;!ATTLIST CoordinateInterpolator2D
+	key      %MFFloat; #IMPLIED
+	keyValue %MFVec2f; #IMPLIED
+	containerField NMTOKEN "children"
+	class    CDATA     #IMPLIED
+	DEF      ID        #IMPLIED
+	USE      IDREF     #IMPLIED&gt;
+
+&lt;!ELEMENT Cylinder ( (IS?), (%MetadataNodes;)? ) &gt;
+&lt;!ATTLIST Cylinder 
+	bottom   %SFBool; "true"
+	height   %SFFloat; "2"
+	radius   %SFFloat; "1"
+	side     %SFBool;  "true"
+	top      %SFBool;  "true"
+	containerField NMTOKEN "geometry"
+	class       CDATA       #IMPLIED
+	DEF      ID        #IMPLIED
+	USE      IDREF     #IMPLIED&gt;
+
+&lt;!ELEMENT CylinderSensor ( (IS?), (%MetadataNodes;)? ) &gt;
+&lt;!ATTLIST CylinderSensor
+	description %SFString; #IMPLIED
+	autoOffset %SFBool;     "true"
+	diskAngle  %SFFloat;    "0.26179167"
+	maxAngle   %SFFloat;    "-1"
+	minAngle   %SFFloat;    "0"
+	offset     %SFFloat;    "0"
+	enabled    %SFBool;     "true"
+	containerField NMTOKEN "children"
+	class	CDATA     #IMPLIED
+	DEF        ID           #IMPLIED
+	USE        IDREF        #IMPLIED&gt;
+
+&lt;!ELEMENT DirectionalLight ( (IS?), (%MetadataNodes;)? ) &gt;
+&lt;!ATTLIST DirectionalLight
+	ambientIntensity %SFFloat; "0"
+	color            %SFColor; "1 1 1"
+	direction        %SFVec3f; "0 0 -1"
+	intensity        %SFFloat; "1"
+	on               %SFBool;  "true"
+	containerField NMTOKEN "children"
+	class	   CDATA     #IMPLIED
+	DEF              ID        #IMPLIED
+	USE              IDREF     #IMPLIED&gt;
+]]&gt;
+&lt;![%InterchangeProfile;[
+
+&lt;!ELEMENT DirectionalLight (%MetadataNodes;)? &gt;
+&lt;!ATTLIST DirectionalLight
+	color            %SFColor; "1 1 1"
+	direction        %SFVec3f; "0 0 -1"
+	intensity        %SFFloat; "1"
+	on               %SFBool;  "true"
+	containerField NMTOKEN "children"
+	class	   CDATA     #IMPLIED
+	DEF              ID        #IMPLIED
+	USE              IDREF     #IMPLIED&gt;
+]]&gt;
+&lt;![%ImmersiveProfile;[
+
+&lt;!-- Complete, concisely enumerated unordered version of ElevationGrid by Heiko Grussbach --&gt;
+&lt;!ELEMENT ElevationGrid (IS?, (%MetadataNodes;)?, (
+   ((%ColorNodes;), (		((%NormalNodes;),((%TextureCoordinateNodes;)|%WildcardNodes;)?) |
+			((%TextureCoordinateNodes;),((%NormalNodes;)|%WildcardNodes;)?) |
+			(%WildcardNodes;,((%NormalNodes;)|(%TextureCoordinateNodes;)|%WildcardNodes;)?) )? )
+ | ((%NormalNodes;), (		((%ColorNodes;),((%TextureCoordinateNodes;)|%WildcardNodes;)?) |
+			((%TextureCoordinateNodes;),((%ColorNodes;)|%WildcardNodes;)?) |
+			(%WildcardNodes;,((%ColorNodes;)|(%TextureCoordinateNodes;)|%WildcardNodes;)?) )? )
+ | ((%TextureCoordinateNodes;), (((%ColorNodes;),((%NormalNodes;)|%WildcardNodes;)?) |
+			((%NormalNodes;),((%ColorNodes;)|%WildcardNodes;)?) |
+			(%WildcardNodes;,((%ColorNodes;)|(%NormalNodes;)|%WildcardNodes;)?) )? )
+ | (%WildcardNodes;, (	((%ColorNodes;),((%NormalNodes;)|(%TextureCoordinateNodes;)|%WildcardNodes;)?) |
+			((%NormalNodes;),((%ColorNodes;)|(%TextureCoordinateNodes;)|%WildcardNodes;)?) |
+			((%TextureCoordinateNodes;),((%ColorNodes;)|(%NormalNodes;)|%WildcardNodes;)?) |
+			(%WildcardNodes;,((%ColorNodes;)|(%NormalNodes;)|(%TextureCoordinateNodes;)|%WildcardNodes;)?) )? )
+)? ) &gt;
+
+&lt;!ATTLIST ElevationGrid
+	height          %MFFloat; #IMPLIED
+	ccw             %SFBool;  "true"
+	colorPerVertex  %SFBool;  "true"
+	creaseAngle     %SFFloat; "0"
+	normalPerVertex %SFBool;  "true"
+	solid           %SFBool;  "true"
+	xDimension      %SFInt32; "0"
+	xSpacing        %SFFloat; "1.0"
+	zDimension      %SFInt32; "0"
+	zSpacing        %SFFloat; "1.0"
+	containerField NMTOKEN "geometry"
+	class	  CDATA     #IMPLIED
+	DEF             ID        #IMPLIED
+	USE             IDREF     #IMPLIED&gt;
+
+&lt;!ELEMENT ExternProtoDeclare ( field* ) &gt;
+&lt;!ATTLIST ExternProtoDeclare
+	name		NMTOKEN		#REQUIRED
+	url		%MFString;	#REQUIRED
+	appinfo 	%SFString;	#IMPLIED
+	documentation	%SFString;	#IMPLIED&gt;
+
+&lt;!ELEMENT Extrusion ( (IS?), (%MetadataNodes;)? ) &gt;
+&lt;!ATTLIST Extrusion
+	beginCap     %SFBool;     "true"
+	ccw          %SFBool;     "true"
+	convex       %SFBool;     "true"
+	creaseAngle  %SFFloat;    "0.0"
+	crossSection %MFVec2f;    "1 1 1 -1 -1 -1 -1 1 1 1"
+	endCap       %SFBool;     "true"
+	orientation  %MFRotation; "0 0 1 0"
+	scale        %MFVec2f;    "1 1"
+	solid        %SFBool;     "true"
+	spine        %MFVec3f;    "0 0 0 0 1 0"
+	containerField NMTOKEN "geometry"
+	class        CDATA        #IMPLIED
+	DEF          ID           #IMPLIED
+	USE          IDREF        #IMPLIED&gt;
+
+&lt;!-- field is only used in a Script, ProtoDeclare or ExternProtoDeclare.
+     Initialization values for simple types go in the value attribute.
+     Contained content tags are only for initialization of Node or Nodes. --&gt;
+
+&lt;!ELEMENT field  ( %ProtoNodes; )* &gt;
+&lt;!ATTLIST field
+	name       	NMTOKEN  	#REQUIRED
+	accessType (inputOnly | outputOnly | initializeOnly | inputOutput) #REQUIRED
+	type 	   ( %X3dFieldTypes; ) #REQUIRED
+	value      	CDATA   	#IMPLIED
+  	xml:space  (default | preserve)	"default"
+	appinfo 	%SFString;	#IMPLIED
+	documentation	%SFString;	#IMPLIED&gt;
+
+
+&lt;!-- fieldValue resets default field values inside a ProtoInstance.
+     Initialization values for simple types go in the value attribute.  Otherwise
+     contained-content tags are used for initialization of SFNode or MFNode values. --&gt;
+
+&lt;!ELEMENT fieldValue ( %ProtoNodes; )* &gt; 
+&lt;!ATTLIST fieldValue
+	name	NMTOKEN	#REQUIRED
+	value	CDATA	#IMPLIED&gt;
+]]&gt;
+&lt;![%ImmersiveProfile;[
+
+&lt;!ELEMENT FillProperties ( (IS?), (%MetadataNodes;)? ) &gt;
+&lt;!ATTLIST FillProperties
+	filled   %SFBool;   "true"
+	hatched  %SFBool;   "true"
+	hatchStyle  %SFInt32;      "1"
+	hatchColor  %SFColor;      "1 1 1"
+	containerField NMTOKEN "fillProperties"
+	class	  CDATA    #IMPLIED
+	DEF             ID                   #IMPLIED
+	USE             IDREF                #IMPLIED&gt;
+
+&lt;!ELEMENT Fog ( (IS?), (%MetadataNodes;)? ) &gt;
+&lt;!ATTLIST Fog
+	color           %SFColor;            "1 1 1"
+	fogType         (LINEAR|EXPONENTIAL) "LINEAR"
+	visibilityRange %SFFloat;            "0"
+	containerField NMTOKEN "children"
+	class	  CDATA    #IMPLIED
+	DEF             ID                   #IMPLIED
+	USE             IDREF                #IMPLIED&gt;
+
+&lt;!ELEMENT FontStyle ( (IS?), (%MetadataNodes;)? ) &gt;
+&lt;!ATTLIST FontStyle
+	family      %MFString; '&amp;quot;SERIF&amp;quot;'
+	horizontal  %SFBool;   "true"
+	justify     %MFString; '&amp;quot;BEGIN&amp;quot;'
+	language    %SFString; #IMPLIED
+	leftToRight %SFBool;   "true"
+	size        %SFFloat;  "1.0"
+	spacing     %SFFloat;  "1.0"
+	style       (PLAIN|BOLD|ITALIC|BOLDITALIC) "PLAIN"
+	topToBottom %SFBool;   "true"
+	containerField NMTOKEN "fontStyle"
+	class       CDATA       #IMPLIED
+	DEF         ID          #IMPLIED
+	USE         IDREF       #IMPLIED&gt;
+
+&lt;!-- Minimum supported values mentioned in VRML 97 specification
+	family      ' "SERIF" "SANS" "TYPEWRITER" '
+	justify     ' "FIRST" "BEGIN" "MIDDLE" "END" '       --&gt;
+]]&gt;
+&lt;!ELEMENT Group (IS?, (%MetadataNodes;)?, (%ChildrenNodes; | %WildcardNodes;)*)&gt;
+&lt;!ATTLIST Group
+	bboxCenter %SFVec3f; "0 0 0"
+	bboxSize %SFVec3f; "-1 -1 -1"
+	containerField NMTOKEN "children"
+	class CDATA #IMPLIED
+	DEF ID #IMPLIED
+	USE IDREF #IMPLIED
+&gt;
+&lt;!ELEMENT ImageTexture ((IS?), (%MetadataNodes;)?)&gt;
+&lt;!ATTLIST ImageTexture
+	url %MFString; #IMPLIED
+	repeatS %SFBool; "true"
+	repeatT %SFBool; "true"
+	containerField NMTOKEN "texture"
+	class CDATA #IMPLIED
+	DEF ID #IMPLIED
+	USE IDREF #IMPLIED
+&gt;
+&lt;!-- Complete, unordered, concisely enumerated version of IndexedFaceSet content model by Heiko Grussbach --&gt;
+&lt;!ENTITY % ColorCoordinateNormalTextureCoordinateContentModel "(IS?, (%MetadataNodes;)?, (
+ ((%ColorNodes;), (
+ 	((%CoordinateNodes;), (	((%NormalNodes;),((%TextureCoordinateNodes;)|%WildcardNodes;)?) |
+				((%TextureCoordinateNodes;),((%NormalNodes;)|%WildcardNodes;)?) |
+				(%WildcardNodes;,((%NormalNodes;)|(%TextureCoordinateNodes;)|%WildcardNodes;)?) )? )
+	| ((%NormalNodes;), (	((%CoordinateNodes;),((%TextureCoordinateNodes;)|%WildcardNodes;)?) |
+	   			((%TextureCoordinateNodes;),((%CoordinateNodes;)|%WildcardNodes;)?) |
+	   			(%WildcardNodes;,((%CoordinateNodes;)|(%TextureCoordinateNodes;)|%WildcardNodes;)?) )? )
+	| ((%TextureCoordinateNodes;), (
+				((%CoordinateNodes;),((%NormalNodes;)|%WildcardNodes;)?) |
+	 			((%NormalNodes;),((%CoordinateNodes;)|%WildcardNodes;)?) |
+	 			(%WildcardNodes;,((%CoordinateNodes;)|(%NormalNodes;)|%WildcardNodes;)?) )? )
+	| (%WildcardNodes;, (	((%CoordinateNodes;),((%NormalNodes;)|(%TextureCoordinateNodes;)|%WildcardNodes;)?) |
+	 			((%NormalNodes;),((%CoordinateNodes;)|(%TextureCoordinateNodes;)|%WildcardNodes;)?) |
+	 			((%TextureCoordinateNodes;),((%NormalNodes;)|(%TextureCoordinateNodes;)|%WildcardNodes;)?) |
+	 			(%WildcardNodes;,((%CoordinateNodes;)|(%NormalNodes;)|(%TextureCoordinateNodes;)|%WildcardNodes;)?) )? ) )? )
+ | ((%CoordinateNodes;), (
+	((%ColorNodes;), (	((%NormalNodes;),((%TextureCoordinateNodes;)|%WildcardNodes;)?) |
+	  			((%TextureCoordinateNodes;),((%NormalNodes;)|%WildcardNodes;)?) |
+	  			(%WildcardNodes;,((%NormalNodes;)|(%TextureCoordinateNodes;)|%WildcardNodes;)?) )? )
+	| ((%NormalNodes;), (	((%ColorNodes;),((%TextureCoordinateNodes;)|%WildcardNodes;)?) |
+				((%TextureCoordinateNodes;),((%ColorNodes;)|%WildcardNodes;)?) |
+				(%WildcardNodes;,((%ColorNodes;)|(%TextureCoordinateNodes;)|%WildcardNodes;)?) )? )
+	| ((%TextureCoordinateNodes;), (
+				((%ColorNodes;),((%NormalNodes;)|%WildcardNodes;)?) |
+				((%NormalNodes;),((%ColorNodes;)|%WildcardNodes;)?) |
+				(%WildcardNodes;,((%ColorNodes;)|(%NormalNodes;)|%WildcardNodes;)?) )? )
+	| (%WildcardNodes;, (	((%ColorNodes;),((%NormalNodes;)|(%TextureCoordinateNodes;)|%WildcardNodes;)?) |
+				((%NormalNodes;),((%ColorNodes;)|(%TextureCoordinateNodes;)|%WildcardNodes;)?) |
+				((%TextureCoordinateNodes;),((%NormalNodes;)|(%TextureCoordinateNodes;)|%WildcardNodes;)?) |
+				(%WildcardNodes;,((%ColorNodes;)|(%NormalNodes;)|(%TextureCoordinateNodes;)|%WildcardNodes;)?) )? ) )? )
+ | ((%NormalNodes;),  (
+ 	((%ColorNodes;), (	((%CoordinateNodes;),((%TextureCoordinateNodes;)|%WildcardNodes;)?) |
+ 				((%TextureCoordinateNodes;),((%CoordinateNodes;)|%WildcardNodes;)?) |
+ 				(%WildcardNodes;,((%CoordinateNodes;)|(%TextureCoordinateNodes;)|%WildcardNodes;)?) )? )
+ 	| ((%CoordinateNodes;),(((%ColorNodes;),((%TextureCoordinateNodes;)|%WildcardNodes;)?) |
+ 				((%TextureCoordinateNodes;),((%ColorNodes;)|%WildcardNodes;)?) |
+ 				(%WildcardNodes;,((%ColorNodes;)|(%TextureCoordinateNodes;)|%WildcardNodes;)?) )? )
+ 	| ((%TextureCoordinateNodes;), (
+ 				((%ColorNodes;),((%CoordinateNodes;)|%WildcardNodes;)?) |
+ 				((%CoordinateNodes;),((%ColorNodes;)|%WildcardNodes;)?) |
+ 				(%WildcardNodes;,((%ColorNodes;)|(%CoordinateNodes;)|%WildcardNodes;)?) )? )
+ 	| (%WildcardNodes;, (	((%ColorNodes;),((%CoordinateNodes;)|(%TextureCoordinateNodes;)|%WildcardNodes;)?) |
+ 				((%CoordinateNodes;),((%ColorNodes;)|(%TextureCoordinateNodes;)|%WildcardNodes;)?) |
+ 				((%TextureCoordinateNodes;),((%ColorNodes;)|(%CoordinateNodes;)|%WildcardNodes;)?) |
+ 				(%WildcardNodes;,((%ColorNodes;)|(%CoordinateNodes;)|(%TextureCoordinateNodes;)|%WildcardNodes;)?) )? ) )? )
+ | ((%TextureCoordinateNodes;), (
+	((%ColorNodes;), (	((%CoordinateNodes;),((%NormalNodes;)|%WildcardNodes;)?) |
+				((%NormalNodes;),((%CoordinateNodes;)|%WildcardNodes;)?) |
+				(%WildcardNodes;,((%CoordinateNodes;)|(%NormalNodes;)|%WildcardNodes;)?) )? )
+ 	| ((%CoordinateNodes;),(((%ColorNodes;),((%NormalNodes;)|%WildcardNodes;)?) |
+ 				((%NormalNodes;),((%ColorNodes;)|%WildcardNodes;)?) |
+ 				(%WildcardNodes;,((%ColorNodes;)|(%NormalNodes;)|%WildcardNodes;)?) )? )
+ 	| ((%NormalNodes;), (	((%ColorNodes;),((%CoordinateNodes;)|%WildcardNodes;)?) |
+				((%CoordinateNodes;),((%ColorNodes;)|%WildcardNodes;)?) |
+				(%WildcardNodes;,((%ColorNodes;)|(%CoordinateNodes;)|%WildcardNodes;)?) )? )
+	| (%WildcardNodes;, (	((%ColorNodes;),((%NormalNodes;)|(%TextureCoordinateNodes;)|%WildcardNodes;)?) |
+				((%CoordinateNodes;),((%ColorNodes;)|(%NormalNodes;)|%WildcardNodes;)?) |
+				((%NormalNodes;),((%ColorNodes;)|(%CoordinateNodes;)|%WildcardNodes;)?) |
+				(%WildcardNodes;,((%ColorNodes;)|(%CoordinateNodes;)|(%NormalNodes;)|%WildcardNodes;)?) )? ) )? )
+ | (%WildcardNodes;,  (
+	((%ColorNodes;), (	((%CoordinateNodes;),((%NormalNodes;)|(%TextureCoordinateNodes;)|%WildcardNodes;)?) |
+				((%NormalNodes;),((%CoordinateNodes;)|(%TextureCoordinateNodes;)|%WildcardNodes;)?) |
+				((%TextureCoordinateNodes;),((%CoordinateNodes;)|(%NormalNodes;)|%WildcardNodes;)?) |
+				(%WildcardNodes;,((%CoordinateNodes;)|(%NormalNodes;)|(%TextureCoordinateNodes;)|%WildcardNodes;)?) )? )
+	| ((%CoordinateNodes;),(((%ColorNodes;),((%NormalNodes;)|(%TextureCoordinateNodes;)|%WildcardNodes;)?) |
+				((%NormalNodes;),((%ColorNodes;)|(%TextureCoordinateNodes;)|%WildcardNodes;)?) |
+				((%TextureCoordinateNodes;),((%ColorNodes;)|(%NormalNodes;)|%WildcardNodes;)?) |
+				(%WildcardNodes;,((%ColorNodes;)|(%NormalNodes;)|(%TextureCoordinateNodes;)|%WildcardNodes;)?) )? )
+	| ((%NormalNodes;), (	((%ColorNodes;),((%CoordinateNodes;)|(%TextureCoordinateNodes;)|%WildcardNodes;)?) |
+				((%CoordinateNodes;),((%ColorNodes;)|(%TextureCoordinateNodes;)|%WildcardNodes;)?) |
+				((%TextureCoordinateNodes;),((%ColorNodes;)|(%CoordinateNodes;)|%WildcardNodes;)?) |
+				(%WildcardNodes;,((%CoordinateNodes;)|(%ColorNodes;)|(%TextureCoordinateNodes;)|%WildcardNodes;)?) )? )
+	| ((%TextureCoordinateNodes;), (
+				((%ColorNodes;),((%CoordinateNodes;)|(%NormalNodes;)|%WildcardNodes;)?) |
+				((%CoordinateNodes;),((%ColorNodes;)|(%NormalNodes;)|%WildcardNodes;)?) |
+				((%NormalNodes;),((%ColorNodes;)|(%CoordinateNodes;)|%WildcardNodes;)?) |
+				(%WildcardNodes;,((%ColorNodes;)|(%CoordinateNodes;)|(%NormalNodes;)|%WildcardNodes;)?) )? )
+	| (%WildcardNodes;, (	((%ColorNodes;),((%CoordinateNodes;)|(%NormalNodes;)|(%TextureCoordinateNodes;)|%WildcardNodes;)?) |
+				((%CoordinateNodes;),((%ColorNodes;)|(%NormalNodes;)|(%TextureCoordinateNodes;)|%WildcardNodes;)?) |
+				((%NormalNodes;),((%ColorNodes;)|(%CoordinateNodes;)|(%TextureCoordinateNodes;)|%WildcardNodes;)?) |
+				((%TextureCoordinateNodes;),((%ColorNodes;)|(%CoordinateNodes;)|(%NormalNodes;)|%WildcardNodes;)?) |
+				(%WildcardNodes;,((%ColorNodes;)|(%CoordinateNodes;)|(%NormalNodes;)|(%TextureCoordinateNodes;)|%WildcardNodes;)?) )? ) )? )
+)?  )"&gt;
+&lt;![%ImmersiveProfile;[
+
+&lt;!ELEMENT IndexedFaceSet ( %ColorCoordinateNormalTextureCoordinateContentModel; ) &gt;
+
+&lt;!ELEMENT IndexedLineSet (IS?, (%MetadataNodes;)?, (
+	( (%ColorNodes;), ((%CoordinateNodes;) | %WildcardNodes;)? ) |
+	( (%CoordinateNodes;), ((%ColorNodes;) | %WildcardNodes;)? ) |
+	( %WildcardNodes;, ((%ColorNodes;) | (%CoordinateNodes;) | %WildcardNodes;)?)
+)? ) &gt;
+
+&lt;!ELEMENT LineSet (IS?, (%MetadataNodes;)?, (
+	( (%ColorNodes;), ((%CoordinateNodes;) | %WildcardNodes;)? ) |
+	( (%CoordinateNodes;), ((%ColorNodes;) | %WildcardNodes;)? ) |
+	( %WildcardNodes;, ((%ColorNodes;) | (%CoordinateNodes;) | %WildcardNodes;)?)
+)? ) &gt;
+]]&gt;
+&lt;![%InterchangeProfile;[
+
+&lt;!ELEMENT IndexedFaceSet ( (%MetadataNodes;)?, ((%ColorNodes;), Coordinate?) | (Coordinate, (%ColorNodes;)?) )? &gt;
+
+&lt;!ELEMENT IndexedLineSet ( (%MetadataNodes;)?, ( Color, Coordinate? ) | ( Coordinate, Color?) )? &gt;
+
+&lt;!ELEMENT LineSet ( (%MetadataNodes;)?, ( Color, Coordinate? ) | ( Coordinate, Color?) )? &gt;
+]]&gt;
+&lt;!ATTLIST IndexedFaceSet
+	ccw %SFBool; "true"
+	colorIndex %MFInt32; #IMPLIED
+	colorPerVertex %SFBool; "true"
+	convex %SFBool; "true"
+	coordIndex %MFInt32; #IMPLIED
+	creaseAngle %SFFloat; "0"
+	normalIndex %MFInt32; #IMPLIED
+	normalPerVertex %SFBool; "true"
+	solid %SFBool; "true"
+	texCoordIndex %MFInt32; #IMPLIED
+	containerField NMTOKEN "geometry"
+	class CDATA #IMPLIED
+	DEF ID #IMPLIED
+	USE IDREF #IMPLIED
+&gt;
+&lt;!ATTLIST IndexedLineSet
+	colorIndex %MFInt32; #IMPLIED
+	colorPerVertex %SFBool; "true"
+	coordIndex %MFInt32; #IMPLIED
+	containerField NMTOKEN "geometry"
+	class CDATA #IMPLIED
+	DEF ID #IMPLIED
+	USE IDREF #IMPLIED
+&gt;
+&lt;!ATTLIST LineSet
+	lineCount %MFInt32; #IMPLIED
+	containerField NMTOKEN "geometry"
+	class CDATA #IMPLIED
+	DEF ID #IMPLIED
+	USE IDREF #IMPLIED
+&gt;
+&lt;!ELEMENT Inline ((IS?), (%MetadataNodes;)?)&gt;
+&lt;!ATTLIST Inline
+	load %SFBool; "true"
+	url %MFString; #IMPLIED
+	bboxCenter %SFVec3f; "0 0 0"
+	bboxSize %SFVec3f; "-1 -1 -1"
+	containerField NMTOKEN "children"
+	class CDATA #IMPLIED
+	DEF ID #IMPLIED
+	USE IDREF #IMPLIED
+&gt;
+&lt;!ELEMENT EXPORT EMPTY&gt;
+&lt;!ATTLIST EXPORT
+	localDEF IDREF #REQUIRED
+	AS NMTOKEN #IMPLIED
+&gt;
+&lt;!ELEMENT IMPORT EMPTY&gt;
+&lt;!ATTLIST IMPORT
+	InlineDEF IDREF #REQUIRED
+	importedDEF NMTOKEN #REQUIRED
+	AS ID #IMPLIED
+&gt;
+&lt;![%ImmersiveProfile;[
+
+&lt;!ELEMENT IntegerSequencer ( (IS?), (%MetadataNodes;)? ) &gt;
+&lt;!ATTLIST IntegerSequencer
+	key      %MFFloat; #IMPLIED
+	keyValue %MFFloat; #IMPLIED
+	containerField NMTOKEN "children"
+	class       CDATA       #IMPLIED
+	DEF      ID        #IMPLIED
+	USE      IDREF     #IMPLIED&gt;
+
+&lt;!ELEMENT IntegerTrigger ( (IS?), (%MetadataNodes;)? ) &gt;
+&lt;!ATTLIST IntegerTrigger
+	integerKey   %SFInt32; "-1"
+	containerField NMTOKEN "children"
+	class    CDATA     #IMPLIED
+	DEF      ID        #IMPLIED
+	USE      IDREF     #IMPLIED&gt;
+
+&lt;!ELEMENT IS (connect)+ &gt;
+
+&lt;!ELEMENT connect EMPTY &gt;
+&lt;!ATTLIST connect 
+	nodeField   NMTOKEN #REQUIRED
+	protoField  NMTOKEN #REQUIRED&gt;
+]]&gt;
+&lt;!ELEMENT KeySensor ((IS?), (%MetadataNodes;)?)&gt;
+&lt;!ATTLIST KeySensor
+	enabled %SFBool; "true"
+	containerField NMTOKEN "children"
+	class CDATA #IMPLIED
+	DEF ID #IMPLIED
+	USE IDREF #IMPLIED
+&gt;
+&lt;![%ImmersiveProfile;[
+
+&lt;!ELEMENT LineProperties ( (IS?), (%MetadataNodes;)? ) &gt;
+&lt;!ATTLIST LineProperties
+	applied %SFBool; "true"
+	linetype %SFInt32; "1"
+	linewidthScaleFactor %SFFloat; "0"
+	containerField NMTOKEN "lineProperties"
+	class	  CDATA    #IMPLIED
+	DEF             ID                   #IMPLIED
+	USE             IDREF                #IMPLIED&gt;
+]]&gt;
+&lt;!ELEMENT LoadSensor (IS?, (%MetadataNodes;)?, (%UrlNodes; | %WildcardNodes;)*)&gt;
+&lt;!ATTLIST LoadSensor
+	enabled %SFBool; "true"
+	timeOut %SFTime; "0"
+	containerField NMTOKEN "children"
+	class CDATA #IMPLIED
+	DEF ID #IMPLIED
+	USE IDREF #IMPLIED
+&gt;
+&lt;![%ImmersiveProfile;[
+
+&lt;!ELEMENT LOD (IS?, (%MetadataNodes;)?, ( %ChildrenNodes; | %WildcardNodes; )* ) &gt;
+&lt;!ATTLIST LOD
+	center %SFVec3f; "0 0 0"
+	range  %MFFloat; #IMPLIED
+	bboxCenter     %SFVec3f; "0 0 0"
+	bboxSize       %SFVec3f; "-1 -1 -1"
+	containerField NMTOKEN "children"
+	class       CDATA       #IMPLIED
+	DEF    ID        #IMPLIED
+	USE    IDREF     #IMPLIED&gt;
+
+&lt;!ELEMENT Material ( (IS?), (%MetadataNodes;)? ) &gt;
+&lt;!ATTLIST Material
+	ambientIntensity %SFFloat; "0.2"
+	diffuseColor     %SFColor; "0.8 0.8 0.8"
+	emissiveColor    %SFColor; "0 0 0"
+	shininess        %SFFloat; "0.2"
+	specularColor    %SFColor; "0 0 0"
+	transparency     %SFFloat; "0"
+	containerField NMTOKEN "material"
+	class       CDATA          #IMPLIED
+	DEF              ID        #IMPLIED
+	USE              IDREF     #IMPLIED&gt;
+]]&gt;
+&lt;![%InterchangeProfile;[
+
+&lt;!ELEMENT Material ( (%MetadataNodes;)? ) &gt;
+&lt;!ATTLIST Material
+	diffuseColor     %SFColor; "0.8 0.8 0.8"
+	emissiveColor    %SFColor; "0 0 0"
+	transparency     %SFFloat; "0"
+	containerField NMTOKEN "material"
+	class       	 CDATA     #IMPLIED
+	DEF              ID        #IMPLIED
+	USE              IDREF     #IMPLIED&gt;
+]]&gt;
+&lt;!-- *** XHTML exerpts to define meta tag *** --&gt;
+&lt;!-- i18n, language, meta tag definitions from XHTML 1.0
+     http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd --&gt;
+&lt;!ENTITY % LanguageCode "NMTOKEN"&gt;
+&lt;!-- a language code, as per [IETF RFC3066/BCP47] ftp://ftp.isi.edu/in-notes/bcp/bcp47.txt --&gt;
+&lt;!-- internationalization attributes
+  lang        language code (backwards compatible)
+  xml:lang    language code (as per XML 1.0 spec)
+  dir         direction for weak/neutral text
+--&gt;
+&lt;!ENTITY % i18n "lang        %LanguageCode; #IMPLIED
+  xml:lang    %LanguageCode; #IMPLIED
+  dir         (ltr|rtl)      #IMPLIED"&gt;
+&lt;!ELEMENT head (component*, meta*)&gt;
+&lt;!-- generic metadata information, matches HTML usage, made attribute 'name' required --&gt;
+&lt;!ELEMENT meta EMPTY&gt;
+&lt;!ATTLIST meta
+	http-equiv CDATA #IMPLIED
+	name CDATA #REQUIRED
+	content CDATA #REQUIRED
+	scheme CDATA #IMPLIED
+	%i18n; 
+&gt;
+&lt;!-- formal X3D Metadata nodes --&gt;
+&lt;!ELEMENT MetadataDouble (IS?, (%MetadataNodes;)?)&gt;
+&lt;!ATTLIST MetadataDouble
+	name %SFString; #IMPLIED
+	value %MFDouble; #IMPLIED
+	reference %SFString; #IMPLIED
+	containerField NMTOKEN "metadata"
+	DEF ID #IMPLIED
+	USE IDREF #IMPLIED
+&gt;
+&lt;!ELEMENT MetadataFloat (IS?, (%MetadataNodes;)?)&gt;
+&lt;!ATTLIST MetadataFloat
+	name %SFString; #IMPLIED
+	value %MFFloat; #IMPLIED
+	reference %SFString; #IMPLIED
+	containerField NMTOKEN "metadata"
+	DEF ID #IMPLIED
+	USE IDREF #IMPLIED
+&gt;
+&lt;!ELEMENT MetadataInteger (IS?, (%MetadataNodes;)?)&gt;
+&lt;!ATTLIST MetadataInteger
+	name %SFString; #IMPLIED
+	value %MFInt32; #IMPLIED
+	reference %SFString; #IMPLIED
+	containerField NMTOKEN "metadata"
+	DEF ID #IMPLIED
+	USE IDREF #IMPLIED
+&gt;
+&lt;!ELEMENT MetadataString (IS?, (%MetadataNodes;)?)&gt;
+&lt;!ATTLIST MetadataString
+	name %SFString; #IMPLIED
+	value %MFString; #IMPLIED
+	reference %SFString; #IMPLIED
+	containerField NMTOKEN "metadata"
+	DEF ID #IMPLIED
+	USE IDREF #IMPLIED
+&gt;
+&lt;!-- containerField discriminates whether child Metadata node(s) are 'metadata' or 'value' fields.
+	NMTOKEN vice enumeration, since containerField might have another value as field in a ProtoInstance. --&gt;
+&lt;!ELEMENT MetadataSet (IS?, (%MetadataNodes;)*)&gt;
+&lt;!ATTLIST MetadataSet
+	reference %SFString; #IMPLIED
+	name %SFString; #IMPLIED
+	containerField NMTOKEN "metadata"
+	DEF ID #IMPLIED
+	USE IDREF #IMPLIED
+&gt;
+&lt;!-- FAQ:  MovieTexture
+	containerField='source'  when used as a Sound source,
+	containerField='texture' when used as a Appearance texture source--&gt;
+&lt;![%ImmersiveProfile;[
+
+&lt;!ELEMENT MovieTexture ( (IS?), (%MetadataNodes;)? ) &gt;
+&lt;!ATTLIST MovieTexture
+	loop      %SFBool;   "false"
+	speed     %SFFloat;  "1.0"
+	startTime %SFTime;   "0"
+	stopTime  %SFTime;   "0"
+	url       %MFString; #IMPLIED
+	repeatS   %SFBool;   "true"
+	repeatT   %SFBool;   "true"
+	pauseTime %SFTime;   "0"
+	resumeTime %SFTime;  "0"
+	containerField NMTOKEN "texture"
+	class       CDATA       #IMPLIED
+	DEF       ID         #IMPLIED
+	USE       IDREF      #IMPLIED&gt;
+
+&lt;!ELEMENT MultiTexture ( (IS?), (%MetadataNodes;)?, (
+   ((%MultiTextureChildTextures;)+, (%TextureTransformNodes;)*  )
+ | ((%TextureTransformNodes;)+, (%MultiTextureChildTextures;)* )
+)? ) &gt;
+
+&lt;!ATTLIST MultiTexture
+	mode           %MultiTextureModes;		#IMPLIED
+	source         %MultiTextureFunctionValues;	#IMPLIED
+	function       %MultiTextureSourceValues;	#IMPLIED
+	color          %SFColor;  "1 1 1"
+	alpha          %SFFloat;  "1.0"
+	containerField NMTOKEN "texture"
+	class       CDATA       #IMPLIED
+	DEF       ID         #IMPLIED
+	USE       IDREF      #IMPLIED&gt;
+
+&lt;!ELEMENT MultiTextureCoordinate ((IS?), (%MetadataNodes;)?, (TextureCoordinate | TextureCoordinateGenerator)* ) &gt;
+&lt;!ATTLIST MultiTextureCoordinate
+	containerField NMTOKEN "texCoord"
+	class       CDATA       #IMPLIED
+	DEF       ID         #IMPLIED
+	USE       IDREF      #IMPLIED&gt;
+]]&gt;
+&lt;!ELEMENT NavigationInfo ((IS?), (%MetadataNodes;)?)&gt;
+&lt;!ATTLIST NavigationInfo
+	avatarSize %MFFloat; "0.25 1.6 0.75"
+	headlight %SFBool; "true"
+	speed %SFFloat; "1"
+	type %MFString; "&amp;quot;EXAMINE&amp;quot; &amp;quot;ANY&amp;quot;"
+	visibilityLimit %SFFloat; "0"
+	containerField NMTOKEN "children"
+	class CDATA #IMPLIED
+	DEF ID #IMPLIED
+	USE IDREF #IMPLIED
+&gt;
+&lt;![%ImmersiveProfile;[
+
+&lt;!ELEMENT Normal ( (IS?), (%MetadataNodes;)? ) &gt;
+&lt;!ATTLIST Normal
+	vector    %MFVec3f; #IMPLIED
+	containerField NMTOKEN "normal"
+	class	  CDATA     #IMPLIED
+	DEF       ID        #IMPLIED
+	USE       IDREF     #IMPLIED&gt;
+
+&lt;!ELEMENT NormalInterpolator ( (IS?), (%MetadataNodes;)? ) &gt;
+&lt;!ATTLIST NormalInterpolator
+	key      %MFFloat; #IMPLIED
+	keyValue %MFVec3f; #IMPLIED
+	containerField NMTOKEN "children"
+	class       CDATA       #IMPLIED
+	DEF      ID        #IMPLIED
+	USE      IDREF     #IMPLIED&gt;
+]]&gt;
+&lt;!ELEMENT OrientationInterpolator ((IS?), (%MetadataNodes;)?)&gt;
+&lt;!ATTLIST OrientationInterpolator
+	key %MFFloat; #IMPLIED
+	keyValue %MFRotation; #IMPLIED
+	containerField NMTOKEN "children"
+	class CDATA #IMPLIED
+	DEF ID #IMPLIED
+	USE IDREF #IMPLIED
+&gt;
+&lt;![%ImmersiveProfile;[
+
+&lt;!ELEMENT PixelTexture ( (IS?), (%MetadataNodes;)? ) &gt;
+&lt;!ATTLIST PixelTexture 
+	image   %SFImage; "0 0 0"
+	repeatS %SFBool;  "true"
+	repeatT %SFBool;  "true"
+	containerField NMTOKEN "texture"
+	class       CDATA       #IMPLIED
+	DEF     ID        #IMPLIED
+	USE     IDREF     #IMPLIED&gt;
+
+&lt;!ELEMENT PlaneSensor ( (IS?), (%MetadataNodes;)? ) &gt;
+&lt;!ATTLIST PlaneSensor
+	description %SFString; #IMPLIED
+	autoOffset  %SFBool;  "true"
+	enabled     %SFBool;  "true"
+	maxPosition %SFVec2f; "-1 -1"
+	minPosition %SFVec2f; "0 0"
+	offset      %SFVec3f; "0 0 0"
+	containerField NMTOKEN "children"
+	class       CDATA     #IMPLIED
+	DEF         ID        #IMPLIED
+	USE         IDREF     #IMPLIED&gt;
+
+&lt;!ELEMENT PointLight ( (IS?), (%MetadataNodes;)? ) &gt;
+&lt;!ATTLIST PointLight
+	ambientIntensity %SFFloat;	"0"
+	attenuation      %SFVec3f;	"1 0 0"
+	color            %SFColor;	"1 1 1"
+	intensity        %SFFloat;	"1"
+	location         %SFVec3f;	"0 0 0"
+	on               %SFBool;	"true"
+	radius	 	 %SFFloat;	"100"
+	containerField NMTOKEN "children"
+	class	   CDATA    	#IMPLIED
+	DEF	  	 ID		#IMPLIED
+	USE		 IDREF		#IMPLIED&gt;
+
+&lt;!ELEMENT PointSet (IS?, (%MetadataNodes;)?, (
+	( (%ColorNodes;), ((%CoordinateNodes;) | %WildcardNodes;)? ) |
+	( (%CoordinateNodes;), ((%ColorNodes;) | %WildcardNodes;)? ) |
+	( %WildcardNodes;, ((%ColorNodes;) | (%CoordinateNodes;) | %WildcardNodes;)?)
+)? ) &gt;
+]]&gt;
+&lt;![%InterchangeProfile;[
+
+&lt;!ELEMENT PointSet ( (%MetadataNodes;)?, ( ( Color, Coordinate? ) | ( Coordinate, Color? ) )? ) &gt;
+]]&gt;
+&lt;!ATTLIST PointSet
+	containerField NMTOKEN "geometry"
+	class CDATA #IMPLIED
+	DEF ID #IMPLIED
+	USE IDREF #IMPLIED
+&gt;
+&lt;!ELEMENT PositionInterpolator ((IS?), (%MetadataNodes;)?)&gt;
+&lt;!ATTLIST PositionInterpolator
+	key %MFFloat; #IMPLIED
+	keyValue %MFVec3f; #IMPLIED
+	containerField NMTOKEN "children"
+	class CDATA #IMPLIED
+	DEF ID #IMPLIED
+	USE IDREF #IMPLIED
+&gt;
+&lt;![%ImmersiveProfile;[
+
+&lt;!ELEMENT PositionInterpolator2D ( (IS?), (%MetadataNodes;)? ) &gt;
+&lt;!ATTLIST PositionInterpolator2D
+	key      %MFFloat; #IMPLIED
+	keyValue %MFVec2f; #IMPLIED
+	containerField NMTOKEN "children"
+	class    CDATA     #IMPLIED
+	DEF      ID        #IMPLIED
+	USE      IDREF     #IMPLIED&gt;
+]]&gt;
+&lt;![%ImmersiveProfile;[
+
+&lt;!ELEMENT ProtoInterface ( field+ ) &gt;
+
+&lt;!-- choice of required first node contained in ProtoBody constrained by valid ( %ProtoNodes; ) rather than %SceneNodes; ) &gt;  --&gt;
+
+&lt;!ELEMENT ProtoBody      ( ( %ProtoNodes; ), ( %SceneNodes; )* ) &gt;
+
+&lt;!-- include previous and proposed forms until content is updated and evaluated.  work in progress. --&gt;
+
+&lt;!ELEMENT ProtoDeclare (ProtoInterface? , ProtoBody) &gt; &lt;!-- ( | ( field*, ( %ProtoNodes; ), ( %SceneNodes; )* )) --&gt;
+&lt;!ATTLIST ProtoDeclare
+	name 		NMTOKEN   	#REQUIRED
+	appinfo		%SFString;	#IMPLIED
+	documentation	%SFString;	#IMPLIED&gt;
+
+&lt;!ELEMENT ProtoInstance ( fieldValue*, IS? ) &gt;
+&lt;!-- ( %SceneNodes; )* --&gt;&lt;!-- direct children disallowed, let fieldValue name="children" handle them --&gt;
+&lt;!ATTLIST ProtoInstance
+	name     NMTOKEN           #REQUIRED
+	containerField NMTOKEN "children"
+	class	CDATA        #IMPLIED
+	DEF      ID                #IMPLIED
+	USE      IDREF             #IMPLIED&gt;
+
+&lt;!ELEMENT ProximitySensor ( (IS?), (%MetadataNodes;)? ) &gt;
+&lt;!ATTLIST ProximitySensor
+	center      %SFVec3f;    "0 0 0"
+	size        %SFVec3f;    "0 0 0"
+	enabled     %SFBool;     "true"
+	containerField NMTOKEN "children"
+	class       CDATA        #IMPLIED
+	DEF         ID           #IMPLIED
+	USE         IDREF        #IMPLIED&gt;
+]]&gt;
+&lt;!ELEMENT ROUTE EMPTY&gt;
+&lt;!ATTLIST ROUTE
+	fromNode IDREF #REQUIRED
+	fromField NMTOKEN #REQUIRED
+	toNode IDREF #REQUIRED
+	toField NMTOKEN #REQUIRED
+&gt;
+&lt;!ELEMENT ScalarInterpolator ((IS?), (%MetadataNodes;)?)&gt;
+&lt;!ATTLIST ScalarInterpolator
+	key %MFFloat; #IMPLIED
+	keyValue %MFFloat; #IMPLIED
+	containerField NMTOKEN "children"
+	class CDATA #IMPLIED
+	DEF ID #IMPLIED
+	USE IDREF #IMPLIED
+&gt;
+&lt;!ELEMENT Scene (%SceneNodes;)*&gt;
+&lt;!-- Script is similar to PROTO regarding user definition of multiple fields --&gt;
+&lt;![%ImmersiveProfile;[
+
+&lt;!-- script code should be included as CDATA sections.  watch out on content-model order, originally ( #PCDATA | field )* --&gt;
+&lt;!-- can this mixed model be further tighted to allow only one IS, following zero or more field tags, prior to PCDATA?  
+&lt;!ELEMENT Script ( #PCDATA | field | IS )* &gt;
+&lt;!ELEMENT Script ( (%MetadataNodes;)?, field*, IS?, #PCDATA ) &gt;  
+
+&lt;!ELEMENT Script ( #PCDATA | (%MetadataNodes;)? | field* | IS? ) &gt;
+
+&lt;!ELEMENT Script ( #PCDATA | MetadataDouble | MetadataFloat | MetadataInteger | MetadataSet | MetadataString | field | IS )* &gt;
+ --&gt;
+
+&lt;!ELEMENT Script ( #PCDATA | %MetadataNodes; | field | IS )* &gt;
+
+&lt;!ATTLIST Script
+	url          %MFString; #IMPLIED
+	directOutput %SFBool; "false"
+	mustEvaluate %SFBool; "false"
+	containerField NMTOKEN "children"
+	class       CDATA       #IMPLIED
+  	xml:space    (default | preserve) #FIXED "preserve"
+  	DEF ID       #IMPLIED
+	USE IDREF    #IMPLIED&gt;
+
+&lt;!ELEMENT Shape (IS?, (%MetadataNodes;)?, (
+     ( (%AppearanceNodes;), (( %GeometryNodes; ) | %WildcardNodes;)? ) |
+     ( ( %GeometryNodes; ), ((%AppearanceNodes;) | %WildcardNodes;)? ) |
+     ( %WildcardNodes;, (( %GeometryNodes; ) | (%AppearanceNodes;) | %WildcardNodes;)? )
+)? ) &gt;
+]]&gt;
+&lt;![%InterchangeProfile;[
+
+&lt;!ELEMENT Shape ( (%MetadataNodes;)?,
+	( (%AppearanceNodes;), ( %GeometryNodes; )? ) |
+	( ( %GeometryNodes; ), (%AppearanceNodes;)? )
+)? &gt;
+]]&gt;
+&lt;!ATTLIST Shape
+	containerField NMTOKEN "children"
+	class CDATA #IMPLIED
+	bboxCenter %SFVec3f; "0 0 0"
+	bboxSize %SFVec3f; "-1 -1 -1"
+	DEF ID #IMPLIED
+	USE IDREF #IMPLIED
+&gt;
+&lt;![%ImmersiveProfile;[
+
+&lt;!ELEMENT Sound (IS?, (%MetadataNodes;)?, ( %AudioClipNodes; | %MovieTextureNodes; | %WildcardNodes; ) ) &gt;
+&lt;!ATTLIST Sound
+	direction  %SFVec3f; "0 0 1"
+	intensity  %SFFloat; "1"
+	location   %SFVec3f; "0 0 0"
+	maxBack    %SFFloat; "10"
+	maxFront   %SFFloat; "10"
+	minBack    %SFFloat; "1"
+	minFront   %SFFloat; "1"
+	priority   %SFFloat; "0"
+	spatialize %SFBool;  "true"
+	containerField NMTOKEN "children"
+	class       CDATA       #IMPLIED
+	DEF        ID        #IMPLIED
+	USE        IDREF     #IMPLIED&gt;
+
+&lt;!ELEMENT Sphere ( (IS?), (%MetadataNodes;)? ) &gt;
+&lt;!ATTLIST Sphere
+	radius %SFFloat; "1"
+	containerField NMTOKEN "geometry"
+	class       CDATA       #IMPLIED
+	DEF    ID        #IMPLIED
+	USE    IDREF     #IMPLIED&gt;
+
+&lt;!ELEMENT SphereSensor ( (IS?), (%MetadataNodes;)? ) &gt;
+&lt;!ATTLIST SphereSensor
+	description %SFString; #IMPLIED
+	autoOffset %SFBool;     "true"
+	enabled    %SFBool;     "true"
+	offset     %SFRotation; "0 1 0 0"
+	containerField NMTOKEN "children"
+	class       CDATA       #IMPLIED
+	DEF        ID           #IMPLIED
+	USE        IDREF        #IMPLIED&gt;
+]]&gt;
+&lt;![%ImmersiveProfile;[
+
+&lt;!ELEMENT SpotLight ( (IS?), (%MetadataNodes;)? ) &gt;
+&lt;!ATTLIST SpotLight
+	ambientIntensity %SFFloat; "0"
+	attenuation      %SFVec3f; "1 0 0"
+	beamWidth        %SFFloat; "1.570796"
+	color            %SFColor; "1 1 1"
+	cutOffAngle      %SFFloat; "0.785398"
+	direction        %SFVec3f; "0 0 -1"
+	intensity        %SFFloat; "1"
+	location         %SFVec3f; "0 0 0"
+	on               %SFBool;  "true"
+	radius           %SFFloat; "100"
+	containerField NMTOKEN "children"
+	class	   CDATA    #IMPLIED
+	DEF              ID        #IMPLIED
+	USE              IDREF     #IMPLIED&gt;
+
+&lt;!ELEMENT StaticGroup (IS?, (%MetadataNodes;)?, ( %ChildrenNodes; | %WildcardNodes; )* ) &gt;
+&lt;!ATTLIST StaticGroup
+	bboxCenter %SFVec3f; "0 0 0"
+	bboxSize   %SFVec3f; "-1 -1 -1"
+	containerField NMTOKEN "children"
+	class       CDATA       #IMPLIED
+	DEF        ID        #IMPLIED
+	USE        IDREF     #IMPLIED&gt;
+
+&lt;!ELEMENT StringSensor ( (IS?), (%MetadataNodes;)? ) &gt;
+&lt;!ATTLIST StringSensor 
+	enabled			%SFBool;	"true"
+	deletionAllowed 	%SFBool;	"true"
+	containerField NMTOKEN "children"
+	class			CDATA    #IMPLIED
+	DEF			ID		#IMPLIED
+	USE			IDREF		#IMPLIED&gt;
+]]&gt;
+&lt;!ELEMENT Switch (IS?, (%MetadataNodes;)?, (%ChildrenNodes; | %WildcardNodes;)*)&gt;
+&lt;!ATTLIST Switch
+	whichChoice %SFInt32; "-1"
+	containerField NMTOKEN "children"
+	bboxCenter %SFVec3f; "0 0 0"
+	bboxSize %SFVec3f; "-1 -1 -1"
+	class CDATA #IMPLIED
+	DEF ID #IMPLIED
+	USE IDREF #IMPLIED
+&gt;
+&lt;![%ImmersiveProfile;[
+
+&lt;!ELEMENT Text (IS?, (%MetadataNodes;)?, ( (%FontStyleNodes;)? | %WildcardNodes; ) ) &gt;
+&lt;!ATTLIST Text
+	string    %MFString; #IMPLIED
+	length    %MFFloat;  #IMPLIED
+	maxExtent %SFFloat;  "0.0"
+	containerField NMTOKEN "geometry"
+	class       CDATA       #IMPLIED
+	DEF       ID         #IMPLIED
+	USE       IDREF      #IMPLIED&gt;
+
+&lt;!-- backTexture, bottomTexture, frontTexture, leftTexture, rightTexture, topTexture; could use rule for 0..6 children here --&gt;
+
+&lt;!ELEMENT TextureBackground (IS?, (%MetadataNodes;)?, (%TextureNodes;)* )&gt;
+&lt;!ATTLIST TextureBackground
+	groundAngle  %MFFloat;  #IMPLIED
+	groundColor  %MFColor;  #IMPLIED
+	skyAngle     %MFFloat;  #IMPLIED
+	skyColor     %MFColor;  "0 0 0"
+	transparency %MFFloat;  "0"
+	containerField NMTOKEN "children"
+	class        CDATA      #IMPLIED
+	DEF          ID         #IMPLIED 
+	USE          IDREF      #IMPLIED &gt;
+]]&gt;
+&lt;!ELEMENT TextureCoordinate ((IS?), (%MetadataNodes;)?)&gt;
+&lt;!ATTLIST TextureCoordinate
+	point %MFVec2f; #IMPLIED
+	containerField NMTOKEN "texCoord"
+	class CDATA #IMPLIED
+	DEF ID #IMPLIED
+	USE IDREF #IMPLIED
+&gt;
+&lt;![%ImmersiveProfile;[
+
+&lt;!ELEMENT TextureCoordinateGenerator ( (IS?), (%MetadataNodes;)? ) &gt;
+&lt;!ATTLIST TextureCoordinateGenerator
+	mode      %TextureCoordinateGeneratorModes;  "SPHERE"
+	parameter %MFFloat;  #IMPLIED
+	containerField NMTOKEN "texCoord"
+	class       CDATA    #IMPLIED
+	DEF       ID         #IMPLIED
+	USE       IDREF      #IMPLIED&gt;
+	
+&lt;!ELEMENT TextureTransform ( (IS?), (%MetadataNodes;)? ) &gt;
+&lt;!ATTLIST TextureTransform
+	center      %SFVec2f; "0 0"
+	rotation    %SFFloat; "0"
+	scale       %SFVec2f; "1 1"
+	translation %SFVec2f; "0 0"
+	containerField NMTOKEN "textureTransform"
+	class       CDATA     #IMPLIED
+	DEF         ID        #IMPLIED
+	USE         IDREF     #IMPLIED&gt;
+	
+&lt;!ELEMENT MultiTextureTransform ((IS?), (TextureTransform)* ) &gt;
+&lt;!ATTLIST MultiTextureTransform
+	containerField NMTOKEN "textureTransform"
+	class       CDATA     #IMPLIED
+	DEF         ID        #IMPLIED
+	USE         IDREF     #IMPLIED&gt;
+
+]]&gt;
+&lt;!ELEMENT TimeSensor ((IS?), (%MetadataNodes;)?)&gt;
+&lt;!ATTLIST TimeSensor
+	cycleInterval %SFTime; "1.0"
+	enabled %SFBool; "true"
+	loop %SFBool; "false"
+	startTime %SFTime; "0"
+	stopTime %SFTime; "0"
+	pauseTime %SFTime; "0"
+	resumeTime %SFTime; "0"
+	containerField NMTOKEN "children"
+	class CDATA #IMPLIED
+	DEF ID #IMPLIED
+	USE IDREF #IMPLIED
+&gt;
+&lt;![%ImmersiveProfile;[
+
+&lt;!ELEMENT TimeTrigger ( (IS?), (%MetadataNodes;)? ) &gt;
+&lt;!ATTLIST TimeTrigger
+	containerField NMTOKEN "children"
+	class    CDATA     #IMPLIED
+	DEF      ID        #IMPLIED
+	USE      IDREF     #IMPLIED&gt;
+
+&lt;!ELEMENT TouchSensor ( (IS?), (%MetadataNodes;)? ) &gt;
+&lt;!ATTLIST TouchSensor
+	description %SFString; #IMPLIED
+	enabled      %SFBool;  "true"
+	containerField NMTOKEN "children"
+	class        CDATA     #IMPLIED
+	DEF          ID        #IMPLIED
+	USE          IDREF     #IMPLIED&gt;
+]]&gt;
+&lt;!ELEMENT Transform (IS?, (%MetadataNodes;)?, (%ChildrenNodes; | %WildcardNodes;)*)&gt;
+&lt;!ATTLIST Transform
+	center %SFVec3f; "0 0 0"
+	rotation %SFRotation; "0 0 1 0"
+	scale %SFVec3f; "1 1 1"
+	scaleOrientation %SFRotation; "0 0 1 0"
+	translation %SFVec3f; "0 0 0"
+	bboxCenter %SFVec3f; "0 0 0"
+	bboxSize %SFVec3f; "-1 -1 -1"
+	containerField NMTOKEN "children"
+	class CDATA #IMPLIED
+	DEF ID #IMPLIED
+	USE IDREF #IMPLIED
+&gt;
+&lt;!-- Triangle*Set nodes are Immersive profile --&gt;
+
+&lt;!ELEMENT IndexedTriangleFanSet %ColorCoordinateNormalTextureCoordinateContentModel;&gt;
+&lt;!ATTLIST IndexedTriangleFanSet
+	index %MFInt32; #IMPLIED
+	ccw %SFBool; "true"
+	colorPerVertex %SFBool; "true"
+	normalPerVertex %SFBool; "true"
+	solid %SFBool; "true"
+	containerField NMTOKEN "geometry"
+	class CDATA #IMPLIED
+	DEF ID #IMPLIED
+	USE IDREF #IMPLIED
+&gt;
+&lt;!ELEMENT IndexedTriangleSet %ColorCoordinateNormalTextureCoordinateContentModel;&gt;
+&lt;!ATTLIST IndexedTriangleSet
+	index %MFInt32; #IMPLIED
+	ccw %SFBool; "true"
+	colorPerVertex %SFBool; "true"
+	normalPerVertex %SFBool; "true"
+	solid %SFBool; "true"
+	containerField NMTOKEN "geometry"
+	class CDATA #IMPLIED
+	DEF ID #IMPLIED
+	USE IDREF #IMPLIED
+&gt;
+&lt;!ELEMENT IndexedTriangleStripSet %ColorCoordinateNormalTextureCoordinateContentModel;&gt;
+&lt;!ATTLIST IndexedTriangleStripSet
+	index %MFInt32; #IMPLIED
+	stripCount %MFInt32; #IMPLIED
+	ccw %SFBool; "true"
+	colorPerVertex %SFBool; "true"
+	normalPerVertex %SFBool; "true"
+	solid %SFBool; "true"
+	containerField NMTOKEN "geometry"
+	class CDATA #IMPLIED
+	DEF ID #IMPLIED
+	USE IDREF #IMPLIED
+&gt;
+&lt;!ELEMENT TriangleFanSet %ColorCoordinateNormalTextureCoordinateContentModel;&gt;
+&lt;!ATTLIST TriangleFanSet
+	fanCount %MFInt32; #IMPLIED
+	ccw %SFBool; "true"
+	colorPerVertex %SFBool; "true"
+	normalPerVertex %SFBool; "true"
+	solid %SFBool; "true"
+	containerField NMTOKEN "geometry"
+	class CDATA #IMPLIED
+	DEF ID #IMPLIED
+	USE IDREF #IMPLIED
+&gt;
+&lt;!ELEMENT TriangleSet %ColorCoordinateNormalTextureCoordinateContentModel;&gt;
+&lt;!ATTLIST TriangleSet
+	ccw %SFBool; "true"
+	colorPerVertex %SFBool; "true"
+	normalPerVertex %SFBool; "true"
+	solid %SFBool; "true"
+	containerField NMTOKEN "geometry"
+	class CDATA #IMPLIED
+	DEF ID #IMPLIED
+	USE IDREF #IMPLIED
+&gt;
+&lt;!ELEMENT TriangleStripSet %ColorCoordinateNormalTextureCoordinateContentModel;&gt;
+&lt;!ATTLIST TriangleStripSet
+	stripCount %MFInt32; #IMPLIED
+	ccw %SFBool; "true"
+	colorPerVertex %SFBool; "true"
+	normalPerVertex %SFBool; "true"
+	solid %SFBool; "true"
+	containerField NMTOKEN "geometry"
+	class CDATA #IMPLIED
+	DEF ID #IMPLIED
+	USE IDREF #IMPLIED
+&gt;
+&lt;!ELEMENT Viewpoint ((IS?), (%MetadataNodes;)?)&gt;
+&lt;!ATTLIST Viewpoint
+	fieldOfView %SFFloat; "0.785398"
+	jump %SFBool; "true"
+	orientation %SFRotation; "0 0 1 0"
+	position %SFVec3f; "0 0 10"
+	description %SFString; #IMPLIED
+	centerOfRotation %SFVec3f; "0 0 0"
+	containerField NMTOKEN "children"
+	class CDATA #IMPLIED
+	DEF ID #IMPLIED
+	USE IDREF #IMPLIED
+&gt;
+&lt;!-- centerOfRotation point relates to NavigationInfo EXAMINE mode. --&gt;
+&lt;![%ImmersiveProfile;[
+
+&lt;!ELEMENT VisibilitySensor ( (IS?), (%MetadataNodes;)? ) &gt;
+&lt;!ATTLIST VisibilitySensor 
+	center    %SFVec3f; "0 0 0"
+	enabled   %SFBool;  "true"
+	size      %SFVec3f; "0 0 0"
+	containerField NMTOKEN "children"
+	class     CDATA     #IMPLIED
+	DEF       ID        #IMPLIED
+	USE       IDREF     #IMPLIED&gt;
+]]&gt;
+&lt;!ELEMENT WorldInfo ((IS?), (%MetadataNodes;)?)&gt;
+&lt;!ATTLIST WorldInfo
+	info %MFString; #IMPLIED
+	title %SFString; #IMPLIED
+	containerField NMTOKEN "children"
+	class CDATA #IMPLIED
+	DEF ID #IMPLIED
+	USE IDREF #IMPLIED
+&gt;
+&lt;!ELEMENT X3D (head?, Scene)&gt;
+&lt;!ATTLIST X3D
+	xmlns:xsd CDATA "http://www.w3.org/2001/XMLSchema-instance"
+	xsd:noNamespaceSchemaLocation CDATA "http://www.web3d.org/specifications/x3d-3.0.xsd"
+	profile %profileNames; #REQUIRED
+	version %SFString; #FIXED "3.0"
+&gt;
+
+&lt;!-- also included in EspduTransform:  CollisionPdu DetonatePdu FirePdu --&gt;
+
+&lt;![%DISComponent;[
+
+&lt;!ELEMENT EspduTransform (IS?, (%MetadataNodes;)?, ( %ChildrenNodes; | %WildcardNodes; )* ) &gt;
+&lt;!ATTLIST EspduTransform
+
+	marking 	 %SFString;	#IMPLIED
+	siteID  	 %SFInt32;	"0"
+	applicationID	 %SFInt32;	"1"
+	entityID	 %SFInt32;	"0"
+	forceID		 %SFInt32;	"0"
+
+	entityKind	 %SFInt32;	"0"
+	entityDomain	 %SFInt32;	"0"
+	entityCountry	 %SFInt32;	"0"
+	entityCategory	 %SFInt32;	"0"
+	entitySubCategory %SFInt32;	"0"
+	entitySpecific	 %SFInt32;	"0"
+	entityExtra	 %SFInt32;	"0"
+
+	readInterval	 %SFTime;	"0.1"
+	writeInterval	 %SFTime;	"1.0"
+	networkMode	 (standAlone|networkReader|networkWriter)	"standAlone"
+
+	translation	 %SFVec3f;	"0 0 0"
+	rotation	 %SFRotation;	"0 0 1 0"
+	scale   	 %SFVec3f;	"1 1 1"
+	scaleOrientation %SFRotation;	"0 0 1 0"
+	bboxCenter	 %SFVec3f;	"0 0 0"
+	bboxSize	 %SFVec3f;	"-1 -1 -1"
+	center  	 %SFVec3f;	"0 0 0"
+
+	address 	 	%SFString;	"localhost"
+	port    	 	%SFInt32;	"0"
+	multicastRelayHost 	%SFString;	#IMPLIED
+	multicastRelayPort 	%SFInt32;	"0"
+	rtpHeaderExpected  	%SFBool;	"false"
+
+	deadReckoning  		%SFInt32;	"0"
+	linearVelocity		%SFVec3f;	"0 0 0"
+	linearAcceleration	%SFVec3f;	"0 0 0"
+	
+	fired1   		%SFBool;	"false"
+	fired2   		%SFBool;	"false"
+	munitionStartPoint 	%SFVec3f;	"0 0 0"
+	munitionEndPoint   	%SFVec3f;	"0 0 0"
+	warhead			%SFInt32;	"0"
+	fuse			%SFInt32;	"0"
+	munitionQuantity	%SFInt32;	"0"
+	firingRate		%SFInt32;	"0"
+	firingRange		%SFInt32;	"0"
+	munitionSiteID  	%SFInt32;	"0"
+	munitionApplicationID	%SFInt32;	"1"
+	munitionEntityID	%SFInt32;	"0"
+	fireMissionIndex	%SFInt32;	"0"
+
+	articulationParameterCount 		  %SFInt32;	"0"
+	articulationParameterDesignatorArray 	  %MFInt32;	#IMPLIED
+	articulationParameterChangeIndicatorArray %MFInt32;	#IMPLIED
+	articulationParameterIdPartAttachedArray  %MFInt32;	#IMPLIED
+	articulationParameterTypeArray 		  %MFInt32;	#IMPLIED
+	articulationParameterArray 		  %MFFloat;	#IMPLIED
+
+	containerField NMTOKEN "children"
+	class			CDATA		""
+	DEF   			ID		#IMPLIED 
+	USE             	IDREF		#IMPLIED &gt;
+
+&lt;!ELEMENT ReceiverPdu ( (IS?), (%MetadataNodes;)? ) &gt;
+&lt;!ATTLIST ReceiverPdu 
+
+	whichGeometry		%SFInt32;	"1"
+	bboxCenter	 	%SFVec3f;	"0 0 0"
+	bboxSize	 	%SFVec3f;	"-1 -1 -1"
+
+	siteID			%SFInt32;	"0"
+	applicationID		%SFInt32;	"1"
+	entityID		%SFInt32;	"0"
+	readInterval		%SFTime;	"0.1"
+	writeInterval		%SFTime;	"1.0"
+	networkMode	 	(standAlone|networkReader|networkWriter)	"standAlone"
+
+	address			%SFString;	"localhost"
+	port			%SFInt32;	"0"
+	multicastRelayHost	%SFString;	#IMPLIED
+	multicastRelayPort	%SFInt32;	"0"
+	rtpHeaderExpected	%SFBool;	"false"
+
+	radioID			%SFInt32;	"0"
+	receivedPower		%SFFloat;	"0.0"
+	receiverState		%SFInt32;	"0"
+	transmitterSiteID	%SFInt32;	"0"
+	transmitterApplicationID %SFInt32;	"0"
+	transmitterEntityID	%SFInt32;	"0"
+	transmitterRadioID	%SFInt32;	"0"
+
+	containerField NMTOKEN "children"
+	class			CDATA		""
+	DEF   			ID		#IMPLIED 
+	USE             	IDREF		#IMPLIED &gt;
+
+&lt;!ELEMENT SignalPdu ( (IS?), (%MetadataNodes;)? ) &gt;
+&lt;!ATTLIST SignalPdu
+	whichGeometry		%SFInt32;	"1"
+	bboxCenter		 %SFVec3f;	"0 0 0"
+	bboxSize	 	%SFVec3f;	"-1 -1 -1"
+
+	siteID			%SFInt32;	"0"
+	applicationID		%SFInt32;	"1"
+	entityID		%SFInt32;	"0"
+	readInterval		%SFTime;	"0.1"
+	writeInterval		%SFTime;	"1.0"
+	networkMode	 	(standAlone|networkReader|networkWriter)	"standAlone"
+
+	address			%SFString;	"localhost"
+	port			%SFInt32;	"0"
+	multicastRelayHost	%SFString;	#IMPLIED
+	multicastRelayPort	%SFInt32;	"0"
+	rtpHeaderExpected	%SFBool;	"false"
+
+	radioID			%SFInt32;	"0"
+	encodingScheme		%SFInt32;	"0"
+	tdlType			%SFInt32;	"0"
+	sampleRate		%SFInt32;	"0"
+	samples			%SFInt32;	"0"
+	dataLength		%SFInt32;	"0"
+	data			%MFInt32;	#IMPLIED
+
+	containerField NMTOKEN "children"
+	class			CDATA		""
+	DEF   			ID		#IMPLIED 
+	USE             	IDREF		#IMPLIED &gt;
+
+&lt;!ELEMENT TransmitterPdu ( (IS?), (%MetadataNodes;)? ) &gt;
+&lt;!ATTLIST TransmitterPdu 
+
+	whichGeometry		%SFInt32;	"1"
+	bboxCenter	 	%SFVec3f;	"0 0 0"
+	bboxSize	 	%SFVec3f;	"-1 -1 -1"
+
+	siteID			%SFInt32;	"0"
+	applicationID		%SFInt32;	"1"
+	entityID		%SFInt32;	"0"
+	readInterval		%SFTime;	"0.1"
+	writeInterval		%SFTime;	"1.0"
+	networkMode	 	(standAlone|networkReader|networkWriter)	"standAlone"
+
+	address			%SFString;	"localhost"
+	port			%SFInt32;	"0"
+	multicastRelayHost	%SFString;	#IMPLIED
+	multicastRelayPort	%SFInt32;	"0"
+	rtpHeaderExpected	%SFBool;	"false"
+
+	radioID			%SFInt32;	"0"
+	antennaLocation		%SFVec3f;	"0 0 0"
+	antennaPatternLength	%SFInt32;	"0"
+	antennaPatternType	%SFInt32;	"0"
+	cryptoKeyId		%SFInt32;	"0"
+	cryptoSystem		%SFInt32;	"0"
+	frequency		%SFInt32;	"0"
+	inputSource		%SFInt32;	"0"
+	
+	lengthOfModulationParameters	%SFInt32;	"0"
+	modulationTypeDetail		%SFInt32;	"0"
+	modulationTypeMajor		%SFInt32;	"0"
+	modulationTypeSpreadSpectrum	%SFInt32;	"0"
+	modulationTypeSystem		%SFInt32;	"0"
+	power				%SFFloat;	"0.0"
+	radioEntityTypeCategory		%SFInt32;	"0"
+	radioEntityTypeCountry		%SFInt32;	"0"
+	radioEntityTypeDomain		%SFInt32;	"0"
+	radioEntityTypeKind		%SFInt32;	"0"
+	radioEntityTypeNomenclature	%SFInt32;	"0"
+	radioEntityTypeNomenclatureVersion %SFInt32;	"0"
+	relativeAntennaLocation		%SFVec3f;	"0 0 0"
+	transmitFrequencyBandwidth	%SFFloat;	"0.0"
+	transmitState			%SFInt32;	"0"
+
+	containerField NMTOKEN "children"
+	class				CDATA		""
+	DEF   				ID		#IMPLIED 
+	USE             		IDREF		#IMPLIED &gt;
+
+]]&gt;
+
+&lt;![%GeoSpatialComponent;[
+
+&lt;!ELEMENT GeoCoordinate ( IS?, (%MetadataNodes;)?, GeoOrigin? ) &gt;  &lt;!-- X3DCoordinateNodeType --&gt;
+&lt;!ATTLIST GeoCoordinate
+	geoSystem	%MFString; '"GD" "WE"'
+	point		%MFVec3d;	#IMPLIED
+	containerField NMTOKEN "coord"
+	class		CDATA		""
+	DEF		ID		#IMPLIED
+	USE		IDREF		#IMPLIED&gt;
+
+&lt;!-- need to restrict GeoOrigin to first element, or relax schema restriction --&gt;
+&lt;!ELEMENT GeoElevationGrid (IS?, (%MetadataNodes;)?, (
+ ((%ColorNodes;), (
+ 	(GeoOrigin, (	((%NormalNodes;),((%TextureCoordinateNodes;)|%WildcardNodes;)?) |
+				((%TextureCoordinateNodes;),((%NormalNodes;)|%WildcardNodes;)?) |
+				(%WildcardNodes;,((%NormalNodes;)|(%TextureCoordinateNodes;)|%WildcardNodes;)?) )? )
+	| ((%NormalNodes;), (	(GeoOrigin,((%TextureCoordinateNodes;)|%WildcardNodes;)?) |
+	   			((%TextureCoordinateNodes;),(GeoOrigin|%WildcardNodes;)?) |
+	   			(%WildcardNodes;,(GeoOrigin|(%TextureCoordinateNodes;)|%WildcardNodes;)?) )? )
+	| ((%TextureCoordinateNodes;), (
+				(GeoOrigin,((%NormalNodes;)|%WildcardNodes;)?) |
+	 			((%NormalNodes;),(GeoOrigin|%WildcardNodes;)?) |
+	 			(%WildcardNodes;,(GeoOrigin|(%NormalNodes;)|%WildcardNodes;)?) )? )
+	| (%WildcardNodes;, (	(GeoOrigin,((%NormalNodes;)|(%TextureCoordinateNodes;)|%WildcardNodes;)?) |
+	 			((%NormalNodes;),(GeoOrigin|(%TextureCoordinateNodes;)|%WildcardNodes;)?) |
+	 			((%TextureCoordinateNodes;),((%NormalNodes;)|(%TextureCoordinateNodes;)|%WildcardNodes;)?) |
+	 			(%WildcardNodes;,(GeoOrigin|(%NormalNodes;)|(%TextureCoordinateNodes;)|%WildcardNodes;)?) )? ) )? )
+ | (GeoOrigin, (
+	((%ColorNodes;), (	((%NormalNodes;),((%TextureCoordinateNodes;)|%WildcardNodes;)?) |
+	  			((%TextureCoordinateNodes;),((%NormalNodes;)|%WildcardNodes;)?) |
+	  			(%WildcardNodes;,((%NormalNodes;)|(%TextureCoordinateNodes;)|%WildcardNodes;)?) )? )
+	| ((%NormalNodes;), (	((%ColorNodes;),((%TextureCoordinateNodes;)|%WildcardNodes;)?) |
+				((%TextureCoordinateNodes;),((%ColorNodes;)|%WildcardNodes;)?) |
+				(%WildcardNodes;,((%ColorNodes;)|(%TextureCoordinateNodes;)|%WildcardNodes;)?) )? )
+	| ((%TextureCoordinateNodes;), (
+				((%ColorNodes;),((%NormalNodes;)|%WildcardNodes;)?) |
+				((%NormalNodes;),((%ColorNodes;)|%WildcardNodes;)?) |
+				(%WildcardNodes;,((%ColorNodes;)|(%NormalNodes;)|%WildcardNodes;)?) )? )
+	| (%WildcardNodes;, (	((%ColorNodes;),((%NormalNodes;)|(%TextureCoordinateNodes;)|%WildcardNodes;)?) |
+				((%NormalNodes;),((%ColorNodes;)|(%TextureCoordinateNodes;)|%WildcardNodes;)?) |
+				((%TextureCoordinateNodes;),((%NormalNodes;)|(%TextureCoordinateNodes;)|%WildcardNodes;)?) |
+				(%WildcardNodes;,((%ColorNodes;)|(%NormalNodes;)|(%TextureCoordinateNodes;)|%WildcardNodes;)?) )? ) )? )
+ | ((%NormalNodes;),  (
+ 	((%ColorNodes;), (	(GeoOrigin,((%TextureCoordinateNodes;)|%WildcardNodes;)?) |
+ 				((%TextureCoordinateNodes;),(GeoOrigin|%WildcardNodes;)?) |
+ 				(%WildcardNodes;,(GeoOrigin|(%TextureCoordinateNodes;)|%WildcardNodes;)?) )? )
+ 	| (GeoOrigin,(((%ColorNodes;),((%TextureCoordinateNodes;)|%WildcardNodes;)?) |
+ 				((%TextureCoordinateNodes;),((%ColorNodes;)|%WildcardNodes;)?) |
+ 				(%WildcardNodes;,((%ColorNodes;)|(%TextureCoordinateNodes;)|%WildcardNodes;)?) )? )
+ 	| ((%TextureCoordinateNodes;), (
+ 				((%ColorNodes;),(GeoOrigin|%WildcardNodes;)?) |
+ 				(GeoOrigin,((%ColorNodes;)|%WildcardNodes;)?) |
+ 				(%WildcardNodes;,((%ColorNodes;)|GeoOrigin|%WildcardNodes;)?) )? )
+ 	| (%WildcardNodes;, (	((%ColorNodes;),(GeoOrigin|(%TextureCoordinateNodes;)|%WildcardNodes;)?) |
+ 				(GeoOrigin,((%ColorNodes;)|(%TextureCoordinateNodes;)|%WildcardNodes;)?) |
+ 				((%TextureCoordinateNodes;),((%ColorNodes;)|GeoOrigin|%WildcardNodes;)?) |
+ 				(%WildcardNodes;,((%ColorNodes;)|GeoOrigin|(%TextureCoordinateNodes;)|%WildcardNodes;)?) )? ) )? )
+ | ((%TextureCoordinateNodes;), (
+	((%ColorNodes;), (	(GeoOrigin,((%NormalNodes;)|%WildcardNodes;)?) |
+				((%NormalNodes;),(GeoOrigin|%WildcardNodes;)?) |
+				(%WildcardNodes;,(GeoOrigin|(%NormalNodes;)|%WildcardNodes;)?) )? )
+ 	| (GeoOrigin,(((%ColorNodes;),((%NormalNodes;)|%WildcardNodes;)?) |
+ 				((%NormalNodes;),((%ColorNodes;)|%WildcardNodes;)?) |
+ 				(%WildcardNodes;,((%ColorNodes;)|(%NormalNodes;)|%WildcardNodes;)?) )? )
+ 	| ((%NormalNodes;), (	((%ColorNodes;),(GeoOrigin|%WildcardNodes;)?) |
+				(GeoOrigin,((%ColorNodes;)|%WildcardNodes;)?) |
+				(%WildcardNodes;,((%ColorNodes;)|GeoOrigin|%WildcardNodes;)?) )? )
+	| (%WildcardNodes;, (	((%ColorNodes;),((%NormalNodes;)|(%TextureCoordinateNodes;)|%WildcardNodes;)?) |
+				(GeoOrigin,((%ColorNodes;)|(%NormalNodes;)|%WildcardNodes;)?) |
+				((%NormalNodes;),((%ColorNodes;)|GeoOrigin|%WildcardNodes;)?) |
+				(%WildcardNodes;,((%ColorNodes;)|GeoOrigin|(%NormalNodes;)|%WildcardNodes;)?) )? ) )? )
+ | (%WildcardNodes;,  (
+	((%ColorNodes;), (	(GeoOrigin,((%NormalNodes;)|(%TextureCoordinateNodes;)|%WildcardNodes;)?) |
+				((%NormalNodes;),(GeoOrigin|(%TextureCoordinateNodes;)|%WildcardNodes;)?) |
+				((%TextureCoordinateNodes;),(GeoOrigin|(%NormalNodes;)|%WildcardNodes;)?) |
+				(%WildcardNodes;,(GeoOrigin|(%NormalNodes;)|(%TextureCoordinateNodes;)|%WildcardNodes;)?) )? )
+	| (GeoOrigin,(((%ColorNodes;),((%NormalNodes;)|(%TextureCoordinateNodes;)|%WildcardNodes;)?) |
+				((%NormalNodes;),((%ColorNodes;)|(%TextureCoordinateNodes;)|%WildcardNodes;)?) |
+				((%TextureCoordinateNodes;),((%ColorNodes;)|(%NormalNodes;)|%WildcardNodes;)?) |
+				(%WildcardNodes;,((%ColorNodes;)|(%NormalNodes;)|(%TextureCoordinateNodes;)|%WildcardNodes;)?) )? )
+	| ((%NormalNodes;), (	((%ColorNodes;),(GeoOrigin|(%TextureCoordinateNodes;)|%WildcardNodes;)?) |
+				(GeoOrigin,((%ColorNodes;)|(%TextureCoordinateNodes;)|%WildcardNodes;)?) |
+				((%TextureCoordinateNodes;),((%ColorNodes;)|GeoOrigin|%WildcardNodes;)?) |
+				(%WildcardNodes;,(GeoOrigin|(%ColorNodes;)|(%TextureCoordinateNodes;)|%WildcardNodes;)?) )? )
+	| ((%TextureCoordinateNodes;), (
+				((%ColorNodes;),(GeoOrigin|(%NormalNodes;)|%WildcardNodes;)?) |
+				(GeoOrigin,((%ColorNodes;)|(%NormalNodes;)|%WildcardNodes;)?) |
+				((%NormalNodes;),((%ColorNodes;)|GeoOrigin|%WildcardNodes;)?) |
+				(%WildcardNodes;,((%ColorNodes;)|GeoOrigin|(%NormalNodes;)|%WildcardNodes;)?) )? )
+	| (%WildcardNodes;, (	((%ColorNodes;),(GeoOrigin|(%NormalNodes;)|(%TextureCoordinateNodes;)|%WildcardNodes;)?) |
+				(GeoOrigin,((%ColorNodes;)|(%NormalNodes;)|(%TextureCoordinateNodes;)|%WildcardNodes;)?) |
+				((%NormalNodes;),((%ColorNodes;)|GeoOrigin|(%TextureCoordinateNodes;)|%WildcardNodes;)?) |
+				((%TextureCoordinateNodes;),((%ColorNodes;)|GeoOrigin|(%NormalNodes;)|%WildcardNodes;)?) |
+				(%WildcardNodes;,((%ColorNodes;)|GeoOrigin|(%NormalNodes;)|(%TextureCoordinateNodes;)|%WildcardNodes;)?) )? ) )? )
+)? ) &gt;
+
+&lt;!ATTLIST GeoElevationGrid
+	geoSystem	%MFString; '"GD" "WE"'
+	geoGridOrigin	%SFVec3d;	"0 0 0"
+	xDimension	%SFInt32;	"0"
+	xSpacing	%SFDouble;	"1.0"
+	yScale		%SFFloat;	"1.0"
+	zDimension	%SFInt32;	"0"
+	zSpacing	%SFDouble;	"1.0"
+	height		%MFDouble; 	"0 0"
+	normalPerVertex	%SFBool;	"true"
+	ccw		%SFBool;	"true"
+	colorPerVertex	%SFBool;	"true"
+	creaseAngle	%SFFloat;	"0"
+	solid		%SFBool;	"true"
+	containerField NMTOKEN "geometry"
+	class		CDATA		""
+	DEF		ID		#IMPLIED
+	USE		IDREF		#IMPLIED&gt;
+
+&lt;!ELEMENT GeoLocation (IS?, (%MetadataNodes;)?,
+	( %ChildrenNodes; | %WildcardNodes; )*, (GeoOrigin, ( %ChildrenNodes; | %WildcardNodes; )* )? ) &gt;
+&lt;!ATTLIST GeoLocation
+	geoSystem	%MFString; '"GD" "WE"'
+	geoCoords	%SFVec3d;	"0 0 0"
+	bboxCenter	%SFVec3f;	"0 0 0"
+	bboxSize	%SFVec3f;	"-1 -1 -1"
+	containerField NMTOKEN "children"
+	class		CDATA		""
+	DEF		ID		#IMPLIED
+	USE		IDREF		#IMPLIED&gt;
+
+&lt;!ELEMENT GeoLOD (IS?, (%MetadataNodes;)?,
+	( %ChildrenNodes; | %WildcardNodes; )*, (GeoOrigin, ( %ChildrenNodes; | %WildcardNodes; )* )? ) &gt;
+&lt;!ATTLIST GeoLOD
+	geoSystem	%MFString; '"GD" "WE"'
+	rootUrl	 	%MFString;	#IMPLIED
+	child1Url	%MFString;	#IMPLIED
+	child2Url	%MFString;	#IMPLIED
+	child3Url	%MFString;	#IMPLIED
+	child4Url 	%MFString;	#IMPLIED
+	range		%SFDouble;	"10"
+	center		%SFVec3d;	"0 0 0"
+	bboxCenter	%SFVec3f;	"0 0 0"
+	bboxSize	%SFVec3f;	"-1 -1 -1"
+	containerField NMTOKEN "children"
+	class		CDATA		""
+	DEF		ID		#IMPLIED
+	USE		IDREF		#IMPLIED&gt;
+
+&lt;!ELEMENT GeoMetadata ( (IS?), (%MetadataNodes;)? ) &gt;
+&lt;!ATTLIST GeoMetadata
+	url		%MFString;	#IMPLIED
+	data		IDREFS		#IMPLIED
+	summary		%MFString;	#IMPLIED
+	containerField NMTOKEN "children"
+	class		CDATA		""
+	DEF		ID		#IMPLIED
+	USE		IDREF		#IMPLIED&gt;
+
+&lt;!--
+	title			%SFString;	#IMPLIED
+	description		%SFString;	#IMPLIED
+	coordinateSystem 	%SFString;	#IMPLIED
+	horizontalDatum		%SFString;	#IMPLIED
+	verticalDatum		%SFString;	#IMPLIED
+	ellipsoid		%SFString;	#IMPLIED
+	extent			%SFString;	#IMPLIED
+	resolution		%SFString;	#IMPLIED
+	originator		%SFString;	#IMPLIED
+	copyright		%SFString;	#IMPLIED
+	date			%SFString;	#IMPLIED
+	metadataFormat		%SFString;	#IMPLIED
+	dataUrl			%SFString;	#IMPLIED
+	dataFormat		%SFString;	#IMPLIED
+--&gt;
+
+&lt;!ELEMENT GeoOrigin ( (IS?), (%MetadataNodes;)? ) &gt;
+&lt;!ATTLIST GeoOrigin
+	geoSystem	%MFString; '"GD" "WE"'
+	geoCoords	%SFVec3d;	"0 0 0"
+	rotateYUp	%SFBool;	"false"
+	containerField NMTOKEN "geoOrigin"
+	class		CDATA		""
+	DEF		ID		#IMPLIED
+	USE		IDREF		#IMPLIED&gt;
+
+&lt;!ELEMENT GeoPositionInterpolator ( IS?, (%MetadataNodes;)?, GeoOrigin? ) &gt;
+&lt;!ATTLIST GeoPositionInterpolator
+	geoSystem	%MFString; '"GD" "WE"'
+	key		%MFFloat;	#IMPLIED
+	keyValue	%MFVec3d;	#IMPLIED
+	containerField NMTOKEN "children"
+	class		CDATA		""
+	DEF		ID	#IMPLIED
+	USE		IDREF	#IMPLIED&gt;
+
+&lt;!ELEMENT GeoTouchSensor ( IS?, (%MetadataNodes;)?, GeoOrigin? ) &gt;
+&lt;!ATTLIST GeoTouchSensor
+	geoSystem	%MFString; '"GD" "WE"'
+	enabled		%SFBool;	"true"
+	containerField NMTOKEN "children"
+	class		CDATA		""
+	DEF		ID	#IMPLIED
+	USE		IDREF	#IMPLIED&gt;
+
+&lt;!ELEMENT GeoViewpoint ( IS?, (%MetadataNodes;)?, GeoOrigin? ) &gt;
+&lt;!ATTLIST GeoViewpoint
+	geoSystem	%MFString; '"GD" "WE"'
+	description	%SFString;	#IMPLIED
+	position	%SFVec3d;	"0 0 100000"
+	orientation	%SFRotation;	"0 0 1 0"
+	fieldOfView	%SFFloat;	"0.785398"
+	jump		%SFBool;	"true"
+	navType		%MFString;	'"EXAMINE" "ANY"'
+	headlight	%SFBool;	"true"
+	speedFactor	%SFFloat;	"1.0"
+	containerField NMTOKEN "children"
+	class		CDATA		""
+	DEF		ID		#IMPLIED
+	USE		IDREF		#IMPLIED&gt;
+
+]]&gt;
+
+&lt;!-- Note that setting JointNames as enumerations does not permit validation of other names. --&gt;
+
+&lt;![%HAnimComponent;[
+
+&lt;!ENTITY % JointNames "(
+c1|c2|c3|c4|c5|c6|c7|jaw|HumanoidRoot|l_acromioclavicular|l_ankle|l_calf|
+l_clavicle|l_elbow|l_eyeball|l_eyeball_joint|l_eyebrow|l_eyebrow_joint|
+l_eyelid|l_eyelid_joint|l_forearm|l_forefoot|l_hand|l_hindfoot|l_hip|
+l_index_distal|l_index_metacarpal|l_index_middle|l_index_proximal|
+l_index0|l_index1|l_index2|l_index3|l_knee|l_metatarsal|l_middistal|
+l_middle_distal|l_middle_metacarpal|l_middle_middle|l_middle_proximal|
+l_middle0|l_middle1|l_middle2|l_middle3|l_midproximal|l_midtarsal|
+l_pinky_distal|l_pinky_metacarpal|l_pinky_middle|l_pinky_proximal|
+l_pinky0|l_pinky1|l_pinky2|l_pinky3|l_ring_distal|l_ring_metacarpal|
+l_ring_middle|l_ring_proximal|l_ring0|l_ring1|l_ring2|l_ring3|l_scapula|
+l_shoulder|l_sternoclavicular|l_subtalar|l_thigh|l_thumb_distal|
+l_thumb_metacarpal|l_thumb_proximal|l_thumb1|l_thumb2|l_thumb3|
+l_upperarm|l_wrist|l1|l2|l3|l4|l5|pelvis|r_acromioclavicular|r_ankle|
+r_calf|r_clavicle|r_elbow|r_eyeball|r_eyeball_joint|r_eyebrow|
+r_eyebrow_joint|r_eyelid|r_eyelid_joint|r_forearm|r_forefoot|r_hand|
+r_hindfoot|r_hip|r_index_distal|r_index_metacarpal|r_index_middle|
+r_index_proximal|r_index0|r_index1|r_index2|r_index3|r_knee|r_metatarsal|
+r_middistal|r_middle_distal|r_middle_metacarpal|r_middle_middle|
+r_middle_proximal|r_middle0|r_middle1|r_middle2|r_middle3|r_midproximal|
+r_midtarsal|r_pinky_distal|r_pinky_metacarpal|r_pinky_middle|
+r_pinky_proximal|r_pinky0|r_pinky1|r_pinky2|r_pinky3|r_ring_distal|
+r_ring_metacarpal|r_ring_middle|r_ring_proximal|r_ring0|r_ring1|r_ring2|
+r_ring3|r_scapula|r_shoulder|r_sternoclavicular|r_subtalar|r_thigh|
+r_thumb_distal|r_thumb_metacarpal|r_thumb_proximal|r_thumb1|r_thumb2|
+r_thumb3|r_upperarm|r_wrist|sacroiliac|sacrum|skull|skullbase|
+t1|t2|t3|t4|t5|t6|t7|t8|t9|t10|t11|t12|temporomandibular|
+vc1|vc2|vc3|vc4|vc5|vc6|vc7|vl1|vl2|vl3|vl4|vl5|
+vt1|vt2|vt3|vt4|vt5|vt6|vt7|vt8|vt9|vt10|vt11|vt12)" &gt;
+
+&lt;!ELEMENT HAnimDisplacer ( (IS?), (%MetadataNodes;)? ) &gt;
+&lt;!ATTLIST HAnimDisplacer
+	name		%SFString;	#IMPLIED
+	coordIndex	%MFInt32;	#IMPLIED
+	displacements	%MFVec3f;	#IMPLIED
+	weight		%SFFloat;	#IMPLIED
+	containerField NMTOKEN #IMPLIED
+	class		CDATA  		""
+	DEF		ID		#IMPLIED
+	USE		IDREF		#IMPLIED&gt;
+
+&lt;!ELEMENT HAnimHumanoid (IS?, (%MetadataNodes;)?, 
+	(HAnimJoint*,	HAnimSegment*, HAnimSite*, (%CoordinateNodes;)?, (%NormalNodes;)?, ( %ChildrenNodes; | %WildcardNodes; )* ) ) &gt;
+&lt;!-- skeleton/joints,	segments,      sites,      skinCoord,            skinNormal,       skin/viewpoints --&gt;
+&lt;!-- note that joints, segments and sites should be USE nodes.  skin Shapes will USE preceding skinCoord, skinNormal definitions. --&gt;
+&lt;!ATTLIST HAnimHumanoid
+	name			%SFString;	#IMPLIED
+	version			%SFString;	#IMPLIED
+	info			%MFString;	#IMPLIED
+	translation		%SFVec3f;	"0 0 0"
+	rotation		%SFRotation;	"0 0 1 0"
+	scale			%SFVec3f;	"1 1 1"
+	scaleOrientation	%SFRotation;	"0 0 1 0"
+	center			%SFVec3f;	"0 0 0"
+	bboxCenter		%SFVec3f;	"0 0 0"
+	bboxSize		%SFVec3f;	"-1 -1 -1"
+	containerField NMTOKEN "children"
+	class			CDATA  		""
+	DEF			ID		#IMPLIED
+	USE			IDREF		#IMPLIED&gt;
+]]&gt;
+
+&lt;!--	not treated as separate attributes, instead these are
+	encoded as "attribute=value" SFString entries in the
+	MFString info field.
+
+	humanoidVersion		%SFString;	#IMPLIED
+	authorName		%SFString;	#IMPLIED
+	authorEmail		%SFString;	#IMPLIED
+	copyright		%SFString;	#IMPLIED
+	creationDate		%SFString;	#IMPLIED
+	usageRestrictions	%SFString;	#IMPLIED
+	age			%SFString;	#IMPLIED
+	gender			%SFString;	#IMPLIED
+	height			%SFString;	#IMPLIED
+	weight			%SFString;	#IMPLIED
+--&gt;
+
+&lt;![%HAnimComponent;[
+
+&lt;!ELEMENT HAnimJoint (IS?, (%MetadataNodes;)?, ( %ChildrenNodes; | HAnimDisplacer | %WildcardNodes; )* ) &gt;
+&lt;!ATTLIST HAnimJoint
+	name			%JointNames;	#IMPLIED
+	ulimit			%MFFloat;	#IMPLIED
+	llimit			%MFFloat;	#IMPLIED
+	limitOrientation	%SFRotation;	"0 0 1 0"
+	skinCoordIndex		%MFInt32;	#IMPLIED
+	skinCoordWeight		%MFFloat;	#IMPLIED
+	stiffness		%MFFloat;	"0 0 0"
+	translation		%SFVec3f;	"0 0 0"
+	rotation		%SFRotation;	"0 0 1 0"
+	scale			%SFVec3f;	"1 1 1"
+	scaleOrientation	%SFRotation;	"0 0 1 0"
+	center			%SFVec3f;	"0 0 0"
+	bboxCenter		%SFVec3f;	"0 0 0"
+	bboxSize		%SFVec3f;	"-1 -1 -1"
+	containerField NMTOKEN "children"
+	class			CDATA		""
+	DEF			ID		#IMPLIED
+	USE			IDREF		#IMPLIED&gt;
+
+&lt;!-- Multiple HAnimDisplacer nodes must appear consecutively inside HAnimSegment --&gt;
+
+&lt;!ELEMENT HAnimSegment (IS?, (%MetadataNodes;)?, (
+	((%ChildrenNodes;|%WildcardNodes;)*, ((Coordinate, HAnimDisplacer*) | (HAnimDisplacer+, Coordinate?))? ) |
+	(Coordinate, (((%ChildrenNodes;)*, HAnimDisplacer*) | (HAnimDisplacer+, (%ChildrenNodes;|%WildcardNodes;)*))? ) |
+	(HAnimDisplacer+, ((Coordinate, (%ChildrenNodes;|%WildcardNodes;)*) | ((%ChildrenNodes;|%WildcardNodes;)*, Coordinate?))? )?
+) ) &gt;
+&lt;!ATTLIST HAnimSegment
+	name			%JointNames;	#IMPLIED
+	mass			%SFFloat;	"0"
+	centerOfMass		%SFVec3f;	"0 0 0"
+	momentsOfInertia	%MFFloat;	"0 0 0 0 0 0 0 0 0"
+	bboxCenter		%SFVec3f;	"0 0 0"
+	bboxSize		%SFVec3f;	"-1 -1 -1"
+	containerField NMTOKEN "children"
+	class			CDATA   	""
+	DEF			ID		#IMPLIED
+	USE			IDREF		#IMPLIED&gt;
+
+&lt;!ELEMENT HAnimSite (IS?, (%MetadataNodes;)?, ( %ChildrenNodes; | %WildcardNodes; )* ) &gt;
+&lt;!ATTLIST HAnimSite
+	name			%SFString;	#IMPLIED
+	translation		%SFVec3f;	"0 0 0"
+	rotation		%SFRotation;	"0 0 1 0"
+	scale			%SFVec3f;	"1 1 1"
+	scaleOrientation	%SFRotation;	"0 0 1 0"
+	center			%SFVec3f;	"0 0 0"
+	bboxCenter		%SFVec3f;	"0 0 0"
+	bboxSize		%SFVec3f;	"-1 -1 -1"
+	containerField NMTOKEN "children"
+	class			CDATA  		""
+	DEF			ID		#IMPLIED
+	USE			IDREF		#IMPLIED&gt;
+]]&gt;
+&lt;![%NurbsComponent;[
+
+&lt;!ELEMENT Contour2D (IS?, (%MetadataNodes;)?, ( %NurbsControlCurveNodes; | %WildcardNodes; )* ) &gt;
+&lt;!ATTLIST Contour2D
+	containerField NMTOKEN "trimmingContour"
+	class		CDATA		""
+	DEF		ID		#IMPLIED
+	USE		IDREF		#IMPLIED&gt;
+
+&lt;!ELEMENT ContourPolyline2D ( (IS?), (%MetadataNodes;)? ) &gt;
+&lt;!ATTLIST ContourPolyline2D
+	point		%MFVec2f;	#IMPLIED
+	containerField NMTOKEN "children"
+	class		CDATA		""
+	DEF		ID		#IMPLIED
+	USE		IDREF		#IMPLIED&gt;
+
+&lt;!-- child CoordinateNode has containerField controlPoint --&gt;
+&lt;!ELEMENT NurbsCurve ( (IS?), (%MetadataNodes;)?, ( %CoordinateNodes; | %WildcardNodes; )? ) &gt;
+&lt;!ATTLIST NurbsCurve
+	knot		%MFDouble;	#IMPLIED
+	order		%SFInt32;	"3"
+	weight		%MFDouble;	#IMPLIED
+	tessellation	%SFInt32;	"0"
+	closed		%SFBool;	"false"
+	containerField NMTOKEN 		"geometry"
+	class		CDATA		""
+	DEF		ID		#IMPLIED
+	USE		IDREF		#IMPLIED&gt;
+
+&lt;!ELEMENT NurbsCurve2D ( (IS?), (%MetadataNodes;)? ) &gt;
+&lt;!ATTLIST NurbsCurve2D
+	controlPoint	%MFVec2f;	#IMPLIED
+	knot		%MFFloat;	#IMPLIED
+	order		%SFInt32;	"3"
+	weight		%MFFloat;	#IMPLIED
+	tessellation	%SFInt32;	"0"
+	closed		%SFBool;	"false"
+	containerField NMTOKEN "children"
+	class		CDATA		""
+	DEF		ID		#IMPLIED
+	USE		IDREF		#IMPLIED&gt;
+
+&lt;!ELEMENT NurbsOrientationInterpolator ( (IS?), (%MetadataNodes;)?, (%CoordinateNodes;)? ) &gt;
+&lt;!ATTLIST NurbsOrientationInterpolator
+	knot			%MFDouble;	#IMPLIED
+	order			%SFInt32;	"3"
+	weight			%MFDouble;	#IMPLIED
+	containerField NMTOKEN "children"
+	class			CDATA		""
+	DEF			ID	#IMPLIED
+	USE			IDREF	#IMPLIED&gt;
+
+&lt;!ELEMENT NurbsPositionInterpolator ( (IS?), (%MetadataNodes;)?, (%CoordinateNodes;)? ) &gt;
+&lt;!ATTLIST NurbsPositionInterpolator
+	knot			%MFDouble;	#IMPLIED
+	order			%SFInt32;	"3"
+	weight			%MFDouble;	#IMPLIED
+	containerField NMTOKEN "children"
+	class			CDATA		""
+	DEF			ID	#IMPLIED
+	USE			IDREF	#IMPLIED&gt;
+
+&lt;!ELEMENT NurbsSurfaceInterpolator ( (IS?), (%MetadataNodes;)?, (%CoordinateNodes;)? ) &gt;
+&lt;!ATTLIST NurbsSurfaceInterpolator
+	weight		%MFDouble;	#IMPLIED
+	uDimension	%SFInt32;	"0"
+	vDimension	%SFInt32;	"0"
+	uKnot		%MFDouble;	#IMPLIED
+	vKnot		%MFDouble;	#IMPLIED
+	uOrder		%SFInt32;	"3"
+	vOrder		%SFInt32;	"3"
+	containerField NMTOKEN "children"
+	class		CDATA		""
+	DEF		ID	#IMPLIED
+	USE		IDREF	#IMPLIED&gt;
+
+&lt;!ELEMENT NurbsSet (IS?, (%MetadataNodes;)?, (NurbsPatchSurface | NurbsSweptSurface | NurbsSwungSurface | NurbsTrimmedSurface | %WildcardNodes; )* ) &gt;
+&lt;!ATTLIST NurbsSet
+	tessellationScale	%SFFloat;	"1.0"
+	bboxCenter		%SFVec3f;	"0 0 0"	
+	bboxSize		%SFVec3f;	"-1 -1 -1"
+	containerField NMTOKEN "children"
+	class			CDATA		""
+	DEF			ID		#IMPLIED
+	USE			IDREF		#IMPLIED&gt;
+
+&lt;!ELEMENT NurbsPatchSurface (IS?, (%MetadataNodes;)?, ( %CoordinateNodes; | %WildcardNodes; )?, ( %TextureCoordinateNodes; | NurbsTextureCoordinate)? ) &gt;
+&lt;!ATTLIST NurbsPatchSurface
+	uClosed		%SFBool;	"false"
+	vClosed		%SFBool;	"false"
+	uDimension	%SFInt32;	"0"
+	vDimension	%SFInt32;	"0"
+	uKnot		%MFDouble;	#IMPLIED
+	vKnot		%MFDouble;	#IMPLIED
+	uOrder		%SFInt32;	"3"
+	vOrder		%SFInt32;	"3"
+	uTessellation	%SFInt32;	"0"
+	vTessellation	%SFInt32;	"0"
+	weight		%MFDouble;	#IMPLIED
+	solid		%SFBool;  	"true"
+	containerField NMTOKEN "geometry"
+	class		CDATA		""
+	DEF		ID		#IMPLIED
+	USE		IDREF		#IMPLIED&gt;
+
+&lt;!ELEMENT NurbsTrimmedSurface (IS?, (%MetadataNodes;)?, ( %CoordinateNodes; | %WildcardNodes; )?, ( %TextureCoordinateNodes; | NurbsTextureCoordinate)?, Contour2D* ) &gt;
+&lt;!ATTLIST NurbsTrimmedSurface
+	uClosed		%SFBool;	"false"
+	vClosed		%SFBool;	"false"
+	uDimension	%SFInt32;	"0"
+	vDimension	%SFInt32;	"0"
+	uKnot		%MFDouble;	#IMPLIED
+	vKnot		%MFDouble;	#IMPLIED
+	uOrder		%SFInt32;	"3"
+	vOrder		%SFInt32;	"3"
+	uTessellation	%SFInt32;	"0"
+	vTessellation	%SFInt32;	"0"
+	weight		%MFFloat;	#IMPLIED
+	solid		%SFBool;  	"true"
+	containerField NMTOKEN "geometry"
+	class		CDATA		""
+	DEF		ID		#IMPLIED
+	USE		IDREF		#IMPLIED&gt;
+
+&lt;!ELEMENT NurbsSweptSurface (IS?, (%MetadataNodes;)?, (NurbsCurve | %WildcardNodes; )?, ( %NurbsControlCurveNodes; | %WildcardNodes; )? ) &gt;
+&lt;!ATTLIST NurbsSweptSurface
+	ccw		%SFBool;  	"true"
+	solid		%SFBool;  	"true"
+	containerField NMTOKEN "geometry"
+	class		CDATA		""
+	DEF		ID		#IMPLIED
+	USE		IDREF		#IMPLIED&gt;
+
+&lt;!ELEMENT NurbsSwungSurface (IS?, (%MetadataNodes;)?, ( ( %NurbsControlCurveNodes; | %WildcardNodes; ), ( %NurbsControlCurveNodes; | %WildcardNodes; )? )? ) &gt;
+&lt;!ATTLIST NurbsSwungSurface
+	ccw		%SFBool;  	"true"
+	solid		%SFBool;  	"true"
+	containerField NMTOKEN "geometry"
+	class		CDATA		""
+	DEF		ID		#IMPLIED
+	USE		IDREF		#IMPLIED&gt;
+
+&lt;!ELEMENT NurbsTextureCoordinate ( (IS?), (%MetadataNodes;)?, (%CoordinateNodes;)? ) &gt;
+&lt;!ATTLIST NurbsTextureCoordinate
+	weight		%MFDouble;	#IMPLIED
+	uDimension	%SFInt32;	"0"
+	vDimension	%SFInt32;	"0"
+	uKnot		%MFDouble;	#IMPLIED
+	vKnot		%MFDouble;	#IMPLIED
+	uOrder		%SFInt32;	"3"
+	vOrder		%SFInt32;	"3"
+	containerField NMTOKEN "texCoord"
+	class		CDATA		""
+	DEF		ID	#IMPLIED
+	USE		IDREF	#IMPLIED&gt;
+]]&gt;
+
+
+&lt;!-- 	Finally, add inputOnly/outputOnly attributes and Web3dExtensionComponent from separate DTDs.
+	Note that Web3dExtensionComponent content-model extensions needed to be added at beginning,
+	prior to node-type definitions. --&gt;
+
+&lt;![%X3dInputOutputFields;[
+
+&lt;!ENTITY % FieldsDTD SYSTEM "x3d-3.0-InputOutputFields.dtd"&gt;
+
+%FieldsDTD;
+
+]]&gt;
+
+&lt;![%Web3dExtensionComponent;[
+
+&lt;!ENTITY % Web3dExtensionsDTD SYSTEM "x3d-3.0-Web3dExtensions.dtd"&gt;
+
+%Web3dExtensionsDTD;
+
+]]&gt;
+
+</PRE>

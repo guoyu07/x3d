@@ -1,0 +1,72 @@
+#X3D V3.0 utf8
+PROFILE Interactive
+META "filename" "Elevator.x3dv"
+
+Transform { translation 0.0 0.0 -3.5
+  children [
+    Shape {
+      geometry Cone { }
+      appearance Appearance {
+	material Material { diffuseColor 0.0 1.0 0.0 }
+      }
+    }
+  ]
+}
+Transform { translation 0.0 4.0 -3.5
+  children [
+    Shape {
+      geometry Cone { }
+      appearance Appearance {
+        material Material { diffuseColor 1.0 0.0 0.0 }
+      }
+    }
+  ]
+}
+Transform {
+  translation 0.0 8.0 -3.5
+  children [
+    Shape {
+      geometry Cone { }
+      appearance Appearance {
+        material Material { diffuseColor 0.0 0.0 1.0 }
+      }
+    }
+  ]
+}
+Group {
+  children [
+    DEF ETransform Transform {
+      children [
+        DEF EViewpoint Viewpoint { 
+          description "Elevator Viewpoint" 
+          centerOfRotation 0 0 0 
+          jump FALSE
+        }
+        DEF EProximity ProximitySensor {
+          size 2.0 5.0 5.0
+        }
+        Transform { translation 0.0 -1.0 0.0
+          children [
+            Shape {
+              geometry Box { size 2.0 0.2 5.0 }
+              appearance Appearance {
+                material Material { }
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
+DEF ElevatorPI PositionInterpolator {
+  keyValue [ 0.0 0.0 0.0, 0.0 8.0 0.0 ]
+  key [ 0.0 1.0 ]
+}
+DEF TS TimeSensor {
+  cycleInterval 10.0
+}
+ROUTE EProximity.enterTime TO TS.startTime
+ROUTE TS.isActive TO EViewpoint.set_bind
+ROUTE TS.fraction_changed TO ElevatorPI.set_fraction
+ROUTE ElevatorPI.value_changed TO ETransform.translation

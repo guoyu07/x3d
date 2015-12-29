@@ -1,0 +1,97 @@
+#X3D V3.0 utf8
+PROFILE Immersive
+META "filename" "ShuttlesAndPendulums.x3dv"
+
+PROTO Shuttle [
+ initializeOnly SFTime  rate      1
+ initializeOnly SFFloat distance  1
+ initializeOnly MFNode  children  [ ]
+ inputOutput    SFTime  startTime 0
+ inputOutput    SFTime  stopTime  0
+ initializeOnly SFBool  loop      TRUE
+] {
+  DEF F Transform { children IS children }
+  DEF T TimeSensor {
+    cycleInterval IS rate
+    startTime     IS startTime
+    stopTime      IS stopTime
+    loop          IS loop
+  }
+  DEF S Script {
+    initializeOnly SFFloat distance IS distance
+    outputOnly     MFVec3f position
+    url "ecmascript:
+    function initialize() {
+        // constructor:setup interpolator,
+      pos1 = new SFVec3f(-distance, 0, 0);
+      pos2 = new SFVec3f(distance, 0, 0);
+      position = new MFVec3f(pos1, pos2, pos1);
+    }"
+  }
+  DEF I PositionInterpolator {
+  key [ 0, 0.5, 1 ]
+  keyValue [ -1 0 0, 1 0 0, -1 0 0 ]
+  }
+  ROUTE T.fraction_changed TO I.set_fraction
+  ROUTE I.value_changed TO F.translation
+  ROUTE S.position TO I.keyValue
+}
+PROTO Pendulum [
+ initializeOnly SFTime  rate      1
+ initializeOnly SFFloat maxAngle  3.14159
+ initializeOnly MFNode  children  [ ]
+ inputOutput    SFTime  startTime 0
+ inputOutput    SFTime  stopTime  0
+ initializeOnly SFBool  loop      TRUE
+] {
+  DEF FF Transform { children IS children }
+  DEF TT TimeSensor {
+    cycleInterval IS rate
+    startTime IS startTime
+    stopTime IS stopTime
+    loop IS loop
+  }
+  DEF SS Script {
+    initializeOnly SFFloat maxAngle IS maxAngle
+    outputOnly     MFRotation rotation  
+    url "ecmascript:
+    function initialize() {
+      // constructor:setup interpolator,
+      rot1 = new SFRotation(0, 0, 1, 0);
+      rot2 = new SFRotation(0, 0, 1, maxAngle/2);
+      rot3 = new SFRotation(0, 0, 1, maxAngle);
+      rotation = new MFRotation(rot1, rot2, rot3, rot2, rot1);
+    }"
+  } 
+  DEF II OrientationInterpolator {
+    key [ 0, 0.25, 0.5, 0.75, 1 ]
+    keyValue [ 0 0 1 0, 
+               0 0 1 1.57, 
+               0 0 1 3.14, 
+               0 0 1 1.57, 
+               0 0 1 0 ]
+  }
+  ROUTE TT.fraction_changed TO II.set_fraction
+  ROUTE II.value_changed TO FF.rotation
+  ROUTE SS.rotation TO II.keyValue
+}
+Transform { translation -3 0 0
+  children Pendulum { rate 3 maxAngle 6.28
+    children Shape {
+      geometry Cylinder { height 5 }
+      appearance Appearance {
+	material Material { diffuseColor 0.8 0.1 0 }
+      }
+    }
+  }
+}
+Transform {
+  children Shuttle { rate 2
+    children Shape {
+      geometry Sphere { }
+      appearance Appearance {
+        material Material { diffuseColor 0.1 0.8 0 }
+      }
+    } 
+  }
+}

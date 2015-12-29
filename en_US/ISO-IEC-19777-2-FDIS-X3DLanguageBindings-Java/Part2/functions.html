@@ -1,0 +1,1950 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+<title>ISO/IEC 19777-2:2005 -- X3D Java binding -- 6 Function definitions</title>
+<link REL="stylesheet" HREF="../Web3D_LB.css" TYPE="text/css">
+
+</head>
+<body>
+
+<div class="CenterDiv">
+<img class="x3dlogo" SRC="../Images/x3d.png" ALT="X3D logo" width="115" height="106">
+</div>
+
+<div class="CenterDiv">
+<p class="HeadingPart">
+    Extensible 3D (X3D) language bindings<br>
+    Part 2:&nbsp; Java</p>
+
+<p class="HeadingClause">6 Function definitions</p>
+</div>
+
+<p>
+<img class="x3dbar" SRC="../Images/x3dbar.png" ALT="--- X3D separator bar ---" width="430" height="23"></p>
+
+<h1><img class="cube" src="../Images/cube.gif" alt="cube" width="20" height="19">
+<a name="IntroductionAndTopics"></a>6.1 Introduction and topics</h1>
+
+<h2><a name="Introduction"></a>6.1.1 Introduction</h2>
+
+<p>This clause describes key concepts in this part of ISO/IEC 19777. This
+includes conformance criteria and abstract concepts of the binding specified in this part
+of ISO/IEC 19777 to the abstract
+definitions specified in ISO/IEC 19775-2 (see <a href="references.html#[I19775]">2.[19775]</a>).</p>
+
+<h2><a name="Topics"></a>6.1.2 Topics</h2>
+
+<p>See <a href="#t-Topics">Table 6.1</a> for the table of contents for this clause.</p>
+
+<div class="CenterDiv">
+
+<p class="TableCaption">
+<a name="t-Topics"></a>Table 6.1 &mdash; Topics in this clause</p>
+
+<table>
+  <tbody>
+  <tr>
+    <td>
+    <ul>
+    <li><a href="#IntroductionAndTopics">6.1 Introduction and Topics</a><ul>
+    <li><a href="#Introduction">6.1.1 Introduction</a></li>
+    <li><a href="#Topics">6.1.2 Topics</a></li>
+    </ul>
+    </li>
+    <li><a href="#BrowserServicesAndConnections">6.2 Browser services and
+    connections</a><ul>
+    <li><a href="#BrowserFactory">6.2.1 BrowserFactory</a></li>
+    <li><a href="#getBrowser">6.2.2 getBrowser</a><ul>
+    <li><a href="#WebPluginBrowser">6.2.2.1 Web plug-in browser</a></li>
+    <li><a href="#RemoteBrowser">6.2.2.2 Remote browser</a></li>
+    </ul>
+    </li>
+    <li><a href="#CreateBrowser">6.2.3 createBrowser</a></li>
+    </ul>
+    </li>
+    <li><a href="#BrowserServices">6.3 Browser services</a><ul>
+    <li><a href="#getName">6.3.1 getName</a></li>
+    <li><a href="#getVersion">6.3.2 getVersion</a></li>
+    <li><a href="#getCirremtSpeed">6.3.3 getCurrentSpeed</a></li>
+    <li><a href="#getCurrentFrameRate">6.3.4 getCurrentFrameRate</a></li>
+    <li><a href="#getSupportedProfiles">6.3.5 getSupportedProfiles</a></li>
+    <li><a href="#ExecutionContextGetProfile">6.3.6 getProfile</a></li>
+    <li><a href="#getSupportedComponents">6.3.7 getSupportedComponents</a></li>
+    <li><a href="#getComponent">6.3.8 getComponent</a></li>
+    <li><a href="#getExecutionContext">6.3.9 getExecutionContext</a></li>
+    <li><a href="#createScene">6.3.10 createScene</a></li>
+    <li><a href="#replaceWorld">6.3.11 replaceWorld</a></li>
+    <li><a href="#importDocument">6.3.12 importDocument</a></li>
+    <li><a href="#loadURL">6.3.13 loadURL</a></li>
+    <li><a href="#setDescription">6.3.14 setDescription</a></li>
+    <li><a href="#createX3DFromString">6.3.15 createX3DFromString</a></li>
+    <li><a href="#createX3DFromStream">6.3.16 createX3DFromStream</a></li>
+    <li><a href="#createX3DFromURL">6.3.17 createX3DFromURL</a></li>
+    <li><a href="#UpdateControl">6.3.18 updateControl</a></li>
+    <li><a href="#RegisterBrowserInterest">6.3.19 registerBrowserInterest</a></li>
+    <li><a href="#getRenderingProperties">6.3.20 getRenderingProperties</a></li>
+    <li><a href="#getBrowserProperties">6.3.21 getBrowserProperties</a></li>
+    <li><a href="#changeViewpoint">6.3.22 changeViewpoint</a></li>
+    <li><a href="#print">6.3.23 print</a></li>
+    <li><a href="#Dispose">6.3.24 dispose</a></li>
+    </ul>
+    </li>
+    <li><a href="#ExecutionContextServices">6.4 Execution context services</a><ul>
+    <li><a href="#getSpecificationVersion">6.4.1 getSpecificationVersion</a></li>
+    <li><a href="#getEncoding">6.4.2 getEncoding</a></li>
+    <li><a href="#ExecutionContextGetProfile">6.4.3 getProfile</a></li>
+    <li><a href="#getComponents">6.4.4 getComponents</a></li>
+    <li><a href="#getWorldURL">6.4.5 getWorldURL</a></li>
+    <li><a href="#getNode">6.4.6 getNode</a></li>
+    <li><a href="#createProto">6.4.7 createNode</a></li>
+    <li><a href="#createProto">6.4.8 createProto</a></li>
+    <li><a href="#NamedNodeHandling">6.4.9 namedNodeHandling</a></li>
+    <li><a href="#getProtoDeclaration">6.4.10 getProtoDeclaration</a></li>
+    <li><a href="#ProtoDeclarationHandling">6.4.11 protoDeclarationHandling</a></li>
+    <li><a href="#getExternProtoDeclaration">6.4.12 getExternprotoDeclaration</a></li>
+    <li><a href="#ExternProtoDeclarationHandling">6.4.13 externprotoDeclarationHandling</a></li>
+    <li><a href="#getRootNodes">6.4.14 getRootNodes</a></li>
+    <li><a href="#getRoutes">6.4.15 getRoutes</a></li>
+    <li><a href="#DynamicRouteHandling">6.4.16 dynamicRouteHandling</a></li>
+    </ul>
+    </li>
+    <li><a href="#SceneServices">6.5 Scene services</a><ul>
+    <li><a href="#SceneGeneralConcepts">6.5.1 General concepts</a></li>
+    <li><a href="#getMetaData">6.5.2 getMetadata</a></li>
+    <li><a href="#setMetaData">6.5.3 setMetadata</a></li>
+    <li><a href="#SceneGetNode">6.5.4 getNode</a></li>
+    <li><a href="#SceneNamedNodeHandling">6.5.5 namedNodeHandling</a></li>
+    <li><a href="#SceneRootNodeHandling">6.5.6 rootNodeHandling</a></li>
+    </ul>
+    </li>
+    <li><a href="#NodeServices">6.6 Node services</a><ul>
+    <li><a href="#NodeRepresentation">6.6.1 Node representation</a></li>
+    <li><a href="#NodeGetTypeName">6.6.2 getTypeName</a></li>
+    <li><a href="#NodeGetType">6.6.3 getType</a></li>
+    <li><a href="#getField">6.6.4 getField</a></li>
+    <li><a href="#getFieldDefinitions">6.6.5 getFieldDefinitions</a></li>
+    <li><a href="#NodeDispose">6.6.6 dispose</a></li>
+    </ul>
+    </li>
+    <li><a href="#FieldServices">6.7 Field services</a><ul>
+    <li><a href="#FieldRepresentation">6.7.1 Field representation</a></li>
+    <li><a href="#getAccessType">6.7.2 getAccessType</a></li>
+    <li><a href="#getType">6.7.3 getType</a></li>
+    <li><a href="#FieldGetName">6.7.4 getName</a></li>
+    <li><a href="#getValue">6.7.5 getValue</a></li>
+    <li><a href="#setValue">6.7.6 setValue</a></li>
+    <li><a href="#RegisterFieldInterest">6.7.7 registerFieldInterest</a></li>
+    <li><a href="#FieldDispose">6.7.8 dispose</a></li>
+    </ul>
+    </li>
+    <li><a href="#RouteServices">6.8 Route services</a><ul>
+    <li><a href="#RouteRepresentation">6.8.1 Route representation</a></li>
+    <li><a href="#getSourceNode">6.8.2 getSourceNode</a></li>
+    <li><a href="#getSourceField">6.8.3 getSourceField</a></li>
+    <li><a href="#getDestinationNode">6.8.4 getDestinationNode</a></li>
+    <li><a href="#getDestinationField">6.8.5 getDestinationField</a></li>
+    <li><a href="#RouteDispose">6.8.6 dispose</a></li>
+    </ul>
+    </li>
+    <li><a href="#PrototypeServices">6.9 Prototype services</a><ul>
+    <li><a href="#isExternProto">6.9.1 isExternproto</a></li>
+    <li><a href="#createInstance">6.9.2 createInstance</a></li>
+    <li><a href="#ProtoGetFieldDefinitions">6.9.3 getFieldDefinitions</a></li>
+    <li><a href="#checkLoadState">6.9.4 checkLoadState</a></li>
+    <li><a href="#RequestImmediateLoad">6.9.5 requestImmediateLoad</a></li>
+    <li><a href="#ProtoDispose">6.9.6 dispose</a></li>
+    </ul>
+    </li>
+    <li><a href="#SCriptContentServices">6.10 Script content services</a><ul>
+    <li><a href="#ImplementationMarkerInterface">6.10.1 implementationMarkerInterface</a></li>
+    <li><a href="#PrepareEventsNotification">6.10.2 prepareEvents notification</a></li>
+    </ul>
+    </li>
+    <li><a href="#MatrixServices">6.11 Matrix services</a><ul>
+    <li><a href="#MatrixDescription">6.11.1 Description</a></li>
+	<li><a href="#Matrix3">6.11.2 Matrix3</a></li>
+	<li><a href="#Matrix4">6.11.3 Matrix4</a></li>
+    </ul>
+  	</li>
+    </ul>
+  </tr>
+</tbody>
+</table>
+</div>
+
+<p>
+<img class="x3dbar" SRC="../Images/x3dbar.png" ALT="--- X3D separator bar ---" width="430" height="23"></p>
+
+<h1><a name="BrowserServicesAndConnections"></a>6.2 Browser services and connections</h1>
+
+<h2><a name="BrowserFactory"></a>
+6.2.1 BrowserFactory</h2>
+
+<p>The following scenarios are possible when creating a reference to an X3D
+browser: </p>
+
+<ol type="a">
+  <li>Java applet to X3D plug-in in a web browser,</li>
+  <li>server application
+talking to a browser on a separate machine, or</li>
+  <li>a component in a standalone
+Java application.</li>
+</ol>
+
+<p>Each of these requires a separate solution in order to
+maintain implementation dependence.</p>
+
+<p>The method of access to an X3D browser shall be through a single factory
+style class. This class contains methods for each type of access. To provide
+implementation independence, the <code>BrowserFactoryImpl</code>
+interface for the implementation dependent parts is defined. Browsers shall
+subclass this interface to provide the necessary dependent code. This interface
+is loaded by the X3D browser factory using dynamic methods or by having
+the code explicitly set.</p>
+
+<p>A properties file called <code>x3d.properties</code>, if resident in the
+user's <code>CLASSPATH,</code> shall be used to determine the name of the class
+to be loaded. The name of the property in the properties file shall be:</p>
+
+<blockquote>
+
+<p>
+<code>org.web3d.x3d.sai.factory.class</code></p>
+
+</blockquote>
+
+<p>which shall be set to the fully
+qualified name of the browser factory class
+implementation to be loaded. The implementation of this class shall not
+reside within the <code>org.web3d.*</code> class hierarchy but shall reside in the
+browser writer's own class hierarchy. The browser factory shall also contain
+a <code>setBrowserFactoryImpl()</code>
+method to allow an explicit setting of the factory implementation. If this
+method is the first method called of all the factory methods, it shall
+be used as the factory implementation. If any other method is called prior
+to calling this method, the name of the factory implementation shall be
+drawn from the properties file and loaded. Any attempt to call the set
+implementation method shall result in a <code>X3DException</code>
+being generated.</p>
+
+<p>The factory implementation shall return the appropriate subclasses for
+each of the methods. If the implementation does not support the particular
+connection requested, it shall generate a <code>NotSupportedException</code>.
+If it is supported, it shall return the appropriate subclass of the object
+for that method.</p>
+
+<h2><a name="getBrowser"></a>
+6.2.2 getBrowser</h2>
+
+<h3><a name="WebPluginBrowser"></a>
+6.2.2.1 Web plug-in browser</h3>
+
+<pre class="listing">ExternalBrowser BrowserFactory.getBrowser(Applet)
+    throws NotSupportedException,
+           NoSuchBrowserException,
+           ConnectionException
+
+ExternalBrowser BrowserFactory.getBrowser(Applet, String, int)
+    throws NotSupportedException,
+           NoSuchBrowserException,
+           ConnectionException
+</pre>
+
+<p>A browser that operates as part of a web browser requires a number of
+different parameters for correct determination of the plug-in to access. Due to
+the nature of web pages, it is possible that an applet on one page may access
+either more that one X3D plug-in or that the plug-in exists in
+another HTML frame. The applet form of the <code> getBrowser()</code> method requires
+a reference to the accessing applet, the name of the frame and the index
+of the frame in the nominated frame. The frame name is a string representing
+the name of the frame. The index is the number of the X3D browser in the
+page (where there might be more than one) starting from 0.</p>
+
+<h3><a name="RemoteBrowser"></a>
+6.2.2.2 Remote browser</h3>
+
+<pre class="listing">ExternalBrowser BrowserFactory.getBrowser(java.net.InetAddress, int)
+    throws NotSupportedException,
+           NoSuchBrowserException,
+           java.net.UnknownHostException,
+           ConnectionException
+</pre>
+
+<p>An application server may wish to access browsers on client machines.
+The third variant of the getBrowser request requires an IP address (or  machine
+name) and a port number. The server application requests the browser  reference
+of the remote machine. Once the browser reference is returned, the server
+application may manipulate the browser contents like any  other SAI using
+application.</p>
+
+<p>The port number of the protocol may be any port number. There is no
+defined default port to which a browser will listen. The protocol between
+the application and the browser is also not defined.</p>
+
+<h2><a name="CreateBrowser"></a>
+6.2.3 createBrowser</h2>
+
+<pre class="listing">X3DComponent BrowserFactory.createX3DComponent(java.util.Map)
+    throws NotSupportedException
+</pre>
+
+<p>The component browser is required to fit into the
+standard <code>java.awt.Component</code>
+model and is implemented as a subclass of <code>X3DComponent</code>.
+It shall derive from <code>java.awt.Component</code> and also
+provide a <code>getBrowser()</code>
+method that returns a reference to a standard <code>Browser</code>
+object. The component implementation may implement the component in any
+manner it requires. Both lightweight components (all rendering performed
+in Java) and heavyweight components (with peer interfaces extending from
+<code>java.awt.peer.ComponentPeer</code>) are permitted. These details shall be
+hidden within the implementation specific classes and not accessible to
+the general API user.</p>
+
+<p>The factory class shall include a method that generates an instance
+of this component class. Each call to the component shall result in a new
+independent instance of a X3D browser capable of running as a component.
+The browser shall be capable of running either within a web browser environment
+(e.g., Java applet window with a X3D browser in it) or in standalone applications
+with the restrictions appropriate to the underlying environment. It shall
+also use whatever hints are supported in the parameter argument passed
+to it. These hints are in the same form as those passed to loadURL.</p>
+
+
+<p>
+<img class="x3dbar" src="../Images/x3dbar.png" alt="--- X3D separator bar ---" width="430" height="23"></p>
+
+<h1><a name="BrowserServices"></a>6.3 Browser services</h1>
+
+<h2><a name="getName"></a>
+6.3.1 getName</h2>
+
+<pre class="listing">String Browser.getName()
+    throws InvalidBrowserException
+</pre>
+
+<p>The name returned is a String representing the name of the browser.
+If this is not supported, <code>null</code> shall be returned.</p>
+
+<h2><a name="getVersion"></a>
+6.3.2 getVersion</h2>
+
+<pre class="listing">String Browser.getVersion()
+    throws InvalidBrowserException
+</pre>
+
+<p>The version returned is a String representing the version number of
+the browser. If this is not supported, <code>null</code> shall be returned.</p>
+
+<h2><a name="getCirremtSpeed"></a>
+6.3.3 getCurrentSpeed</h2>
+
+<pre class="listing">float Browser.getCurrentSpeed()
+    throws InvalidBrowserException
+</pre>
+
+<p>The speed value returned shall be a floating point number. A value of 0.0
+shall be returned if
+currentSpeed is not supported.</p>
+
+<h2><a name="getCurrentFrameRate"></a>
+6.3.4 getCurrentFrameRate</h2>
+
+<pre class="listing">float Browser.getCurrentFrameRate()
+    throws InvalidBrowserException
+</pre>
+
+<p>The frame rate value shall be a floating point number. A value of 0.0 shall
+be returned if
+currentFrameRate is not supported.</p>
+
+<h2><a name="getSupportedProfiles"></a>6.3.5 getSupportedProfiles</h2>
+
+<pre class="listing">ProfileInfo[] Browser.getSupportedProfiles()
+    throws InvalidBrowserException
+</pre>
+
+<p>The returned array will always contain at least one item and will be
+exactly the number of profiles that this browser supports.</p>
+
+<h1><a name="getProfile"></a>
+6.3.6 getProfile</h1>
+
+<pre class="listing">ProfileInfo Browser.getProfile(String)
+    throws InvalidBrowserException,
+           NotSupportedException
+</pre>
+
+<p>The profile declaration that corresponds to the named profile is returned if the
+browser supports that profile. If the browser does not support the profile,
+
+the <code>NotSupportedException </code>shall be thrown.</p>
+
+<h2><a name="getSupportedComponents"></a>
+6.3.7 getSupportedComponents</h2>
+
+<pre class="listing">ComponentInfo[] Browser.getSupportedComponents()
+    throws InvalidBrowserException
+</pre>
+
+<p>A list of the component declarations for all components that are supported is
+returned with their respective support levels.</p>
+
+<h2><a name="getComponent"></a>
+6.3.8 getComponent</h2>
+
+<pre class="listing">ComponentInfo Browser.getComponent(String, int)
+    throws InvalidBrowserException,
+           NotSupportedException
+</pre>
+
+<p>The component declaration that corresponds to the named
+component and level is returned if the
+browser supports that capability.
+If the browser does not support the named component and the requested level,
+
+the <code>NotSupportedException</code> shall be thrown.</p>
+
+<h2><a name="getExecutionContext"></a>
+6.3.9 getExecutionContext</h2>
+
+<pre class="listing">X3DExecutionContext Browser.getExecutionContext()
+    throws InvalidBrowserException,
+           InvalidOperationTimingException
+</pre>
+
+<p>If the execution context is the full scene rather than inside a PROTO instance,
+
+the <code>X3DExecutionContext</code> instance returned will be an instance of the
+derived <code>X3DScene</code> interface. User code may test for this using the
+<code>instanceof</code> operator.</p>
+
+<h2><a name="createScene"></a>
+6.3.10 createScene</h2>
+
+<pre class="listing">X3DScene Browser.createScene(ProfileInfo, ComponentInfo[])
+    throws InvalidBrowserException,
+           InvalidOperationTimingException
+</pre>
+
+<p>A new, empty scene is created that represents the given profile and component
+collection. The profile shall always be specified and, if no supplementary components
+are desired,  the second parameter shall be <code>null</code>.</p>
+
+<h3><a name="replaceWorld"></a>
+6.3.11 replaceWorld</h3>
+
+<pre class="listing">void Browser.replaceWorld(X3DScene)
+    throws InvalidBrowserException,
+           InvalidOperationTimingException
+</pre>
+
+<p>The world is replaced with the new scene.
+If the parameter is <code>null,</code> the existing scene is cleared and
+
+the browser is left with no scene and no activity;
+nothing shall be rendered.</p>
+
+<h3><a name="importDocument"></a>
+6.3.12 importDocument</h3>
+
+<pre class="listing">X3DScene Browser.importDocument(org.w3c.dom.Node)
+    throws InvalidBrowserException,
+           InvalidOperationTimingException,
+           InvalidDocumentException
+</pre>
+
+<p>A document described by the
+standard DOM classes is converted to an X3D scene.</p>
+
+<h2><a name="loadURL"></a>
+6.3.13 loadURL</h2>
+
+<pre class="listing">void Browser.loadURL(String[], java.util.Map)
+    throws InvalidBrowserException,
+           InvalidOperationTimingException,
+           InvalidURLException
+</pre>
+
+<p>The parameters shall be an array of strings for the URL list and an
+array of Strings for the parameters. If the browser determines that it
+cannot load any of the URLs passed, the browser event listener shall receive
+an event notifying it of an error.</p>
+
+<p>If the parameters list is a zero length array or is <code>null</code>,
+the action is to replace the world in the current browser. The properties
+defined in <a href="#t-PropertyListForLoadURL">Table 6.2</a> are standard values
+that shall be supported in addition to the other required values
+(see ISO/IEC 19775-1 9.2.4 Browser Options).</p>
+
+<div class="CenterDiv">
+
+<p class="TableCaption">
+<a name="t-PropertyListForLoadURL"></a>
+Table 6.2 &mdash; Property list for loadURL</p>
+
+<table>
+<tbody>
+<tr>
+  <th>Key</th>
+  <th>Value</th>
+  <th>Description of Function</th>
+</tr>
+<tr>
+  <td rowspan="2">replace</td>
+  <td>true</td>
+  <td>Replaces the entire page that browser is embedded in. If the browser
+  is a standalone browser this shall have no effect.</td>
+</tr>
+<tr>
+  <td>false</td>
+  <td>The browser shall replace the contents of the currently loaded world
+  with the new world specified by the URL argument. The same effect as providing
+  no value to the parameters argument.</td>
+</tr>
+<tr>
+  <td>target</td>
+  <td><i><code>&lt;frameName&gt;</code></i></td>
+  <td>The name of the frame shall be used to load the browser as the contents
+  of the named HTML frame.</td>
+</tr>
+</tbody>
+</table>
+</div>
+
+<p>Individual browser implementations may
+support extra property definitions.</p>
+
+<h2><a name="setDescription"></a>
+6.3.14 setDescription</h2>
+
+<pre class="listing">void Browser.setDescription(String)
+    throws InvalidBrowserException,
+           InvalidOperationTimingException,
+</pre>
+
+<p>This service sets the description string of the browser. If the browser
+is running as a plug-in, this shall set the title of the page (if the containing
+web browser supports this). For component browsers the result shall be
+implementation dependent.</p>
+
+<h2><a name="createX3DFromString"></a>
+6.3.15 createX3DFromString</h2>
+
+<pre class="listing">X3DScene Browser.createX3DFromString(String)
+    throws InvalidBrowserException,
+           InvalidX3DException,
+           InvalidOperationTimingException,
+           NotSupportedException
+</pre>
+
+<p>An X3DScene instance corresponding to the given string is returned. The parameter shall be a string that contains legal syntax as defined
+in this specification. The string may be any one of the formal encodings
+defined by this specification.</p>
+
+<p>The header statement need not be present as the first line in the string. If the string
+does not contain legal X3D syntax, an <code>InvalidX3DException</code> shall be
+generated. If the encoding of the given string is not supported, the <code>
+NotSupportedException</code> shall be generated.</p>
+
+<h2><a name="createX3DFromStream"></a>
+6.3.16 createX3DFromStream</h2>
+
+<pre class="listing">X3DScene Browser.createX3DFromStream(java.io.InputStream)
+    throws InvalidBrowserException,
+           InvalidX3DException,
+           InvalidOperationTimingException,
+           NotSupportedException,
+           java.io.IOException
+</pre>
+
+<p>An X3DScene instance corresponding to the given stream is returned. The parameter shall be an already established stream that contains legal syntax as defined
+in this specification.
+The string may be any one of the formal encodings
+defined by this specification.</p>
+
+<p>The header statement  need not be present as the first line in the stream. If the stream
+does not contain legal X3D syntax, an <code>InvalidX3DException</code> shall be
+generated. If the encoding of the given stream is not supported, the <code>
+NotSupportedException</code> shall be generated.</p>
+
+<h2><a name="createX3DFromURL"></a>
+6.3.17 createX3DFromURL</h2>
+
+<pre class="listing">X3DScene Browser.createX3DFromURL(String[])
+    throws InvalidBrowserException,
+           InvalidX3DException,
+           InvalidOperationTimingException,
+           NotSupportedException,
+           java.io.IOException
+</pre>
+
+<p>The parameter list shall consist of an array of Strings describing the
+list of URLs. If the browser determines that it cannot load any of the URLs passed,
+the browser event listener shall receive an event notifying it of an error and the
+return value shall be <code>null</code>.</p>
+
+<p>The header statement  need not be present as the first line in the content
+identified by the URL. If the content identified by the URL
+does not contain legal X3D syntax, an <code>InvalidX3DException</code> shall be
+generated. If the encoding of the given content is not supported, the <code>
+NotSupportedException</code> shall be generated.</p>
+
+<h2><a name="UpdateControl"></a>
+6.3.18 updateControl</h2>
+
+<pre class="listing">void ExternalBrowser.beginUpdate()
+    throws InvalidBrowserException
+
+void ExternalBrowser.endUpdate()
+    throws InvalidBrowserException
+</pre>
+
+<p>This service is split into two separate methods beginUpdate and endUpdate.
+The functionality is as described in 6.3.19, Update Control of ISO/IEC
+19775-2 (see <a href="references.html#[I19775]">2.[I19775]</a>).</p>
+
+<h2><a name="RegisterBrowserInterest"></a>
+6.3.19 registerBrowserInterest</h2>
+
+<pre class="listing">void Browser.addBrowserListener(BrowserListener)
+    throws InvalidBrowserException
+
+void Browser.removeBrowserListener(BrowserListener)
+    throws InvalidBrowserException
+</pre>
+
+<p>Registering interest in browser events is through a browser event listener.
+The listener is an interface which is passed browser events when the state
+of the browser changes or asynchronous error messages is sent (for
+example, inability to load any of the requested URLs). Methods shall be
+provided to allow listeners to be added and removed dynamically. A separate
+event class shall be used to indicate the event information. This class
+has a predefined number of events although specific browser implementations
+may send more events than the defined values. The toString() method shall
+be overridden in this case to provide more information to the user in determining
+the extra event types to deal with them. Any extra event types shall not
+have values below the figure defined by <code>LAST_IDENTIFIER</code>.</p>
+
+<p>The signature for <code>BrowserListener</code> shall be:</p>
+
+<pre class="listing">public interface BrowserListener extends java.util.EventListener
+public void BrowserListener.browserChanged(BrowserEvent evt)
+</pre>
+
+<p>The signature for <code>BrowserEvent</code> shall be:</p>
+
+<pre class="listing">public class BrowserEvent extends java.util.EventObject
+public int BrowserEvent.getID()
+</pre>
+
+<p>The Browser object that generated the event shall be the return value of the
+<code>getSource()</code> method of the base <code>java.util.EventObject</code>
+interface.</p>
+
+<h2><a name="getRenderingProperties"></a>
+6.3.20 getRenderingProperties</h2>
+
+<pre class="listing">java.util.Map Browser.getRenderingProperties()
+    throws InvalidBrowserException,
+           InvalidOperationTimingException
+</pre>
+
+<p>The map will contain key/value pairs for all the available rendering properties
+that may be set. A table of the standard properties is defined in Table 9.2
+Browser properties of ISO/IEC 19775-1 (see <a href="references.html#[I19775]">
+2.[I19775]</a>).
+All keys shall be <code>java.lang.String</code>
+instances that name the property. Values may be of the Java class wrapper
+type representing the primitive value. For example, numerical values will
+be returned as instances of <code>java.lang.Number</code>.</p>
+
+<p>If the property does not exist in the table,
+it shall be interpreted as not being supported by
+the browser implementation.</p>
+
+<p>The map shall be immutable.
+It shall be an error for the user to attempt to
+insert or change the existing properties.</p>
+
+<h2><a name="getBrowserProperties"></a>
+6.3.21 getBrowserProperties</h2>
+
+<pre class="listing">java.util.Map Browser.getBrowserProperties()
+    throws InvalidBrowserException,
+           InvalidOperationTimingException
+</pre>
+
+<p>The map will contain key/value pairs for all the available rendering properties
+that may be set. A table of the standard properties is defined
+in Table 9.2 Browser properties of ISO/IEC 19775-1 (see
+<a href="references.html#[I19775]">2.[I19775]</a>).
+All keys shall be <code>java.lang.String</code>
+instances that name the property. Values may be of the Java class wrapper
+type representing the primitive value. For example, numerical values will
+be returned as instances of <code>java.lang.Number</code>.</p>
+
+<p>Where the properties represents the extensions of the browser interface available,
+the key shall be the SAI extension name, and the value will be a <code>java.lang.Boolean</code>
+representing true or false values. If the browser supports the extended interface,
+there shall be an entry with a true value. If an entry has a false value,
+or there is no entry at all for the named extension, then that shall be treated
+as the browser not supporting that extension.</p>
+
+<p>The map shall be immutable.
+It shall be an error for the user to attempt to insert or
+change the existing properties.</p>
+
+<h2><a name="changeViewpoint"></a>
+6.3.22 changeViewpoint</h2>
+
+<pre class="listing">void Browser.nextViewpoint()
+    throws InvalidBrowserException
+
+void Browser.previousViewpoint()
+    throws InvalidBrowserException
+
+void Browser.firstViewpoint()
+    throws InvalidBrowserException
+
+void Browser.lastViewpoint()
+    throws InvalidBrowserException
+</pre>
+
+<p>Change the viewpoint to the position given. All details are in accordance
+with the actions defined for this service request.</p>
+
+<h2><a name="print"></a>
+6.3.23 print</h2>
+
+<pre class="listing">void Browser.print(Object)
+    throws InvalidBrowserException
+
+void Browser.println(Object)
+    throws InvalidBrowserException
+</pre>
+
+<p>Print information directly to the console of the browser.
+The browser has the option of redirecting the <code>System.out</code>
+and <code>System.err</code>
+InputStreams to wherever considered appropriate, but shall always have these
+two methods print directly to the console. Note that the definition provided
+expands slightly on the abstract requirements which is just for a
+<code>java.lang.String</code>. Since <code>java.lang.Object</code> is the base
+object type for all types in Java, including strings, the conformance requirements
+are already met.</p>
+
+<h2><a name="Dispose"></a>
+6.3.24 dispose</h2>
+
+<pre class="listing">void Browser.dispose()
+    throws InvalidOperationTimingException
+</pre>
+
+<p>Dispose shall notify the browser that the Java implementation is no
+longer interested in the X3D browser. Any further requests to methods
+of this instance of the browser interface shall generate
+an <code>InvalidBrowserException</code>.</p>
+
+
+<p>
+<img class="x3dbar" src="../Images/x3dbar.png" alt="--- X3D separator bar ---" width="430" height="23"></p>
+
+<h1><a name="ExecutionContextServices"></a>
+6.4 Execution context services</h1>
+
+<h2><a name="getSpecificationVersion"></a>
+6.4.1 getSpecificationVersion</h2>
+
+<pre class="listing">String X3DExecutionContext.getSpecificationVersion()
+    throws InvalidExecutionContextException,
+           InvalidOperationTimingException
+
+</pre>
+
+<p>The string shall represent the basic specification version used by the parsed
+file in decimal format. For example, a scene conforming to this specification
+will return the value "3.0".</p>
+
+<h2><a name="getEncoding"></a>
+6.4.2 getEncoding</h2>
+
+<pre class="listing">int X3DExecutionContext.getEncoding()
+    throws InvalidExecutionContextException,
+           InvalidOperationTimingException
+</pre>
+
+<p>The encoding constant is defined as a constant that is part of the X3DExecutionContext
+interface. The values for these are defined in <a href="#t-ConstantsForEncoding">Table 6.3</a>.</p>
+
+<div class="CenterDiv">
+
+<p class="TableCaption">
+<a name="t-ConstantsForEncoding"></a>
+Table 6.3 &mdash; Constants describing the encoding for current scene</p>
+
+<table>
+<caption>
+    <tbody><tr>
+      <th>Encoding</th>
+      <th>Java Constant</th>
+      <th>Value</th>
+      <th>Comment</th>
+    </tr>
+    <tr>
+      <td>NO_SCENE</td>
+      <td><code>static final int NO_SCENE</code></td>
+      <td>0</td>
+      <td>There is no scene defined. This value should never be seen directly.</td>
+    </tr>
+    <tr>
+      <td>SCRIPTED_ENCODING</td>
+      <td><code>static final int SCRIPTED_ENCODING<br> </code></td>
+      <td>1</td>
+      <td>The scene was created dynamically through scripting calls.</td>
+    </tr>
+    <tr>
+      <td>ASCII_ENCODING</td>
+      <td><code>static final int ASCII_ENCODING<br> </code></td>
+      <td>2</td>
+      <td>The scene described an original VRML 1.0 encoding.</td>
+   </tr>
+    <tr>
+      <td>CLASSIC_VRML_ENCODING</td>
+      <td><code>static final int CLASSIC_VRML_ENCODING</code></td>
+      <td>3</td>
+      <td>The scene is encoded using the Classic VRML encoding. The scene may be
+      VRML 97 or this specification.</td>
+    </tr>
+    <tr>
+      <td>XML_ENCODING</td>
+      <td><code>static final int XML_ENCODING<br> </code></td>
+      <td valign="middle" align="center">4</td>
+      <td>The scene was encoding using the XML file format.</td>
+    </tr>
+    <tr>
+      <td>BINARY_ENCODING</td>
+      <td><code>static final int BINARY_ENCODING<br> </code></td>
+      <td valign="middle" align="center">5</td>
+      <td>The scene was encoded using the binary format specified in ISO/IEC
+      19776-3.&nbsp; It shall
+be an error to use this value to describe a browser-specific proprietary
+binary format.</td>
+    </tr>
+    <tr>
+      <td>BIFS_ENCODING</td>
+      <td><code>static final int BIFS_ENCODING<br> </code></td>
+      <td valign="middle" align="center">6</td>
+      <td>The scene was encoded using the MPEG4 BIFS encoding.</td>
+    </tr>
+    <tr>
+      <td>LAST_STD_ENCODING</td>
+      <td><code>static final int LAST_STD_ENCODING<br> </code></td>
+      <td valign="middle" align="center">100</td>
+      <td>A definition of the last constant used by the standard
+encodings. A browser is permitted to allow other, proprietary encoding mechanisms,
+and therefore any constant used to describe that shall use a value greater
+than this number. Code using these values shall not expect to be transportable across multiple browser implementations.</td>
+    </tr>
+</tbody>
+</table>
+</div>
+
+<h2><a name="ExecutionContextGetProfile"></a>6.4.3 getProfile</h2>
+
+<pre class="listing">ProfileInfo X3DExecutionContext.getProfile()
+    throws InvalidExecutionContextException,
+           InvalidOperationTimingException
+</pre>
+
+<p>The profile declaration as defined for this scene is returned.</p>
+
+<h2><a name="getComponents"></a>
+6.4.4 getComponents</h2>
+
+<pre class="listing">ComponentInfo[] X3DExecutionContext.getComponents()
+    throws InvalidExecutionContextException,
+           InvalidOperationTimingException
+</pre>
+
+<p>A listing of the explicit components declared in this scene is returned. If the
+scene does not have any extra components declared,
+this function shall return <code>null</code>.</p>
+
+<h2><a name="getWorldURL"></a>
+6.4.5 getWorldURL</h2>
+
+<pre class="listing">String X3DExecutionContext.getWorldURL()
+    throws InvalidExecutionContextException,
+           InvalidOperationTimingException
+</pre>
+
+<p>The URL used to specify the current scene is returned. The world URL shall be a string indicating the complete world URL as
+defined in 6.4.5, getWorldURL of ISO/IEC 19775-2 (see
+<a href="references.html#[I19775]">2.[I19775]</a>).</p>
+
+<h2><a name="getNode"></a>
+6.4.6 getNode</h2>
+
+<pre class="listing">X3DNode X3DExecutionContext.getNamedNode(String)
+    throws InvalidExecutionContextException,
+           InvalidOperationTimingException,
+           NodeNotAvailableException,
+           InvalidNameException
+
+X3DNode X3DExecutionContext.getImportedNode(String)
+    throws InvalidExecutionContextException,
+           InvalidOperationTimingException,
+           NodeNotAvailableException,
+           InvalidNameException
+</pre>
+
+<p>The return value is a Node reference. The parameter is a String defining
+the DEF name of the required node. If the browser cannot find the node
+name, an <code>InvalidNodeException</code> shall be generated.</p>
+
+<h2><a name="createNode"></a>
+6.4.7 createNode</h2>
+
+<pre class="listing">X3DNode X3DExecutionContext.createNode(String)
+    throws InvalidExecutionContextException,
+           InvalidOperationTimingException,
+           InvalidNameException
+</pre>
+
+<p>The return value is a X3DNode reference
+if it is part of the currently set profile.
+If the node is not available in the current profile and components, the browser shall generate
+<code>InvalidNameException</code>.</p>
+
+<h2><a name="createProto"></a>6.4.8 createProto</h2>
+
+<pre class="listing">X3DProtoInstance X3DExecutionContext.createProto(String)
+    throws InvalidExecutionContextException,
+           InvalidOperationTimingException,
+           InvalidNameException
+</pre>
+
+<p>The return value is a proto instance reference
+if it  can be found using the
+name spacing rule for protos. If the proto name
+cannot be found, the browser
+shall generate <code>InvalidNameException</code>.</p>
+
+<h2><a name="NamedNodeHandling"></a>
+6.4.9 namedNodeHandling</h2>
+
+<pre class="listing">void X3DExecutionContext.updateNamedNode(String, X3DNode)
+    throws InvalidExecutionContextException,
+           InvalidOperationTimingException,
+           InvalidNameException,
+           ImportedNodeException
+
+void X3DExecutionContext.updateImportedNode(String, String, X3DNode)
+    throws InvalidExecutionContextException,
+           InvalidOperationTimingException,
+           InvalidNameException,
+           ImportedNodeException
+
+
+void X3DExecutionContext.removeNamedNode(String)
+    throws InvalidExecutionContextException,
+           InvalidOperationTimingException,
+           InvalidNameException
+
+void X3DExecutionContext.removeImportedNode(String)
+    throws InvalidExecutionContextException,
+           InvalidOperationTimingException,
+           InvalidNameException
+</pre>
+
+<p>Separate method signatures are defined for each of the operation
+types. This allows for strong type safety.</p>
+
+<h2><a name="getProtoDeclaration"></a>
+6.4.10 getProtoDeclaration</h2>
+
+<pre class="listing">X3DProtoDeclaration X3DExecutionContext.getProtoDeclaration(String)
+    throws InvalidExecutionContextException,
+           InvalidOperationTimingException,
+           InvalidNameException
+</pre>
+
+<h2><a name="ProtoDeclarationHandling"></a>
+6.4.11 protoDeclarationHandling</h2>
+
+<pre class="listing">void X3DExecutionContext.updateProtoDeclaration(String, X3DProtoDeclaration)
+    throws InvalidExecutionContextException,
+           InvalidOperationTimingException,
+           InvalidNameException
+
+void X3DExecutionContext.removeProtoDeclaration(String)
+    throws InvalidExecutionContextException,
+           InvalidOperationTimingException,
+           InvalidNameException
+</pre>
+
+<h2><a name="getExternProtoDeclaration"></a>
+6.4.12 getExternprotoDeclaration</h2>
+
+<pre class="listing">X3DExternProtoDeclaration X3DExecutionContext.getExternProtoDeclaration(String)
+    throws InvalidExecutionContextException,
+           InvalidOperationTimingException,
+           InvalidNameException,
+           URLUnavailableException
+</pre>
+
+<h2><a name="ExternProtoDeclarationHandling"></a>
+6.4.13 externprotoDeclarationHandling</h2>
+
+<pre class="listing">void X3DExecutionContext.updateExternProtoDeclaration(String, X3DExternProtoDeclaration)
+    throws InvalidExecutionContextException,
+           InvalidOperationTimingException
+
+void X3DExecutionContext.removeExternProtoDeclaration(String)
+    throws InvalidExecutionContextException,
+           InvalidOperationTimingException
+</pre>
+
+<h2><a name="getRootNodes"></a>
+6.4.14 getRootNodes</h2>
+
+<pre class="listing">X3DNode[] X3DExecutionContext.getRootNodes()
+    throws InvalidExecutionContextException,
+           InvalidOperationTimingException
+</pre>
+
+<p>Get a listing of the root nodes in the current execution context. If
+this context is a proto, then this will list all of the top-level nodes of
+the proto. The order shall be maintained as declared in the source encoding.
+If there are no root level nodes, this shall return <code>null</code>.</p>
+
+<h2><a name="getRoutes"></a>
+6.4.15 getRoutes</h2>
+
+<pre class="listing">X3DRoute[] X3DExecutionContext.getRoutes()
+    throws InvalidExecutionContextException,
+           InvalidOperationTimingException
+</pre>
+
+<p>Show the list of routes currently available in the execution context.
+If there are no routes the method shall return <code>null</code>.</p>
+
+<h2><a name="DynamicRouteHandling"></a>
+6.4.16 dynamicRouteHandling</h2>
+
+<pre class="listing">X3DRoute X3DExecutionContext.addRoute(X3DNode, String, X3DNode, String)
+    throws InvalidExecutionContextException,
+           InvalidOperationTimingException,
+           InvalidNodeException,
+           InvalidFieldException
+
+void X3DExecutionContext.deleteRoute(X3DRoute)
+    throws InvalidExecutionContextException,
+           InvalidOperationTimingException
+</pre>
+
+<p>This service is split into two separate methods: addRoute and deleteRoute.
+They both take the same argument list. The first parameter is a Node reference
+that the event will leave from. The second is a String describing the name
+of the output-capable field. Third and forth parameters are the destination node reference
+and the input-capable field as a String. If either of the Node references have been
+disposed of, an <code>InvalidNodeException</code> shall be generated. If either of the
+nodes do not contain the nominated input-capable / output-capable fields,
+an <code>InvalidWritableFieldException</code> / <code>InvalidReadableFieldException</code>
+shall be generated appropriately.</p>
+
+
+<p>
+<img class="x3dbar" src="../Images/x3dbar.png" alt="--- X3D separator bar ---" width="430" height="23"></p>
+
+<h1><a name="SceneServices"></a>
+6.5 Scene services</h1>
+
+<h2><a name="SceneGeneralConcepts"></a>
+6.5.1 General concepts</h2>
+
+<p>Scene services are implemented by the <code>X3DScene</code> interface,
+which extends from the <code>X3DExecutionContext</code> interface.
+The additional methods required by the extra services are described below.</p>
+
+<h2><a name="getMetaData"></a>
+6.5.2 getMetadata</h2>
+
+<pre class="listing">String X3DScene.getMetaData(String)
+    throws InvalidExecutionContextException,
+           InvalidOperationTimingException
+</pre>
+
+<p>The string describes a metadata key and
+the return value shall be the metadata value
+previously set. If no metadata value is set,
+the return value is <code>null</code>.</p>
+
+<h2><a name="setMetaData"></a>
+6.5.3 setMetadata</h2>
+
+<pre class="listing">void X3DScene.setMetaData(String, String)
+    throws InvalidExecutionContextException,
+           InvalidOperationTimingException
+</pre>
+
+<p>The metadata value specified by the metadata key is set or changed to the new
+metadata value. The first parameter is
+the metadata key and the second parameter is the metadata value to use. If the
+metadata value is null,
+it shall be treated as deleting any currently set item of metadata for that
+metadata key.</p>
+
+<h2><a name="SceneGetNode"></a>
+6.5.4 getNode</h2>
+
+<pre class="listing">X3DNode X3DScene.getExportedNode(String)
+    throws InvalidExecutionContext
+           InvalidOperationTimingException,
+           NodeNotAvailableException,
+           InvalidNameException
+</pre>
+
+<p>The return value is a Node reference. The parameter is a String defining
+the DEF name of the required node. If the browser cannot find the node
+name, an <code>InvalidNodeException</code> shall be generated.</p>
+
+<h2><a name="SceneNamedNodeHandling"></a>
+6.5.5 namedNodeHandling</h2>
+
+<pre class="listing">void X3DScene.updateExportedNode(String, String)
+    throws InvalidExecutionContextException,
+           InvalidOperationTimingException,
+           InvalidNameException
+
+void X3DScene.removeExportedNode(String)
+    throws InvalidExecutionContextException,
+           InvalidOperationTimingException,
+           InvalidNameException
+</pre>
+
+<h2><a name="SceneRootNodeHandling"></a>
+6.5.6 rootNodeHandling</h2>
+
+<pre class="listing">void X3DScene.addRootNode(X3DNode)
+    throws InvalidExecutionContextException,
+           InvalidOperationTimingException,
+           NodeInUseException,
+           InsufficientCapabilitiesException
+
+void X3DScene.removeRootNode(X3DNode)
+    throws InvalidExecutionContextException,
+           InvalidOperationTimingException
+</pre>
+<p>
+<img class="x3dbar" src="../Images/x3dbar.png" alt="--- X3D separator bar ---" width="430" height="23"></p>
+
+<h1><a name="NodeServices"></a>
+6.6 Node services</h1>
+
+<h2><a name="NodeRepresentation"></a>
+6.6.1 Node representation</h2>
+
+<p>Node services
+are implemented as the class <code>X3DNode</code>.
+This is a base interface to represent any node in the system. Additional
+interfaces that extend the base <code>X3DNode</code> interface are defined as part of
+this specification and shall be supported. The additional interfaces represent
+each of the abstract node types as defined in ISO/IEC 19775-1 (see
+<a href="references.html#[I19775]">2.[I19775]</a>).
+An additional capability that a browser may support is to provide interfaces that represent
+the individual node types. If a browser supports this capability, it shall
+return TRUE for the browser property CONCRETE_NODES
+(see <a href="#getBrowserProperties">6.3.24 getBrowserProperties</a>).</p>
+
+<h2><a name="NodeGetTypeName"></a>6.6.2 getTypeName</h2>
+
+<pre class="listing">String X3DNode.getNodeName()
+    throws InvalidNodeException
+</pre>
+
+<p>The getTypeName
+service is implemented through the getNodeName method. For a built-in node
+the method shall return the node's specified type name. For an instance of a PROTO,
+the method shall return the name of the PROTO.</p>
+
+<h2><a name="NodeGetType"></a>
+6.6.3 getType</h2>
+
+<pre class="listing">int[] X3DNode.getType()
+    throws InvalidNodeException
+</pre>
+
+<p>The getType service is implemented as
+the method <code>getType()</code>.
+The method shall return an array of int values that represent all of the
+base node types of which the node is composed. For example, a Group node would
+return an array of length two, with the two values
+<code>X3DGroupingNode</code> and <code>X3DBoundedObject</code>. The definition
+of the int values shall be found in the <code>X3DNodeTypes</code> interface as
+constants. The constants that shall be defined in the <code>X3DNodeTypes</code>
+interface is defined in <a href="#t-NodeTypeConstantValue">Table 6.4</a>.</p>
+
+<div class="CenterDiv">
+
+<p class="TableCaption">
+<a name="t-NodeTypeConstantValue"></a>
+Table 6.4 &mdash; Node type constant value definitions</p>
+
+<table class="main">
+  <tbody>
+    <tr>
+      <th>Abstract Node Type</th>
+      <th>Java Constant</th>
+      <th>Value</th>
+    </tr>
+    <tr>
+      <td>X3DBoundedObject</td>
+      <td><code>static final int X3DBoundedObject</code></td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <td>X3DMetadataObject</td>
+      <td><code>static final int X3DMetadataObject</code></td>
+      <td>2</td>
+    </tr>
+    <tr>
+      <td>X3DUrlObject</td>
+      <td><code>static final int X3DUrlObject</code></td>
+      <td>3</td>
+    </tr>
+    <tr>
+      <td>X3DAppearanceNode</td>
+      <td><code>static final int X3DAppearanceNode</code></td>
+      <td>10</td>
+    </tr>
+    <tr>
+      <td>X3DAppearanceChildNode</td>
+      <td><code>static final int X3DAppearanceChildNode</code></td>
+      <td>11</td>
+    </tr>
+    <tr>
+      <td>X3DMaterialNode</td>
+      <td><code>static final int X3DMaterialNode</code></td>
+      <td>12</td>
+    </tr>
+    <tr>
+      <td>X3DTextureNode</td>
+      <td><code>static final int X3DTextureNode</code></td>
+      <td>13</td>
+    </tr>
+    <tr>
+      <td>X3DTexture2DNode</td>
+      <td><code>static final int X3DTexture2DNode</code></td>
+      <td>14</td>
+    </tr>
+    <tr>
+      <td>X3DTextureTransformNode</td>
+      <td><code>static final int X3DTextureTransformNode</code></td>
+      <td>16</td>
+    </tr>
+    <tr>
+      <td>X3DTextureTransform2DNode</td>
+      <td><code>static final int X3DTextureTransform2DNode</code></td>
+      <td>17</td>
+    </tr>
+    <tr>
+      <td>X3DGeometryNode</td>
+      <td><code>static final int X3DGeometryNode</code></td>
+      <td>18</td>
+    </tr>
+    <tr>
+      <td>X3DGeometricPropertyNode</td>
+      <td><code>static final int X3DGeometricPropertyNode</code></td>
+      <td>19</td>
+    </tr>
+    <tr>
+      <td>X3DParametricGeometryNode</td>
+      <td><code>static final int X3DParametricGeometryNode</code></td>
+      <td>20</td>
+    </tr>
+    <tr>
+      <td>X3DNurbsSurfaceGeometryNode</td>
+      <td><code>static final int X3DNurbsSurfaceGeometryNode</code></td>
+      <td>21</td>
+    </tr>
+    <tr>
+      <td>X3DColorNode</td>
+      <td><code>static final int X3DColorNode</code></td>
+      <td>22</td>
+    </tr>
+    <tr>
+      <td>X3DCoordinateNode</td>
+      <td><code>static final int X3DCoordinateNode</code></td>
+      <td>23</td>
+    </tr>
+    <tr>
+      <td>X3DNormalNode</td>
+      <td><code>static final int X3DNormalNode</code></td>
+      <td>24</td>
+    </tr>
+    <tr>
+      <td>X3DTextureCoordinateNode</td>
+      <td><code>static final int X3DTextureCoordinateNode</code></td>
+      <td>25</td>
+    </tr>
+    <tr>
+      <td>X3DFontStyleNode</td>
+      <td><code>static final int X3DFontStyleNode</code></td>
+      <td>26</td>
+    </tr>
+    <tr>
+      <td>X3DProtoInstance</td>
+      <td><code>static final int X3DProtoInstance</code></td>
+      <td>27</td>
+    </tr>
+    <tr>
+      <td>X3DChildNode</td>
+      <td><code>static final int X3DChildNode</code></td>
+      <td>28</td>
+    </tr>
+    <tr>
+      <td>X3DBindableNode</td>
+      <td><code>static final int X3DBindableNode</code></td>
+      <td>29</td>
+    </tr>
+    <tr>
+      <td>X3DBackgroundNode</td>
+      <td><code>static final int X3DBackgroundNode</code></td>
+      <td>30</td>
+    </tr>
+    <tr>
+      <td>X3DGroupingNode</td>
+      <td><code>static final int X3DGroupingNode</code></td>
+      <td>31</td>
+    </tr>
+    <tr>
+      <td>X3DShapeNode</td>
+      <td><code>static final int X3DShapeNode</code></td>
+      <td>32</td>
+    </tr>
+    <tr>
+      <td>X3DInterpolatorNode</td>
+      <td><code>static final int X3DInterpolatorNode</code></td>
+      <td>33</td>
+    </tr>
+    <tr>
+      <td>X3DLightNode</td>
+      <td><code>static final int X3DLightNode</code></td>
+      <td>34</td>
+    </tr>
+    <tr>
+      <td>X3DScriptNode</td>
+      <td><code>static final int X3DScriptNode</code></td>
+      <td>35</td>
+    </tr>
+    <tr>
+      <td>X3DSensorNode</td>
+      <td><code>static final int X3DSensorNode</code></td>
+      <td>36</td>
+    </tr>
+    <tr>
+      <td>X3DEnvironmentalSensorNode</td>
+      <td><code>static final int X3DEnvironmentalSensorNode</code></td>
+      <td>37</td>
+    </tr>
+    <tr>
+      <td>X3DKeyDeviceSensorNode</td>
+      <td><code>static final int X3DKeyDeviceSensorNode</code></td>
+      <td>38</td>
+    </tr>
+    <tr>
+      <td>X3DNetworkSensorNode</td>
+      <td><code>static final int X3DNetworkSensorNode</code></td>
+      <td>39</td>
+    </tr>
+    <tr>
+      <td>X3DPointingDeviceSensorNode</td>
+      <td><code>static final int X3DPointingDeviceSensorNode</code></td>
+      <td>40</td>
+    </tr>
+    <tr>
+      <td>X3DDragSensorNode</td>
+      <td><code>static final int X3DDragSensorNode</code></td>
+      <td>41</td>
+    </tr>
+    <tr>
+      <td>X3DTouchSensorNode</td>
+      <td><code>static final int X3DTouchSensorNode</code></td>
+      <td>42</td>
+    </tr>
+    <tr>
+      <td>X3DSequencerNode</td>
+      <td><code>static final int X3DSequencerNode</code></td>
+      <td>43</td>
+    </tr>
+    <tr>
+      <td>X3DTimeDependentNode</td>
+      <td><code>static final int X3DTimeDependentNode</code></td>
+      <td>44</td>
+    </tr>
+    <tr>
+      <td>X3DSoundSourceNode</td>
+      <td><code>static final int X3DSoundSourceNode</code></td>
+      <td>45</td>
+    </tr>
+    <tr>
+      <td>X3DTriggerNode</td>
+      <td><code>static final int X3DTriggerNode</code></td>
+      <td>46</td>
+    </tr>
+    <tr>
+      <td>X3DInfoNode</td>
+      <td><code>static final int X3DInfoNode</code></td>
+      <td>47</td>
+    </tr>
+    <tr>
+      <td>X3DNurbsControlCurveNode</td>
+      <td><code>static final int X3DNurbsControlCurveNode</code></td>
+      <td>48</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+<p>Nodes types defined as standard extension types, but not formalized as
+part of this specification shall start with constant value of 100. Types
+that are browser-specific extensions to this interface shall have a starting
+constant value offset of 1000.</p>
+
+<p>If this node instance represents a prototype instance, this method shall
+return an array of length one with the value <code>X3DProtoInstance</code>
+as the value. The implementation node type shall be made available through
+the <code>X3DProtoInstance.getImplementationType()</code> method.</p>
+
+<h2><a name="getField"></a>
+6.6.4 getField</h2>
+
+<pre class="listing">X3DField X3DNode.getField(String)
+    throws InvalidNodeException,
+           InvalidOperationTimingException,
+           InvalidFieldException
+</pre>
+
+<p>The getField service is implemented as the method <code>getField(String)</code>,<code> </code>which allows access to all field types. The normal field
+name or with the <i>set_</i> or <i>_changed </i>modifier
+may be used to describe the writable and readable fields respectively or
+either form may be used to access a readable and writable field.</p>
+
+<h2><a name="getFieldDefinitions"></a>
+6.6.5 getFieldDefinitions</h2>
+
+<pre class="listing">X3DFieldDefinition[] X3DNode.getFieldDefinitions()
+    throws InvalidNodeException,
+           InvalidOperationTimingException,
+</pre>
+
+<p>Fetch a list of all field defintions of a node. Nodes that do not contain any
+fields (for example a blank PROTO) shall return <code>null</code>.</p>
+
+<h2><a name="NodeDispose"></a>
+6.6.6 dispose</h2>
+
+<pre class="listing">void X3DNode.dispose()
+    throws InvalidOperationTimingException
+</pre>
+
+<p>Dispose shall notify the browser that the Java implementation is no
+longer interested in this node instance and it is free to do as required
+with the node representation. Any further requests to methods of this instance
+of the node reference shall generate an InvalidNodeException. If two separate
+instances of the same class represent the same node (as defined by the
+<code>equals()</code> method returning <code>true</code>) and one has dispose called,
+this shall not effect the other instance.</p>
+
+
+<p>
+<img class="x3dbar" src="../Images/x3dbar.png" alt="--- X3D separator bar ---" width="430" height="23"></p>
+
+<h2><a name="FieldServices"></a>6.7 Field services</h2>
+
+<h2><a name="FieldRepresentation"></a>
+6.7.1 Field representation</h2>
+
+<p>The Java implementation of the field services does not directly follow
+the model outlined in 6.7, Field Services of ISO/IEC 19775-2 (see
+<a href="references.html#[I19775]">2.[I19775]</a>).
+Instead, it makes heavy use of the object-oriented nature of Java to provide
+directly the capabilities suggested by the services specified. All the
+services are implemented in the classes provided in the <code>org.web3d.x3d.sai</code>
+package.</p>
+
+<p>The basic field is defined by the interface <code>X3DField</code>. A derived
+interface of this, <code>MField</code> is used to represent the sub set of
+all field types that represent multiple-values. From these base interfaces, there
+shall be derived interfaces for each of the appropriate field types.</p>
+
+<p>The following outlines how the Java binding conforms to the requirements
+of the SAI.</p>
+
+<h2><a name="getAccessType"></a>
+6.7.2 getAccessType</h2>
+
+<p>getAccessType is represented by two
+methods of the <code>X3DField</code> interface.</p>
+
+<pre class="listing">boolean X3DField.isWritable()
+    throws InvalidOperationTimingException,
+           InvalidFieldException
+
+boolean X3DField.isReadable()
+    throws InvalidOperationTimingException,
+           InvalidFieldException
+</pre>
+
+<p>These methods describe whether the field is readable or writable at the time
+the method is called. The values that the methods return may change over
+time as the lifecycle of the node changes and can be determined from <i>Table 4.2 &mdash;
+Permitted field access capabilities</i> during the node lifecycle of ISO/IEC 19775-2
+(see <a href="references.html#[I19775]">2.[I19775]</a>).<p>
+
+<h2><a name="getType"></a>
+6.7.3 getType</h2>
+
+<pre class="listing">int X3DFieldDefintion.getType()
+    throws InvalidFieldException
+</pre>
+
+<p>The type of an <code>X3DField</code>
+is determined by the field definition class <code>X3DFieldDefinition</code>
+and it's method <code>getType()</code>. The <code>getType()</code> method
+returns an identifier of the type of field that the instance of the interface
+represents. The list of legal type identifiers is included as public final
+variables in the interface <code>X3DFieldTypes</code>. The return value of
+the <code>getType()</code> method
+shall be one of these values.</p>
+
+<h2><a name="FieldGetName"></a>
+6.7.4 getName</h2>
+
+<pre class="listing">String X3DFieldDefintion.getName()
+    throws InvalidFieldException
+</pre>
+
+<p>The getName service is
+supported through the <code>getName()</code> method on the X3DFieldDefinition
+that accompanies the given field.</p>
+
+<h2><a name="getValue"></a>
+6.7.5 getValue</h2>
+
+<pre class="listing"><i>type</i> X3DField.getValue()
+    throws InvalidOperationTimingException,
+           InvalidReadableFieldException,
+           InvalidFieldException
+
+void X3DField.getValue(<i>type</i>)
+    throws InvalidOperationTimingException,
+           InvalidReadableFieldException,
+           InvalidFieldException
+
+int MField.getSize()
+    throws InvalidOperationTimingException,
+           InvalidReadableFieldException,
+           InvalidFieldException
+</pre>
+
+<p>The <code> getValue()</code> method returns values in a format appropriate
+to the individual  field type. For single valued field types, the return
+value of the method is used to pass values to user code. If the method returns
+an array of value. The implementation may reuse return value references between
+calls to the methods. User code should not expect to have consistent data
+values if it holds an array value.</p>
+
+<p>For multi-valued fields derived from the base interface MField, the getSize()
+method provides a number which is the number of elements currently set in
+that field. An element is the equivalent single value type. For example:</p>
+
+<pre class="listing">field MFFloat [ 0.5 0.2 14]
+</pre>
+
+<p>would return a size of three, where</p>
+
+<pre class="listing">field MFVec3f [ 0.5 0.2 14]
+</pre>
+
+<p>would return a size of one. The corresponding getValue() field defines
+void as the return type. The parameter takes a user provided array of the
+appropriate data type (see <a href="types.html#t-MappingOfX3DDataTypesToJava">Table 5.4 &mdash; Mapping of X3D data types to Java primitive data types</a>)
+into which the values shall be copied. If the array is not of sufficient length
+to contain all the field values, the browser implementation shall copy as
+many values in as possible, starting from the zero<sup>th</sup> element of the underlying
+field value.</p>
+
+<p>A <code>get1Value()</code> method is
+provided for all multi-valued fields. This allows access to a single value out of the
+many values. When an attempt is made to access a value at an index greater
+than the number of items in that field, a <code>java.lang.ArrayIndexOutOfBoundsException</code>
+shall be generated. The following example shows signature of this method for setting
+an MFInt32 field:</p>
+
+<pre class="listing">void MFInt32.set1Value(int index, int value)
+    throws InvalidOperationTimingException,
+           InvalidFieldValueException,
+           InvalidWritableFieldException,
+           InvalidFieldException,
+		   ArrayIndexOutOfBoundsException
+</pre>
+
+<p>The SFImage/MFImage field types shall define an additional behaviour. The getValue
+service will be supplemented by the <code>getImage()</code> method. This shall
+return an instance of <code>java.awt.image.WritableRenderedImage</code>.
+Typically, the concrete class will be an instance of
+<code>java.awt.image.BufferedImage</code>, but this shall not be required.
+User code may make use of the <code>instanceof</code>
+operator to check for this. Drawing to this image shall have no effect on
+the visual output or the value of the field, until the corresponding
+<code>setImage()</code> method is called. (See B.4.18 MFImage for more details)</p>
+
+<h2><a name="setValue"></a>
+6.7.6 setValue</h2>
+
+<pre class="listing">void X3DField.setValue(<i>type</i>)
+    throws InvalidOperationTimingException,
+           InvalidFieldValueException,
+           InvalidWritableFieldException,
+           InvalidFieldException,
+           ImportedNodeException
+</pre>
+
+<p>A <code>set1Value()</code> method is
+provided for MFields. This allows the ability to change a single value
+of a field without having to re-create the entire array of values. When
+an attempt is made to set a value at an index greater than the number of
+items in that field, a <code>java.lang.ArrayIndexOutOfBoundsException</code>
+shall be generated.</p>
+
+<p>To append a value to a value to an exising multi-valued field, an
+<code>append()</code> method shall be defined. This shall place the new value
+on the end of the existing array and increase the size by one.</p>
+
+<p>To insert a value into a given position of an existing multi-valued field,
+an <code>insertValue()</code> method shall be defined. This
+method shall take the index of the value to be inserted and the value. All
+items from the index to the end of the array shall be moved up one index
+value and the new value copied into the now vacant index position. The size
+shall be increased by one. When
+an attempt is made to set a value at an index greater than the number of
+items in that field, a <code>java.lang.ArrayIndexOutOfBoundsException</code>
+shall be generated.</p>
+
+<p>To completely clear a field, a <code>clear()</code> method shall be defined.
+When this is called, all values set in the field shall be removed and the
+size is set to zero.</p>
+
+<p>To remove an individual value from a field, a <code>remove()</code> method
+shall be defined. This shall take the index of the item to be removed. The
+return value shall be null. All items above the given index shall move down
+one position in the underlying representation.</p>
+
+<p>The SFImage/MFImage field types shall define an additional behaviour. The
+setValue service will be supplemented by <code>setImage()</code> methods.
+These shall have the following signature:</p>
+
+<pre class="listing">void SFImage.setImage(java.awt.image.RenderedImage)
+    throws InvalidOperationTimingException,
+           InvalidFieldValueException,
+           InvalidWritableFieldException,
+           InvalidFieldException
+
+void SFImage.setSubImage(java.awt.image.RenderedImage, int, int, int, int, int, int)
+    throws InvalidOperationTimingException,
+           InvalidFieldValueException,
+           InvalidWritableFieldException,
+           InvalidFieldException
+</pre>
+
+<p>The former replaces the entire image with the new image. There shall be
+no restrictions and shall be treated the same as the integer-based SFImage.
+The second form copies the image as a sub-image region to replace a portion
+of the current image. The integer parameters, in order, are: source image
+width, source image height, source image x location offset, source image
+y location offset, destination image x location offset and destination y
+location offset. The sub image set shall not resize the base image representation
+and therefore performs an intersection clip of the provided image. The user
+provided image shall be of the same format (pixel depth, pixel representation)
+as the original image obtained through the <code>getImage()</code> method.</p>
+
+<h2><a name="RegisterFieldInterest"></a>
+6.7.7 registerFieldInterest</h2>
+
+<pre class="listing">void X3DField.addFieldEventListener(X3DFieldEventListener)
+    throws InvalidOperationTimingException,
+           InvalidFieldException
+
+void X3DField.removeFieldEventListener(X3DFieldEventListener)
+    throws InvalidOperationTimingException,
+           InvalidFieldException
+</pre>
+
+<p>This specification only requires that there shall be listeners available
+for readable fields. Browser implementations may also permit adding listeners
+to writable fields. It shall be an error to register a listener with initialize-only
+fields.</p>
+
+<p>The signature of the X3DFieldEventListener shall be:</p>
+
+<pre class="listing">public interface X3DFieldEventListener extends java.util.EventListener
+void X3DFieldEventListener.readableFieldChanged(X3DFieldEvent evt)
+</pre>
+
+<p>The signature of the X3DFieldEvent object shall be:</p>
+
+<pre class="listing">public class X3DFieldEvent extends java.util.EventObject
+public double X3DFieldEvent.getTime()
+public Object X3DFieldEvent.getData()
+</pre>
+
+<p>The field that caused the listener to trigger shall be made available
+through the getSource() method of the<code> java.util.EventObject</code>
+base class.</p>
+
+<h2><a name="FieldDispose"></a>
+6.7.8 dispose</h2>
+
+<pre class="listing">void X3DField.dispose()
+    throws InvalidOperationTimingException
+</pre>
+
+
+<p>
+<img class="x3dbar" src="../Images/x3dbar.png" alt="--- X3D separator bar ---" width="430" height="23"></p>
+
+<h1><a name="RouteServices"></a>
+6.8 Route services</h1>
+
+<h2><a name="RouteRepresentation"></a>
+6.8.1 Route representation</h2>
+<p>Route services are implemented as the interface <code>X3DRoute</code>. 
+This interface has four methods as defined in the remainder of this subclause.</p>
+
+<h2><a name="getSourceNode"></a>
+6.8.2 getSourceNode</h2>
+
+<pre class="listing">X3DNode X3DRoute.getSourceNode()
+    throws InvalidOperationTimingException,
+           InvalidRouteException
+</pre>
+
+<p>The node representation that is used at the source of the ROUTE is returned.</p>
+
+<h2><a name="getSourceField"></a>
+6.8.3 getSourceField</h2>
+
+<pre class="listing">String X3DRoute.getSourceField()
+    throws InvalidOperationTimingException,
+           InvalidRouteException
+</pre>
+
+<p>The name of the source field in the source node is returned.<p>
+
+<h2><a name="getDestinationNode"></a>
+6.8.4 getDestinationNode</h2>
+
+<pre class="listing">X3DNode X3DRoute.getDestinationNode()
+    throws InvalidOperationTimingException,
+           InvalidRouteException
+</pre>
+
+<p>The node representation that is used at the source of the ROUTE is returned.</p>
+
+<h2><a name="getDestinationField"></a>
+6.8.5 getDestinationField</h2>
+
+<pre class="listing">String X3DRoute.getDestinationField()
+    throws InvalidOperationTimingException,
+           InvalidRouteException
+</pre>
+
+<p>The name of the destination field in the node is returned.</p>
+
+<h2><a name="RouteDispose"></a>
+6.8.6 dispose</h2>
+
+<pre class="listing">void X3Route.dispose()
+    throws InvalidOperationTimingException
+</pre>
+
+
+<p>
+<img class="x3dbar" src="../Images/x3dbar.png" alt="--- X3D separator bar ---" width="430" height="23"></p>
+
+<h1><a name="PrototypeServices"></a>
+6.9 Prototype services</h1>
+
+<h2><a name="isExternProto"></a>
+6.9.1 isExternproto</h2>
+
+<pre class="listing">X3DProtoDeclaration
+X3DExternProtoDeclaration
+</pre>
+
+<p>Protos are represented by the specific class for the capability. This service
+request is implemented by  using  the derived class types and the
+Java <code>instanceof</code> operator.</p>
+
+<h2><a name="createInstance"></a>
+6.9.2 createInstance</h2>
+
+<pre class="listing">X3DProtoInstance X3DProtoDeclaration.createInstance()
+    throws InvalidOperationTimingException,
+           InvalidProtoException
+
+X3DProtoInstance X3DExternProtoDeclaration.createInstance()
+    throws InvalidOperationTimingException,
+           InvalidRouteException,
+           InvalidNodeException
+</pre>
+
+<p>Both interfaces have a createInstance() method that instantiates a new
+prototype instance. If the EXTERNPROTO instance has not yet been fetched,
+the implementation shall throw <code>InvalidNodeException</code>.</p>
+
+<h2><a name="ProtoGetFieldDefinitions"></a>
+6.9.3 getFieldDefinitions</h2>
+
+<pre class="listing">X3DFieldDefinition[] X3DProtoDeclaration.getFieldDefinitions()
+    throws InvalidOperationTimingException,
+           InvalidProtoException
+
+X3DFieldDefinition[] X3DExternProtoDeclaration.getFieldDefinitions()
+    throws InvalidOperationTimingException,
+           InvalidProtoException
+</pre>
+
+<h2><a name="checkLoadState"></a>
+6.9.4 checkLoadState</h2>
+
+<pre class="listing">int X3DExternProtoDeclaration.getLoadState()
+    throws InvalidOperationTimingException,
+           InvalidProtoException
+</pre>
+
+<p>The values returned by this method are defined in
+<a href="types.html#t-LoadStateTypeValueDefintions">Table 5.5 &mdash; Load state type value defintions</a>.</p>
+
+<h2><a name="RequestImmediateLoad"></a>
+6.9.5 requestImmediateLoad</h2>
+
+<pre class="listing">void X3DExternProtoDeclaration.loadNow()
+    throws InvalidOperationTimingException,
+           InvalidProtoException
+</pre>
+
+<h2><a name="ProtoDispose"></a>
+6.9.6 dispose</h2>
+
+<pre class="listing">void X3DProtoDeclaration.dispose()
+    throws InvalidOperationTimingException
+
+void X3DExternProtoDeclaration.dispose()
+    throws InvalidOperationTimingException
+</pre>
+
+
+<p>
+<img class="x3dbar" src="../Images/x3dbar.png" alt="--- X3D separator bar ---" width="430" height="23"></p>
+
+<h1><a name="ScriptContentServices"></a>6.10 Script content services</h1>
+
+<h2><a name="ImplementationMarkerInterface"></a>
+6.10.1 implementationMarkerInterface</h2>
+
+<p>Java code that is to run as a script is marked by implementing the
+<code>X3DScriptImplementation</code> interface.</p>
+
+<pre class="listing">void X3DScriptImplementation.setBrowser(Browser browser)
+void X3DScriptImplementation.setFields(X3DScriptNode externalView, java.util.Map fields)
+void X3DScriptImplementation.initialize()
+void X3DScriptImplementation.eventsProcessed()
+void X3DScriptImplementation.shutdown()
+</pre>
+
+<h2><a name="PrepareEventsNotification"></a>
+6.10.2 prepareEvents notification</h2>
+
+<p>For efficiency reasons, a derived interface is defined for scripts that wish
+to know about pre-&quot;event cascade&quot; processing. &nbsp;The derived interface shall
+be named <code>X3DPerFrameObserverScript</code> and extends
+<code>X3DScriptImplementation</code>. The additional method signature shall be:</p>
+
+<pre class="listing">void X3DPerFrameObserverScript.prepareEvents()
+</pre>
+
+<p>
+<img class="x3dbar" src="../Images/x3dbar.png" alt="--- X3D separator bar ---" width="430" height="23"></p>
+
+<h1><a name="MatrixServices"></a>6.11 Matrix services</h1>
+
+<h2><a name="MatrixDescription"></a>
+6.11.1 Description</h2>
+
+
+<p>The matrix services are provided by two specialized classes that represent
+a 3x3 and 4x4 matrix. The internal implementation of these classes are not
+defined. When initially constructed, both matrices default to an identity
+matrix.</p>
+
+<h2><a name="Matrix3"></a>
+6.11.2 Matrix3</h2>
+
+<pre class="listing">public class Matrix3 {
+	public Matrix3();
+	public void setIdentity();
+    public void set(int row, int column)
+    public float get(int row, int column)
+    public void setTransform(SFVec2f translation,
+                             SFVec3f rotation,
+                             SFVec2f scale,
+                             SFVec3f scaleOrientation,
+                             SFVec2f center)
+    public void getTransform(SFVec2f translation,
+                             SFVec3f rotation,
+                             SFVec2f scale)
+    public Matrix3 inverse()
+    public Matrix3 transpose()
+    public Matrix3 multiplyLeft(Matrix3 mat)
+    public Matrix3 multiplyRight(Matrix3 mat)
+    public Matrix3 multiplyRowVector(SFVec3f vec)
+    public Matrix3 multiplyColVector(SFVec3f vec)
+}
+</pre>
+
+<h2><a name="Matrix4"></a>
+6.11.3 Matrix4</h2>
+
+<pre class="listing">public class Matrix4 {
+	public Matrix4();
+	public void setIdentity();
+    public void set(int row, int column)
+    public float get(int row, int column)
+    public void setTransform(SFVec3f translation,
+                             SFRotation rotation,
+                             SFVec3f scale,
+                             SFRotation scaleOrientation,
+                             SFVec3f center)
+    public void getTransform(SFVec3f translation,
+                             SFRotation rotation,
+                             SFVec3f scale)
+    public Matrix3 inverse()
+    public Matrix3 transpose()
+    public Matrix3 multiplyLeft(Matrix4 mat)
+    public Matrix3 multiplyRight(Matrix4 mat)
+    public Matrix3 multiplyRowVector(SFVec3f vec)
+    public Matrix3 multiplyColVector(SFVec3f vec)
+}
+</pre>
+
+<p>
+<img class="x3dbar" src="../Images/x3dbar.png" alt="--- X3D separator bar ---" width="430" height="23"></p>
+
+</body>
+</html>
